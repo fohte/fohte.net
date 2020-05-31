@@ -5,13 +5,13 @@ import { Header } from './Header'
 import { Footer } from './Footer'
 
 type Props = {
-  title: string
+  title?: string
 }
 
 const Layout: React.FunctionComponent<Props> = ({ children, title }) => (
   <div>
     <Head>
-      <title>{title} | Fohte Blog</title>
+      <title>{title ? `${title} | ` : ''}Fohte Blog</title>
       <meta charSet="utf-8" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>

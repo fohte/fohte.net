@@ -1,15 +1,25 @@
 import Link from 'next/link'
+
+import { frontMatter as posts } from './posts/*.mdx'
 import Layout from '../components/Layout'
 
-const IndexPage = () => (
-  <Layout title="Home">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </p>
+type Props = {}
+
+const PostListPage: React.FC<Props> = () => (
+  <Layout>
+    <ul>
+      {posts.map((post) => (
+        <li>
+          <Link href={generateLink(post.__resourcePath)}>
+            <a>{post.title}</a>
+          </Link>
+        </li>
+      ))}
+    </ul>
   </Layout>
 )
 
-export default IndexPage
+const generateLink = (resourcePath: string): string =>
+  `/${resourcePath.split('.').slice(0, -1).join('.')}`
+
+export default PostListPage
