@@ -1,6 +1,4 @@
-type FrontMatter = {
-  title: string
-}
+import { FrontMatter }  from '../utils/types'
 
 export default (frontMatter: FrontMatter) => {
   const Layout: React.FC = ({ children }) => {
