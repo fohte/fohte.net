@@ -18,23 +18,23 @@ export const PostList: React.FC<PostListProps> = ({ posts }) => (
         key={post.__resourcePath}
         _notLast={{ borderBottom: '1px solid #ddd', mb: 2 }}
       >
-        <NextLink href={generateLink(post.__resourcePath)}>
-          <Link display="block" _hover={{ outline: 'none' }}>
-            <Box paddingY="1rem">
+        <Box paddingY="1rem">
+          <NextLink href={generateLink(post.__resourcePath)}>
+            <Link display="block" _hover={{ outline: 'none' }}>
               <Text fontSize="sm" mb="0.5em">
                 {formatDate(post.date)}
               </Text>
               <Heading as="h1" fontSize="xl" mb={{ base: 2, md: 3 }}>
                 {post.title}
               </Heading>
-              {post.tags && (
-                <Box>
-                  <TagList tags={post.tags} />
-                </Box>
-              )}
+            </Link>
+          </NextLink>
+          {post.tags && (
+            <Box>
+              <TagList tags={post.tags} />
             </Box>
-          </Link>
-        </NextLink>
+          )}
+        </Box>
       </ListItem>
     ))}
   </List>
