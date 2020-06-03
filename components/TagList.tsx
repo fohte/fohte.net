@@ -12,7 +12,7 @@ export const TagList: React.FC<TagListProps> = ({ tags }) => (
   <List>
     {tags.map((tag) => (
       <ListItem key={tag}>
-        <Link color="gray.500" href={`/tags/${tag}`}>
+        <Link color="gray.500" href={`/tags/[tag]`} hrefAs={`/tags/${tag}`}>
           <PseudoBox
             display="inline-block"
             px={2}
