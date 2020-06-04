@@ -19,7 +19,7 @@ const Layout: React.FunctionComponent<Props> = ({ children, title }) => {
       <Head>
         <title>{formattedTitle}</title>
 
-        <meta property="og:image" content="/icon.png" />
+        <meta property="og:image" content="https://blog.fohte.net/icon.png" />
         <meta property="og:locale" content="ja_JP" />
         <meta property="og:site_name" content={siteName} />
         <meta property="og:title" content={formattedTitle} />
