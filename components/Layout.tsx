@@ -9,26 +9,42 @@ type Props = {
   title?: string
 }
 
-const Layout: React.FunctionComponent<Props> = ({ children, title }) => (
-  <>
-    <Head>
-      <title>{title ? `${title} | ` : ''}Fohte Blog</title>
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    </Head>
+const siteName = 'Fohte Blog'
 
-    <Flex flexDirection="column" minH="100%" backgroundColor="gray.50">
-      <Box>
-        <Header />
-      </Box>
-      <Box as="main" flex="1" h="100%">
-        {children}
-      </Box>
-      <Box mt="auto">
-        <Footer />
-      </Box>
-    </Flex>
-  </>
-)
+const Layout: React.FunctionComponent<Props> = ({ children, title }) => {
+  const formattedTitle = [title, siteName].join(' | ')
+
+  return (
+    <>
+      <Head>
+        <title>{formattedTitle}</title>
+
+        <meta property="og:image" content="/icon.png" />
+        <meta property="og:locale" content="ja_JP" />
+        <meta property="og:site_name" content={siteName} />
+        <meta property="og:title" content={formattedTitle} />
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:creator" content="@fohte" />
+        <meta name="twitter:site" content="@fohte" />
+
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+
+      <Flex flexDirection="column" minH="100%" backgroundColor="gray.50">
+        <Box>
+          <Header />
+        </Box>
+        <Box as="main" flex="1" h="100%">
+          {children}
+        </Box>
+        <Box mt="auto">
+          <Footer />
+        </Box>
+      </Flex>
+    </>
+  )
+}
 
 export default Layout
