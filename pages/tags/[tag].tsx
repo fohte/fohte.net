@@ -4,7 +4,7 @@ import { GetStaticProps, GetStaticPaths } from 'next'
 import NextError from 'next/error'
 import { Heading } from '@chakra-ui/core'
 
-import { frontMatter as posts } from '../posts/*.mdx'
+import { posts } from '../../utils/posts'
 import Layout from '../../components/Layout'
 import { PostList } from '../../components/PostList'
 import { Container } from '../../components/Container'

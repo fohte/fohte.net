@@ -2,10 +2,10 @@ import * as React from 'react'
 
 import { Heading } from '@chakra-ui/core'
 
-import { frontMatter as posts } from './posts/*.mdx'
 import Layout from '../components/Layout'
 import { PostList } from '../components/PostList'
 import { Container } from '../components/Container'
+import { posts } from '../utils/posts'
 
 type Props = {}
 
