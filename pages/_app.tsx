@@ -17,10 +17,6 @@ const globalStyles = css`
   div.footnotes {
     margin-top: 4rem;
     font-size: 0.9rem;
-
-    > hr {
-      border: none;
-    }
   }
 `
 
