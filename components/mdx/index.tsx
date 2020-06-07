@@ -42,7 +42,6 @@ export const mdxComponents: Components = {
     />
   ),
   code: (props) => <CodeBlock {...props} />,
-  br: (props) => <Box height="1em" {...props} />,
   hr: Divider,
   a: Link,
   p: (props) => <Text as="p" mt={4} {...props} />,
