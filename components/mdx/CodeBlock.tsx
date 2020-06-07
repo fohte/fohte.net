@@ -43,6 +43,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
           fontSize="0.9em"
           textAlign="left"
           style={style}
+          lineHeight='tall'
         >
           <code style={{ display: 'inline-block' }}>
             {tokens.map((line, i) => (
