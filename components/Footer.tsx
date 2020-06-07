@@ -73,7 +73,7 @@ const Profile: React.FC = () => (
 )
 
 export const Footer: React.FC = () => (
-  <Box as="footer" color="gray.500" fontSize="sm">
+  <Box as="footer" color="gray.500" fontSize="xs">
     <Container py={6}>
       <Flex
         flexDirection={{ base: 'column', md: 'row' }}

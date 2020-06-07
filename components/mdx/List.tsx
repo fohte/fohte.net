@@ -10,5 +10,5 @@ const StyledBox = styled(Box)`
 `
 
 export const List: React.FC<BoxProps> = (props) => (
-  <StyledBox mt="1rem" pl={4} ml={2} lineHeight="tall" {...props} />
+  <StyledBox mt="1rem" pl={4} ml={2} {...props} />
 )

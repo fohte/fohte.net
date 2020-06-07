@@ -19,7 +19,7 @@ export default (frontMatter: FrontMatter) => {
         <Layout title={title}>
           <Container backgroundColor="white" py={8}>
             <Box mb={8}>
-              <Text fontSize="sm" mb={2}>
+              <Text fontSize="xs" mb={2}>
                 {formatDate(date)}
               </Text>
               <Heading as="h1" mb={{ base: 2, md: 3 }} size="lg">
@@ -31,7 +31,9 @@ export default (frontMatter: FrontMatter) => {
                 </Box>
               )}
             </Box>
-            <Box>{children}</Box>
+            <Box fontSize={{ base: 'sm', md: 'md' }} lineHeight="taller">
+              {children}
+            </Box>
           </Container>
         </Layout>
       </MDXProvider>

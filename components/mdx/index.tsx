@@ -45,7 +45,7 @@ export const mdxComponents: Components = {
   br: (props) => <Box height="1em" {...props} />,
   hr: Divider,
   a: Link,
-  p: (props) => <Text as="p" mt={4} lineHeight="tall" {...props} />,
+  p: (props) => <Text as="p" mt={4} {...props} />,
   ul: (props) => <List as="ul" {...props} />,
   ol: (props) => <Box as="ol" mt="1rem" pl={4} ml={2} {...props} />,
   li: (props) => <Box as="li" pb={1} {...props} />,
