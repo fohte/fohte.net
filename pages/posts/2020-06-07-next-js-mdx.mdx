@@ -1,0 +1,158 @@
+---
+title: 'Next.js + MDX で自分用ブログシステムを再構築した'
+date: 2020-06-07T17:22:58+09:00
+tags: [blog]
+---
+
+[MDX](https://mdxjs.com/) (JSX in Markdown) でエントリーを書いて [Next.js](https://nextjs.org/) の SSG (Static Site Generation) で静的サイトホスティングする自分用のブログシステムを作った話。
+
+ソースコードは MIT ライセンスの下で GitHub で公開しているので参考までにどうぞ。
+
+- [fohte/blog\.fohte\.net: My personal blog powered by Next\.js and MDX](https://github.com/fohte/blog.fohte.net)
+
+# 動機
+
+- Hugo で構築していた [fohte.net](https://fohte.net) からブログ部分だけ別ドメイン ([blog.fohte.net](/)) に切り出したいなという気持ちが強まった
+  - fohte.net はポートフォリオ的なサイトにしたいというモチベーション
+- せっかくなら Hugo などの既存の静的サイトジェネレーターは使わず Next.js の SSG (Static Site Generation) で 1 からブログシステムを構築してみたかった
+
+# 使っている技術スタックの紹介
+
+- Next.js 9.4
+- MDX (`next-mdx-enhanced`)
+- CSS フレームワーク (UI コンポーネント): [Chakra UI](https://chakra-ui.com/)
+- ホスティングサービス: Netlify
+
+## Next.js
+
+Next.js は言わずと知れた (?) React 製フレームワーク。
+
+- [Next\.js by Vercel \- The React Framework](https://nextjs.org/)
+
+自分が React に慣れているのと、個人用アプリケーション開発で一度使ったことがあり、特に大きな不満もなく信頼性があったので採択。
+
+2020 年 3 月にリリースされた Next.js 9.3 から SSG (Static Site Generation) 機能で静的サイトホスティングが可能となり ([リリースノート](https://nextjs.org/blog/next-9-3))、ややこしいこと [^1] を考えずに Netlify などのサービスで簡単にホスティングできるようになった。
+
+[^1]: SSG が無いと SSR だったりどうホスティングするか…などと考えることが多くてややこしかった
+
+## MDX
+
+MDX は Markdown の中に JSX を書ける文書フォーマット形式。
+
+- [mdx\-js/mdx: JSX in Markdown for ambitious projects](https://github.com/mdx-js/mdx)
+
+MDX はまだ見聞きすることが少ないと感じるが、特にドキュメントやブログなどの用途では非常に有用なフォーマットになっている。
+
+具体的には、Markdown の中に JSX を直接書けることで自由度が高まり、plain な Markdown では満たせない表現が実現可能になる。  
+つまり、Markdown の syntax を拡張してオレオレ Markdown を作らずとも、単純に React コンポーネントを用意してそれを呼び出すだけで済む。
+
+例えば Twitter のツイートを埋め込みたいとき、[react-twitter-embed](https://www.npmjs.com/package/react-twitter-embed) の `TwitterTweetEmbed` コンポーネントを呼び出すだけになる。
+
+例 ([Helix キーボードキットを組み立てた](/posts/2019-07-15-build-helix-keyboard-kit) から引用):
+
+```mdx
+import { TwitterTweetEmbed } from 'react-twitter-embed'
+
+<TwitterTweetEmbed tweetId="1149947844540764160" />
+
+# TL;DR
+
+...
+```
+
+Markdown の中に `import` 文が必要になることに若干の抵抗はあるが、独特の記法を導入するよりも素直で良いと思う。
+
+### next-mdx-enhanced
+
+`next-mdx-enhanced` は、Next.js で MDX を使うためのプラグインの一つ。
+
+- [hashicorp/next\-mdx\-enhanced: A Next\.js plugin that enables MDX pages, layouts, and front matter](https://github.com/hashicorp/next-mdx-enhanced)
+
+Next.js で MDX を使いたい場合、Next.js が公式にサポートしている `@next/mdx` を使うのがまず第一候補として挙がる。
+
+- [@next/mdx \- npm](https://www.npmjs.com/package/@next/mdx)
+
+しかし、この公式プラグインは実際に使ってみると、以下のような不満点があった。
+
+- YAML front matter が使えない
+- レイアウトを用意できない
+  - 例えば MDX の見た目を整える用の wrapper コンポーネントを用意したい場合、MDX 内でコンポーネントを呼ぶ必要がある
+
+`next-mdx-enhanced` はこれらを解決している。
+
+例えば `@next/mdx` では以下のような MDX ファイルを用意するところを、
+
+```mdx
+import Layout from 'components/Layout'
+
+export const meta = {
+  title: 'Helix キーボードキットを組み立てた',
+  date: '2019-07-15T19:07:35+09:00',
+  tags: ['keyboard'],
+}
+
+(ブログの本文...)
+
+export default ({ children }) => (
+  <Layout meta={meta}>
+    {children}
+  </Layout>
+)
+```
+
+`next-mdx-enhanced` では以下のようにできる。
+
+```mdx
+---
+title: Helix キーボードキットを組み立てた
+date: 2019-07-15T19:07:35+09:00
+tags: [keyboard]
+---
+
+(ブログの本文...)
+```
+
+レイアウトは特定のディレクトリ (デフォルトでは `/layouts`) にコンポーネントを用意し、自動的にそれでラッピングしてくれる便利仕様になっている。
+
+## Chakra UI
+
+Chakra UI は、React のための CSS フレームワーク。CSS フレームワークというより UI コンポーネントといったほうが正しいかもしれない。
+
+- [Chakra UI \| Design System built with React](https://chakra-ui.com/)
+
+[Tailwind CSS](https://tailwindcss.com/) を React コンポーネントにしたような雰囲気。
+
+CSS を直接書かずに React コンポーネントに props として渡すような形になっていて、分かりやすい。
+
+```jsx
+<Box mx={4} my={2}>
+  foo bar baz...
+</Box>
+```
+
+この例では `Box` コンポーネントに `margin-left`, `margin-right` に `4` (デフォルトだと `1rem`)、`margin-top`, `margin-bottom` に `2` (デフォルトだと `0.5rem`) を設定している。
+
+この `number` を渡すとそれに沿ったサイズに変換される機能が便利で、至るところで自由にサイズ指定をしてしまってデザインとして破綻するといった事態が避けられるようになっている。
+
+これはテーマ機能によるもので、サイズは自由に調整できるようになっている。
+他にもレスポンシブにスタイルを当てるための機能があったり、痒いところに手が届く。
+
+直接 CSS を書きたくなった場合でも、Chakra UI は [emotion](https://emotion.sh/docs/introduction) に依存しているので、自由にコンポーネントに CSS を当てられるようになっている。
+
+今の所、個人用ブログシステム程度の小さい規模だが不満なく使えている。
+
+## Netlify
+
+Netlify は、もはやわざわざ紹介するまでもない静的サイトホスティングサービスである。
+
+- [Netlify: All\-in\-one platform for automating modern web projects](https://www.netlify.com/)
+
+Next.js なら [Vercel](https://vercel.com) を使ったほうが良い気がしたが、fohte.net では Netlify を使っていてそれで十分だったので、今回も Netlify にした。
+
+# まとめ
+
+Next.js + MDX + 諸々で自分用のブログシステムを作った話をした。
+
+MDX 周りはまだ枯れておらずこれが最適解だとは思っていないが、とりあえずブログシステムとしては問題ないし、書き心地もただの Markdown なので良い感じ。
+
+せっかく気合を入れて作ったわけなので、もりもりブログを書いていくぞという気持ちです。
