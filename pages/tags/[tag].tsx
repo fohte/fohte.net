@@ -9,8 +9,6 @@ import Layout from '../../components/Layout'
 import { PostList } from '../../components/PostList'
 import { Container } from '../../components/Container'
 
-console.log('posts', posts)
-
 export interface TagPageProps {
   tag?: string
 }
