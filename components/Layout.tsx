@@ -12,7 +12,7 @@ type Props = {
 const siteName = 'Fohte Blog'
 
 const Layout: React.FunctionComponent<Props> = ({ children, title }) => {
-  const formattedTitle = [title, siteName].filter(x => x).join(' | ')
+  const formattedTitle = [title, siteName].filter((x) => x).join(' | ')
 
   return (
     <>

@@ -13,7 +13,7 @@ export interface PostListProps {
 
 export const PostList: React.FC<PostListProps> = ({ posts }) => {
   const sortedPosts = posts.sort(
-    (a, b) => Number(new Date(b.date)) - Number(new Date(a.date))
+    (a, b) => Number(new Date(b.date)) - Number(new Date(a.date)),
   )
 
   return (
