@@ -6,6 +6,7 @@ import theme from 'prism-react-renderer/themes/github'
 
 export interface CodeBlockProps {
   className?: string
+  children: React.ReactNode
 }
 
 const getLabelFromChildren = (children: React.ReactNode): string => {

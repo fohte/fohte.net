@@ -7,6 +7,7 @@ import { Footer } from './Footer'
 
 type Props = {
   title?: string
+  children: React.ReactNode
 }
 
 const siteName = 'Fohte Blog'

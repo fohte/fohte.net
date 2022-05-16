@@ -13,7 +13,7 @@ import { formatDate } from '../utils/date'
 export default (frontMatter: FrontMatter) => {
   const { date, title, tags } = frontMatter
 
-  const MDXLayout: React.FC = ({ children }) => {
+  const MDXLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     return (
       <MDXProvider components={mdxComponents}>
         <Layout title={title}>

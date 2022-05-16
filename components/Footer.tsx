@@ -16,6 +16,7 @@ const Copyright: React.FC = () => (
 interface IconProps {
   icon: IconType
   href: string
+  children: React.ReactNode
 }
 
 const SocialLink: React.FC<IconProps> = ({ icon, href, children }) => (
@@ -27,16 +28,16 @@ const SocialLink: React.FC<IconProps> = ({ icon, href, children }) => (
   </>
 )
 
-const socialList: Array<IconProps & { text: string }> = [
+const socialList: Array<IconProps> = [
   {
     icon: FaTwitter,
     href: 'https://twitter.com/fohte',
-    text: 'fohte',
+    children: 'fohte',
   },
   {
     icon: FaGithub,
     href: 'https://github.com/fohte',
-    text: 'fohte',
+    children: 'fohte',
   },
 ]
 
@@ -45,7 +46,7 @@ const SocialList: React.FC = () => (
     {socialList.map((social) => (
       <ListItem key={social.href} mt={1}>
         <SocialLink icon={social.icon} href={social.href}>
-          {social.text}
+          {social.children}
         </SocialLink>
       </ListItem>
     ))}
