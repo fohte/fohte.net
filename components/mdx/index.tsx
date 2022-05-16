@@ -2,6 +2,8 @@ import * as React from 'react'
 
 import { MDXComponents } from 'mdx/types'
 import { Box, Code, Divider, Heading, Text } from '@chakra-ui/react'
+import YouTube from 'react-youtube'
+import { css } from '@emotion/react'
 
 import { CodeBlock } from './CodeBlock'
 import { Link } from '../Link'
@@ -59,4 +61,28 @@ export const mdxComponents: MDXComponents = {
 
   // FIXME: fix any type
   li: (props: any) => <Box as="li" pb={1} {...props} />,
+
+  YouTube: (props: any) => {
+    return (
+      <Box
+        css={css`
+          position: relative;
+          width: 100%;
+          height: 0;
+          padding-bottom: 56.25%;
+          overflow: hidden;
+
+          & iframe {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+          }
+        `}
+      >
+        <YouTube {...props} />
+      </Box>
+    )
+  },
 }
