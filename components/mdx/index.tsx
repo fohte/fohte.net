@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { Components } from '@mdx-js/react'
-import { Box, Code, Divider, Heading, Text } from '@chakra-ui/core'
+import { Box, Code, Divider, Heading, Text } from '@chakra-ui/react'
 
 import { CodeBlock } from './CodeBlock'
 import { Link } from '../Link'
@@ -34,7 +34,7 @@ export const mdxComponents: Components = {
   ),
   inlineCode: (props) => (
     <Code
-      variantColor="gray"
+      colorScheme="gray"
       fontSize="0.85em"
       paddingX="0.4em"
       paddingY="0.1em"

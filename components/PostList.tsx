@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Heading, Text, List, ListItem, Box } from '@chakra-ui/core'
+import { Heading, Text, List, ListItem, Box } from '@chakra-ui/react'
 
 import { FrontMatter } from '../utils/types'
 import { Link } from '../components/Link'

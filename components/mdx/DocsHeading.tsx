@@ -1,4 +1,4 @@
-import { Box, Heading, HeadingProps, PseudoBox } from '@chakra-ui/core'
+import { Box, Heading, HeadingProps } from '@chakra-ui/react'
 
 export const DocsHeading: React.FC<HeadingProps> = (props) => (
   <Heading
@@ -24,7 +24,7 @@ export const DocsHeading: React.FC<HeadingProps> = (props) => (
     <Box pointerEvents="auto">
       {props.children}
       {props.id && (
-        <PseudoBox
+        <Box
           aria-label="anchor"
           as="a"
           color="blue.500"
@@ -38,7 +38,7 @@ export const DocsHeading: React.FC<HeadingProps> = (props) => (
           ml="0.375rem"
         >
           <a href={`#${props.id}`}>#</a>
-        </PseudoBox>
+        </Box>
       )}
     </Box>
   </Heading>

@@ -1,9 +1,9 @@
 import { AppProps } from 'next/app'
-import { ThemeProvider, CSSReset } from '@chakra-ui/core'
+import { ChakraProvider } from '@chakra-ui/react'
 
 import { theme } from '../styles/theme'
 
-import { Global, css } from '@emotion/core'
+import { Global, css } from '@emotion/react'
 
 const globalStyles = css`
   // hack to fix footer to the bottom
@@ -22,11 +22,10 @@ const globalStyles = css`
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider theme={theme}>
-      <CSSReset />
+    <ChakraProvider theme={theme}>
       <Global styles={globalStyles} />
 
       <Component {...pageProps} />
-    </ThemeProvider>
+    </ChakraProvider>
   )
 }

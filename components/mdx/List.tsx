@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Box, BoxProps } from '@chakra-ui/core'
+import { Box, BoxProps } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
 const StyledBox = styled(Box)`

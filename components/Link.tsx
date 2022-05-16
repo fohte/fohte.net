@@ -2,7 +2,7 @@ import NextLink from 'next/link'
 import {
   Link as ChakraLink,
   LinkProps as ChakraLinkProps,
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 
 export interface LinkProps extends ChakraLinkProps {
   hrefAs?: string

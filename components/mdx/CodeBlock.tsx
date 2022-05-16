@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Box } from '@chakra-ui/core'
+import { Box } from '@chakra-ui/react'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 import theme from 'prism-react-renderer/themes/github'
 

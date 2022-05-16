@@ -1,6 +1,6 @@
-import { theme as chakraTheme, ITheme } from '@chakra-ui/core'
+import { theme as chakraTheme, Theme } from '@chakra-ui/react'
 
-export const theme: ITheme = {
+export const theme: Theme = {
   ...chakraTheme,
   fonts: {
     ...chakraTheme.fonts,

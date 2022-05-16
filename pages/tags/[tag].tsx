@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { GetStaticProps, GetStaticPaths } from 'next'
 import NextError from 'next/error'
-import { Heading } from '@chakra-ui/core'
+import { Heading } from '@chakra-ui/react'
 
 import { posts } from '../../utils/posts'
 import Layout from '../../components/Layout'

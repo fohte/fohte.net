@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Image, Flex, Box, Text, List, ListItem } from '@chakra-ui/core'
+import { Image, Flex, Box, Text, List, ListItem } from '@chakra-ui/react'
 import { IconType } from 'react-icons'
 import { FaTwitter, FaGithub } from 'react-icons/fa'
 
@@ -55,7 +55,13 @@ const SocialList: React.FC = () => (
 
 const Profile: React.FC = () => (
   <Flex alignItems="center">
-    <Image src="/icon.png" alt="icon" size="4em" display="inline" mr="1rem" />
+    <Image
+      src="/icon.png"
+      alt="icon"
+      boxSize="4em"
+      display="inline"
+      mr="1rem"
+    />
     <Box>
       <Text color="gray.700">Fohte</Text>
     </Box>
