@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { Image, Flex, Box, Text, List, ListItem } from '@chakra-ui/core'
 import { IconType } from 'react-icons'
-import { FaEnvelope, FaTwitter, FaGithub, FaHome } from 'react-icons/fa'
+import { FaTwitter, FaGithub } from 'react-icons/fa'
 
 import { Container } from '../components/Container'
 import { Link } from '../components/Link'
@@ -28,16 +28,6 @@ const SocialLink: React.FC<IconProps> = ({ icon, href, children }) => (
 )
 
 const socialList: Array<IconProps & { text: string }> = [
-  {
-    icon: FaHome,
-    href: 'https://fohte.net',
-    text: 'fohte.net',
-  },
-  {
-    icon: FaEnvelope,
-    href: 'mailto:fohte.hk@gmail.com',
-    text: 'fohte.hk@gmail.com',
-  },
   {
     icon: FaTwitter,
     href: 'https://twitter.com/fohte',
@@ -67,7 +57,6 @@ const Profile: React.FC = () => (
     <Image src="/icon.png" alt="icon" size="4em" display="inline" mr="1rem" />
     <Box>
       <Text color="gray.700">Fohte</Text>
-      <Text>(Hayato Kawai)</Text>
     </Box>
   </Flex>
 )
