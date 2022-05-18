@@ -3,11 +3,10 @@ import path from 'path'
 import matter from 'gray-matter'
 import { bundleMDX } from 'mdx-bundler'
 
-export const ROOT = process.cwd()
-export const POSTS_PATH = path.join(process.cwd(), 'contents/posts')
+export const postsPath = path.join(process.cwd(), 'contents/posts')
 
 export const getFileContent = (filename: string) => {
-  return fs.readFileSync(path.join(POSTS_PATH, filename), 'utf8')
+  return fs.readFileSync(path.join(postsPath, filename), 'utf8')
 }
 
 export interface FrontMatter {
@@ -46,7 +45,7 @@ export type AllPosts = Array<AllPostsData>
 
 export const getAllPosts = (): AllPosts => {
   return fs
-    .readdirSync(POSTS_PATH)
+    .readdirSync(postsPath)
     .filter((path) => /\.mdx?$/.test(path))
     .map((fileName) => {
       const source = getFileContent(fileName)
