@@ -9,12 +9,12 @@ export interface LinkProps extends ChakraLinkProps {
 }
 
 export const Link: React.FC<LinkProps> = (props) => {
-  const { href, hrefAs } = props
+  const { href, hrefAs, ...otherProps } = props
 
   if (href && (href.startsWith('/') || href.startsWith('#'))) {
     return (
       <NextLink href={href} as={hrefAs} passHref>
-        <ChakraLink color="blue.500" {...props} />
+        <ChakraLink color="blue.500" {...otherProps} />
       </NextLink>
     )
   }
