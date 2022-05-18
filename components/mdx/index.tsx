@@ -32,16 +32,21 @@ export const mdxComponents: MDXComponents = {
   h3: (props) => (
     <DocsHeading as="h3" fontSize="md" mb="0.5em" {...props}></DocsHeading>
   ),
-  code: (props) => (
-    <Code
-      colorScheme="gray"
-      fontSize="0.85em"
-      paddingX="0.4em"
-      paddingY="0.1em"
-      {...props}
-    />
-  ),
-  pre: (props) => <CodeBlock {...props} />,
+  code: (props) => {
+    if (/language-/.test(props.className || '')) {
+      return <CodeBlock {...props} />
+    }
+
+    return (
+      <Code
+        colorScheme="gray"
+        fontSize="0.85em"
+        paddingX="0.4em"
+        paddingY="0.1em"
+        {...props}
+      />
+    )
+  },
   hr: Divider,
   a: Link,
   p: (props) => <Text as="p" mt={4} {...props} />,
