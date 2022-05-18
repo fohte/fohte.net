@@ -2,44 +2,46 @@ import * as React from 'react'
 
 import { Heading, Text, List, ListItem, Box } from '@chakra-ui/react'
 
-import { FrontMatter } from '../utils/types'
+import { AllPosts } from '../utils/mdx'
 import { Link } from '../components/Link'
 import { TagList } from '../components/TagList'
 import { formatDate } from '../utils/date'
 
 export interface PostListProps {
-  posts: FrontMatter[]
+  posts: AllPosts
 }
 
 export const PostList: React.FC<PostListProps> = ({ posts }) => {
   const sortedPosts = posts.sort(
-    (a, b) => Number(new Date(b.date)) - Number(new Date(a.date)),
+    (a, b) =>
+      Number(new Date(b.frontmatter.date)) -
+      Number(new Date(a.frontmatter.date)),
   )
 
   return (
     <List>
-      {sortedPosts.map((post) => (
+      {sortedPosts.map(({ slug, frontmatter }) => (
         <ListItem
-          key={post.__resourcePath}
+          key={slug}
           _notLast={{ borderBottom: '1px solid #ddd', mb: 2 }}
         >
           <Box paddingY="1rem">
             <Link
-              href={generateLink(post.__resourcePath)}
+              href={`/posts/${slug}`}
               color="black"
               display="block"
               _hover={{ outline: 'none' }}
             >
               <Text fontSize="xs" mb="0.5em">
-                {formatDate(post.date)}
+                {formatDate(frontmatter.date)}
               </Text>
               <Heading as="h1" fontSize="xl" mb={{ base: 2, md: 3 }}>
-                {post.title}
+                {frontmatter.title}
               </Heading>
             </Link>
-            {post.tags && (
+            {frontmatter.tags && (
               <Box>
-                <TagList tags={post.tags} />
+                <TagList tags={frontmatter.tags} />
               </Box>
             )}
           </Box>
@@ -48,6 +50,3 @@ export const PostList: React.FC<PostListProps> = ({ posts }) => {
     </List>
   )
 }
-
-const generateLink = (resourcePath: string): string =>
-  `/${resourcePath.split('.').slice(0, -1).join('.')}`
