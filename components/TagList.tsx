@@ -17,7 +17,7 @@ export const TagList: React.FC<TagListProps> = ({ tags }) => (
             display="inline-block"
             px={2}
             py={1}
-            fontSize="xs"
+            fontSize="sm"
             backgroundColor="gray.100"
             _hover={{ backgroundColor: 'gray.200' }}
           >

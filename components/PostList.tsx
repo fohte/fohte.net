@@ -32,7 +32,7 @@ export const PostList: React.FC<PostListProps> = ({ posts }) => {
               display="block"
               _hover={{ outline: 'none' }}
             >
-              <Text fontSize="xs" mb="0.5em">
+              <Text fontSize="sm" mb="0.5em">
                 {formatDate(frontmatter.date)}
               </Text>
               <Heading as="h1" fontSize="xl" mb={{ base: 2, md: 3 }}>
