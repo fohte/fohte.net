@@ -6,3 +6,5 @@ node_modules
 
 # Ignore next-mdx-enhanced cache directory
 .mdx-data
+
+tsconfig.tsbuildinfo
