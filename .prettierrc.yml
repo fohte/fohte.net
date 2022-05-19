@@ -2,3 +2,9 @@ trailingComma: all
 semi: false
 singleQuote: true
 proseWrap: preserve
+
+overrides:
+  - files:
+      - '*.mdx'
+    options:
+      parser: mdx-nocjsp
