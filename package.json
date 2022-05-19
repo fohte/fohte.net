@@ -13,7 +13,6 @@
     "@emotion/styled": "11.8.1",
     "@mdx-js/loader": "2.1.1",
     "@mdx-js/react": "2.1.1",
-    "babel-plugin-import-glob-array": "0.2.0",
     "esbuild": "0.14.39",
     "framer-motion": "6.3.3",
     "mdx-bundler": "9.0.0",
