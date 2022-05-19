@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { PseudoBox, List, ListItem } from '@chakra-ui/core'
+import { Box, List, ListItem } from '@chakra-ui/react'
 
 import { Link } from './Link'
 
@@ -13,16 +13,16 @@ export const TagList: React.FC<TagListProps> = ({ tags }) => (
     {tags.map((tag) => (
       <ListItem key={tag}>
         <Link color="gray.500" href={`/tags/[tag]`} hrefAs={`/tags/${tag}`}>
-          <PseudoBox
+          <Box
             display="inline-block"
             px={2}
             py={1}
-            fontSize="xs"
+            fontSize="sm"
             backgroundColor="gray.100"
             _hover={{ backgroundColor: 'gray.200' }}
           >
             # {tag}
-          </PseudoBox>
+          </Box>
         </Link>
       </ListItem>
     ))}

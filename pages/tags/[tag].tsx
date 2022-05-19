@@ -2,23 +2,27 @@ import * as React from 'react'
 
 import { GetStaticProps, GetStaticPaths } from 'next'
 import NextError from 'next/error'
-import { Heading } from '@chakra-ui/core'
+import { Heading } from '@chakra-ui/react'
+import { ParsedUrlQuery } from 'node:querystring'
 
-import { posts } from '../../utils/posts'
+import { getAllPosts, AllPosts } from '../../utils/mdx'
 import Layout from '../../components/Layout'
 import { PostList } from '../../components/PostList'
 import { Container } from '../../components/Container'
 
 export interface TagPageProps {
   tag?: string
+  posts: AllPosts
 }
 
-const TagPage: React.FC<TagPageProps> = ({ tag }) => {
+interface Params extends ParsedUrlQuery {
+  tag: string
+}
+
+const TagPage: React.FC<TagPageProps> = ({ tag, posts }) => {
   if (tag == null) {
     return <NextError statusCode={404} />
   }
-
-  const filteredPosts = posts.filter((post) => post.tags?.includes(tag))
 
   return (
     <Layout title={`#${tag} の記事一覧`}>
@@ -27,7 +31,7 @@ const TagPage: React.FC<TagPageProps> = ({ tag }) => {
           # {tag} の記事一覧
         </Heading>
 
-        <PostList posts={filteredPosts} />
+        <PostList posts={posts} />
       </Container>
     </Layout>
   )
@@ -35,18 +39,27 @@ const TagPage: React.FC<TagPageProps> = ({ tag }) => {
 
 export default TagPage
 
-export const getStaticProps: GetStaticProps<TagPageProps> = async ({
+export const getStaticProps: GetStaticProps<TagPageProps, Params> = async ({
   params,
 }) => {
-  const tag = params?.tag
+  const { tag } = params!
 
   const headTag = Array.isArray(tag) ? tag[0] : tag
 
-  return { props: { tag: headTag } }
+  return {
+    props: {
+      tag: headTag,
+      posts: getAllPosts().filter(({ frontmatter }) =>
+        frontmatter.tags?.includes(headTag),
+      ),
+    },
+  }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const nestedTags = posts.map((post) => post.tags || [])
+  const nestedTags = getAllPosts().map(
+    ({ frontmatter }) => frontmatter.tags || [],
+  )
 
   const tags = nestedTags.reduce((acc, value) => acc.concat(value), [])
 

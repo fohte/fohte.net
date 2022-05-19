@@ -1,10 +1,7 @@
-import { PseudoBox, PseudoBoxProps } from '@chakra-ui/core'
+import { Box, BoxProps } from '@chakra-ui/react'
 
-export const Container: React.FC<PseudoBoxProps> = ({
-  children,
-  ...boxProps
-}) => (
-  <PseudoBox
+export const Container: React.FC<BoxProps> = ({ children, ...boxProps }) => (
+  <Box
     maxW={{ base: '780px' }}
     mx="auto"
     px={{ base: 4, sm: 6, md: 8 }}
@@ -12,5 +9,5 @@ export const Container: React.FC<PseudoBoxProps> = ({
     {...boxProps}
   >
     {children}
-  </PseudoBox>
+  </Box>
 )

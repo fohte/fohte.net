@@ -1,23 +1,13 @@
 import * as React from 'react'
 
-import { Box } from '@chakra-ui/core'
+import { Box } from '@chakra-ui/react'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 import theme from 'prism-react-renderer/themes/github'
+import { onlyText } from 'react-children-utilities'
 
 export interface CodeBlockProps {
   className?: string
-}
-
-const getLabelFromChildren = (children: React.ReactNode): string => {
-  let label = ''
-
-  React.Children.map(children, (child) => {
-    if (typeof child === 'string') {
-      label += child
-    }
-  })
-
-  return label
+  children?: React.ReactNode
 }
 
 export const CodeBlock: React.FC<CodeBlockProps> = ({
@@ -30,7 +20,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
     <Highlight
       {...defaultProps}
       theme={theme}
-      code={getLabelFromChildren(children).trim()}
+      code={onlyText(children).trim()}
       language={language as any}
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (

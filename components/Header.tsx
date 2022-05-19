@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Box, Text, Heading, Image, Flex } from '@chakra-ui/core'
+import { Box, Text, Heading, Image, Flex } from '@chakra-ui/react'
 
 import { Container } from '../components/Container'
 
@@ -13,7 +13,7 @@ export const Header: React.FC = () => (
               <Image
                 src="/icon.png"
                 alt="icon"
-                size="1.5em"
+                boxSize="1.5em"
                 display="inline"
                 mr="1rem"
               />

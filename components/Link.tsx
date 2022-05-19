@@ -2,19 +2,29 @@ import NextLink from 'next/link'
 import {
   Link as ChakraLink,
   LinkProps as ChakraLinkProps,
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 
 export interface LinkProps extends ChakraLinkProps {
   hrefAs?: string
 }
 
-export const Link: React.FC<LinkProps> = (props) => {
-  const { href, hrefAs } = props
+export const isInternalLink = (href: string): boolean => {
+  // e.g. `//google.com`
+  if (href.startsWith('//')) {
+    return false
+  }
 
-  if (href && (href.startsWith('/') || href.startsWith('#'))) {
+  // e.g. `/posts/foobar`, `#fn-1`
+  return href.startsWith('/') || href.startsWith('#')
+}
+
+export const Link: React.FC<LinkProps> = (props) => {
+  const { href, hrefAs, ...otherProps } = props
+
+  if (href && isInternalLink(href)) {
     return (
       <NextLink href={href} as={hrefAs} passHref>
-        <ChakraLink color="blue.500" {...props} />
+        <ChakraLink color="blue.500" {...otherProps} />
       </NextLink>
     )
   }

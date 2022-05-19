@@ -1,15 +1,7 @@
-import { theme as chakraTheme, ITheme } from '@chakra-ui/core'
+import { extendTheme } from '@chakra-ui/react'
 
-export const theme: ITheme = {
-  ...chakraTheme,
+export const theme = extendTheme({
   fonts: {
-    ...chakraTheme.fonts,
     body: "'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif",
   },
-  fontSizes: {
-    ...chakraTheme.fontSizes,
-    xs: '14px',
-    sm: '15px',
-    md: '16px',
-  },
-}
+})

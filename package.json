@@ -8,28 +8,31 @@
     "type-check": "tsc"
   },
   "dependencies": {
-    "@chakra-ui/core": "0.8.0",
-    "@emotion/core": "10.0.28",
-    "@emotion/styled": "10.0.27",
-    "@mdx-js/loader": "1.6.5",
-    "@mdx-js/react": "1.6.5",
+    "@chakra-ui/react": "2.0.2",
+    "@emotion/react": "11.9.0",
+    "@emotion/styled": "11.8.1",
+    "@mdx-js/loader": "2.1.1",
+    "@mdx-js/react": "2.1.1",
     "babel-plugin-import-glob-array": "0.2.0",
-    "emotion-theming": "10.0.27",
-    "next": "latest",
-    "next-mdx-enhanced": "3.0.0",
-    "prism-react-renderer": "1.1.1",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-icons": "3.10.0",
-    "react-twitter-embed": "3.0.3",
-    "sass": "1.26.7"
+    "esbuild": "0.14.39",
+    "framer-motion": "6.3.3",
+    "mdx-bundler": "9.0.0",
+    "next": "12.1.6",
+    "prism-react-renderer": "1.3.3",
+    "react": "^18.1.0",
+    "react-children-utilities": "2.8.0",
+    "react-dom": "^18.1.0",
+    "react-icons": "4.3.1",
+    "react-twitter-embed": "4.0.4",
+    "remark-gfm": "3.0.1",
+    "sass": "1.51.0"
   },
   "devDependencies": {
-    "@types/node": "^12.12.21",
-    "@types/react": "^16.9.16",
-    "@types/react-dom": "^16.9.4",
+    "@types/node": "^17.0.33",
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.4",
     "prettier": "2.6.2",
-    "typescript": "3.7.3"
+    "typescript": "4.6.4"
   },
   "license": "ISC"
 }
