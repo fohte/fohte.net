@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { bundleMDX } from 'mdx-bundler'
+import remarkGfm from 'remark-gfm'
 
 export const postsPath = path.join(process.cwd(), 'contents/posts')
 
@@ -18,6 +19,13 @@ export interface FrontMatter {
 const getCompiledMDX = async (source: string) => {
   return await bundleMDX<FrontMatter>({
     source,
+    mdxOptions(options, _frontmatter) {
+      options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkGfm]
+
+      options.rehypePlugins = [...(options.rehypePlugins ?? [])]
+
+      return options
+    },
   })
 }
 
