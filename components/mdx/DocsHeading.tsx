@@ -26,7 +26,6 @@ export const DocsHeading: React.FC<HeadingProps> = (props) => (
       {props.id && (
         <Box
           aria-label="anchor"
-          as="a"
           color="blue.500"
           fontWeight="normal"
           outline="none"
