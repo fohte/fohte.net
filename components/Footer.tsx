@@ -9,7 +9,7 @@ import { Link } from '../components/Link'
 
 const Copyright: React.FC = () => (
   <Text textAlign="center">
-    © 2020 <Link href="https://fohte.net">Fohte</Link>
+    © 2020 <Link href="https://www.fohte.net">Fohte</Link>
   </Text>
 )
 
