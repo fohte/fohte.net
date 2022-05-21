@@ -33,7 +33,10 @@ export const mdxComponents: MDXComponents = {
     ></DocsHeading>
   ),
   h3: (props) => (
-    <DocsHeading as="h3" fontSize="md" mb="0.5em" {...props}></DocsHeading>
+    <DocsHeading as="h3" fontSize="lg" mb="0.5em" {...props}></DocsHeading>
+  ),
+  h4: (props) => (
+    <DocsHeading as="h4" fontSize="md" mb="0.5em" {...props}></DocsHeading>
   ),
   code: (props) => {
     if (/language-/.test(props.className || '')) {
