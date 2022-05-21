@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import NextImage from 'next/image'
 import { MDXComponents } from 'mdx/types'
 import { Box, Code, Divider, Heading, Text } from '@chakra-ui/react'
 import YouTube from 'react-youtube'
@@ -61,6 +62,38 @@ export const mdxComponents: MDXComponents = {
 
   // FIXME: fix any type
   li: (props: any) => <Box as="li" pb={1} {...props} />,
+
+  Image: (props: any) => {
+    const { caption, ...imageProps } = props
+    return (
+      <Box as="figure" mt={4}>
+        <Box
+          css={css`
+            & > span {
+              position: unset !important;
+            }
+            img {
+              position: relative !important;
+              height: unset !important;
+            }
+          `}
+        >
+          <NextImage layout="fill" {...imageProps} />
+        </Box>
+        <Box
+          as="figcaption"
+          css={css`
+            text-align: center;
+            color: var(--chakra-colors-gray-600);
+            margin-top: 0.5em;
+            font-size: 0.9rem;
+          `}
+        >
+          {caption}
+        </Box>
+      </Box>
+    )
+  },
 
   YouTube: (props: any) => {
     return (
