@@ -53,7 +53,7 @@ export const mdxComponents: MDXComponents = {
       />
     )
   },
-  hr: Divider,
+  hr: (props) => <Divider mt={8} mb={8} {...props} />,
   a: Link,
   p: (props) => <Text as="p" mt={4} {...props} />,
 
