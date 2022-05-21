@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import { Heading, Text, Box } from '@chakra-ui/react'
+import Head from 'next/head'
 
 import Layout from '../components/Layout'
 import { TagList } from '../components/TagList'
@@ -15,9 +16,27 @@ export interface MDXLayoutProps {
 
 export const MDXLayout: React.FC<MDXLayoutProps> = ({
   children,
-  frontMatter: { title, date, tags },
+  frontMatter: { title, date, tags, description, imagePath },
 }) => (
   <Layout title={title}>
+    <Head>
+      {description && (
+        <>
+          <meta name="description" content={description} />
+          <meta property="og:description" content={description} />
+        </>
+      )}
+
+      <meta property="og:type" content="article" />
+
+      {imagePath && (
+        <meta
+          property="og:image"
+          content={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}${imagePath}`}
+        />
+      )}
+    </Head>
+
     <Container backgroundColor="white" py={8}>
       <Box mb={8}>
         <Text fontSize="sm" mb={2}>
