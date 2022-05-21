@@ -14,6 +14,8 @@ export interface FrontMatter {
   title: string
   date: string
   tags?: string[]
+  description?: string
+  imagePath?: string
 }
 
 const getCompiledMDX = async (source: string) => {

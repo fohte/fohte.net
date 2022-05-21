@@ -1,5 +1,7 @@
 import { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import { useRemoteRefresh } from 'next-remote-refresh/hook'
 
 import { theme } from '../styles/theme'
 
@@ -49,6 +51,14 @@ const footnoteStyles = css`
 `
 
 export default function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter()
+  useRemoteRefresh({
+    shouldRefresh: (path) => {
+      const { slug } = router.query
+      return path.includes(Array.isArray(slug) ? slug[0] : slug || '')
+    },
+  })
+
   return (
     <ChakraProvider theme={theme}>
       <Global styles={[globalStyles, footnoteStyles]} />
