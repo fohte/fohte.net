@@ -18,7 +18,14 @@ export const MDXLayout: React.FC<MDXLayoutProps> = ({
   children,
   frontMatter: { title, date, tags, description, imagePath },
 }) => (
-  <Layout title={title}>
+  <Layout
+    title={title}
+    ogImage={
+      imagePath == null
+        ? undefined
+        : `https://${process.env.NEXT_PUBLIC_VERCEL_URL}${imagePath}`
+    }
+  >
     <Head>
       {description && (
         <>
@@ -28,13 +35,6 @@ export const MDXLayout: React.FC<MDXLayoutProps> = ({
       )}
 
       <meta property="og:type" content="article" />
-
-      {imagePath && (
-        <meta
-          property="og:image"
-          content={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}${imagePath}`}
-        />
-      )}
     </Head>
 
     <Container backgroundColor="white" py={8}>
