@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { Image, Flex, Box, Text, List, ListItem } from '@chakra-ui/react'
 import { IconType } from 'react-icons'
-import { FaTwitter, FaGithub } from 'react-icons/fa'
+import { FaTwitter, FaGithub, FaMastodon } from 'react-icons/fa'
 
 import { Container } from '../components/Container'
 import { Link } from '../components/Link'
@@ -16,12 +16,18 @@ const Copyright: React.FC = () => (
 interface IconProps {
   icon: IconType
   href: string
+  linkProps?: React.ComponentProps<typeof Link>
   children: React.ReactNode
 }
 
-const SocialLink: React.FC<IconProps> = ({ icon, href, children }) => (
+const SocialLink: React.FC<IconProps> = ({
+  icon,
+  href,
+  linkProps,
+  children,
+}) => (
   <>
-    <Link href={href} color="gray.500">
+    <Link href={href} color="gray.500" {...linkProps}>
       <Box as={icon} display="inline" mr={2} />
       {children}
     </Link>
@@ -29,6 +35,14 @@ const SocialLink: React.FC<IconProps> = ({ icon, href, children }) => (
 )
 
 const socialList: Array<IconProps> = [
+  {
+    icon: FaMastodon,
+    href: 'https://social.fohte.net/@fohte',
+    children: '@fohte@social.fohte.net',
+    linkProps: {
+      rel: 'me',
+    },
+  },
   {
     icon: FaTwitter,
     href: 'https://twitter.com/fohte',
@@ -45,9 +59,7 @@ const SocialList: React.FC = () => (
   <List>
     {socialList.map((social) => (
       <ListItem key={social.href} mt={1}>
-        <SocialLink icon={social.icon} href={social.href}>
-          {social.children}
-        </SocialLink>
+        <SocialLink {...social} />
       </ListItem>
     ))}
   </List>
