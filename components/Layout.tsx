@@ -8,15 +8,17 @@ import { Footer } from './Footer'
 type Props = {
   title?: string
   ogImage?: string
+  showSocial?: boolean
   children: React.ReactNode
 }
 
-const siteName = 'Fohte Blog'
+const siteName = 'fohte.net'
 
 const Layout: React.FunctionComponent<Props> = ({
   children,
   title,
   ogImage,
+  showSocial,
 }) => {
   const formattedTitle = [title, siteName].filter((x) => x).join(' | ')
 
@@ -27,7 +29,7 @@ const Layout: React.FunctionComponent<Props> = ({
 
         <meta
           property="og:image"
-          content={ogImage ?? 'https://blog.fohte.net/icon.png'}
+          content={ogImage ?? 'https://fohte.net/icon.png'}
         />
         <meta property="og:locale" content="ja_JP" />
         <meta property="og:site_name" content={siteName} />
@@ -49,7 +51,7 @@ const Layout: React.FunctionComponent<Props> = ({
           {children}
         </Box>
         <Box mt="auto">
-          <Footer />
+          <Footer showSocial={showSocial} />
         </Box>
       </Flex>
     </>

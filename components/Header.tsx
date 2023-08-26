@@ -17,7 +17,7 @@ export const Header: React.FC = () => (
                 display="inline"
                 mr="1rem"
               />
-              <Text textTransform="uppercase">Fohte Blog</Text>
+              <Text>fohte.net</Text>
             </Flex>
           </a>
         </Link>

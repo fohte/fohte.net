@@ -25,6 +25,7 @@ export const MDXLayout: React.FC<MDXLayoutProps> = ({
         ? undefined
         : `https://${process.env.NEXT_PUBLIC_VERCEL_URL}${imagePath}`
     }
+    showSocial
   >
     <Head>
       {description && (
