@@ -1,17 +1,17 @@
 import * as React from 'react'
 
 import { Container } from '../components/Container'
-import Layout from '../components/Layout'
+import GlobalLayout from '../components/GlobalLayout'
 import { SocialList } from '../components/SocialList'
 
 interface Props {}
 
 const RootPage: React.FC<Props> = () => (
-  <Layout>
+  <GlobalLayout>
     <Container>
       <SocialList />
     </Container>
-  </Layout>
+  </GlobalLayout>
 )
 
 export default RootPage

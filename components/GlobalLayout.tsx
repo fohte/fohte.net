@@ -7,6 +7,7 @@ import { Footer } from './Footer'
 
 type Props = {
   title?: string
+  headerTitle?: string
   ogImage?: string
   showSocial?: boolean
   children: React.ReactNode
@@ -14,9 +15,10 @@ type Props = {
 
 const siteName = 'fohte.net'
 
-const Layout: React.FunctionComponent<Props> = ({
+const GlobalLayout: React.FunctionComponent<Props> = ({
   children,
   title,
+  headerTitle,
   ogImage,
   showSocial,
 }) => {
@@ -45,7 +47,7 @@ const Layout: React.FunctionComponent<Props> = ({
 
       <Flex flexDirection="column" minH="100%" backgroundColor="gray.50">
         <Box>
-          <Header />
+          <Header headerTitle={headerTitle} />
         </Box>
         <Box as="main" flex="1" h="100%">
           {children}
@@ -58,4 +60,4 @@ const Layout: React.FunctionComponent<Props> = ({
   )
 }
 
-export default Layout
+export default GlobalLayout
