@@ -3,7 +3,7 @@ import * as React from 'react'
 import { Image, Flex, Box, Text } from '@chakra-ui/react'
 
 import { Container } from '../components/Container'
-import { SocialList } from '../components/SocialList'
+import { FooterSocialList } from './FooterSocialList'
 
 interface Props {
   showSocial?: boolean
@@ -41,7 +41,7 @@ export const Footer: React.FC<Props> = ({ showSocial }) => (
             <Profile />
           </Box>
           <Box mx={8} mt={{ base: 4, md: 0 }}>
-            <SocialList />
+            <FooterSocialList />
           </Box>
         </Flex>
       )}
