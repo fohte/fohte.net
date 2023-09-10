@@ -28,11 +28,6 @@ const RootPage: React.FC<Props> = () => (
             <Heading size="md" pb={2} mb={4} borderBottom="1px solid #ddd">
               Socials
             </Heading>
-            Mastodon: @fohte@social.fohte.net
-            <br />
-            Twitter: @fohte@social.fohte.net
-            <br />
-            Twitter: @fohte@social.fohte.net
             <List>
               {socialList.map((social) => (
                 <ListItem key={social.href} mt={1}>
