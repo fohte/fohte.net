@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { getMDXComponent } from 'mdx-bundler/client'
-import { getAllPosts, getSinglePost } from '../../utils/mdx'
+import { getAllPosts, getSinglePost } from '../../../utils/mdx'
 import { ParsedUrlQuery } from 'node:querystring'
-import { MDXLayout } from '../../components/MDXLayout'
-import { mdxComponents } from '../../components/mdx'
+import { MDXLayout } from '../../../components/MDXLayout'
+import { mdxComponents } from '../../../components/mdx'
 
 interface Props extends Awaited<ReturnType<typeof getSinglePost>> {}
 

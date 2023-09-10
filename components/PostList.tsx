@@ -27,7 +27,7 @@ export const PostList: React.FC<PostListProps> = ({ posts }) => {
         >
           <Box paddingY="1rem">
             <Link
-              href={`/blog/${slug}`}
+              href={`/blog/posts/${slug}`}
               color="black"
               display="block"
               _hover={{ outline: 'none' }}
