@@ -7,16 +7,20 @@ import { Footer } from './Footer'
 
 type Props = {
   title?: string
+  headerTitle?: string
   ogImage?: string
+  showSocial?: boolean
   children: React.ReactNode
 }
 
-const siteName = 'Fohte Blog'
+const siteName = 'fohte.net'
 
-const Layout: React.FunctionComponent<Props> = ({
+const GlobalLayout: React.FunctionComponent<Props> = ({
   children,
   title,
+  headerTitle,
   ogImage,
+  showSocial,
 }) => {
   const formattedTitle = [title, siteName].filter((x) => x).join(' | ')
 
@@ -27,7 +31,7 @@ const Layout: React.FunctionComponent<Props> = ({
 
         <meta
           property="og:image"
-          content={ogImage ?? 'https://blog.fohte.net/icon.png'}
+          content={ogImage ?? 'https://fohte.net/icon.png'}
         />
         <meta property="og:locale" content="ja_JP" />
         <meta property="og:site_name" content={siteName} />
@@ -43,17 +47,17 @@ const Layout: React.FunctionComponent<Props> = ({
 
       <Flex flexDirection="column" minH="100%" backgroundColor="gray.50">
         <Box>
-          <Header />
+          <Header headerTitle={headerTitle} />
         </Box>
         <Box as="main" flex="1" h="100%">
           {children}
         </Box>
         <Box mt="auto">
-          <Footer />
+          <Footer showSocial={showSocial} />
         </Box>
       </Flex>
     </>
   )
 }
 
-export default Layout
+export default GlobalLayout

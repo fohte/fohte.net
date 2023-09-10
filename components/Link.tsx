@@ -10,7 +10,11 @@ export interface LinkProps extends ChakraLinkProps {
 
 export const isInternalLink = (href: string): boolean => {
   // e.g. `//google.com`
-  if (href.startsWith('//')) {
+  if (
+    href.startsWith('//') ||
+    href.startsWith('http://') ||
+    href.startsWith('https://')
+  ) {
     return false
   }
 

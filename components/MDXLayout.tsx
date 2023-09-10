@@ -3,7 +3,7 @@ import * as React from 'react'
 import { Heading, Text, Box } from '@chakra-ui/react'
 import Head from 'next/head'
 
-import Layout from '../components/Layout'
+import GlobalLayout from './GlobalLayout'
 import { TagList } from '../components/TagList'
 import { Container } from '../components/Container'
 import { FrontMatter } from '../utils/mdx'
@@ -18,13 +18,15 @@ export const MDXLayout: React.FC<MDXLayoutProps> = ({
   children,
   frontMatter: { title, date, tags, description, imagePath },
 }) => (
-  <Layout
+  <GlobalLayout
     title={title}
+    headerTitle="Fohte Blog"
     ogImage={
       imagePath == null
         ? undefined
         : `https://${process.env.NEXT_PUBLIC_VERCEL_URL}${imagePath}`
     }
+    showSocial
   >
     <Head>
       {description && (
@@ -55,5 +57,5 @@ export const MDXLayout: React.FC<MDXLayoutProps> = ({
         {children}
       </Box>
     </Container>
-  </Layout>
+  </GlobalLayout>
 )
