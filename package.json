@@ -26,7 +26,7 @@
     "react-twitter-embed": "4.0.4",
     "react-youtube": "9.0.1",
     "remark-gfm": "3.0.1",
-    "sass": "1.51.0"
+    "sass": "1.67.0"
   },
   "devDependencies": {
     "@types/node": "17.0.33",
