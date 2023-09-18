@@ -4429,10 +4429,10 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
-next-remote-refresh@0.9.2:
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/next-remote-refresh/-/next-remote-refresh-0.9.2.tgz#fddaaff3767623f12a328f3e4b357c1428658327"
-  integrity sha512-yoYI7pa5Dbtt3n5xcu2nIX0Jma+fMM+GR9Qj3+IhXSILb9NgOB+7jy86jFx8QXukcDmehJi/bepaen7UfwQKuw==
+next-remote-refresh@0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/next-remote-refresh/-/next-remote-refresh-0.10.0.tgz#fd25079ad71bcfaddb8a0d10dee6bb81bf087fd6"
+  integrity sha512-x+JjCdH9bjjn5VjBpwnkdWTNXDNzENduZCy1gQJn9J5Ndl5eKlx4M9YQSjH3ywBfKCyLvOa5dstwUrOwNykjuA==
   dependencies:
     chokidar "^3.5.2"
     ws "^8.2.3"
