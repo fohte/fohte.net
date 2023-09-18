@@ -1,9 +1,11 @@
 import * as React from 'react'
 
 import { Box } from '@chakra-ui/react'
-import Highlight, { defaultProps } from 'prism-react-renderer'
+import Highlight, { Prism, defaultProps } from 'prism-react-renderer'
 import theme from 'prism-react-renderer/themes/github'
 import { onlyText } from 'react-children-utilities'
+;((typeof global !== 'undefined' ? global : window) as any).Prism = Prism
+require('prismjs/components/prism-lua')
 
 export interface CodeBlockProps {
   className?: string
