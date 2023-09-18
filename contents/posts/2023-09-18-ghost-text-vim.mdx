@@ -13,7 +13,7 @@ description: ''
 筆者は幾度となくありました。
 
 これは [GhostText](https://ghosttext.fregante.com/) を使うと実現できます。
-筆者は記事執筆時点で 1 ヶ月利用しており、快適にテキスト入力体験を得られているため、今回はその GhostText について紹介します。
+筆者は記事執筆時点で 1 ヶ月利用しており、テキスト入力が非常に快適になったため、今回はその GhostText を紹介します。
 
 # GhostText とはなにか?
 
@@ -23,7 +23,7 @@ GhostText は、Chrome をはじめとする多くのブラウザを介して、
 
 <ImgurImage
   id="CL4FCZK"
-  alt="GhostText"
+  alt="GhostText で入力を同期する例"
   caption="GhostText で入力を同期する例"
   width={640}
   height={299}
@@ -40,7 +40,7 @@ Chrome と Vim/Neovim だけでなく、様々なブラウザ・エディター�
 - ブラウザ: Chrome, Firefox, Safari, Edge, Opera
 - エディター: VSCode, Emacs, Vim, Neovim, Sublime Text
 
-プロトコルのドキュメントが公開されており、サポートしているブラウザやエディターが無い場合は自作も可能です。
+プロトコルのドキュメントが公開されているため、サポートされていないブラウザやエディターで使いたい場合でも自作が可能です。
 
 - [GhostText/PROTOCOL.md at main · fregante/GhostText](https://github.com/fregante/GhostText/blob/main/PROTOCOL.md)
 
@@ -56,7 +56,7 @@ GhostText を使うと何が嬉しいかというと、やはり使い慣れた�
 
 ## GhostText が使えないケース
 
-すべてのブラウザでの入力を GhostText で使えるかというと、使えない場面もあります。
+残念ながら、GhostText が使えないケースもあります。
 例えば、Google Docs のような純粋な textarea ではないリッチなテキストエリアは GhostText が使えません。[^google-docs]
 
 [^google-docs]: issue はありますが、"it's too complex" ということで close されています。 https://github.com/fregante/GhostText/issues/162
@@ -65,9 +65,30 @@ GhostText を使うと何が嬉しいかというと、やはり使い慣れた�
 
 GhostText を利用するには、利用するブラウザに拡張機能、利用するエディターにプラグインをインストールする必要があります。
 
-各ブラウザ拡張機能・エディタープラグインは [公式ドキュメント](https://ghosttext.fregante.com/) にリンクされています。
+各ブラウザ拡張機能・エディタープラグインは、インストール方法を含め [公式ドキュメント](https://ghosttext.fregante.com/) にリンクされています。
 
 筆者の場合は Neovim を使っているため、プラグインは (公式には紹介されていない) [subnut/nvim-ghost.nvim](https://github.com/subnut/nvim-ghost.nvim) をインストールしています。
+
+https://github.com/fohte/dotfiles/blob/52fc6b35b95767597eb225b89f394424e5a7b03d/config/nvim/lua/plugins/nvim-ghost.lua
+
+```lua:filename=config/nvim/lua/plugins/nvim-ghost.lua
+return {
+  'subnut/nvim-ghost.nvim',
+  init = function()
+    vim.g.nvim_ghost_autostart = 0
+  end,
+  config = function()
+    vim.api.nvim_create_augroup('nvim_ghost_user_autocommands', { clear = true })
+    vim.api.nvim_create_autocmd('User', {
+      pattern = { '*github.com' },
+      group = 'nvim_ghost_user_autocommands',
+      callback = function()
+        vim.opt.filetype = 'markdown'
+      end,
+    })
+  end,
+}
+```
 
 # GhostText の使い方
 
@@ -82,6 +103,15 @@ GhostText を利用するには、利用するブラウザに拡張機能、利�
 
 起動できれば、エディター側でテキスト入力すると、その内容が textarea に同期されます。
 また、textarea でテキスト入力しても、エディター側に同期されます。
+
+<ImgurImage
+  id="CeO5lqw"
+  alt="GhostText を起動して入力同期する例"
+  caption="GhostText を起動して入力同期する例"
+  width={640}
+  height={361}
+  extension="gif"
+/>
 
 # 余談: 筆者のカスタマイズ
 
