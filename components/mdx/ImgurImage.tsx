@@ -11,6 +11,7 @@ type ImgurImageProps = {
   alt: string
   width: number
   height: number
+  extension: 'jpg' | 'png' | 'gif'
 }
 
 export const ImgurImage: React.FC<ImgurImageProps> = ({
@@ -19,8 +20,13 @@ export const ImgurImage: React.FC<ImgurImageProps> = ({
   alt,
   width,
   height,
+  extension,
 }) => {
   const aspectRatio = (height / width) * 100
+
+  const priotizeWebp =
+    extension == null || extension === 'png' || extension === 'jpg'
+
   return (
     <Box as="figure" mt={4}>
       <Box
@@ -46,14 +52,16 @@ export const ImgurImage: React.FC<ImgurImageProps> = ({
           `}
         >
           <picture>
-            <source
-              srcSet={`https://i.imgur.com/${id}.webp`}
-              type="image/webp"
-            />
+            {priotizeWebp && (
+              <source
+                srcSet={`https://i.imgur.com/${id}.webp`}
+                type="image/webp"
+              />
+            )}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               alt={alt}
-              src={`https://i.imgur.com/${id}.jpg`}
+              src={`https://i.imgur.com/${id}.${extension ?? 'jpg'}`}
               loading="lazy"
             />
           </picture>
