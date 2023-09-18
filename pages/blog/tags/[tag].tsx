@@ -49,8 +49,8 @@ export const getStaticProps: GetStaticProps<TagPageProps, Params> = async ({
   return {
     props: {
       tag: headTag,
-      posts: getAllPosts().filter(({ frontmatter }) =>
-        frontmatter.tags?.includes(headTag),
+      posts: getAllPosts().filter(
+        ({ frontmatter }) => frontmatter.tags?.includes(headTag),
       ),
     },
   }
