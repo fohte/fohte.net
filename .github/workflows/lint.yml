@@ -1,0 +1,20 @@
+name: Lint
+
+on:
+  push:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          cache: yarn
+      - uses: reviewdog/action-setup@v1
+      - run: yarn install --frozen-lockfile
+
+      - run: yarn run eslint
+
+      - run: yarn run prettier --check .
