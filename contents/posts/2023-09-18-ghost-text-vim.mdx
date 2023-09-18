@@ -1,0 +1,95 @@
+---
+title: 'GhostText: Vim でブラウザのテキストエリアを入力する'
+date: '2023-09-18T10:05:46+09:00'
+tags: [vim]
+description: ''
+---
+
+この記事は [Vim 駅伝](https://vim-jp.org/ekiden/) の 2023-09-18 の記事です。
+
+---
+
+皆さんは「Vim でブラウザのテキストエリアを入力したい」と思ったことはありますか?
+
+筆者は幾度となくありました。
+これを [GhostText](https://ghosttext.fregante.com/) を使って実現でき快適にテキスト入力体験を得られているため、今回はその GhostText について紹介します。
+
+---
+
+# GhostText とはなにか?
+
+GhostText は、Chrome をはじめとする多くのブラウザを介して、Vim や Neovim などのエディターに接続し、双方向に入力内容を同期するブラウザ拡張機能およびエディタープラグインです。
+
+- [👻 GhostText — Use your text editor in the browser](https://ghosttext.fregante.com/)
+
+ここに GIF 入れる
+
+「ブラウザのテキストエリアを Vim で編集する」という目的を達成できるツールは GhostText 以外にも、[Firenvim](https://github.com/glacambre/firenvim) というテキストエリアに Neovim を埋め込むツールだったり、[wasavi](https://chrome.google.com/webstore/detail/wasavi/dgogifpkoilgiofhhhodbodcfgomelhe?hl=ja) という textarea を vi のクローンに置き換える Chrome 拡張機能などもあります。
+(筆者は Firenvim も試しましたが、日本語入力がうまく機能しなかったのと、ショートカットキーなどの入力が Chrome に吸われてしまうのが難点でした。)
+
+## サポートされているブラウザ・エディター
+
+Chrome と Vim/Neovim だけでなく、様々なブラウザ・エディターをサポートしています。
+
+- ブラウザ: Chrome, Firefox, Safari, Edge, Opera
+- エディター: VSCode, Emacs, Vim, Neovim, Sublime Text
+
+プロトコルのドキュメントが公開されており、サポートしているブラウザやエディターが無い場合は自作も可能です。
+
+- [GhostText/PROTOCOL.md at main · fregante/GhostText](https://github.com/fregante/GhostText/blob/main/PROTOCOL.md)
+
+# GhostText を使うことによる嬉しさ
+
+GhostText を使うと何が嬉しいかというと、やはり使い慣れたエディターでテキスト入力ができることでしょう。
+
+筆者は GitHub Issue/PR 等で Markdown テキストを書くときに GhostText を多用しています。
+インデントをしたかったり、ちょっとしたコードを書きたい場合だったり、まとめてテキスト操作したい場合だったり、Vim 操作ができると便利なケースがあります。
+
+また、macOS の場合 Emacs-like なキーバインドが拡張機能不要で使えます。
+行頭の Ctrl-a や行末の Ctrl-e、行末まで削除する Ctrl-k などは多用するのですが、やはり Vim で入力できたほうが便利であるケースも多いと感じています。
+
+## GhostText が使えないケース
+
+すべてのブラウザでの入力を GhostText で使えるかというと、使えない場面もあります。
+例えば、Google Docs のような純粋な textarea ではないリッチなテキストエリアは GhostText が使えません。[^google-docs]
+
+[^google-docs]: issue はありますが、"it's too complex" ということで close されています。 https://github.com/fregante/GhostText/issues/162
+
+# GhostText のインストール方法
+
+GhostText を利用するには、利用するブラウザに拡張機能、利用するエディターにプラグインをインストールする必要があります。
+
+各ブラウザ拡張機能・エディタープラグインは [公式ドキュメント](https://ghosttext.fregante.com/) にリンクされています。
+
+筆者の場合は Neovim を使っているため、プラグインは (公式には紹介されていない) [subnut/nvim-ghost.nvim](https://github.com/subnut/nvim-ghost.nvim) をインストールしています。
+
+# GhostText の使い方
+
+以下の手順で任意の textarea とエディターの同期が開始できます。
+
+1. テキストエディターを立ち上げる
+1. ブラウザーで任意のテキストエリアにフォーカスを当て、拡張機能のアイコンをクリックするかキーボードショートカットで GhostText を起動する
+   - デフォルト設定:
+     - macOS: Cmd-Shift-k
+     - Windows: Ctrl-Shift-k
+     - Linux: Ctrl-Shift-h
+
+起動できれば、エディター側でテキスト入力すると、その内容が textarea に同期されます。
+また、textarea でテキスト入力しても、エディター側に同期されます。
+
+# 余談: 筆者のカスタマイズ
+
+筆者は Neovim をプロジェクトごとに開く運用をしているため、GhostText 用の Neovim はそれ専用で立ち上げたく、ウィンドウも分けたいという気持ちがありました。
+
+それを実現するために以下のような工夫をしています。
+
+- Neovim 側で GhostText が自動起動しないようにする (手動で立ち上げるため)
+  - <script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Ffohte%2Fdotfiles%2Fblob%2F52fc6b35b95767597eb225b89f394424e5a7b03d%2Fconfig%2Fnvim%2Flua%2Fplugins%2Fnvim-ghost.lua%23L2-L5&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
+- WezTerm で GhostText 専用のウィンドウを立ち上げる
+  - <script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Ffohte%2Fdotfiles%2Fblob%2F52fc6b35b95767597eb225b89f394424e5a7b03d%2Fconfig%2Fwezterm%2Fwezterm.lua%23L43-L62&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
+  - <script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Ffohte%2Fdotfiles%2Fblob%2F52fc6b35b95767597eb225b89f394424e5a7b03d%2Froles%2Fbin%2Ffiles%2Fwezterm-user-command%23L1-L8&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
+  - `$ wezterm-user-command new-ghosttext-window` で起動
+- Hammerspoon で WezTerm の専用ウィンドウにフォーカスするショートカットを割り当てる
+  - <script src="https://emgithub.com/embed-v2.js?target=https%3A%2F%2Fgithub.com%2Ffohte%2Fdotfiles%2Fblob%2F52fc6b35b95767597eb225b89f394424e5a7b03d%2Fconfig%2Fhammerspoon%2Finit.lua%23L21-L30&style=github&type=code&showBorder=on&showLineNumbers=on&showFileMeta=on&showFullPath=on&showCopy=on"></script>
+
+# まとめ
