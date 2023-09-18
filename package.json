@@ -9,7 +9,7 @@
     "type-check": "tsc"
   },
   "dependencies": {
-    "@chakra-ui/react": "2.0.2",
+    "@chakra-ui/react": "2.8.1",
     "@emotion/react": "11.9.0",
     "@emotion/styled": "11.8.1",
     "@mdx-js/loader": "2.1.1",
