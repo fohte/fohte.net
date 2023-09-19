@@ -4,9 +4,7 @@ import {
   LinkProps as ChakraLinkProps,
 } from '@chakra-ui/react'
 
-export interface LinkProps extends ChakraLinkProps {
-  hrefAs?: string
-}
+export interface LinkProps extends ChakraLinkProps {}
 
 export const isInternalLink = (href: string): boolean => {
   // e.g. `//google.com`
@@ -23,13 +21,11 @@ export const isInternalLink = (href: string): boolean => {
 }
 
 export const Link: React.FC<LinkProps> = (props) => {
-  const { href, hrefAs, ...otherProps } = props
+  const { href, ...otherProps } = props
 
   if (href && isInternalLink(href)) {
     return (
-      <NextLink href={href} as={hrefAs} passHref>
-        <ChakraLink color="blue.500" {...otherProps} />
-      </NextLink>
+      <ChakraLink href={href} as={NextLink} color="blue.500" {...otherProps} />
     )
   }
 
