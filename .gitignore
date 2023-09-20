@@ -8,3 +8,5 @@ node_modules
 .mdx-data
 
 tsconfig.tsbuildinfo
+
+out/
