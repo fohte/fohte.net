@@ -1,0 +1,12 @@
+{
+  extends: ['config:base'],
+  configMigration: true,
+
+  packageRules: [
+    {
+      matchDepTypes: ['devDependencies'],
+      matchUpdateTypes: ['patch'],
+      automerge: true,
+    },
+  ],
+}
