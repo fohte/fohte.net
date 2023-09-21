@@ -1,21 +1,20 @@
 {
-  extends: ['config:base'],
+  extends: ["config:recommended"],
   configMigration: true,
-  timezone: 'Asia/Tokyo',
+  timezone: "Asia/Tokyo",
   lockFileMaintenance: {
     enabled: true,
-    schedule: 'before 5am on Saturday',
+    schedule: "before 5am on Saturday",
   },
-
   packageRules: [
     {
-      matchDepTypes: ['devDependencies'],
-      matchUpdateTypes: ['patch'],
+      matchDepTypes: ["devDependencies"],
+      matchUpdateTypes: ["patch"],
       automerge: true,
     },
     {
-      matchPackagePatterns: ['^@types/'],
-      matchUpdateTypes: ['patch'],
+      matchPackagePatterns: ["^@types/"],
+      matchUpdateTypes: ["patch"],
       automerge: true,
     },
   ],
