@@ -8,5 +8,10 @@
       matchUpdateTypes: ['patch'],
       automerge: true,
     },
+    {
+      matchPackagePatterns: ['^@types/'],
+      matchUpdateTypes: ['patch'],
+      automerge: true,
+    },
   ],
 }
