@@ -1,7 +1,20 @@
 import * as React from 'react'
 
 import { MDXComponents } from 'mdx/types'
-import { Box, Code, Divider, Heading, Text } from '@chakra-ui/react'
+import {
+  Box,
+  Code,
+  Divider,
+  Heading,
+  Text,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  Kbd,
+} from '@chakra-ui/react'
 import YouTube from 'react-youtube'
 import { css } from '@emotion/react'
 
@@ -65,6 +78,19 @@ export const mdxComponents: MDXComponents = {
 
   // FIXME: fix any type
   li: (props: any) => <Box as="li" pb={1} {...props} />,
+
+  table: (props) => (
+    <Box overflowX="auto">
+      <Table {...props} />
+    </Box>
+  ),
+  thead: (props) => <Thead {...props} />,
+  tbody: (props) => <Tbody {...props} />,
+  tr: (props) => <Tr {...props} />,
+  th: (props) => <Th {...props} />,
+  td: (props) => <Td {...props} />,
+
+  Kbd: (props) => <Kbd fontWeight="normal" {...props} />,
 
   ImgurImage: ImgurImage,
 
