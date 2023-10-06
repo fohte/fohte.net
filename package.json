@@ -28,7 +28,7 @@
     "react-youtube": "10.1.0",
     "remark-breaks": "4.0.0",
     "remark-gfm": "3.0.1",
-    "sass": "1.68.0"
+    "sass": "1.69.0"
   },
   "devDependencies": {
     "@types/node": "18.18.3",
