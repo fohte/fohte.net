@@ -9,12 +9,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
-        with:
-          cache: yarn
-      - uses: reviewdog/action-setup@v1
-      - run: yarn install --frozen-lockfile
+      - uses: oven-sh/setup-bun@v1
+      - run: bun install --frozen-lockfile
 
-      - run: yarn run eslint
+      - run: bun run eslint
 
-      - run: yarn run prettier --check .
+      - run: bun run prettier --check .
