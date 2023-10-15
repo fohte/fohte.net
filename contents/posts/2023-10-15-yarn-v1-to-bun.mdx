@@ -1,0 +1,54 @@
+---
+title: 'fohte.net のパッケージマネージャーを yarn v1 から bun に変えた'
+date: '2023-10-16T00:56:44+09:00'
+description: | 
+  bun という新しい JavaScript ランタイムが速いらしい。ものは試しということで、Next.js で作っている小規模な静的サイトの弊ブログで試してみたので、どのくらい速くなったのかなどを書いておく。
+---
+
+[bun](https://bun.sh/) という新しい JavaScript ランタイムが速いらしい。
+
+<ImgurImage
+  id="y5Ie1ww"
+  alt=""
+  caption="bun install は yarn install の 33 倍も速いらしい (公式サイトより引用)"
+  width={853}
+  height={491}
+/>
+
+ものは試しということで、Next.js で作っている小規模な静的サイトの弊ブログ ([fohte/fohte.net](https://github.com/fohte/fohte.net)) で試してみたので、どのくらい速くなったのかなどを書いておく。
+
+# 何を置き換えるか
+
+今回は仮に壊れてしまっても誰にも迷惑をかけないので、GitHub Actions で動かしている lint やテストから Cloudflare Pages でのビルドまで全て置き換えた。
+変更内容は [fohte/fohte.net#90](https://github.com/fohte/fohte.net/pull/90) にある。
+
+具体的には以下のように置き換えている。
+
+- `yarn install` -> `bun install`
+- `yarn run build` -> `bun run build` (`next build` を実行している)
+- `yarn run ...` -> `bun run ...`
+
+# どのくらい速くなったのか
+
+キャッシュがない場合の Cloudflare Pages のビルドは、1m 56s -> 1m 8s まで速くなった。このうち `yarn install` は 41.54s、`bun install` は 6.15s まで速くなった。[^pages-build]
+`bun install` がとても速くなっていることがわかる。
+
+[^pages-build]: bun 移行前 (yarn v1) の最新の master ブランチでのビルド時間と、bun 移行ブランチでのビルド時間を出している。サンプル数 1 なので参考程度。
+
+また Actions で実行している各ジョブでは、yarn v1 で 1 分前後かかっていたところ bun 移行後は 30 秒で終わるようになった [^actions]。
+
+[^actions]: https://github.com/fohte/fohte.net/pull/90#issuecomment-1763431830
+
+注意したいのは、今回はビルドのほとんどをパッケージインストールの時間が占めている程度の小さなアプリケーションなので、bun に置き換えたことでビルド時間がかなり短縮されている。
+ビルドが重い大規模なアプリケーションでも同様にビルド時間が短縮されるのかはここではわからない。
+
+# 所感
+
+静的サイトならビルドが通れば良いし、気楽に移行できた。
+
+`bun install` が速いのはとても快適。なぜこんなに速いのかはあまり理解できていない。npm や Yarn は JavaScript 実装だけど bun は Zig で実装されていてパフォーマンス最適化がしやすいのかな、と想像している。
+
+余談だが、ローカルの開発環境でも Prettier など `npm install -g` でインストールしていたパッケージは `bun install -g` でインストールするように変えている。
+これも高速にインストールできて嬉しい。
+
+Node.js の利用箇所を bun に置き換えるのはまだ実例が少ないので不安だが、CI での lint などは開発環境にしか影響しないので、bun に置き換えていっても良さそうだなと感じた。
