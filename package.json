@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
-    "build": "next build",
+    "build": "conc -m 1 'contentlayer build' 'next build'",
     "start": "next start",
     "type-check": "tsc"
   },
@@ -34,6 +34,7 @@
     "@types/node": "18.18.7",
     "@types/react": "18.2.33",
     "@types/react-dom": "18.2.14",
+    "concurrently": "8.2.2",
     "eslint": "8.51.0",
     "eslint-config-next": "13.5.6",
     "prettier": "3.0.3",
