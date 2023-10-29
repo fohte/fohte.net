@@ -7,9 +7,6 @@
     "start": "next start",
     "type-check": "tsc"
   },
-  "trustedDependencies": [
-    "contentlayer"
-  ],
   "dependencies": {
     "@chakra-ui/react": "2.8.1",
     "@emotion/react": "11.11.1",
