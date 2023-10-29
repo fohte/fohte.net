@@ -1,23 +1,26 @@
 import * as React from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { getMDXComponent } from 'mdx-bundler/client'
-import { getAllPosts, getSinglePost } from '../../../utils/mdx'
+import { allPosts, type Post } from 'contentlayer/generated'
+import { useMDXComponent } from 'next-contentlayer/hooks'
 import { ParsedUrlQuery } from 'node:querystring'
 import { MDXLayout } from '../../../components/MDXLayout'
 import { mdxComponents } from '../../../components/mdx'
+import { findPostFrontmatter } from '../../../utils/contentlayer'
 
-interface Props extends Awaited<ReturnType<typeof getSinglePost>> {}
+type Props = {
+  post: Post
+}
 
 interface Params extends ParsedUrlQuery {
   slug: string
 }
 
-const Post: React.FC<Props> = ({ code, frontmatter }) => {
-  const Component = React.useMemo(() => getMDXComponent(code), [code])
+const Post: React.FC<Props> = ({ post }) => {
+  const MDXContent = useMDXComponent(post.body.code)
 
   return (
-    <MDXLayout frontMatter={frontmatter}>
-      <Component components={mdxComponents} />
+    <MDXLayout frontMatter={findPostFrontmatter(post)}>
+      <MDXContent components={mdxComponents} />
     </MDXLayout>
   )
 }
@@ -27,14 +30,19 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
 }) => {
   const { slug } = params!
 
-  const post = await getSinglePost(slug)
+  const post = allPosts.find((post) => post._raw.flattenedPath === slug)
+
+  if (!post) return { notFound: true }
+
   return {
-    props: { ...post },
+    props: { post },
   }
 }
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-  const paths = getAllPosts().map(({ slug }) => ({ params: { slug } }))
+  const paths = allPosts.map((post) => ({
+    params: { slug: post._raw.flattenedPath },
+  }))
 
   return {
     paths,

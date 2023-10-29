@@ -6,11 +6,11 @@ import Head from 'next/head'
 import GlobalLayout from './GlobalLayout'
 import { TagList } from '../components/TagList'
 import { Container } from '../components/Container'
-import { FrontMatter } from '../utils/mdx'
+import { type PostFrontmatter } from '../utils/contentlayer'
 import { formatDate } from '../utils/date'
 
 export interface MDXLayoutProps {
-  frontMatter: FrontMatter
+  frontMatter: PostFrontmatter
   children: React.ReactNode
 }
 

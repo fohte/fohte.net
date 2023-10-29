@@ -1,9 +1,8 @@
-const path = require('path')
+const { withContentlayer } = require('next-contentlayer')
 
-const withRemoteRefresh = require('next-remote-refresh')({
-  paths: [path.resolve(__dirname, 'contents/posts')],
-})
-
-module.exports = withRemoteRefresh({
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   output: 'export',
-})
+}
+
+module.exports = withContentlayer(nextConfig)
