@@ -1,6 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
-const GA_TRACKING_ID = 'UA-49994513-4'
+const GA_TRACKING_ID = 'G-RGKPSR5QL5'
 
 class MyDocument extends Document {
   render() {
@@ -9,7 +9,7 @@ class MyDocument extends Document {
         <Head>
           <link rel="icon" href="/icon.png" />
 
-          {/* Global Site Tag (gtag.js) - Google Analytics */}
+          {/* Global Tag (gtag.js) */}
           <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
@@ -20,9 +20,7 @@ class MyDocument extends Document {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', '${GA_TRACKING_ID}', {
-              page_path: window.location.pathname,
-            });
+            gtag('config', '${GA_TRACKING_ID}');
           `,
             }}
           />
