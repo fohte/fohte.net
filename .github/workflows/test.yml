@@ -13,4 +13,4 @@ jobs:
       - uses: reviewdog/action-setup@v1
       - run: bun install --frozen-lockfile
 
-      - run: bun run tsc --noEmit
+      - run: bun run test

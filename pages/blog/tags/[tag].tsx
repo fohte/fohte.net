@@ -1,18 +1,20 @@
 import * as React from 'react'
 
+import { flatMap } from 'remeda'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import NextError from 'next/error'
 import { Heading } from '@chakra-ui/react'
 import { ParsedUrlQuery } from 'node:querystring'
 
-import { getAllPosts, AllPosts } from '../../../utils/mdx'
+import { allPosts } from 'contentlayer/generated'
 import GlobalLayout from '../../../components/GlobalLayout'
-import { PostList } from '../../../components/PostList'
+import { PostList, type PostListProps } from '../../../components/PostList'
 import { Container } from '../../../components/Container'
+import { findPostFrontmatter } from '../../../utils/contentlayer'
 
 export interface TagPageProps {
   tag?: string
-  posts: AllPosts
+  posts: PostListProps['posts']
 }
 
 interface Params extends ParsedUrlQuery {
@@ -49,19 +51,20 @@ export const getStaticProps: GetStaticProps<TagPageProps, Params> = async ({
   return {
     props: {
       tag: headTag,
-      posts: getAllPosts().filter(
-        ({ frontmatter }) => frontmatter.tags?.includes(headTag),
-      ),
+      posts: allPosts
+        .filter(({ tags }) => tags?.includes(headTag))
+        .map((post) => ({
+          slug: post._raw.flattenedPath,
+          frontmatter: findPostFrontmatter(post),
+        })),
     },
   }
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const nestedTags = getAllPosts().map(
-    ({ frontmatter }) => frontmatter.tags || [],
+  const tags = flatMap(allPosts, (post) => post.tags).filter(
+    (tag) => tag != null,
   )
-
-  const tags = nestedTags.reduce((acc, value) => acc.concat(value), [])
 
   return {
     paths: tags.map((tag) => ({ params: { tag } })),
