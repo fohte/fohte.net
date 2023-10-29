@@ -2,12 +2,7 @@ import * as React from 'react'
 
 import { Box, Icon } from '@chakra-ui/react'
 import { FaRegFileCode } from 'react-icons/fa'
-import Highlight, {
-  Prism,
-  defaultProps,
-  type Language,
-} from 'prism-react-renderer'
-import theme from 'prism-react-renderer/themes/github'
+import { Highlight, Prism, type Language, themes } from 'prism-react-renderer'
 import { onlyText } from 'react-children-utilities'
 ;((typeof global !== 'undefined' ? global : window) as any).Prism = Prism
 require('prismjs/components/prism-lua')
@@ -45,8 +40,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
 
   return (
     <Highlight
-      {...defaultProps}
-      theme={theme}
+      theme={themes.github}
       code={onlyText(children).trim()}
       language={language as Language}
     >
