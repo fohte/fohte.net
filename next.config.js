@@ -1,9 +1,8 @@
-const path = require('path')
+const withMDX = require('@next/mdx')()
 
-const withRemoteRefresh = require('next-remote-refresh')({
-  paths: [path.resolve(__dirname, 'contents/posts')],
-})
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
+}
 
-module.exports = withRemoteRefresh({
-  output: 'export',
-})
+module.exports = withMDX(nextConfig)
