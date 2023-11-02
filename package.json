@@ -46,7 +46,7 @@
     "typescript": "5.2.2"
   },
   "resolutions": {
-    "@types/react": "18.2.33",
+    "@types/react": "18.2.34",
     "@types/react-dom": "18.2.14"
   },
   "license": "ISC"
