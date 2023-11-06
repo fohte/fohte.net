@@ -34,7 +34,7 @@
     "sass": "1.69.5"
   },
   "devDependencies": {
-    "@types/react": "18.2.35",
+    "@types/react": "18.2.36",
     "@types/react-dom": "18.2.14",
     "bun-types": "1.0.9",
     "concurrently": "8.2.2",
@@ -46,7 +46,7 @@
     "typescript": "5.2.2"
   },
   "resolutions": {
-    "@types/react": "18.2.35",
+    "@types/react": "18.2.36",
     "@types/react-dom": "18.2.14"
   },
   "license": "ISC"
