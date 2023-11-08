@@ -14,7 +14,7 @@
     "@chakra-ui/react": "2.8.1",
     "@emotion/react": "11.11.1",
     "@emotion/styled": "11.11.0",
-    "@types/mdx": "2.0.9",
+    "@types/mdx": "2.0.10",
     "contentlayer": "0.3.4",
     "esbuild": "0.19.5",
     "framer-motion": "10.16.4",
