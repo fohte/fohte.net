@@ -50,20 +50,19 @@ const footnoteStyles = css`
   }
 `
 
-export default function MyApp({ Component, pageProps }: AppProps) {
-  const router = useRouter()
-  useRemoteRefresh({
-    shouldRefresh: (path) => {
-      const { slug } = router.query
-      return path.includes(Array.isArray(slug) ? slug[0] : slug || '')
-    },
-  })
-
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <ChakraProvider theme={theme}>
-      <Global styles={[globalStyles, footnoteStyles]} />
-
-      <Component {...pageProps} />
-    </ChakraProvider>
+    <html lang="en">
+      <body>
+        <ChakraProvider theme={theme}>
+          <Global styles={[globalStyles, footnoteStyles]} />
+          {children}
+        </ChakraProvider>
+      </body>
+    </html>
   )
 }
