@@ -1,8 +1,6 @@
-import { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
-import { useRemoteRefresh } from 'next-remote-refresh/hook'
 
+import { GoogleAnalytics } from '../components/GoogleAnalytics'
 import { theme } from '../styles/theme'
 
 import { Global, css } from '@emotion/react'
@@ -62,6 +60,7 @@ export default function RootLayout({
           <Global styles={[globalStyles, footnoteStyles]} />
           {children}
         </ChakraProvider>
+        <GoogleAnalytics />
       </body>
     </html>
   )
