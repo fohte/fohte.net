@@ -36,10 +36,10 @@
   "devDependencies": {
     "@types/react": "18.2.37",
     "@types/react-dom": "18.2.15",
-    "bun-types": "1.0.11",
+    "bun-types": "1.0.12",
     "concurrently": "8.2.2",
     "eslint": "8.51.0",
-    "eslint-config-next": "14.0.2",
+    "eslint-config-next": "14.0.3",
     "prettier": "3.0.3",
     "textlint": "13.3.3",
     "textlint-rule-preset-ja-technical-writing": "8.0.0",
