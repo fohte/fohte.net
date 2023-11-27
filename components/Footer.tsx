@@ -3,7 +3,7 @@ import * as React from 'react'
 import { Image, Flex, Box, Text } from '@chakra-ui/react'
 
 import { Container } from '../components/Container'
-import { SocialList } from './SocialList'
+import { SocialList } from '../components/SocialList'
 
 interface Props {}
 
