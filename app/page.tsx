@@ -6,7 +6,7 @@ import { Container } from '../components/Container'
 import { Link } from '../components/Link'
 import { SocialList } from '../components/SocialList'
 
-interface Props { }
+interface Props {}
 
 const RootPage: React.FC<Props> = () => (
   <Container>

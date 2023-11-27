@@ -5,7 +5,7 @@ import { Image, Flex, Box, Text } from '@chakra-ui/react'
 import { Container } from '../components/Container'
 import { SocialList } from './SocialList'
 
-interface Props { }
+interface Props {}
 
 const Copyright: React.FC = () => <Text textAlign="center">© 2020 Fohte</Text>
 

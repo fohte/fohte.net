@@ -29,4 +29,3 @@ export const YouTube: React.FC<Props> = (props) => (
     <ReactYouTube {...props} />
   </Box>
 )
-
