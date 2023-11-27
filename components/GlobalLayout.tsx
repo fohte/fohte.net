@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Box, Flex } from '@chakra-ui/react'
-import { Metadata } from 'next'
 
 import { Header } from './Header'
 import { Footer } from './Footer'
@@ -9,28 +8,6 @@ type Props = {
   headerTitle?: string
   showSocial?: boolean
   children: React.ReactNode
-}
-
-const siteName = 'fohte.net'
-
-export const metadata: Metadata = {
-  title: siteName,
-  openGraph: {
-    siteName: siteName,
-    images: [
-      {
-        url: 'https://fohte.net/icon.png',
-        width: 800,
-        height: 600,
-      },
-    ],
-    locale: 'ja_JP',
-  },
-  twitter: {
-    card: 'summary',
-    site: '@fohte',
-    creator: '@fohte',
-  },
 }
 
 const GlobalLayout: React.FunctionComponent<Props> = ({
