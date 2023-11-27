@@ -1,3 +1,5 @@
+'use client'
+
 import * as React from 'react'
 
 import { Box, Heading, Text, Flex, List, ListItem } from '@chakra-ui/react'
@@ -7,7 +9,7 @@ import GlobalLayout from '../components/GlobalLayout'
 import { Link } from '../components/Link'
 import { socialList } from '../utils/socialList'
 
-interface Props {}
+interface Props { }
 
 const RootPage: React.FC<Props> = () => (
   <GlobalLayout>

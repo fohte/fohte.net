@@ -1,52 +1,35 @@
-import { ChakraProvider } from '@chakra-ui/react'
+import { Metadata, Viewport } from 'next'
 
-import { GoogleAnalytics } from '../components/GoogleAnalytics'
-import { theme } from '../styles/theme'
+import { Providers } from './providers'
 
-import { Global, css } from '@emotion/react'
+export const metadata: Metadata = {
+  metadataBase: new URL('https://fohte.net'),
+  title: {
+    template: '%s | fohte.net',
+    default: 'fohte.net',
+  },
+  openGraph: {
+    siteName: 'fohte.net',
+    images: [
+      {
+        url: '/icon.png',
+        width: 500,
+        height: 500,
+      },
+    ],
+    locale: 'ja_JP',
+  },
+  twitter: {
+    card: 'summary',
+    site: '@fohte',
+    creator: '@fohte',
+  },
+}
 
-const globalStyles = css`
-  // hack to fix footer to the bottom
-  body,
-  html,
-  body > div:first-of-type {
-    width: 100%;
-    height: 100%;
-  }
-`
-
-// https://github.com/syntax-tree/mdast-util-to-hast/tree/dfd724a5e62fc270e71bc2d5a2e4471be0c5ef5b#css
-const footnoteStyles = css`
-  /* Style the footnotes section. */
-  .footnotes {
-    font-size: smaller;
-    border-top: 1px solid var(--chakra-colors-gray-200);
-
-    margin-top: 4rem;
-    font-size: 0.9rem;
-  }
-
-  /* Hide the section label for visual users. */
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    word-wrap: normal;
-    border: 0;
-  }
-
-  /* Place [ and ] around footnote calls. */
-  [data-footnote-ref]::before {
-    content: '[';
-  }
-
-  [data-footnote-ref]::after {
-    content: ']';
-  }
-`
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1.0,
+}
 
 export default function RootLayout({
   children,
@@ -54,13 +37,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html>
       <body>
-        <ChakraProvider theme={theme}>
-          <Global styles={[globalStyles, footnoteStyles]} />
-          {children}
-        </ChakraProvider>
-        <GoogleAnalytics />
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

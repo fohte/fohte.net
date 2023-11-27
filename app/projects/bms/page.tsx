@@ -1,3 +1,5 @@
+'use client'
+
 import * as React from 'react'
 
 import {
@@ -10,10 +12,10 @@ import {
   TableContainer,
 } from '@chakra-ui/react'
 
-import { mdxComponents } from '../../components/mdx'
-import GlobalLayout from '../../components/GlobalLayout'
-import { Container } from '../../components/Container'
-import { Link } from '../../components/Link'
+import { mdxComponents } from '../../../components/mdx'
+import GlobalLayout from '../../../components/GlobalLayout'
+import { Container } from '../../../components/Container'
+import { Link } from '../../../components/Link'
 
 const H1 = mdxComponents.h1!
 const H2 = mdxComponents.h2!

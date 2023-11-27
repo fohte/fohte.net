@@ -1,3 +1,5 @@
+'use client'
+
 import * as React from 'react'
 
 import { flatMap } from 'remeda'
@@ -7,10 +9,10 @@ import { Heading } from '@chakra-ui/react'
 import { ParsedUrlQuery } from 'node:querystring'
 
 import { allPosts } from 'contentlayer/generated'
-import GlobalLayout from '../../../components/GlobalLayout'
-import { PostList, type PostListProps } from '../../../components/PostList'
-import { Container } from '../../../components/Container'
-import { findPostFrontmatter } from '../../../utils/contentlayer'
+import GlobalLayout from '../../../../components/GlobalLayout'
+import { PostList, type PostListProps } from '../../../../components/PostList'
+import { Container } from '../../../../components/Container'
+import { findPostFrontmatter } from '../../../../utils/contentlayer'
 
 export interface TagPageProps {
   tag?: string
