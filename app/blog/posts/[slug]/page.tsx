@@ -5,8 +5,9 @@ import { allPosts } from 'contentlayer/generated'
 import { useMDXComponent } from 'next-contentlayer/hooks'
 import { ParsedUrlQuery } from 'node:querystring'
 import { mdxComponents } from '../../../../components/mdx'
-import { Heading, Text, Box } from '@chakra-ui/react'
+import { Heading, Text, Box, Divider } from '@chakra-ui/react'
 
+import { PostFooterProfile } from '../../../../components/PostFooterProfile'
 import { TagList } from '../../../../components/TagList'
 import { Container } from '../../../../components/Container'
 import { formatDate } from '../../../../utils/date'
@@ -66,6 +67,8 @@ export default function PostPage({ params: { slug } }: Props) {
       <Box fontSize={{ base: 'sm', md: 'md' }} lineHeight="taller">
         <MDXContent components={mdxComponents} />
       </Box>
+      <Divider my={8} />
+      <PostFooterProfile />
     </Container>
   )
 }
