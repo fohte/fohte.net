@@ -9,7 +9,6 @@ import { Heading } from '@chakra-ui/react'
 import { ParsedUrlQuery } from 'node:querystring'
 
 import { allPosts } from 'contentlayer/generated'
-import GlobalLayout from '../../../../components/GlobalLayout'
 import { PostList, type PostListProps } from '../../../../components/PostList'
 import { Container } from '../../../../components/Container'
 import { findPostFrontmatter } from '../../../../utils/contentlayer'
@@ -29,15 +28,13 @@ const TagPage: React.FC<TagPageProps> = ({ tag, posts }) => {
   }
 
   return (
-    <GlobalLayout title={`#${tag} の記事一覧`}>
-      <Container backgroundColor="white">
-        <Heading size="md" my={4}>
-          # {tag} の記事一覧
-        </Heading>
+    <Container backgroundColor="white">
+      <Heading size="md" my={4}>
+        # {tag} の記事一覧
+      </Heading>
 
-        <PostList posts={posts} />
-      </Container>
-    </GlobalLayout>
+      <PostList posts={posts} />
+    </Container>
   )
 }
 

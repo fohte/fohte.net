@@ -1,6 +1,7 @@
 import { Metadata, Viewport } from 'next'
 
 import { Providers } from './providers'
+import GlobalLayout from '../components/GlobalLayout'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://fohte.net'),
@@ -39,7 +40,9 @@ export default function RootLayout({
   return (
     <html>
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <GlobalLayout>{children}</GlobalLayout>
+        </Providers>
       </body>
     </html>
   )

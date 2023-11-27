@@ -5,20 +5,18 @@ import { Header } from './Header'
 import { Footer } from './Footer'
 
 type Props = {
-  headerTitle?: string
   showSocial?: boolean
   children: React.ReactNode
 }
 
 const GlobalLayout: React.FunctionComponent<Props> = ({
   children,
-  headerTitle,
   showSocial,
 }) => {
   return (
     <Flex flexDirection="column" minH="100%" backgroundColor="gray.50">
       <Box>
-        <Header headerTitle={headerTitle} />
+        <Header />
       </Box>
       <Box as="main" flex="1" h="100%">
         {children}

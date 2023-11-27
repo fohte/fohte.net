@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Metadata, ResolvingMetadata } from 'next'
 import { notFound } from 'next/navigation'
-import { allPosts, type Post } from 'contentlayer/generated'
+import { allPosts } from 'contentlayer/generated'
 import { useMDXComponent } from 'next-contentlayer/hooks'
 import { ParsedUrlQuery } from 'node:querystring'
 import { mdxComponents } from '../../../../components/mdx'

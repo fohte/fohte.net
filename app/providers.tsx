@@ -9,8 +9,7 @@ import { GoogleAnalytics } from '../components/GoogleAnalytics'
 const globalStyles = css`
   // hack to fix footer to the bottom
   body,
-  html,
-  body > div:first-of-type {
+  html {
     width: 100%;
     height: 100%;
   }
