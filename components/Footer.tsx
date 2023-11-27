@@ -3,11 +3,9 @@ import * as React from 'react'
 import { Image, Flex, Box, Text } from '@chakra-ui/react'
 
 import { Container } from '../components/Container'
-import { FooterSocialList } from './FooterSocialList'
+import { SocialList } from './SocialList'
 
-interface Props {
-  showSocial?: boolean
-}
+interface Props { }
 
 const Copyright: React.FC = () => <Text textAlign="center">© 2020 Fohte</Text>
 
@@ -26,25 +24,23 @@ const Profile: React.FC = () => (
   </Flex>
 )
 
-export const Footer: React.FC<Props> = ({ showSocial }) => (
+export const Footer: React.FC<Props> = () => (
   <Box as="footer" color="gray.500" fontSize="sm">
     <Container py={6}>
-      {showSocial && (
-        <Flex
-          flexDirection={{ base: 'column', md: 'row' }}
-          flex="1"
-          justifyContent="center"
-          alignItems="center"
-          mb={4}
-        >
-          <Box mx={8}>
-            <Profile />
-          </Box>
-          <Box mx={8} mt={{ base: 4, md: 0 }}>
-            <FooterSocialList />
-          </Box>
-        </Flex>
-      )}
+      <Flex
+        flexDirection={{ base: 'column', md: 'row' }}
+        flex="1"
+        justifyContent="center"
+        alignItems="center"
+        mb={4}
+      >
+        <Box mx={8}>
+          <Profile />
+        </Box>
+        <Box mx={8} mt={{ base: 4, md: 0 }}>
+          <SocialList />
+        </Box>
+      </Flex>
       <Box mt={6}>
         <Copyright />
       </Box>

@@ -1,12 +1,10 @@
-'use client'
-
 import * as React from 'react'
 
-import { Box, Heading, Text, Flex, List, ListItem } from '@chakra-ui/react'
+import { Box, Heading, Text, Flex } from '@chakra-ui/react'
 
 import { Container } from '../components/Container'
 import { Link } from '../components/Link'
-import { socialList } from '../utils/socialList'
+import { SocialList } from '../components/SocialList'
 
 interface Props { }
 
@@ -28,16 +26,7 @@ const RootPage: React.FC<Props> = () => (
           <Heading size="md" pb={2} mb={4} borderBottom="1px solid #ddd">
             Socials
           </Heading>
-          <List>
-            {socialList.map((social) => (
-              <ListItem key={social.href} mt={1}>
-                <Link href={social.href} color="gray.700" {...social.linkProps}>
-                  <Box as={social.icon} display="inline" mr={2} />
-                  {social.text}
-                </Link>
-              </ListItem>
-            ))}
-          </List>
+          <SocialList />
         </Box>
         <Box as="section">
           <Heading size="md" pb={2} mb={4} borderBottom="1px solid #ddd">

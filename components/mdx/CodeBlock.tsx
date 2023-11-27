@@ -1,10 +1,12 @@
+'use client'
+
 import * as React from 'react'
 
 import { Box, Icon } from '@chakra-ui/react'
 import { FaRegFileCode } from 'react-icons/fa'
 import { Highlight, Prism, type Language, themes } from 'prism-react-renderer'
 import { onlyText } from 'react-children-utilities'
-;((typeof global !== 'undefined' ? global : window) as any).Prism = Prism
+  ; ((typeof global !== 'undefined' ? global : window) as any).Prism = Prism
 require('prismjs/components/prism-lua')
 
 export interface CodeBlockProps {
