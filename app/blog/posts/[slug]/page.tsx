@@ -45,7 +45,7 @@ export async function generateStaticParams() {
 
 export default function PostPage({ params: { slug } }: Props) {
   const post = allPosts.find((post) => post._raw.flattenedPath === slug)
-  if (!post) return notFound
+  if (!post) notFound()
   const MDXContent = useMDXComponent(post.body.code)
 
   return (
