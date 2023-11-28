@@ -1,15 +1,15 @@
-import { AppProps } from 'next/app'
+'use client'
+
+import { CacheProvider } from '@chakra-ui/next-js'
 import { ChakraProvider } from '@chakra-ui/react'
-
-import { theme } from '../styles/theme'
-
 import { Global, css } from '@emotion/react'
+import { theme } from '../styles/theme'
+import { GoogleAnalytics } from '../components/GoogleAnalytics'
 
 const globalStyles = css`
   // hack to fix footer to the bottom
   body,
-  html,
-  body > div:first-of-type {
+  html {
     width: 100%;
     height: 100%;
   }
@@ -48,12 +48,17 @@ const footnoteStyles = css`
   }
 `
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ChakraProvider theme={theme}>
-      <Global styles={[globalStyles, footnoteStyles]} />
+    <>
+      <CacheProvider>
+        <ChakraProvider theme={theme}>
+          <Global styles={[globalStyles, footnoteStyles]} />
+          {children}
+        </ChakraProvider>
+      </CacheProvider>
 
-      <Component {...pageProps} />
-    </ChakraProvider>
+      <GoogleAnalytics />
+    </>
   )
 }

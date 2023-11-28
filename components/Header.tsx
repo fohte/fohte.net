@@ -3,12 +3,7 @@ import { Box, Text, Heading, Image, Flex, Spacer } from '@chakra-ui/react'
 import { Link } from './Link'
 import { Container } from './Container'
 
-export type Props = {
-  headerTitle?: string
-  headerLink?: string
-}
-
-export const Header: React.FC<Props> = ({ headerTitle, headerLink }) => (
+export const Header: React.FC = () => (
   <Box as="footer">
     <Container py={6}>
       <Flex align="center">
@@ -17,11 +12,9 @@ export const Header: React.FC<Props> = ({ headerTitle, headerLink }) => (
             <Link href="/" boxSize="1.5em">
               <Image src="/icon.png" alt="icon" />
             </Link>
-            {headerTitle && (
-              <Link href={headerLink} color="black">
-                <Text>{headerTitle}</Text>
-              </Link>
-            )}
+            <Link href="/" color="black">
+              <Text>fohte.net</Text>
+            </Link>
           </Flex>
         </Heading>
         <Spacer />

@@ -15,14 +15,14 @@ import {
   Td,
   Kbd,
 } from '@chakra-ui/react'
-import YouTube from 'react-youtube'
-import { css } from '@emotion/react'
 
 import { CodeBlock } from './CodeBlock'
 import { ImgurImage } from './ImgurImage'
 import { Link } from '../Link'
 import { DocsHeading } from './DocsHeading'
 import { List } from './List'
+import { YouTube } from './YouTube'
+import { Tweet } from './Tweet'
 
 export const mdxComponents: MDXComponents = {
   h1: (props) => (
@@ -92,29 +92,7 @@ export const mdxComponents: MDXComponents = {
 
   Kbd: (props) => <Kbd fontWeight="normal" {...props} />,
 
+  Tweet: Tweet,
   ImgurImage: ImgurImage,
-
-  YouTube: (props: any) => {
-    return (
-      <Box
-        css={css`
-          position: relative;
-          width: 100%;
-          height: 0;
-          padding-bottom: 56.25%;
-          overflow: hidden;
-
-          & iframe {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-          }
-        `}
-      >
-        <YouTube {...props} />
-      </Box>
-    )
-  },
+  YouTube: YouTube,
 }
