@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
-    "build": "conc -m 1 bun:build:contentlayer bun:build:next",
+    "build": "NODE_ENV=production conc -m 1 bun:build:contentlayer bun:build:next",
     "build:contentlayer": "contentlayer build",
     "build:next": "next build",
     "start": "next start",
