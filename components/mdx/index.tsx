@@ -22,6 +22,7 @@ import { Link } from '../Link'
 import { DocsHeading } from './DocsHeading'
 import { List } from './List'
 import { YouTube } from './YouTube'
+import { Tweet } from './Tweet'
 
 export const mdxComponents: MDXComponents = {
   h1: (props) => (
@@ -91,6 +92,7 @@ export const mdxComponents: MDXComponents = {
 
   Kbd: (props) => <Kbd fontWeight="normal" {...props} />,
 
+  Tweet: Tweet,
   ImgurImage: ImgurImage,
   YouTube: YouTube,
 }
