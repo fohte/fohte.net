@@ -3,3 +3,6 @@ contents/posts/2018-11-06-hello-hugo.mdx
 contents/posts/2019-07-15-build-helix-keyboard-kit.mdx
 contents/posts/2020-06-07-next-js-mdx.mdx
 contents/posts/2022-05-16-the-3rd-abear-cup.mdx
+
+# 修正しきれていないので一旦対象外にする
+contents/posts/2023-09-18-ghost-text-vim.mdx
