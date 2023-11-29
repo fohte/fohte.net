@@ -1,0 +1,129 @@
+---
+title: 'ISUCON13 に初参加した (49 位、35,524 点) #isucon'
+date: '2023-11-30T00:08:43+09:00'
+tags: [dev]
+description: '2023 年 11 月 25 日 (土) に開催された ISUCON13 へ、同僚の @gedorinku さんと @unblee さんでチームを組み参加した。結果は 694 チーム中 49 位、最終スコアは 35,524 点。'
+---
+
+2023 年 11 月 25 日 (土) に開催された [ISUCON13](https://isucon.net/archives/57566481.html) へ、同僚の [@gedorinku](https://github.com/gedorinku) さんと [@unblee](https://github.com/unblee) さんでチームを組み参加した。
+結果は 694 チーム中 49 位、最終スコアは 35,524 点となった [^ranking]。
+
+[^ranking]: [ISUCON13 受賞チームおよび全チームスコア : ISUCON公式Blog](https://isucon.net/archives/57993937.html)
+
+今回の ISUCON13 本番のリポジトリは [fohte/isucon13](https://github.com/fohte/isucon13) にある。
+
+実装言語は、自分と [@gedorinku](https://github.com/gedorinku) さんが慣れているということで Ruby にした。
+
+# チーム集結編
+
+ISUCON は以前から参加したいと思っていたが、人を集めるところで脱落していた。
+今回は運良く、社内で ISUCON 参加の機運が高まっていたので、じゃあ自分も参加するかと社内で募り、[@gedorinku](https://github.com/gedorinku) さんと [@unblee](https://github.com/unblee) さんでチームを組んだ。
+チーム名は `gefoun` 。特にひねりはなくチームメンバーのハンドルネームを 2 文字ずつ並べた。読み方は謎。
+
+自分は ISUCON に初参加だったが、チームメンバーの 2 人は参加経験ありということで、知見をたくさん教えてもらえた。
+
+# 練習編
+
+11 月に入ってからチームで集まって 2 回練習した。
+
+いずれの練習でも [ISUNARABE](https://isunarabe.org/) で過去問 (ISUCON12) を素振りしていた。
+ISUNARABE は Web UI でポチポチしているとアプリケーションサーバーとベンチマーカーが立ち上がりすぐに練習できる状態になって、体験がとても良かった。
+
+練習では以下のようなことをやっていた。
+
+- Datadog APM で計測・モニタリングするようにした
+  - Datadog APM は便利だけど高いという学びがあった
+  - お試しで入れてみよう、で入れたら 1 万円くらい課金されて涙目になった
+- N+1 を解消する練習をした
+- 本番でのデプロイフローを決めた
+  - 3 サーバーあるので、一人 1 サーバー持って自由にデプロイして良い、ということにした
+
+チーム練習以外では、片手間で以下のようなこともやっていた。
+
+- 以下の書籍を読んだ
+  - [達人が教えるWebパフォーマンスチューニング 〜ISUCONから学ぶ高速化の実践](https://www.amazon.co.jp/dp/4297128462?&linkCode=ll1&tag=fohte-22&linkId=870e70c44f0b6a41e59f50dfc6e78ee6&language=ja_JP&ref_=as_li_ss_tl)
+- デプロイスクリプトを盆栽した (楽しい)
+  - https://github.com/fohte/isucon13/blob/master/Makefile
+
+# 本番の動き
+
+## 作戦
+
+### 役割分担
+
+- 自分: アプリ (Ruby) 周りをいじる
+- [@gedorinku](https://github.com/gedorinku) さん: アプリ (Ruby) 周りをいじる
+- [@unblee](https://github.com/unblee) さん: インフラ (nginx, DB など) をいじる
+
+### モニタリング
+
+Datadog APM でなんとかする方針にした。
+練習ですでに課金されていたのと、ホスト数は練習時より増えるわけではなく請求額がさらに増えることはないということで、本番でも Datadog APM を使った。
+
+ホスト数課金を減らすために、「基本的に一人 1 台サーバーをベンチマーク用に使っているが 1 台だけに APM を導入しておいて、APM を使いたいときはそのサーバーを使う」という運用にした。
+
+Datadog APM を見て、リクエストが多く、時間がかかっているものを上からなんとかしていく、という方針。
+
+## タイムライン
+
+- (9:30) 集合
+- (10:00) 競技開始 & サーバー上のファイルの Git 管理などの準備
+- (10:21) 初期ベンチマーク (4,102 点)
+- (10:24) Datadog APM 導入 ([#1](https://github.com/fohte/isucon13/pull/1))
+  - これ以降、APM を有効かしたサーバーでのベンチマークは点数が落ちることになる
+- (11:29) `GET /api/livestream/search` の改善 ([#4](https://github.com/fohte/isucon13/pull/4)) (3,762 点)
+- (12:01) `fill_livecomment_response` の N+1 解消 ([#5](https://github.com/fohte/isucon13/pull/5)) (3,331 点)
+- (12:43) `fill_user_response` の N+1 解消 ([#6](https://github.com/fohte/isucon13/pull/6)) (3,468 点)
+- (13:09) `fill_reaction_response` の N+1 解消 ([#9](https://github.com/fohte/isucon13/pull/9)) (4,441 点)
+- (13:18) アイコン画像を DB 格納 -> 静的ファイル化 ([#10](https://github.com/fohte/isucon13/pull/10)) (5,535 点)
+- (13:25) `fill_livecomment_response` の N+1 解消 ([#7](https://github.com/fohte/isucon13/pull/7)) (8,830 点)
+- (13:47 頃) ベンチマークに障害が発生し aborted が多発するようになる
+- (14:23) ベンチマーク復旧 & `GET /api/user/:username/statistic` の N+1 解消 ([#12](https://github.com/fohte/isucon13/pull/12)) (11,239 点)
+- (15:12) `livestream_tags` table の外部キーに index を張る ([#16](https://github.com/fohte/isucon13/pull/16)) (13,783 点)
+- (15:30) ここまでの N+1 の解消での実装漏れを修正 ([#15](https://github.com/fohte/isucon13/pull/15)) (16,028 点)
+- (16:00) すべてのテーブルの外部キーに index を張る ([#19](https://github.com/fohte/isucon13/pull/19)) (16,374 点)
+- (16:18) アイコン画像を nginx で配信する ([#18](https://github.com/fohte/isucon13/pull/18)) (22,122 点)
+- (16:31) `POST /api/livestream/:livestream_id/livecomment` の NG 判定ロジックの N+1 解消 ([#21](https://github.com/fohte/isucon13/pull/21)) (23,986 点)
+- (17:02) `fill_livestream_response` の再計算を防ぐ ([#22](https://github.com/fohte/isucon13/pull/22)) (24,142 点)
+- (17:27) NG 判定ロジック改善時のバグ修正 ([#24](https://github.com/fohte/isucon13/pull/24)) (24,823 点)
+- (17:52) アクセスログ等のログ出力を無効化 & APM 無効化 ([#23](https://github.com/fohte/isucon13/pull/23)) (36,118 点)
+- (18:00) 競技終了
+
+地道な N+1 改善とアイコンの静的ファイル化 & nginx 配信が特にスコア改善に大きく寄与した。
+あとログの無効化と APM を外しただけで 10,000 点近く伸びたのは驚いた。
+
+### 最終的な構成
+
+- 1 台目: 全部 (nginx、アプリケーション、アプリ用 MySQL、DNS 用 MySQL)
+- 2 台目: なにもしていない
+- 3 台目: なにもしていない
+
+### やろうとしていたができなかったこと
+
+- `POST /api/livestream/:livestream_id/moderate` の N+1 改善 ([#20](https://github.com/fohte/isucon13/pull/20))
+  - NG コメント判定ロジックの N+1 を修正しようとしていたが、NG コメント誤判定が起きているのかスコアがかなり落ちた
+- サーバー分割
+  - 全くサーバー分割の練習をしていなかったのが敗因
+  - ラスト 1 時間で MySQL だけでもアプリケーションと分離しようとしていたが、ハマりまくってしまいできなかった
+- ブラウザー上でのテスト
+  - 動作チェックのためにブラウザー上でテストしようとしていたが、コメント投稿など一部の機能が動かなかった
+    - N+1 解消前だと重すぎてアクセスできないのか、実装が壊れているのかが判断できず、デバッグに時間を使ってしまった
+  - debugger を挟んでのテストなどをしたかったができなかったのが残念
+- DNS 水責め攻撃対策
+  - そもそも DNS クエリは Datadog APM で計測できていなかったため、どの程度 DNS 水責め攻撃が負荷を与えているのか認識できておらず、優先度が下がっていた
+  - 片手間で改善しようとはしたが、「PowerDNS ってなんだ? そもそも DNS サーバーの実装ってどうなっているんだっけ?」というところで詰まってしまった
+
+# 初めて参加した感想
+
+自分は今回が初参加だったが、694 チーム中 49 位という比較的好成績を収められて嬉しい。
+
+Ruby でも全然なんとかなるということが分かったのも良かった。Ruby は速い。
+サーバー分割と DNS サーバーをなんとかできていれば、もっと点数を伸ばせたはずなので、悔しい。
+
+[自作 Makefile](https://github.com/fohte/isucon13/blob/master/Makefile) はなかなかに便利だった。頻出コマンドを make で実行できると楽。チーム内でコマンドを共有する手間も省ける。作って良かった。
+
+ISUCON という競技への感想としては、8 時間 3 人で同じ物事に全力で取り組む、という体験がとても楽しかった。
+スコアが伸びていくというのもゲーム感覚で楽しく、特に自分の改善によってスコアを大きく伸ばせたときが最高だった。
+
+次回も絶対に参加したい。
+次回は今回の 100,000 点程度の水準に到達できるように学んでいく所存。
