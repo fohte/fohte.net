@@ -17,7 +17,6 @@ import {
 } from '@chakra-ui/react'
 
 import { CodeBlock } from './CodeBlock'
-import { ImgurImage } from './ImgurImage'
 import { Image } from './Image'
 import { Link } from '../Link'
 import { DocsHeading } from './DocsHeading'
@@ -95,6 +94,5 @@ export const mdxComponents: MDXComponents = {
   Kbd: (props) => <Kbd fontWeight="normal" {...props} />,
 
   Tweet: Tweet,
-  ImgurImage: ImgurImage,
   YouTube: YouTube,
 }
