@@ -7,24 +7,33 @@ import { css } from '@emotion/react'
 
 import { theme } from '../../styles/theme'
 
-type ImgurImageProps = {
-  id: string
-  caption: string
-  alt: string
-  width: number
-  height: number
-  extension: 'jpg' | 'png' | 'gif'
+// e.g. https://assets.fohte.net/images/foobar.png
+//   => https://assets.fohte.net/images/foobar.webp
+const generateWebpUrl = (url: URL): URL => {
+  const webpUrl = new URL(url.href)
+
+  webpUrl.pathname = `${webpUrl.pathname.split('.').shift()}.webp`
+
+  return webpUrl
 }
 
-export const ImgurImage: React.FC<ImgurImageProps> = ({
-  id,
-  caption,
-  alt,
-  width,
-  height,
-  extension,
-}) => {
+type ImageProps = React.ImgHTMLAttributes<HTMLImageElement>
+
+export const Image: React.FC<ImageProps> = ({ alt, src }) => {
+  if (src == null) {
+    throw new Error('Image src is required')
+  }
+
+  const url = new URL(src)
+  const params = url.searchParams
+  const width = Number(params.get('w'))
+  const height = Number(params.get('h'))
+  params.delete('w')
+  params.delete('h')
+
   const aspectRatio = (height / width) * 100
+
+  const extension = url.pathname.split('.').pop()
 
   const priotizeWebp =
     extension == null || extension === 'png' || extension === 'jpg'
@@ -55,17 +64,10 @@ export const ImgurImage: React.FC<ImgurImageProps> = ({
         >
           <picture>
             {priotizeWebp && (
-              <source
-                srcSet={`https://i.imgur.com/${id}.webp`}
-                type="image/webp"
-              />
+              <source srcSet={generateWebpUrl(url).href} type="image/webp" />
             )}
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              alt={alt}
-              src={`https://i.imgur.com/${id}.${extension ?? 'jpg'}`}
-              loading="lazy"
-            />
+            <img alt={alt} src={url.href} loading="lazy" />
           </picture>
         </Box>
       </Box>
@@ -78,7 +80,7 @@ export const ImgurImage: React.FC<ImgurImageProps> = ({
           font-size: 0.9rem;
         `}
       >
-        {caption}
+        {alt}
       </Box>
     </Box>
   )

@@ -1,6 +1,7 @@
 import { defineDocumentType, makeSource } from 'contentlayer/source-files'
 import remarkGfm from 'remark-gfm'
 import remarkBreaks from 'remark-breaks'
+import remarkUnwrapImages from 'remark-unwrap-images'
 
 export const Post = defineDocumentType(() => ({
   name: 'Post',
@@ -28,6 +29,16 @@ export default makeSource({
   contentDirPath: 'contents/posts',
   documentTypes: [Post],
   mdx: {
-    remarkPlugins: [remarkGfm, remarkBreaks],
+    remarkPlugins: [
+      // enable GitHub Flavored Markdown
+      remarkGfm,
+
+      // enable GitHub-like line breaks
+      remarkBreaks,
+
+      // prevent <img> and <figure> tags from being wrapped in <p> tags
+      // to avoid invalid HTML and hydration errors
+      remarkUnwrapImages,
+    ],
   },
 })

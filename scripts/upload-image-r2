@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+image_path="$1"
+extension="${image_path##*.}"
+
+checksum="$(openssl dgst -sha1 -binary "$image_path" | openssl base64 | tr '+/' '-_' | tr -d '=')"
+put_base_path="fohte-net-public-assets/images"
+
+put_object() {
+  local image_path="$1"
+  wrangler r2 object put "$put_base_path/$checksum.${image_path##*.}" --file "$image_path"
+}
+
+# create webp (needs to be installed imagemagick)
+if ! command -v convert &> /dev/null; then
+  echo 'error: imagemagick is not installed. Please install it first.' >&2
+  exit 1
+fi
+
+case "$extension" in
+  jpg | jpeg | png)
+    convert "$image_path" -quality 80 -define webp:lossless=false "${image_path%.*}.webp"
+    put_object "${image_path%.*}.webp"
+    ;;
+  *) ;;
+esac
+
+put_object "$image_path"
