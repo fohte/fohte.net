@@ -36,9 +36,9 @@
     "sass": "1.69.5"
   },
   "devDependencies": {
-    "@types/react": "18.2.40",
+    "@types/react": "18.2.41",
     "@types/react-dom": "18.2.17",
-    "bun-types": "1.0.14",
+    "bun-types": "1.0.15",
     "concurrently": "8.2.2",
     "eslint": "8.55.0",
     "eslint-config-next": "14.0.3",
