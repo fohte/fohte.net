@@ -30,7 +30,7 @@
     "react-twitter-embed": "4.0.4",
     "react-youtube": "10.1.0",
     "remark-breaks": "4.0.0",
-    "remark-gfm": "3.0.1",
+    "remark-gfm": "4.0.0",
     "remark-unwrap-images": "^4.0.0",
     "remeda": "1.29.0",
     "sass": "1.69.5"
