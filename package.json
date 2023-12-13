@@ -32,7 +32,7 @@
     "remark-breaks": "4.0.0",
     "remark-gfm": "3.0.1",
     "remark-unwrap-images": "^4.0.0",
-    "remeda": "1.29.0",
+    "remeda": "1.30.0",
     "sass": "1.69.5"
   },
   "devDependencies": {
