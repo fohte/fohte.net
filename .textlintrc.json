@@ -8,7 +8,9 @@
       "ja-no-mixed-period": {
         "periodMark": "。",
         "allowPeriodMarks": [":"]
-      }
+      },
+      "ja-no-weak-phrase": false,
+      "max-comma": false
     }
   },
   "plugins": {
