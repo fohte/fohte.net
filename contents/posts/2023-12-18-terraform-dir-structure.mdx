@@ -1,0 +1,258 @@
+---
+title: '理想の Terraform ディレクトリ (tfstate) 分割設計を語りたい'
+date: '2023-12-18T00:56:34+09:00'
+tags: [dev]
+description: |
+  terraform Advent Calendar 2023 の 18 日目の記事です。幾度となく試行錯誤して「一旦これで良いのでは」と考えている tfstate 分割設計について語ります。
+---
+
+この記事は [terraform Advent Calendar 2023](https://qiita.com/advent-calendar/2023/terraform) の 18 日目の記事です。
+昨日の記事は、sogaoh さんによる「[terraform-google-modules で構築したリソースを半年後に再管理する準備](https://zenn.dev/sogaoh/articles/23-12-17-8d09e44d1170d4)」でした。
+
+---
+
+こんにちは、[Fohte](https://social.fohte.net/@fohte) です。
+
+今回は、5 年ほど触ってきた Terraform で、幾度となく試行錯誤して「一旦これで良いのでは」と考えている tfstate 分割設計について語ります。
+
+最初に予防線を張るのですが、Terraform の tfstate 分割設計は、どこでも適用できる汎用的で最強の構成というものは存在しません。
+チームや権限分割のやり方によって、理想的な tfstate 分割設計は多種多様だと考えています。
+
+そのため、今回は以下の環境を前提とします。ただ、これに完全には当てはまらなくとも、少しでも設計の参考になれば幸いです。
+
+- Terraform のコードを変更する人が、Terraform で変更するリソースに対するフル権限を持っている
+  - 具体的には、インフラチームが Terraform コードを触る前提
+
+# 最初に結論: monorepo かつ tfstate は極力分割すべき
+
+まず最初に結論ですが、以下の指針が良いと考えています。
+
+- Terraform コード全てを束ねた monorepo を用意する
+- monorepo 内に tfstate をなるべく細かく (ただし細かすぎることなく) 分割する
+
+## なぜ monorepo にするべきなのか
+
+monorepo にすることで、以下のメリットがあります。
+
+- CI/CD が共通化できる
+- Terraform コードの置き場に悩まない
+  - tfstate 分割単位には悩むが、tfstate さえ分割していれば良い
+  - Terraform コードを見に行きたい -> 特定のリポジトリを参照する、という体験が楽
+
+Terraform の場合 tfstate さえ分割すればだいたいのケースでは十分だと考えており、CI/CD の共通化など monorepo の利点を活かしやすいと考えています。
+
+## なぜ細かく tfstate を分割するべきなのか
+
+簡単な tfstate 分割設計として、tfstate を分割しない (すべて同じ tfstate にする) という方法が考えられます。
+
+これは、Terraform を導入した当初は問題ないことがほとんどですが、運用が進んで行くにつれてすぐに限界を迎えてしまいます。
+なぜかというと、「tfstate が大きくなるにつれて `terraform plan/apply` が遅くなる」という開発生産性への悪影響があるためです。
+
+またこれだけでなく、権限分割上の課題もあります。
+仮に全てがひとつの tfstate だと、「開発環境のリソースはインフラチーム以外も変更しても良いけど、本番環境はインフラチームのみに絞りたい」といった権限分割は難しくなります。
+少なくとも環境ごとには tfstate を分割しておいたほうが良いでしょう。
+
+### 余談: 巨大 tfstate での `plan/apply` の高速化
+
+`-target` オプションを利用して、変更があるリソースだけを明示するという解決策もあります。
+基本的にこれでうまくいくのですが、「変更があるリソースはなにか」を全て漏れなく網羅することはしばしば難しく、`-target` の指定漏れによるトラブルが起きがちです。
+そのため、`-target` 分割はやめて、tfstate 自体を分割してしまったほうが良いと筆者は考えています。
+
+## なぜ細かすぎる tfstate 分割は避けた方が良いのか
+
+巨大な tfstate は良くない、ということは前述しましたが、逆に分割しすぎても困るケースがあります。
+
+具体的には、「tfstate をまたいだリソースの参照が大変」という問題があります。
+
+例えば、あるサービス `super-webapp` を AWS で運用しているとして、仮に EC2 インスタンスと ECS クラスターがそれぞれ 1 つずつあるとします。
+このとき `super-webapp/ec2`, `super-webapp/ecs` という単位で tfstate を分割することを考えます。
+これは一見分かりやすいのですが、「ECS クラスターに対し EC2 インスタンスからのアクセスを許可する」といったリソースを定義するときに、tfstate をまたぐ必要があります。
+これが 1 つくらいであれば許容できますが、往々にして相互に tfstate を参照する必要が出てきます。
+Terraform コードを書く上ではあまり困らないのですが、相互に参照されている状態は、どこの tfstate で定義されているのか分からなくなり、可読性に難をもたらします。
+
+ただし例外として、VPC のような、複数の tfstate から一方向で参照されうる共通リソースは、それ単体で tfstate を分割しても良いと考えています。
+一方向であれば、可読性に影響をほとんど与えないと筆者は考えています。
+
+## 具体例
+
+これらの考えを元に具体的な例を考えます。
+まず monorepo として `terraform` というリポジトリを作っておき、その中に以下のようにディレクトリを切るというイメージです。
+
+```text
+terraform/ (repository)
+  fohte.net/
+    dev/
+      main.tf
+    staging/
+      main.tf
+    production/
+      main.tf
+  super-webapp/
+    dev/
+      main.tf
+    staging/
+      main.tf
+    production/
+      main.tf
+  vpc/
+    dev/
+      main.tf
+    staging/
+      main.tf
+    production/
+      main.tf
+```
+
+つまり、「アプリケーションや役割などの粒度 (例: fohte.net, super-webapp, vpc)」「環境 (例: dev, staging, production)」で分けています。
+
+### 分割単位 1: アプリケーションや役割などの粒度
+
+ここは適切な粒度が最もわかりにくく議論になりやすい部分だと感じています。
+
+「アプリケーション」というと規模によっては粒度が大きすぎる場合もあります。その場合は機能単位や役割単位で分けると良いかもしれません。
+ただし、前述の通りあまりにも分割しすぎると tfstate をまたいだ参照が発生するケースで大変です。「参照が発生するか」で分割単位を決めるのも一案かもしれません。
+
+#### 余談: さらなるネストはしないほうがよい
+
+また、ここの分割単位をさらにネストした形で分割することは避けた方が良いと考えています。
+これは単に、人間にとっての分かりやすさのためです。一部の tfstate のみネストしていると、全体のディレクトリ構造がわかりにくくなります。
+
+例えば、ネストした場合は以下のようなディレクトリ構造になります。
+
+```text
+terraform/ (repository)
+  super-webapp/
+    main.tf
+    admin/
+      main.tf
+    front/
+      main.tf
+```
+
+簡略化しているため一見分かりやすく感じますが、環境ごとにさらに分割するとカオスになります。
+
+```text
+terraform/ (repository)
+  super-webapp/
+    dev/
+      main.tf
+    staging/
+      main.tf
+    production/
+      main.tf
+    admin/
+      dev/
+        main.tf
+      staging/
+        main.tf
+      production/
+        main.tf
+    front/
+      dev/
+        main.tf
+      staging/
+        main.tf
+      production/
+        main.tf
+```
+
+この状態では、どこまで掘っていけば最奥地の tfstate なのか、判断が難しくなります。
+
+解決策として、以下のようにフラットな階層構造にすると良いでしょう。
+
+```text
+terraform/ (repository)
+  super-webapp-core/
+    dev/
+      main.tf
+    staging/
+      main.tf
+    production/
+      main.tf
+  super-webapp-admin/
+    dev/
+      main.tf
+    staging/
+      main.tf
+    production/
+      main.tf
+  super-webapp-front/
+    dev/
+      main.tf
+    staging/
+      main.tf
+    production/
+      main.tf
+```
+
+### 分割単位 2: 環境
+
+これも前述したとおりですが、以下の理由から環境ごとにディレクトリは分割しておいたほうが良いと考えています。
+
+- 権限分割ができる
+  - 例: 開発環境はインフラチーム以外にも変更できるようにする
+- 意図しない変更によるトラブルを回避しやすくなる
+  - 例: 開発環境のリソースのみを変更したかったが、気付かずに本番環境まで変更されてしまった
+
+仮に現時点で環境ごとの権限分割ができていなくても、先んじてディレクトリ分割をしておくのは悪くありません。
+将来的に権限分割できる余地を残したり、Terraform コードを変更する上でのトラブル防止のためにも、先にディレクトリ分割はしたほうが良いでしょう。
+
+#### 余談: 異なる環境での定義を共通化するために module を使うことは避けた方が良い
+
+環境ごとに tfstate を分割すると、リソース定義が冗長になるケースがあります。
+
+例えば EC2 インスタンスを定義する際、同じようなリソース定義をすることになるでしょう。
+
+```hcl
+# dev 環境
+resource "aws_instance" "web" {
+  ami           = "ami-abc123"
+  instance_type = "t2.micro"
+  tags = {
+    Name = "web"
+    env  = "dev"
+  }
+}
+
+# production 環境
+resource "aws_instance" "web" {
+  ami           = "ami-abc123"
+  instance_type = "t2.micro"
+  tags = {
+    Name = "web"
+    env  = "production"
+  }
+}
+```
+
+しかし、この冗長な記述をなくすためだけに、module を作成して共通化することは避けた方が良いでしょう。
+DRY 原則に従えば冗長な記述はなくしたほうが良いのですが、すべての環境が全く同じ設定になることは珍しく、しばしば条件分岐が発生するためです。
+
+例えば上記の例で、インスタンス定義を module に分割した上で、production 環境だけインスタンスタイプを強いものにしたい、というケースを考えます。
+
+```hcl
+# module
+resource "aws_instance" "web" {
+  ami           = "ami-abc123"
+  instance_type = var.env == "production" ? "r5.large" : "t2.micro"
+  tags = {
+    Name = "web"
+    env  = var.env
+  }
+}
+```
+
+このような条件分岐が発生します。この例では 1 つのリソースの 1 つの設定だけで条件分岐が発生していますが、実際の環境ではより複雑になるでしょう。
+特に、「特定の環境だけリソースの定義が不要・必要」といったケースではさらに複雑になります。
+
+従って、異なる環境での定義を共通化するために module を使うことは避けた方が良いです。
+その代わり、DRY 原則には違反しますが、単純にコピペ実装してしまったほうが、かえって可読性が向上するケースも多くあります。
+
+# 最後に
+
+筆者が考えた最強の tfstate 分割設計について語りました。
+組織規模にもよりますが、基本的な考えとしてはある程度流用ができる設計だと考えています。
+
+新しく tfstate 設計を考える際や、設計を見直す際の一助となれば幸いです。[^1]
+
+[^1]: 弊社の tfstate も綺麗にしていきたい

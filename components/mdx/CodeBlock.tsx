@@ -8,6 +8,7 @@ import { Highlight, Prism, type Language, themes } from 'prism-react-renderer'
 import { onlyText } from 'react-children-utilities'
 ;((typeof global !== 'undefined' ? global : window) as any).Prism = Prism
 require('prismjs/components/prism-lua')
+require('prismjs/components/prism-hcl')
 
 export interface CodeBlockProps {
   className?: string
