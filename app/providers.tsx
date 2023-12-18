@@ -13,6 +13,10 @@ const globalStyles = css`
     width: 100%;
     height: 100%;
   }
+
+  p {
+    word-break: auto-phrase;
+  }
 `
 
 // https://github.com/syntax-tree/mdast-util-to-hast/tree/dfd724a5e62fc270e71bc2d5a2e4471be0c5ef5b#css
