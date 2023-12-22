@@ -1,0 +1,95 @@
+---
+title: 'お気に入りの Neovim プラグイン 5 選'
+date: '2023-12-22T00:39:58+09:00'
+tags: [dev]
+description: |
+  Vim Advent Calendar 2023 の 22 日目の記事です。
+---
+
+この記事は [Vim Advent Calendar 2023](https://qiita.com/advent-calendar/2023/vim) の 22 日目の記事です。
+
+---
+
+こんにちは、Fohte です。
+
+Vim を使い始めて早 8 年、様々なプラグインを試してきました。今回は、今使っているプラグインから、中でもおすすめしたいプラグインを紹介します。
+なお、筆者は Neovim を使っているため、Neovim 向け (非 Vim) プラグインを中心に紹介します。
+
+# おすすめのプラグイン 5 選
+
+## telescope.nvim
+
+- [nvim-telescope/telescope.nvim: Find, Filter, Preview, Pick. All lua, all the time.](https://github.com/nvim-telescope/telescope.nvim)
+
+ファイルをインタラクティブに検索して開く機能を提供するプラグインです。いわゆる fuzzy finder です。
+もはやこれがないと、ファイルを開くことすらままならない体になりました。
+
+![telescope.nvim を使っている様子](https://assets.fohte.net/images/cPBv8PMOcl_XPKvtaTH98MPRLmM.png?w=1000&h=610)
+
+[telescope-fzf-native.nvim](https://github.com/nvim-telescope/telescope-fzf-native.nvim) も導入すると、fzf でクエリできるようになります。`'` による完全一致などが使えて便利。
+
+## modes.nvim
+
+- [mvllow/modes.nvim: Prismatic line decorations for the adventurous vim user](https://github.com/mvllow/modes.nvim)
+
+現在のモードによって、カーソル行の背景色を変更するプラグインです。
+
+![背景色の例 (左から normal, insert, visual モード)](https://assets.fohte.net/images/gnOy9kC9ywQbRaPGkXNTxRZfUjg.png?w=460&h=290)
+
+これは想像以上に便利で、[lualine](https://github.com/nvim-lualine/lualine.nvim) などでステータスラインにモードを表示する必要がなくなりました。
+カーソルから目を離さなくても現在のモードを瞬時に判別できるようになったのが、とても良い点です。
+
+## nvim-base16
+
+- [RRethy/nvim-base16: Neovim plugin for building a sync base16 colorscheme. Includes support for Treesitter and LSP highlight groups.](https://github.com/RRethy/nvim-base16)
+
+[base16](https://github.com/chriskempson/base16) というカラーパレットを扱うための考え方 (フレームワーク) があります。それを Neovim で実現するプラグインです。
+フレームワークといえど、使い勝手としては純粋な colorscheme のプラグインです。
+[Treesitter](https://github.com/nvim-treesitter/nvim-treesitter) に対応していたりもします。
+
+Vim の場合、テーマごとにプラグインが分かれており、実装もそれぞれです。nvim-base16 を使えば、このプラグインひとつで様々なテーマの色を定義できます。
+ビルトインでメジャーどころの様々なカラーテーマも定義されています。(README 参照)
+
+また、自分でテーマを定義することも簡単にできます。以下は README からの引用です。
+
+```lua
+require('base16-colorscheme').setup({
+    base00 = '#16161D', base01 = '#2c313c', base02 = '#3e4451', base03 = '#6c7891',
+    base04 = '#565c64', base05 = '#abb2bf', base06 = '#9a9bb3', base07 = '#c5c8e6',
+    base08 = '#e06c75', base09 = '#d19a66', base0A = '#e5c07b', base0B = '#98c379',
+    base0C = '#56b6c2', base0D = '#0184bc', base0E = '#c678dd', base0F = '#a06949',
+})
+```
+
+## vim-jqplay
+
+- [bfrg/vim-jqplay: Run jq interactively in Vim](https://github.com/bfrg/vim-jqplay)
+
+インタラクティブに jq を実行できるプラグインです。
+jq の入力となる JSON と、それに対するクエリ、またクエリの結果をリアルタイムに表示できます。
+
+![jqplay を実行している様子](https://assets.fohte.net/images/_6OsUK6TiddjoeC2JpWffDyMydQ.png?w=1000&h=610)
+
+筆者は普段クラウドインフラを触ることが多く、よく JSON こねくり職人になります。
+jq クエリが複雑になることも多く、Vim で書きたい場面も出てきます。そんなときに便利なのが、この vim-jqplay です。
+
+jq をインタラクティブに実行する環境として、例えば [jqplay.org](https://jqplay.org/) という Web アプリもあります。しかし、こちらは JSON やクエリを API リクエストしていて、業務で利用するにはセキュリティ面での不安があります。
+ブラウザで完結して API リクエストは投げずに jq を実行する Web アプリは他にあるのですが、やはりローカルで実行するのが一番安心できます。
+
+## hop.nvim
+
+- [smoka7/hop.nvim: Neovim motions on speed!](https://github.com/smoka7/hop.nvim)
+
+「ウィンドウ内の任意の場所にカーソルを移動する」という操作を簡略化するプラグインです。[EasyMotion](https://github.com/easymotion/vim-easymotion) の後継で、EasyMotion に比べると軽量で高速という印象があります。
+`/` や `?` での検索に比べて、移動に `n` や `N` 連打ではなく、浮かび上がるランダムな数文字を入力して直接移動するという点が異なります。
+
+![hop.nvim を実行している様子](https://assets.fohte.net/images/YGf9_1TRcDt5OXnsvkTIDXK1rp4.png?w=1000&h=732)
+
+なんだかんだ `/` からの `n` 連打はしがちなのですが、使いこなせると便利な場面も多々あります。
+筆者はあまり使いこなせていないのですが、「任意の行頭に移動する」という操作は hop.nvim でよく行っています。
+
+# 最後に
+
+おすすめしたいプラグインを 5 つ厳選して紹介しました。
+
+よく紹介されがちなプラグインはあえて紹介しませんでしたが、手に馴染む新しいプラグインの発見の一助になれば幸いです。
