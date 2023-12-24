@@ -13,7 +13,7 @@
   "dependencies": {
     "@chakra-ui/next-js": "2.2.0",
     "@chakra-ui/react": "2.8.2",
-    "@emotion/react": "11.11.1",
+    "@emotion/react": "11.11.3",
     "@emotion/styled": "11.11.0",
     "@types/mdx": "2.0.10",
     "contentlayer": "0.3.4",
@@ -48,6 +48,7 @@
     "typescript": "5.3.3"
   },
   "resolutions": {
+    "@emotion/react": "11.11.3",
     "@types/react": "18.2.45",
     "@types/react-dom": "18.2.18"
   },
