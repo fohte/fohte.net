@@ -1,6 +1,6 @@
 import { defineDocumentType, makeSource } from 'contentlayer/source-files'
-import remarkGfm from 'remark-gfm'
 import remarkBreaks from 'remark-breaks'
+import remarkGfm from 'remark-gfm'
 import remarkUnwrapImages from 'remark-unwrap-images'
 
 export const Post = defineDocumentType(() => ({

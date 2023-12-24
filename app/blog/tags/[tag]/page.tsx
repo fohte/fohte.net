@@ -1,13 +1,13 @@
-import * as React from 'react'
-
-import { flatMap } from 'remeda'
-import { notFound } from 'next/navigation'
-import { Heading } from '@chakra-ui/react'
 import { ParsedUrlQuery } from 'node:querystring'
 
+import { Heading } from '@chakra-ui/react'
 import { allPosts } from 'contentlayer/generated'
-import { PostList } from '../../../../components/PostList'
+import { notFound } from 'next/navigation'
+import * as React from 'react'
+import { flatMap } from 'remeda'
+
 import { Container } from '../../../../components/Container'
+import { PostList } from '../../../../components/PostList'
 import { findPostFrontmatter } from '../../../../utils/contentlayer'
 
 type Props = {

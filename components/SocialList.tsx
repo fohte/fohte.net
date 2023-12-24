@@ -1,10 +1,9 @@
 'use client'
 
-import * as React from 'react'
-
 import { Box, List, ListItem } from '@chakra-ui/react'
-import { FaTwitter, FaGithub, FaMastodon } from 'react-icons/fa'
+import * as React from 'react'
 import { IconType } from 'react-icons'
+import { FaGithub, FaMastodon, FaTwitter } from 'react-icons/fa'
 
 import { Link } from './Link'
 

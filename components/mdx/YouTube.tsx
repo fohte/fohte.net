@@ -1,10 +1,9 @@
 'use client'
 
-import * as React from 'react'
-
 import { Box } from '@chakra-ui/react'
-import ReactYouTube from 'react-youtube'
 import { css } from '@emotion/react'
+import * as React from 'react'
+import ReactYouTube from 'react-youtube'
 
 type Props = React.ComponentProps<typeof ReactYouTube>
 

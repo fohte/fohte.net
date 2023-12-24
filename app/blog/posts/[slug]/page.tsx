@@ -1,15 +1,16 @@
-import * as React from 'react'
+import { ParsedUrlQuery } from 'node:querystring'
+
+import { Box, Divider, Heading, Text } from '@chakra-ui/react'
+import { allPosts } from 'contentlayer/generated'
 import { Metadata, ResolvingMetadata } from 'next'
 import { notFound } from 'next/navigation'
-import { allPosts } from 'contentlayer/generated'
 import { useMDXComponent } from 'next-contentlayer/hooks'
-import { ParsedUrlQuery } from 'node:querystring'
-import { mdxComponents } from '../../../../components/mdx'
-import { Heading, Text, Box, Divider } from '@chakra-ui/react'
+import * as React from 'react'
 
+import { Container } from '../../../../components/Container'
+import { mdxComponents } from '../../../../components/mdx'
 import { PostFooterProfile } from '../../../../components/PostFooterProfile'
 import { TagList } from '../../../../components/TagList'
-import { Container } from '../../../../components/Container'
 import { formatDate } from '../../../../utils/date'
 
 type Props = {

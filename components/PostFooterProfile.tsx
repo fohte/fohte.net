@@ -1,4 +1,4 @@
-import { Image, Flex, Box, Text } from '@chakra-ui/react'
+import { Box, Flex, Image, Text } from '@chakra-ui/react'
 
 import { SocialList } from '../components/SocialList'
 

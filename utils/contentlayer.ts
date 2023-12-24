@@ -1,5 +1,5 @@
-import { pick } from 'remeda'
 import { type Post } from 'contentlayer/generated'
+import { pick } from 'remeda'
 
 export type PostFrontmatter = Pick<
   Post,

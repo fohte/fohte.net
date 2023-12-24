@@ -1,10 +1,9 @@
+import { Box, Heading, List, ListItem, Text } from '@chakra-ui/react'
 import * as React from 'react'
 
-import { Heading, Text, List, ListItem, Box } from '@chakra-ui/react'
-
-import { type PostFrontmatter } from '../utils/contentlayer'
 import { Link } from '../components/Link'
 import { TagList } from '../components/TagList'
+import { type PostFrontmatter } from '../utils/contentlayer'
 import { formatDate } from '../utils/date'
 
 export interface PostListProps {
