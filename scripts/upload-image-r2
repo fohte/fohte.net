@@ -48,3 +48,5 @@ echo 'uploading original resized image...' >&2
 put_object "$image_path" >&2
 
 echo 'done!' >&2
+
+echo "![image](https://assets.fohte.net/images/$checksum.$extension?w=$width&h=$height)"
