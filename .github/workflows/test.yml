@@ -21,14 +21,13 @@ jobs:
         id: app-token
         with:
           app-id: ${{ secrets.APP_ID }}
-          private-key: ${{ secrets.PRIVATE_KEY }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
         if: steps.files-formatted.outputs.formatted == 'true'
 
       - name: commit formatted files
         run: |
-          git diff-index --quiet HEAD && exit 0
-          git config user.email 'github-actions[bot]@users.noreply.github.com'
-          git config user.name 'github-actions[bot]'
+          git config user.email '39506169+fohte-bot[bot]@users.noreply.github.com'
+          git config user.name 'fohte-bot[bot]'
           git add .
           git commit -m 'style: $ bun run format'
           git push
