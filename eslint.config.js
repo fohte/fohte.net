@@ -1,5 +1,4 @@
 import { FlatCompat } from '@eslint/eslintrc'
-
 import { mainConfig, typescriptConfig } from '@fohte/eslint-config'
 
 const compat = new FlatCompat()
