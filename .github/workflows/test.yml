@@ -12,5 +12,12 @@ jobs:
       - uses: oven-sh/setup-bun@v1
       - uses: reviewdog/action-setup@v1
       - run: bun install --frozen-lockfile
-
+      - run: bun run format
+      - run: |
+          git diff-index --quiet HEAD || exit 0
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git config user.name 'github-actions[bot]'
+          git add .
+          git commit -m 'style: $ bun run format'
+          git push
       - run: bun run test
