@@ -1,6 +1,5 @@
+import { Box, Flex, Heading, Text } from '@chakra-ui/react'
 import * as React from 'react'
-
-import { Box, Heading, Text, Flex } from '@chakra-ui/react'
 
 import { Container } from '../components/Container'
 import { Link } from '../components/Link'

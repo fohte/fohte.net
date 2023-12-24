@@ -1,9 +1,8 @@
 'use client'
 
-import * as React from 'react'
-
 import { Box, BoxProps } from '@chakra-ui/react'
 import styled from '@emotion/styled'
+import * as React from 'react'
 
 const StyledBox = styled(Box)`
   ul {

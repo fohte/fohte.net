@@ -1,14 +1,20 @@
-import { mainConfig, typescriptConfig } from '@fohte/eslint-config'
-
 import { FlatCompat } from '@eslint/eslintrc'
+import { mainConfig, typescriptConfig } from '@fohte/eslint-config'
 
 const compat = new FlatCompat()
 
-export default [
+const config = [
   ...compat.extends('next/core-web-vitals'),
   ...mainConfig,
   ...typescriptConfig,
   {
-    ignores: ['out/**/*', '.next/**/*', '.contentlayer/**/*']
-  }
+    ignores: [
+      // ignore build files
+      'out/**/*',
+      '.next/**/*',
+      '.contentlayer/**/*',
+    ],
+  },
 ]
+
+export default config

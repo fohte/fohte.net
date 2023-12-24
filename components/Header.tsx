@@ -1,7 +1,7 @@
-import { Box, Text, Heading, Image, Flex, Spacer } from '@chakra-ui/react'
+import { Box, Flex, Heading, Image, Spacer, Text } from '@chakra-ui/react'
 
-import { Link } from './Link'
 import { Container } from './Container'
+import { Link } from './Link'
 
 export const Header: React.FC = () => (
   <Box as="footer">

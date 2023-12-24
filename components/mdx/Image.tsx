@@ -1,9 +1,8 @@
 'use client'
 
-import * as React from 'react'
-
 import { Box } from '@chakra-ui/react'
 import { css } from '@emotion/react'
+import * as React from 'react'
 
 import { theme } from '../../styles/theme'
 

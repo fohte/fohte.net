@@ -1,28 +1,27 @@
-import * as React from 'react'
-
-import { MDXComponents } from 'mdx/types'
 import {
   Box,
   Code,
   Divider,
   Heading,
-  Text,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
   Kbd,
+  Table,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
 } from '@chakra-ui/react'
+import { MDXComponents } from 'mdx/types'
+import * as React from 'react'
 
-import { CodeBlock } from './CodeBlock'
-import { Image } from './Image'
 import { Link } from '../Link'
+import { CodeBlock } from './CodeBlock'
 import { DocsHeading } from './DocsHeading'
+import { Image } from './Image'
 import { List } from './List'
-import { YouTube } from './YouTube'
 import { Tweet } from './Tweet'
+import { YouTube } from './YouTube'
 
 export const mdxComponents: MDXComponents = {
   h1: (props) => (
@@ -71,12 +70,15 @@ export const mdxComponents: MDXComponents = {
   p: (props) => <Text as="p" mt={4} {...props} />,
 
   // FIXME: fix any type
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ul: (props: any) => <List as="ul" {...props} />,
 
   // FIXME: fix any type
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ol: (props: any) => <Box as="ol" mt="1rem" pl={4} ml={2} {...props} />,
 
   // FIXME: fix any type
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   li: (props: any) => <Box as="li" pb={1} {...props} />,
 
   table: (props) => (

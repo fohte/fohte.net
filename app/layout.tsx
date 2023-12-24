@@ -1,7 +1,7 @@
 import { Metadata, Viewport } from 'next'
 
-import { Providers } from './providers'
 import GlobalLayout from '../components/GlobalLayout'
+import { Providers } from './providers'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://fohte.net'),

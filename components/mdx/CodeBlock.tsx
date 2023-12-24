@@ -1,12 +1,18 @@
 'use client'
 
-import * as React from 'react'
-
 import { Box, Icon } from '@chakra-ui/react'
-import { FaRegFileCode } from 'react-icons/fa'
-import { Highlight, Prism, type Language, themes } from 'prism-react-renderer'
+import { Highlight, type Language, Prism, themes } from 'prism-react-renderer'
+import * as React from 'react'
 import { onlyText } from 'react-children-utilities'
-;((typeof global !== 'undefined' ? global : window) as any).Prism = Prism
+import { FaRegFileCode } from 'react-icons/fa'
+
+const setPrismAsGlobal = () => {
+  // FIXME: fix any type
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ;(typeof global !== 'undefined' ? global : window).Prism = Prism
+}
+setPrismAsGlobal()
+
 require('prismjs/components/prism-lua')
 require('prismjs/components/prism-hcl')
 
