@@ -13,6 +13,17 @@ jobs:
       - uses: reviewdog/action-setup@v1
       - run: bun install --frozen-lockfile
       - run: bun run format
+
+      - id: files-formatted
+        run: |
+          echo "formatted=$(git diff-index --quiet HEAD && echo false || echo true)" >> "$GITHUB_OUTPUT"
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
+        if: steps.files-formatted.outputs.formatted == 'true'
+
       - name: commit formatted files
         run: |
           git diff-index --quiet HEAD && exit 0
@@ -21,4 +32,6 @@ jobs:
           git add .
           git commit -m 'style: $ bun run format'
           git push
+        if: steps.files-formatted.outputs.formatted == 'true'
+
       - run: bun run test
