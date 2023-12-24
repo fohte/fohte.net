@@ -26,7 +26,7 @@ jobs:
 
       - name: commit formatted files
         run: |
-          git config user.email '39506169+fohte-bot[bot]@users.noreply.github.com'
+          git config user.email '139195068+fohte-bot[bot]@users.noreply.github.com'
           git config user.name 'fohte-bot[bot]'
           git add .
           git commit -m 'style: $ bun run format'
