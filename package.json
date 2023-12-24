@@ -5,6 +5,9 @@
   "scripts": {
     "dev": "next",
     "lint": "eslint .",
+    "format:eslint": "eslint --fix .",
+    "format:prettier": "prettier --write .",
+    "format": "conc -m 1 bun:format:eslint bun:format:prettier",
     "build": "NODE_ENV=production conc -m 1 bun:build:contentlayer bun:build:next",
     "build:contentlayer": "contentlayer build",
     "build:next": "next build",
