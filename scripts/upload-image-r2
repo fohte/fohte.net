@@ -10,7 +10,7 @@ put_base_path="fohte-net-public-assets/images"
 
 put_object() {
   local image_path="$1"
-  wrangler r2 object put "$put_base_path/$checksum.${image_path##*.}" --file "$image_path"
+  bunx wrangler r2 object put "$put_base_path/$checksum.${image_path##*.}" --file "$image_path"
 }
 
 # create webp (needs to be installed imagemagick)
@@ -19,12 +19,34 @@ if ! command -v convert &> /dev/null; then
   exit 1
 fi
 
+width="$(identify -format '%w' "$image_path")"
+
+# minimize image size to 1000px width to reduce bandwidth
+if [[ "$width" -gt 1000 ]]; then
+  echo 'resizing image to 1000px width...' >&2
+
+  resized_image_path="${image_path%.*}-1000.${extension}"
+  convert "$image_path" -resize '1000x>' "$resized_image_path"
+  width=1000
+  image_path="$resized_image_path"
+fi
+
+height="$(identify -format '%h' "$image_path")"
+
 case "$extension" in
   jpg | jpeg | png)
+    echo 'creating webp...' >&2
     convert "$image_path" -quality 80 -define webp:lossless=false "${image_path%.*}.webp"
-    put_object "${image_path%.*}.webp"
+
+    echo 'uploading webp...' >&2
+    put_object "${image_path%.*}.webp" >&2
     ;;
   *) ;;
 esac
 
-put_object "$image_path"
+echo 'uploading original resized image...' >&2
+put_object "$image_path" >&2
+
+echo 'done!' >&2
+
+echo "![image](https://assets.fohte.net/images/$checksum.$extension?w=$width&h=$height)"
