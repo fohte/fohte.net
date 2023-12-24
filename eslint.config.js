@@ -1,20 +1,3 @@
-import { FlatCompat } from '@eslint/eslintrc'
-import { mainConfig, typescriptConfig } from '@fohte/eslint-config'
-
-const compat = new FlatCompat()
-
-const config = [
-  ...compat.extends('next/core-web-vitals'),
-  ...mainConfig,
-  ...typescriptConfig,
-  {
-    ignores: [
-      // ignore build files
-      'out/**/*',
-      '.next/**/*',
-      '.contentlayer/**/*',
-    ],
-  },
-]
-
-export default config
+// workaround for eslint not supporting mjs
+// ref: https://zenn.dev/teppeis/scraps/c62621db4384d2
+module.exports = import('./eslint.config.mjs').then((n) => n.default)
