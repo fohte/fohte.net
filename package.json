@@ -1,8 +1,10 @@
 {
   "name": "with-typescript",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "dev": "next",
+    "lint": "eslint .",
     "build": "NODE_ENV=production conc -m 1 bun:build:contentlayer bun:build:next",
     "build:contentlayer": "contentlayer build",
     "build:next": "next build",
@@ -36,6 +38,7 @@
     "sass": "1.69.5"
   },
   "devDependencies": {
+    "@fohte/eslint-config": "0.0.4",
     "@types/react": "18.2.45",
     "@types/react-dom": "18.2.18",
     "bun-types": "1.0.19",
