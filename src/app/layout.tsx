@@ -25,6 +25,13 @@ export const metadata: Metadata = {
     site: '@fohte',
     creator: '@fohte',
   },
+  alternates: [
+    {
+      type: 'application/atom+xml',
+      title: 'Atom1.0',
+      href: 'atom',
+    },
+  ],
 }
 
 export const viewport: Viewport = {
