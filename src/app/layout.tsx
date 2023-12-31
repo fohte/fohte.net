@@ -2,7 +2,7 @@ import { Metadata, Viewport } from 'next'
 
 import { Providers } from '@/app/providers'
 import GlobalLayout from '@/components/GlobalLayout'
-import { baseUrl } from '@/utils/config'
+import { baseUrl, baseUrlJoin } from '@/utils/config'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://fohte.net'),
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
   alternates: {
     types: {
-      'application/atom+xml': `${baseUrl}/atom`,
+      'application/atom+xml': baseUrlJoin('/feed'),
     },
   },
 }

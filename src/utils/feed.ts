@@ -1,14 +1,13 @@
 import { allPosts } from 'contentlayer/generated'
 import { Feed } from 'feed'
-
-import { baseUrl } from '@/utils/config'
+import { baseUrl, baseUrlJoin } from '@/utils/config'
 
 export const generateFeed = (): string => {
   const feed = new Feed({
     title: 'Fohte',
     id: baseUrl.toString(),
     link: baseUrl.toString(),
-    favicon: `${baseUrl}/favicon.ico`,
+    favicon: baseUrlJoin('/favicon.ico'),
     copyright: 'All rights reserved 2020, Fohte (Hayato Kawai)',
   })
 
@@ -19,7 +18,7 @@ export const generateFeed = (): string => {
         title: post.title,
         date: new Date(post.date),
         description: post.description,
-        link: `${baseUrl}${post.url}`,
+        link: baseUrlJoin(post.url),
       })
     })
 
