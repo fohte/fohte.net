@@ -10,7 +10,10 @@
         "allowPeriodMarks": [":"]
       },
       "ja-no-weak-phrase": false,
-      "max-comma": false
+      "max-comma": false,
+      "no-doubled-joshi": {
+        "severity": "warning"
+      }
     }
   },
   "plugins": {
