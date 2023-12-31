@@ -6,8 +6,8 @@ import { baseUrl } from '@/utils/config'
 export const generateFeed = (): string => {
   const feed = new Feed({
     title: 'Fohte',
-    id: baseUrl,
-    link: baseUrl,
+    id: baseUrl.toString(),
+    link: baseUrl.toString(),
     favicon: `${baseUrl}/favicon.ico`,
     copyright: 'All rights reserved 2020, Fohte (Hayato Kawai)',
   })

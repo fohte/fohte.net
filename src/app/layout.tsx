@@ -2,6 +2,7 @@ import { Metadata, Viewport } from 'next'
 
 import { Providers } from '@/app/providers'
 import GlobalLayout from '@/components/GlobalLayout'
+import { baseUrl } from '@/utils/config'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://fohte.net'),
@@ -25,13 +26,11 @@ export const metadata: Metadata = {
     site: '@fohte',
     creator: '@fohte',
   },
-  alternates: [
-    {
-      type: 'application/atom+xml',
-      title: 'Atom1.0',
-      href: 'atom',
+  alternates: {
+    types: {
+      'application/atom+xml': `${baseUrl}/atom`,
     },
-  ],
+  },
 }
 
 export const viewport: Viewport = {

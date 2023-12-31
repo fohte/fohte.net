@@ -1,3 +1,6 @@
 export const rootDirPath = process.cwd()
 
-export const baseUrl = process.env.CF_PAGES_URL || 'http://localhost:3000'
+export const baseUrl = new URL(
+  process.env.CF_PAGES_URL || 'http://localhost:3000',
+)
+
