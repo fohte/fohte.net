@@ -15,13 +15,13 @@ import {
 import { MDXComponents } from 'mdx/types'
 import * as React from 'react'
 
-import { Link } from '../Link'
-import { CodeBlock } from './CodeBlock'
-import { DocsHeading } from './DocsHeading'
-import { Image } from './Image'
-import { List } from './List'
-import { Tweet } from './Tweet'
-import { YouTube } from './YouTube'
+import { Link } from '@/components/Link'
+import { CodeBlock } from '@/components/mdx/CodeBlock'
+import { DocsHeading } from '@/components/mdx/DocsHeading'
+import { Image } from '@/components/mdx/Image'
+import { List } from '@/components/mdx/List'
+import { Tweet } from '@/components/mdx/Tweet'
+import { YouTube } from '@/components/mdx/YouTube'
 
 export const mdxComponents: MDXComponents = {
   h1: (props) => (

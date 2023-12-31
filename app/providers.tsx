@@ -4,8 +4,8 @@ import { CacheProvider } from '@chakra-ui/next-js'
 import { ChakraProvider } from '@chakra-ui/react'
 import { css, Global } from '@emotion/react'
 
-import { GoogleAnalytics } from '../components/GoogleAnalytics'
-import { theme } from '../styles/theme'
+import { GoogleAnalytics } from '@/components/GoogleAnalytics'
+import { theme } from '@/styles/theme'
 
 const globalStyles = css`
   // hack to fix footer to the bottom
