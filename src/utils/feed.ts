@@ -1,5 +1,6 @@
 import { allPosts } from 'contentlayer/generated'
 import { Feed } from 'feed'
+
 import { baseUrl } from '@/utils/config'
 
 export const generateFeed = (): string => {
