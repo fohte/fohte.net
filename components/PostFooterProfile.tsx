@@ -1,6 +1,6 @@
 import { Box, Flex, Image, Text } from '@chakra-ui/react'
 
-import { SocialList } from '../components/SocialList'
+import { SocialList } from '@/components/SocialList'
 
 const Profile: React.FC = () => (
   <Flex alignItems="center">

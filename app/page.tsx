@@ -1,9 +1,9 @@
 import { Box, Flex, Heading, Text } from '@chakra-ui/react'
 import * as React from 'react'
 
-import { Container } from '../components/Container'
-import { Link } from '../components/Link'
-import { SocialList } from '../components/SocialList'
+import { Container } from '@/components/Container'
+import { Link } from '@/components/Link'
+import { SocialList } from '@/components/SocialList'
 
 interface Props {}
 

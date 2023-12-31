@@ -4,7 +4,7 @@ import { Box } from '@chakra-ui/react'
 import { css } from '@emotion/react'
 import * as React from 'react'
 
-import { theme } from '../../styles/theme'
+import { theme } from '@/styles/theme'
 
 // e.g. https://assets.fohte.net/images/foobar.png
 //   => https://assets.fohte.net/images/foobar.webp

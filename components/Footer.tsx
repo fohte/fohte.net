@@ -1,7 +1,7 @@
 import { Box, Text } from '@chakra-ui/react'
 import * as React from 'react'
 
-import { Container } from '../components/Container'
+import { Container } from '@/components/Container'
 
 interface Props {}
 

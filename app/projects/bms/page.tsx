@@ -9,9 +9,9 @@ import {
 } from '@chakra-ui/react'
 import * as React from 'react'
 
-import { Container } from '../../../components/Container'
-import { Link } from '../../../components/Link'
-import { mdxComponents } from '../../../components/mdx'
+import { Container } from '@/components/Container'
+import { Link } from '@/components/Link'
+import { mdxComponents } from '@/components/mdx'
 
 const H1 = mdxComponents.h1!
 const H2 = mdxComponents.h2!

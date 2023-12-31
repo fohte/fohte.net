@@ -15,6 +15,9 @@ const config = [
       '.contentlayer/**/*',
     ],
   },
+  {
+    rules: { 'no-restricted-imports': ['error', { patterns: ['./', '../'] }] },
+  },
 ]
 
 export default config

@@ -6,9 +6,9 @@ import { notFound } from 'next/navigation'
 import * as React from 'react'
 import { flatMap } from 'remeda'
 
-import { Container } from '../../../../components/Container'
-import { PostList } from '../../../../components/PostList'
-import { findPostFrontmatter } from '../../../../utils/contentlayer'
+import { Container } from '@/components/Container'
+import { PostList } from '@/components/PostList'
+import { findPostFrontmatter } from '@/utils/contentlayer'
 
 type Props = {
   params: Params

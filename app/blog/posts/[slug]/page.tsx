@@ -7,11 +7,11 @@ import { notFound } from 'next/navigation'
 import { useMDXComponent } from 'next-contentlayer/hooks'
 import * as React from 'react'
 
-import { Container } from '../../../../components/Container'
-import { mdxComponents } from '../../../../components/mdx'
-import { PostFooterProfile } from '../../../../components/PostFooterProfile'
-import { TagList } from '../../../../components/TagList'
-import { formatDate } from '../../../../utils/date'
+import { Container } from '@/components/Container'
+import { mdxComponents } from '@/components/mdx'
+import { PostFooterProfile } from '@/components/PostFooterProfile'
+import { TagList } from '@/components/TagList'
+import { formatDate } from '@/utils/date'
 
 type Props = {
   params: Params

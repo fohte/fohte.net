@@ -5,7 +5,7 @@ import * as React from 'react'
 import { IconType } from 'react-icons'
 import { FaGithub, FaMastodon, FaTwitter } from 'react-icons/fa'
 
-import { Link } from './Link'
+import { Link } from '@/components/Link'
 
 type SocialLinkItem = {
   icon: IconType
