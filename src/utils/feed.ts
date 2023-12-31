@@ -13,6 +13,7 @@ export const generateFeed = (): string => {
 
   allPosts
     .sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)))
+    .slice(0, 10)
     .forEach((post) => {
       feed.addItem({
         title: post.title,
