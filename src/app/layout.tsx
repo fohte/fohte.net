@@ -5,7 +5,7 @@ import GlobalLayout from '@/components/GlobalLayout'
 import { baseUrl, baseUrlJoin } from '@/utils/config'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://fohte.net'),
+  metadataBase: baseUrl,
   title: {
     template: '%s | fohte.net',
     default: 'fohte.net',
