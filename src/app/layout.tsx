@@ -2,9 +2,10 @@ import { Metadata, Viewport } from 'next'
 
 import { Providers } from '@/app/providers'
 import GlobalLayout from '@/components/GlobalLayout'
+import { baseUrl } from '@/utils/config'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://fohte.net'),
+  metadataBase: baseUrl,
   title: {
     template: '%s | fohte.net',
     default: 'fohte.net',
