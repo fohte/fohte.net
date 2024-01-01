@@ -1,6 +1,8 @@
 const getEnv = (): 'production' | 'preview' | 'development' | 'test' => {
-  const branch = process.env.CF_PAGES_BRANCH
-  if (branch == 'main' || branch == 'master') {
+  if (
+    process.env.CF_PAGES_BRANCH === 'main' ||
+    process.env.CF_PAGES_BRANCH === 'master'
+  ) {
     return 'production'
   }
 
