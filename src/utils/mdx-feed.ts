@@ -1,14 +1,23 @@
 import { bundleMDX } from 'mdx-bundler'
 import { getMDXComponent } from 'mdx-bundler/client/index.js'
-import * as ReactDOMServer from 'react-dom/server'
 
+import { createElement } from 'react'
 import { rssComponents } from '@/components/mdx'
 
 // ref: https://github.com/contentlayerdev/contentlayer/issues/94#issuecomment-1385118712
 export const mdxToHtml = async (mdxSource: string) => {
+  // this is a workaround for the following error:
+  // > You're importing a component that imports react-dom/server. To fix it, render or return the content directly as a Server Component instead for perf and security.
+  // > Learn more: https://nextjs.org/docs/getting-started/react-essentials
+  // see: https://github.com/vercel/next.js/issues/43810#issuecomment-1341136525
+  const ReactDOMServer = (await import('react-dom/server')).default
+
   const { code } = await bundleMDX({ source: mdxSource })
   const MDXLayout = getMDXComponent(code)
-  const element = MDXLayout({ components: rssComponents })!
-  const html = ReactDOMServer.renderToString(element as any)
+  const html = ReactDOMServer.renderToString(
+    createElement(MDXLayout, {
+      components: rssComponents,
+    }),
+  )
   return html
 }
