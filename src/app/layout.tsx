@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
   alternates: {
     types: {
-      'application/atom+xml': baseUrlJoin('/feed'),
+      'application/atom+xml': baseUrlJoin('/feed.atom'),
     },
   },
 }
