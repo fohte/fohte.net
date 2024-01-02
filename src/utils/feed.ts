@@ -2,7 +2,6 @@
 
 import { allPosts } from 'contentlayer/generated'
 import { Feed } from 'feed'
-import * as R from 'remeda'
 
 import { baseUrl, baseUrlJoin } from '@/utils/config'
 import { mdxToHtml } from '@/utils/mdx-feed'
