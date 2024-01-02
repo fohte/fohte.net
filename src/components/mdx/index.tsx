@@ -98,3 +98,9 @@ export const mdxComponents: MDXComponents = {
   Tweet: Tweet,
   YouTube: YouTube,
 }
+
+export const rssComponents: MDXComponents = {
+  Kbd,
+  Tweet,
+  YouTube,
+}

@@ -3,6 +3,8 @@ import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
 import remarkUnwrapImages from 'remark-unwrap-images'
 
+import { mdxToHtml } from '@/utils/mdx-feed'
+
 export const Post = defineDocumentType(() => ({
   name: 'Post',
   filePathPattern: '**/*.mdx',
@@ -21,6 +23,10 @@ export const Post = defineDocumentType(() => ({
     url: {
       type: 'string',
       resolve: (post) => `/blog/posts/${post._raw.flattenedPath}`,
+    },
+    mdxHtml: {
+      type: 'string',
+      resolve: (doc) => mdxToHtml(doc.body.raw),
     },
   },
 }))
