@@ -25,6 +25,7 @@ export const generateFeed = async (): Promise<string> => {
       author: [{ name: 'Fohte (Hayato Kawai)', link: baseUrl.toString() }],
       content,
       date: new Date(post.date),
+      published: new Date(post.date),
       description: post.description,
       link: baseUrlJoin(post.url),
     })
