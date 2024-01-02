@@ -10,6 +10,7 @@ export const generateFeed = (): string => {
     link: baseUrl.toString(),
     favicon: baseUrlJoin('/icon.png'),
     copyright: 'All rights reserved 2020, Fohte (Hayato Kawai)',
+    feed: baseUrlJoin('/feed.atom'),
   })
 
   allPosts
