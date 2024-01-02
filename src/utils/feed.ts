@@ -8,7 +8,7 @@ export const generateFeed = (): string => {
     title: 'Fohte',
     id: baseUrl.toString(),
     link: baseUrl.toString(),
-    favicon: baseUrlJoin('/favicon.ico'),
+    favicon: baseUrlJoin('/icon.png'),
     copyright: 'All rights reserved 2020, Fohte (Hayato Kawai)',
   })
 
