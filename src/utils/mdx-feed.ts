@@ -1,7 +1,7 @@
 import { bundleMDX } from 'mdx-bundler'
 import { getMDXComponent } from 'mdx-bundler/client/index.js'
-
 import { createElement } from 'react'
+
 import { rssComponents } from '@/components/mdx'
 
 // ref: https://github.com/contentlayerdev/contentlayer/issues/94#issuecomment-1385118712
