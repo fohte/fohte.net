@@ -18,6 +18,7 @@ export const generateFeed = (): string => {
     .forEach((post) => {
       feed.addItem({
         title: post.title,
+        author: [{ name: 'Fohte (Hayato Kawai)', link: baseUrl.toString() }],
         date: new Date(post.date),
         description: post.description,
         link: baseUrlJoin(post.url),
