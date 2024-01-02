@@ -1,5 +1,5 @@
 # This file is used to configure the headers of Cloudflare Pages responses
 # Document: https://developers.cloudflare.com/pages/configuration/headers/
 
-/atom.xml
+/feed.atom
   Content-Type: application/atom+xml; charset=utf-8
