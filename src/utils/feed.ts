@@ -18,7 +18,7 @@ export const generateFeed = async (): Promise<string> => {
 
   for (const post of allPosts
     .sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)))
-    .slice(0, 100)) {
+    .slice(0, 10)) {
     const content = await mdxToHtml(post.body.raw)
     feed.addItem({
       title: post.title,
