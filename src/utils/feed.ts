@@ -8,7 +8,7 @@ import { mdxToHtml } from '@/utils/mdx'
 
 export const generateFeed = async (): Promise<string> => {
   const feed = new Feed({
-    title: 'Fohte',
+    title: 'fohte.net',
     id: baseUrl.toString(),
     link: baseUrl.toString(),
     favicon: baseUrlJoin('/icon.png'),
