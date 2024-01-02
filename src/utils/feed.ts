@@ -4,7 +4,7 @@ import { allPosts } from 'contentlayer/generated'
 import { Feed } from 'feed'
 
 import { baseUrl, baseUrlJoin } from '@/utils/config'
-import { mdxToHtml } from '@/utils/mdx-feed'
+import { mdxToHtml } from '@/utils/mdx'
 
 export const generateFeed = async (): Promise<string> => {
   const feed = new Feed({
