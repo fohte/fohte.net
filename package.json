@@ -37,7 +37,7 @@
     "remark-gfm": "3.0.1",
     "remark-unwrap-images": "^4.0.0",
     "remeda": "1.33.0",
-    "sass": "1.69.6"
+    "sass": "1.69.7"
   },
   "devDependencies": {
     "@fohte/eslint-config": "0.0.4",
