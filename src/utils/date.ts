@@ -1,8 +1,5 @@
-export const formatDate = (date: string): string => {
-  const d = new Date(date)
-  return `${d.getFullYear()}-${padZero(d.getMonth() + 1)}-${padZero(
-    d.getDate(),
-  )}`
-}
+import { format } from 'date-fns-tz'
 
-const padZero = (num: number): string => num.toString().padStart(2, '0')
+export const formatDate = (date: string): string => {
+  return format(new Date(date), 'yyyy-MM-dd', { timeZone: 'Asia/Tokyo' })
+}
