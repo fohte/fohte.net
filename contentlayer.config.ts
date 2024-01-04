@@ -1,7 +1,9 @@
 import { defineDocumentType, makeSource } from 'contentlayer/source-files'
-import remarkBreaks from 'remark-breaks'
-import remarkGfm from 'remark-gfm'
-import remarkUnwrapImages from 'remark-unwrap-images'
+
+// contentlayer.config.ts does not support tsconfig paths
+// see: https://github.com/contentlayerdev/contentlayer/issues/238
+// eslint-disable-next-line no-restricted-imports
+import { remarkPlugins } from './src/utils/mdx/config'
 
 export const Post = defineDocumentType(() => ({
   name: 'Post',
@@ -29,16 +31,6 @@ export default makeSource({
   contentDirPath: 'src/contents/posts',
   documentTypes: [Post],
   mdx: {
-    remarkPlugins: [
-      // enable GitHub Flavored Markdown
-      remarkGfm,
-
-      // enable GitHub-like line breaks
-      remarkBreaks,
-
-      // prevent <img> and <figure> tags from being wrapped in <p> tags
-      // to avoid invalid HTML and hydration errors
-      remarkUnwrapImages,
-    ],
+    remarkPlugins,
   },
 })

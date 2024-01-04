@@ -98,3 +98,11 @@ export const mdxComponents: MDXComponents = {
   Tweet: Tweet,
   YouTube: YouTube,
 }
+
+export const rssComponents: MDXComponents = {
+  Kbd: 'kbd',
+
+  // FIXME: fix mock of Tweet and YouTube
+  Tweet: ({}: React.ComponentProps<typeof Tweet>) => <div>Tweet</div>,
+  YouTube: ({}: React.ComponentProps<typeof YouTube>) => <div>YouTube</div>,
+}
