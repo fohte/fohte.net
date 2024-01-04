@@ -2,7 +2,7 @@ import { Metadata, Viewport } from 'next'
 
 import { Providers } from '@/app/providers'
 import GlobalLayout from '@/components/GlobalLayout'
-import { baseUrl } from '@/utils/config'
+import { baseUrl, baseUrlJoin } from '@/utils/config'
 
 export const metadata: Metadata = {
   metadataBase: baseUrl,
@@ -25,6 +25,11 @@ export const metadata: Metadata = {
     card: 'summary',
     site: '@fohte',
     creator: '@fohte',
+  },
+  alternates: {
+    types: {
+      'application/atom+xml': baseUrlJoin('/feed.atom'),
+    },
   },
 }
 

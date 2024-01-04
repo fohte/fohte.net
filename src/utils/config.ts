@@ -1,3 +1,5 @@
+export const rootDirPath = process.cwd()
+
 const getEnv = (): 'production' | 'preview' | 'development' | 'test' => {
   if (
     process.env.CF_PAGES_BRANCH === 'main' ||
@@ -39,3 +41,5 @@ const getBaseUrlString = (): string => {
 }
 
 export const baseUrl = new URL(getBaseUrlString())
+
+export const baseUrlJoin = (path: string) => new URL(path, baseUrl).toString()
