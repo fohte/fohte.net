@@ -21,7 +21,7 @@
     "@emotion/styled": "11.11.0",
     "@types/mdx": "2.0.10",
     "contentlayer": "0.3.4",
-    "date-fns": "3.0.6",
+    "date-fns": "2.30.0",
     "date-fns-tz": "2.0.0",
     "esbuild": "0.19.11",
     "framer-motion": "10.16.16",
