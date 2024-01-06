@@ -25,7 +25,7 @@
     "date-fns-tz": "2.0.0",
     "esbuild": "0.19.11",
     "feed": "4.2.2",
-    "framer-motion": "10.16.16",
+    "framer-motion": "10.17.9",
     "next": "14.0.4",
     "next-contentlayer": "0.3.4",
     "prism-react-renderer": "2.3.1",
