@@ -45,7 +45,7 @@
   "devDependencies": {
     "@fohte/eslint-config": "0.0.4",
     "@types/react": "18.2.55",
-    "@types/react-dom": "18.2.18",
+    "@types/react-dom": "18.2.19",
     "bun-types": "1.0.26",
     "concurrently": "8.2.2",
     "eslint": "8.56.0",
@@ -58,7 +58,7 @@
   "resolutions": {
     "@emotion/react": "11.11.3",
     "@types/react": "18.2.55",
-    "@types/react-dom": "18.2.18",
+    "@types/react-dom": "18.2.19",
     "date-fns": "2.30.0"
   },
   "license": "ISC"
