@@ -3,4 +3,12 @@
     'github>fohte/renovate-config:base.json5',
     'github>fohte/renovate-config:node.json5',
   ],
+  packageRules: [
+    // automerge remeda patch and minor updates as they can detect degradation due to type errors
+    {
+      matchUpdateTypes: ['patch', 'minor'],
+      matchPackageNames: ['remeda'],
+      automerge: true,
+    },
+  ],
 }
