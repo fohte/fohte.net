@@ -46,7 +46,7 @@
     "@fohte/eslint-config": "0.0.4",
     "@types/react": "18.2.61",
     "@types/react-dom": "18.2.19",
-    "bun-types": "1.0.29",
+    "bun-types": "1.0.30",
     "concurrently": "8.2.2",
     "eslint": "8.56.0",
     "eslint-config-next": "14.1.1",
