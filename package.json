@@ -57,7 +57,7 @@
   },
   "resolutions": {
     "@emotion/react": "11.11.4",
-    "@types/react": "18.2.63",
+    "@types/react": "18.2.64",
     "@types/react-dom": "18.2.20",
     "date-fns": "2.30.0"
   },
