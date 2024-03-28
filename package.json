@@ -52,7 +52,7 @@
     "eslint-config-next": "14.1.4",
     "prettier": "3.2.5",
     "textlint": "14.0.4",
-    "textlint-rule-preset-ja-technical-writing": "9.0.0",
+    "textlint-rule-preset-ja-technical-writing": "10.0.1",
     "typescript": "5.4.3"
   },
   "resolutions": {
