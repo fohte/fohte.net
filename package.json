@@ -53,7 +53,7 @@
     "prettier": "3.2.5",
     "textlint": "14.0.4",
     "textlint-rule-preset-ja-technical-writing": "9.0.0",
-    "typescript": "5.4.3"
+    "typescript": "5.4.5"
   },
   "resolutions": {
     "@emotion/react": "11.11.4",
