@@ -109,4 +109,15 @@ export const rssComponents: MDXComponents = {
   // FIXME: fix mock of Tweet and YouTube
   Tweet: ({}: React.ComponentProps<typeof Tweet>) => <div>Tweet</div>,
   YouTube: ({}: React.ComponentProps<typeof YouTube>) => <div>YouTube</div>,
+
+  // FIxME: fix mock of SpeakerDeck, the id in props is not a url to view the slide page
+  SpeakerDeck: ({}: React.ComponentProps<typeof SpeakerDeck>) => (
+    <p>SpeakerDeck</p>
+  ),
+
+  Mastodon: ({ url }: React.ComponentProps<typeof Mastodon>) => (
+    <p>
+      Mastodon: <a>{url}</a>
+    </p>
+  ),
 }
