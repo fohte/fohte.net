@@ -20,6 +20,8 @@ import { CodeBlock } from '@/components/mdx/CodeBlock'
 import { DocsHeading } from '@/components/mdx/DocsHeading'
 import { Image } from '@/components/mdx/Image'
 import { List } from '@/components/mdx/List'
+import { Mastodon } from '@/components/mdx/Mastodon'
+import { SpeakerDeck } from '@/components/mdx/SpeakerDeck'
 import { Tweet } from '@/components/mdx/Tweet'
 import { YouTube } from '@/components/mdx/YouTube'
 
@@ -97,6 +99,8 @@ export const mdxComponents: MDXComponents = {
 
   Tweet: Tweet,
   YouTube: YouTube,
+  SpeakerDeck: SpeakerDeck,
+  Mastodon: Mastodon,
 }
 
 export const rssComponents: MDXComponents = {
