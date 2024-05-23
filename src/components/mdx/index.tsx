@@ -20,6 +20,8 @@ import { CodeBlock } from '@/components/mdx/CodeBlock'
 import { DocsHeading } from '@/components/mdx/DocsHeading'
 import { Image } from '@/components/mdx/Image'
 import { List } from '@/components/mdx/List'
+import { Mastodon } from '@/components/mdx/Mastodon'
+import { SpeakerDeck } from '@/components/mdx/SpeakerDeck'
 import { Tweet } from '@/components/mdx/Tweet'
 import { YouTube } from '@/components/mdx/YouTube'
 
@@ -97,6 +99,8 @@ export const mdxComponents: MDXComponents = {
 
   Tweet: Tweet,
   YouTube: YouTube,
+  SpeakerDeck: SpeakerDeck,
+  Mastodon: Mastodon,
 }
 
 export const rssComponents: MDXComponents = {
@@ -105,4 +109,15 @@ export const rssComponents: MDXComponents = {
   // FIXME: fix mock of Tweet and YouTube
   Tweet: ({}: React.ComponentProps<typeof Tweet>) => <div>Tweet</div>,
   YouTube: ({}: React.ComponentProps<typeof YouTube>) => <div>YouTube</div>,
+
+  // FIxME: fix mock of SpeakerDeck, the id in props is not a url to view the slide page
+  SpeakerDeck: ({}: React.ComponentProps<typeof SpeakerDeck>) => (
+    <p>SpeakerDeck</p>
+  ),
+
+  Mastodon: ({ url }: React.ComponentProps<typeof Mastodon>) => (
+    <p>
+      Mastodon: <a>{url}</a>
+    </p>
+  ),
 }

@@ -2,7 +2,20 @@
 
 set -euo pipefail
 
+usage() {
+  echo "usage: $0 <image_path> [<max-width>]"
+  exit 1
+}
+
 image_path="$1"
+
+[[ -n "$image_path" ]] || usage
+[[ -f "$image_path" ]] || {
+  echo "error: file not found: $image_path" >&2
+  exit 1
+}
+
+max_width="${2:-1000}"
 extension="${image_path##*.}"
 
 checksum="$(openssl dgst -sha1 -binary "$image_path" | openssl base64 | tr '+/' '-_' | tr -d '=')"
@@ -21,13 +34,13 @@ fi
 
 width="$(identify -format '%w' "$image_path")"
 
-# minimize image size to 1000px width to reduce bandwidth
-if [[ "$width" -gt 1000 ]]; then
-  echo 'resizing image to 1000px width...' >&2
+# minimize image size to $max_width to reduce bandwidth
+if [[ "$width" -gt "$max_width" ]]; then
+  echo "resizing image to ${max_width}px width..." >&2
 
-  resized_image_path="${image_path%.*}-1000.${extension}"
-  convert "$image_path" -resize '1000x>' "$resized_image_path"
-  width=1000
+  resized_image_path="${image_path%.*}-${max_width}.${extension}"
+  convert "$image_path" -resize "${max_width}x>" "$resized_image_path"
+  width="$max_width"
   image_path="$resized_image_path"
 fi
 
