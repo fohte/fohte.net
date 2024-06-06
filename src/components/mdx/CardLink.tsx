@@ -50,7 +50,7 @@ export const CardLink: React.FC<Props> = ({ href }) => {
       justifyContent="center"
       my={4}
       py={4}
-      px={6}
+      px={4}
       gap={6}
     >
       {ogp.image && (
