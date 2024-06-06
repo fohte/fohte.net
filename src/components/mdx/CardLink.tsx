@@ -17,6 +17,16 @@ type OgpData = {
   }
 }
 
+const collapseDescription = (description: string): string => {
+  const maxLength = 100
+
+  const newDescription = description.substring(0, maxLength)
+  if (description !== newDescription) {
+    return `${newDescription}…`
+  }
+  return newDescription
+}
+
 export const CardLink: React.FC<Props> = ({ href }) => {
   const ogp = (ogpData as OgpData)[href]
 
@@ -61,7 +71,7 @@ export const CardLink: React.FC<Props> = ({ href }) => {
         </Text>
         {ogp.description && (
           <Text fontSize="xs" color="gray.600" mt={1}>
-            {ogp.description}
+            {collapseDescription(ogp.description)}
           </Text>
         )}
       </Box>
