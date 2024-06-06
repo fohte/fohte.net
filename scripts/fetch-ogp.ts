@@ -71,11 +71,15 @@ const fetchOgp = async (url: string): Promise<Data[string]> => {
 const json: Data = JSON.parse(await fs.readFile('./src/data/ogp.json', 'utf-8'))
 
 for (const url of urls) {
+  if (json[url] != null) {
+    continue
+  }
+
   console.log(`fetching ${url}...`)
   const data = await fetchOgp(url)
 
   json[url] = data
-  fs.writeFile('./src/data/ogp.json', JSON.stringify(json, null, 2))
+  fs.writeFile('./src/data/ogp.json', JSON.stringify(json, null, 2) + '\n')
 
   console.log(`fetched ${url}`)
 
