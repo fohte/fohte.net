@@ -18,7 +18,7 @@ type OgpData = {
 }
 
 const collapseDescription = (description: string): string => {
-  const maxLength = 100
+  const maxLength = 80
 
   const newDescription = description.substring(0, maxLength)
   if (description !== newDescription) {
@@ -58,7 +58,7 @@ export const CardLink: React.FC<Props> = ({ href }) => {
           src={ogp.image}
           alt="Link preview image"
           height="100%"
-          maxW="250px"
+          maxW="min(40%, 250px)"
           maxH="200px"
           objectFit="cover"
         />
