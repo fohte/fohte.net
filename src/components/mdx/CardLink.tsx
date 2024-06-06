@@ -48,6 +48,7 @@ export const CardLink: React.FC<Props> = ({ href }) => {
       display="flex"
       alignItems="center"
       justifyContent="center"
+      my={4}
       py={4}
       px={6}
       gap={6}
