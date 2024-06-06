@@ -16,6 +16,7 @@ import { MDXComponents } from 'mdx/types'
 import * as React from 'react'
 
 import { Link } from '@/components/Link'
+import { CardLink } from '@/components/mdx/CardLink'
 import { CodeBlock } from '@/components/mdx/CodeBlock'
 import { DocsHeading } from '@/components/mdx/DocsHeading'
 import { Image } from '@/components/mdx/Image'
@@ -69,6 +70,7 @@ export const mdxComponents: MDXComponents = {
   },
   hr: (props) => <Divider mt={8} mb={8} {...props} />,
   a: Link,
+  CardLink: CardLink,
   p: (props) => <Text as="p" mt={4} {...props} />,
 
   // FIXME: fix any type
@@ -119,5 +121,9 @@ export const rssComponents: MDXComponents = {
     <p>
       Mastodon: <a>{url}</a>
     </p>
+  ),
+
+  CardLink: ({ href, children }: React.ComponentProps<typeof CardLink>) => (
+    <a href={href}>{children}</a>
   ),
 }
