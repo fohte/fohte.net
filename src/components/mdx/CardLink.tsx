@@ -55,7 +55,7 @@ export const CardLink: React.FC<Props> = ({ href }) => {
     >
       {ogp.image && (
         <Box
-          minW="200px"
+          minW="min(20%, 150px)"
           maxW="min(40%, 250px)"
           display="flex"
           alignItems="center"
@@ -71,10 +71,10 @@ export const CardLink: React.FC<Props> = ({ href }) => {
         </Box>
       )}
       <Box flex="1">
-        <Text fontSize="md" fontWeight="bold">
+        <Text fontSize="sm" fontWeight="bold">
           {ogp.title}
         </Text>
-        <Text fontSize="sm" color="gray.600">
+        <Text fontSize="xs" color="gray.600">
           {domain}
         </Text>
         {ogp.description && (
