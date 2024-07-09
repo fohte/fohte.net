@@ -71,10 +71,10 @@ export const CardLink: React.FC<Props> = ({ href }) => {
         </Box>
       )}
       <Box flex="1">
-        <Text fontSize="sm" fontWeight="bold">
+        <Text fontSize={15} fontWeight="bold">
           {ogp.title}
         </Text>
-        <Text fontSize="xs" color="gray.600">
+        <Text fontSize="sm" color="gray.600">
           {domain}
         </Text>
         {ogp.description && (
