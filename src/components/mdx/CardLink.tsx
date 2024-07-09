@@ -54,17 +54,24 @@ export const CardLink: React.FC<Props> = ({ href }) => {
       gap={6}
     >
       {ogp.image && (
-        <Image
-          src={ogp.image}
-          alt="Link preview image"
-          height="100%"
+        <Box
+          minW="min(20%, 150px)"
           maxW="min(40%, 250px)"
-          maxH="200px"
-          objectFit="cover"
-        />
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Image
+            src={ogp.image}
+            alt="Link preview image"
+            height="100%"
+            maxH="200px"
+            objectFit="cover"
+          />
+        </Box>
       )}
       <Box flex="1">
-        <Text fontSize="md" fontWeight="bold">
+        <Text fontSize={15} fontWeight="bold">
           {ogp.title}
         </Text>
         <Text fontSize="sm" color="gray.600">

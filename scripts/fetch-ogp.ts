@@ -1,4 +1,5 @@
 import { promises as fs } from 'fs'
+import { decode } from 'iconv-lite'
 import { JSDOM } from 'jsdom'
 
 const files = await fs.readdir('./src/contents/posts')
@@ -17,8 +18,6 @@ const urls = (
   )
 ).flat()
 
-console.log(urls)
-
 type Data = {
   [url: string]: {
     title?: string | null
@@ -27,9 +26,29 @@ type Data = {
   }
 }
 
+const getCharset = (res: Response): string => {
+  const defaultCharset = 'utf-8'
+
+  const contentType = res.headers.get('content-type')
+  if (contentType == null) {
+    return defaultCharset
+  }
+
+  const regex = /charset=([^;]+)/i
+
+  const matches = contentType.match(regex)
+  if (matches && matches[1]) {
+    return matches[1].toLowerCase()
+  }
+
+  return defaultCharset
+}
+
 const fetchOgp = async (url: string): Promise<Data[string]> => {
   const res = await fetch(url)
-  const html = await res.text()
+  const buf = await res.arrayBuffer()
+  const html = decode(Buffer.from(buf), getCharset(res) || 'utf-8')
+
   const dom = new JSDOM(html)
 
   const data = {
