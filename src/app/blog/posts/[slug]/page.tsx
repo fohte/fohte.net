@@ -37,6 +37,9 @@ export async function generateMetadata(
         ? [{ url: post.imagePath }]
         : (await parent).openGraph?.images,
     },
+    other: {
+      'fediverse:creator': '@fohte@social.fohte.net',
+    },
   }
   return metadata
 }
