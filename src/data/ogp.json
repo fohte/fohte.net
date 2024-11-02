@@ -96,5 +96,10 @@
     "title": "技術書典17",
     "description": "技術書典17開催！2024年11月2日（土）から2024年11月17日（日）技術に出会えるオンラインイベントに参加しよう！",
     "image": "https://techbookfest.org/assets/tbf17/images/ogp-kamimachi.jpg"
+  },
+  "https://techbookfest.org/product/fqhYCspDK80WBrGWJkEkP8?productVariantID=gzf9X203XXhW87rBQnRxW2": {
+    "title": "いまからはじめる Vim コマンド実践入門：Fohte Lab",
+    "description": "Vim のコマンド操作を入門から応用まで解説する本です。\nVim を一度も触ったことがない方から、少しずつ慣れてきてより便利な操作を習得したい方が Vim の魅力を知ってもらえるように、初歩的な内容から Vim 特有の発展的な内容まで取り扱っています。\n\nVisual Studio Code の Vim プラグインのような Vim をエミュレートする環境でも使える解説を中心としています。\nVim そのものの解説は主としていません。\n\n目次\n\n第1章 Vim を始めよう\n第2章 Vim を使ってファイルを編集してみよう\n第3章 ノーマルモードで移動する\n第4章 ノーマルモードで編集する\n第5章 検索と置換\n第6章 ビジュアルモード\n第7章 ウィンドウ操作\n第8章 オペレーターとテキストオブジェクト\n第9章 繰り返しとマクロでさらなる自動化をしよう\n",
+    "image": "https://techbookfest.org/api/product/ogp/image/fqhYCspDK80WBrGWJkEkP8"
   }
 }
