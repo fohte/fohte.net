@@ -105,5 +105,15 @@
   "https://vimconf.org/2024/": {
     "title": "VimConf 2024",
     "description": "Tell us how do you love Vim, what do you want to achieve with Vim, what practical Vim plugins you want to introduce, or even crazy ones -- there's no technical limit what to share. Express your Vim knowledge, skill, research, experience, and love. That's what VimConf is for."
+  },
+  "https://store.steampowered.com/app/1621690/Core_Keeper/?l=japanese": {
+    "title": "Steam：Core Keeper",
+    "description": "1から8人のプレイヤー対応の採掘サンドボックスアドベンチャーで、クリーチャーやレリック、資源が潜む無限の洞窟を探索しよう。採掘、建設、バトル、クラフト、そして農業し、古代のコアの謎を解き明かせ。",
+    "image": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1621690/6c48cd5936a869e796c0cf817f3851f327131d21/capsule_616x353.jpg?t=1731933599"
+  },
+  "https://store.steampowered.com/app/892970/Valheim/?l=japanese": {
+    "title": "Steam：Valheim",
+    "description": "バイキング文化にインスパイアされ、プロシージャル生成された広大なファンタジー世界を舞台にした、1〜10人用の過酷な探検サバイバルゲーム。オーディンの右腕として相応しい存在になるため、戦い、建設し、征服して行こう！",
+    "image": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/892970/capsule_616x353.jpg?t=1732095031"
   }
 }
