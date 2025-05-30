@@ -3,6 +3,9 @@ name: Test
 on:
   push:
 
+permissions:
+  contents: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -16,23 +19,17 @@ jobs:
 
       - uses: actions/checkout@v4
         with:
-          token: ${{ steps.app-token.outputs.token }}
+          persist-credentials: false
       - uses: oven-sh/setup-bun@v1
       - uses: reviewdog/action-setup@v1
       - run: bun install --frozen-lockfile
       - run: bun run format
 
-      - id: files-formatted
-        run: |
-          echo "formatted=$(git diff-index --quiet HEAD && echo false || echo true)" >> "$GITHUB_OUTPUT"
-
-      - name: commit formatted files
-        run: |
-          git config user.email '139195068+fohte-bot[bot]@users.noreply.github.com'
-          git config user.name 'fohte-bot[bot]'
-          git add .
-          git commit -m 'style: $ bun run format'
-          git push
-        if: steps.files-formatted.outputs.formatted == 'true'
+      - name: Commit formatted files
+        uses: suzuki-shunsuke/commit-action@v0.0.7
+        with:
+          commit_message: 'style: auto-format'
+          workflow: deny
+          github_token: ${{ steps.app-token.outputs.token }}
 
       - run: bun run test
