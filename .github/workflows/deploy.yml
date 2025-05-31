@@ -58,7 +58,7 @@ jobs:
             const output = '${{ steps.cloudflare-deployment.outputs.command-output }}';
             const urlMatch = output.match(/https:\/\/[^\s]+\.pages\.dev/);
             if (!urlMatch) return;
-            
+
             // Find PR for this branch
             const branch = context.ref.replace('refs/heads/', '');
             const { data: prs } = await github.rest.pulls.list({
@@ -67,24 +67,24 @@ jobs:
               head: `${context.repo.owner}:${branch}`,
               state: 'open'
             });
-            
+
             if (prs.length === 0) return;
-            
+
             const pr = prs[0];
             const body = `🚀 Preview deployment ready!\n\n${urlMatch[0]}`;
-            
+
             // Find existing comment
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: pr.number,
             });
-            
+
             const botComment = comments.find(comment => 
               comment.user.type === 'Bot' && 
               comment.body.includes('🚀 Preview deployment ready!')
             );
-            
+
             if (botComment) {
               // Update existing comment
               await github.rest.issues.updateComment({
