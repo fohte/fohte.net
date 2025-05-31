@@ -58,10 +58,35 @@ jobs:
             const output = '${{ steps.cloudflare-deployment.outputs.command-output }}';
             const urlMatch = output.match(/https:\/\/[^\s]+\.pages\.dev/);
             if (urlMatch) {
-              github.rest.issues.createComment({
-                issue_number: context.issue.number,
+              const body = `🚀 Preview deployment ready!\n\n${urlMatch[0]}`;
+              
+              // Find existing comment
+              const { data: comments } = await github.rest.issues.listComments({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: `🚀 Preview deployment ready!\n\n${urlMatch[0]}`
+                issue_number: context.issue.number,
               });
+              
+              const botComment = comments.find(comment => 
+                comment.user.type === 'Bot' && 
+                comment.body.includes('🚀 Preview deployment ready!')
+              );
+              
+              if (botComment) {
+                // Update existing comment
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: botComment.id,
+                  body: body
+                });
+              } else {
+                // Create new comment
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.issue.number,
+                  body: body
+                });
+              }
             }
