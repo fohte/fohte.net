@@ -1,0 +1,119 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-bun-
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Cache Next.js build
+        uses: actions/cache@v4
+        with:
+          path: |
+            .next/cache
+            .contentlayer/.cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/bun.lockb') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx', '**/*.mdx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/bun.lockb') }}-
+
+      - name: Build
+        run: bun run build
+
+      - name: Deploy to Cloudflare Pages
+        id: cloudflare-deployment
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy ./out --project-name=fohte-net
+
+      - name: Extract deployment URLs
+        if: github.ref != 'refs/heads/master'
+        id: extract-url
+        run: |
+          echo "${{ steps.cloudflare-deployment.outputs.command-output }}" > deployment-output.txt
+          MAIN_URL=$(grep -o 'Take a peek over at https://[^[:space:]]*\.pages\.dev' deployment-output.txt | sed 's/Take a peek over at //' | head -1)
+          ALIAS_URL=$(grep -o 'Deployment alias URL: https://[^[:space:]]*\.pages\.dev' deployment-output.txt | sed 's/Deployment alias URL: //' | head -1)
+          echo "main-url=$MAIN_URL" >> $GITHUB_OUTPUT
+          echo "alias-url=$ALIAS_URL" >> $GITHUB_OUTPUT
+
+      - name: Comment deployment URL on PR
+        if: github.ref != 'refs/heads/master' && (steps.extract-url.outputs.main-url != '' || steps.extract-url.outputs.alias-url != '')
+        uses: actions/github-script@v7
+        env:
+          MAIN_URL: ${{ steps.extract-url.outputs.main-url }}
+          ALIAS_URL: ${{ steps.extract-url.outputs.alias-url }}
+        with:
+          script: |
+            const mainUrl = process.env.MAIN_URL;
+            const aliasUrl = process.env.ALIAS_URL;
+            if (!mainUrl && !aliasUrl) return;
+
+            // Find PR for this branch
+            const branch = context.ref.replace('refs/heads/', '');
+            const { data: prs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head: `${context.repo.owner}:${branch}`,
+              state: 'open'
+            });
+
+            if (prs.length === 0) return;
+
+            const pr = prs[0];
+            let body = '🚀 Preview deployment ready!\n\n';
+            if (mainUrl) body += `**Direct URL:** ${mainUrl}\n`;
+            if (aliasUrl) body += `**Branch URL:** ${aliasUrl}\n`;
+            // Find existing comment
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number,
+            });
+
+            const botComment = comments.find(comment => 
+              comment.user.type === 'Bot' && 
+              comment.body.includes('🚀 Preview deployment ready!')
+            );
+
+            if (botComment) {
+              // Update existing comment
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: body
+              });
+            } else {
+              // Create new comment
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                body: body
+              });
+            }
