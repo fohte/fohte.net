@@ -51,23 +51,27 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy ./out --project-name=fohte-net
 
-      - name: Extract deployment URL
+      - name: Extract deployment URLs
         if: github.ref != 'refs/heads/master'
         id: extract-url
         run: |
           echo "${{ steps.cloudflare-deployment.outputs.command-output }}" > deployment-output.txt
-          URL=$(grep -o 'https://[^[:space:]]*\.pages\.dev' deployment-output.txt | head -1)
-          echo "deployment-url=$URL" >> $GITHUB_OUTPUT
+          MAIN_URL=$(grep -o 'Take a peek over at https://[^[:space:]]*\.pages\.dev' deployment-output.txt | sed 's/Take a peek over at //' | head -1)
+          ALIAS_URL=$(grep -o 'Deployment alias URL: https://[^[:space:]]*\.pages\.dev' deployment-output.txt | sed 's/Deployment alias URL: //' | head -1)
+          echo "main-url=$MAIN_URL" >> $GITHUB_OUTPUT
+          echo "alias-url=$ALIAS_URL" >> $GITHUB_OUTPUT
 
       - name: Comment deployment URL on PR
-        if: github.ref != 'refs/heads/master' && steps.extract-url.outputs.deployment-url != ''
+        if: github.ref != 'refs/heads/master' && (steps.extract-url.outputs.main-url != '' || steps.extract-url.outputs.alias-url != '')
         uses: actions/github-script@v7
         env:
-          DEPLOYMENT_URL: ${{ steps.extract-url.outputs.deployment-url }}
+          MAIN_URL: ${{ steps.extract-url.outputs.main-url }}
+          ALIAS_URL: ${{ steps.extract-url.outputs.alias-url }}
         with:
           script: |
-            const url = process.env.DEPLOYMENT_URL;
-            if (!url) return;
+            const mainUrl = process.env.MAIN_URL;
+            const aliasUrl = process.env.ALIAS_URL;
+            if (!mainUrl && !aliasUrl) return;
 
             // Find PR for this branch
             const branch = context.ref.replace('refs/heads/', '');
@@ -81,7 +85,9 @@ jobs:
             if (prs.length === 0) return;
 
             const pr = prs[0];
-            const body = `🚀 Preview deployment ready!\n\n${url}`;
+            let body = '🚀 Preview deployment ready!\n\n';
+            if (mainUrl) body += `**Direct URL:** ${mainUrl}\n`;
+            if (aliasUrl) body += `**Branch URL:** ${aliasUrl}\n`;
             // Find existing comment
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
