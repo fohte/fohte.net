@@ -26,12 +26,18 @@ jobs:
           install: true
       - uses: reviewdog/action-setup@v1
       - run: bun install --frozen-lockfile
-      - run: bun run format
+      
+      - name: Install pre-commit
+        run: pip install pre-commit
+      
+      - name: Run pre-commit
+        id: pre-commit
+        run: pre-commit run --all-files || true
 
       - name: Commit formatted files
         uses: suzuki-shunsuke/commit-action@v0.0.7
         with:
-          commit_message: 'style: auto-format'
+          commit_message: 'style: $ pre-commit run --all-files'
           workflow: deny
           github_token: ${{ steps.app-token.outputs.token }}
 
