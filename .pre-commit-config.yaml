@@ -14,7 +14,7 @@ repos:
     hooks:
       - id: eslint
         name: eslint
-        entry: eslint --fix
+        entry: bun eslint --fix
         language: system
         pass_filenames: true
         files: \.(jsx?|tsx?)$
