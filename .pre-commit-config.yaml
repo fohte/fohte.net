@@ -1,14 +1,8 @@
 repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
-    hooks:
-      - id: end-of-file-fixer
-      - id: trailing-whitespace
   - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
     rev: 3.0.3
     hooks:
       - id: editorconfig-checker
-        exclude: '\.mdx$'
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v3.1.0
     hooks:
