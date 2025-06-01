@@ -14,6 +14,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Create GitHub deployment
+        id: deployment
+        uses: chrnorm/deployment-action@v2
+        with:
+          token: ${{ github.token }}
+          environment: ${{ github.ref == 'refs/heads/master' && 'Production' || 'Preview' }}
+          environment-url: ${{ github.ref == 'refs/heads/master' && 'https://fohte.net' || null }}
+          description: Deploy to Cloudflare Pages
+          initial-status: in_progress
+          production-environment: ${{ github.ref == 'refs/heads/master' }}
+          log-url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
       - name: Setup mise
         uses: jdx/mise-action@v2
         with:
@@ -61,59 +73,12 @@ jobs:
           echo "main-url=$MAIN_URL" >> $GITHUB_OUTPUT
           echo "alias-url=$ALIAS_URL" >> $GITHUB_OUTPUT
 
-      - name: Comment deployment URL on PR
-        if: github.ref != 'refs/heads/master' && (steps.extract-url.outputs.main-url != '' || steps.extract-url.outputs.alias-url != '')
-        uses: actions/github-script@v7
-        env:
-          MAIN_URL: ${{ steps.extract-url.outputs.main-url }}
-          ALIAS_URL: ${{ steps.extract-url.outputs.alias-url }}
+      - name: Update deployment status
+        if: always()
+        uses: chrnorm/deployment-status@v2
         with:
-          script: |
-            const mainUrl = process.env.MAIN_URL;
-            const aliasUrl = process.env.ALIAS_URL;
-            if (!mainUrl && !aliasUrl) return;
-
-            // Find PR for this branch
-            const branch = context.ref.replace('refs/heads/', '');
-            const { data: prs } = await github.rest.pulls.list({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              head: `${context.repo.owner}:${branch}`,
-              state: 'open'
-            });
-
-            if (prs.length === 0) return;
-
-            const pr = prs[0];
-            let body = '🚀 Preview deployment ready!\n\n';
-            if (mainUrl) body += `**Direct URL:** ${mainUrl}\n`;
-            if (aliasUrl) body += `**Branch URL:** ${aliasUrl}\n`;
-            // Find existing comment
-            const { data: comments } = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: pr.number,
-            });
-
-            const botComment = comments.find(comment =>
-              comment.user.type === 'Bot' &&
-              comment.body.includes('🚀 Preview deployment ready!')
-            );
-
-            if (botComment) {
-              // Update existing comment
-              await github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: botComment.id,
-                body: body
-              });
-            } else {
-              // Create new comment
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: pr.number,
-                body: body
-              });
-            }
+          token: ${{ github.token }}
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+          state: ${{ job.status }}
+          environment-url: ${{ steps.extract-url.outputs.alias-url || steps.extract-url.outputs.main-url || (github.ref == 'refs/heads/master' && 'https://fohte.net' || '') }}
+          log-url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
