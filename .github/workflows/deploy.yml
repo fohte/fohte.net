@@ -23,6 +23,7 @@ jobs:
           environment-url: ${{ github.ref == 'refs/heads/master' && 'https://fohte.net' }}
           description: Deploy to Cloudflare Pages
           initial-status: in_progress
+          production-environment: ${{ github.ref == 'refs/heads/master' }}
 
       - name: Setup mise
         uses: jdx/mise-action@v2
