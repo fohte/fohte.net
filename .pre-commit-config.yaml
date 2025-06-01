@@ -9,6 +9,7 @@ repos:
     rev: 3.0.3
     hooks:
       - id: editorconfig-checker
+        args: [-disable-indent-size] # use prettier for indent consistency
   - repo: local
     hooks:
       - id: bun-format
