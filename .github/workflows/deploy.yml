@@ -24,6 +24,7 @@ jobs:
           description: Deploy to Cloudflare Pages
           initial-status: in_progress
           production-environment: ${{ github.ref == 'refs/heads/master' }}
+          log-url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
       - name: Setup mise
         uses: jdx/mise-action@v2
@@ -80,3 +81,4 @@ jobs:
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
           state: ${{ job.status }}
           environment-url: ${{ steps.extract-url.outputs.alias-url || steps.extract-url.outputs.main-url || (github.ref == 'refs/heads/master' && 'https://fohte.net' || '') }}
+          log-url: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
