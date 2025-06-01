@@ -20,7 +20,7 @@ jobs:
         with:
           token: ${{ github.token }}
           environment: ${{ github.ref == 'refs/heads/master' && 'Production' || 'Preview' }}
-          environment-url: ${{ github.ref == 'refs/heads/master' && 'https://fohte.net' }}
+          environment-url: ${{ github.ref == 'refs/heads/master' && 'https://fohte.net' || null }}
           description: Deploy to Cloudflare Pages
           initial-status: in_progress
           production-environment: ${{ github.ref == 'refs/heads/master' }}
