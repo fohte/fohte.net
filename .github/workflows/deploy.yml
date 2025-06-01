@@ -46,6 +46,17 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
+      - name: Debug files for Next.js cache
+        run: |
+          echo "Files matching src/**:"
+          find src -type f | wc -l
+          echo "Files matching contents/**:"
+          find contents -type f | wc -l
+          echo "Config files:"
+          ls -la contentlayer.config.ts next.config.js || echo "Config files not found"
+          echo "Total files in current directory (excluding .git and node_modules):"
+          find . -type f -not -path './.git/*' -not -path './node_modules/*' | wc -l
+
       - name: Cache Next.js build
         uses: actions/cache@v4
         with:
