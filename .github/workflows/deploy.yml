@@ -95,8 +95,8 @@ jobs:
               issue_number: pr.number,
             });
 
-            const botComment = comments.find(comment => 
-              comment.user.type === 'Bot' && 
+            const botComment = comments.find(comment =>
+              comment.user.type === 'Bot' &&
               comment.body.includes('🚀 Preview deployment ready!')
             );
 
