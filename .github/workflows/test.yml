@@ -26,10 +26,10 @@ jobs:
           install: true
       - uses: reviewdog/action-setup@v1
       - run: bun install --frozen-lockfile
-      
+
       - name: Install pre-commit
         run: pip install pre-commit
-      
+
       - name: Run pre-commit
         id: pre-commit
         run: pre-commit run --all-files || true
