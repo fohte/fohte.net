@@ -26,9 +26,15 @@ jobs:
           install: true
       - uses: reviewdog/action-setup@v1
       - run: bun install --frozen-lockfile
-      - run: bun run format
+
+      - name: Run pre-commit
+        id: pre-commit
+        run: |
+          pip install pre-commit
+          pre-commit run --all-files
 
       - name: Commit formatted files
+        if: ${{ !cancelled() }}
         uses: suzuki-shunsuke/commit-action@v0.0.7
         with:
           commit_message: 'style: auto-format'

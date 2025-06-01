@@ -1,0 +1,26 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md, --markdown-linebreak-ext=mdx]
+  - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
+    rev: 3.0.3
+    hooks:
+      - id: editorconfig-checker
+        args: [-disable-indent-size] # use prettier for indent consistency
+  - repo: local
+    hooks:
+      - id: eslint
+        name: eslint
+        entry: bun eslint --fix
+        language: system
+        pass_filenames: true
+        files: \.(jsx?|tsx?)$
+
+      - id: prettier
+        name: prettier
+        entry: bun prettier --write --ignore-unknown
+        language: system
+        pass_filenames: true
