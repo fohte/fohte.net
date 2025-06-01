@@ -19,7 +19,7 @@ jobs:
         uses: chrnorm/deployment-action@v2
         with:
           token: ${{ github.token }}
-          environment: ${{ github.ref == 'refs/heads/master' && 'production' || 'preview' }}
+          environment: ${{ github.ref == 'refs/heads/master' && 'Production' || 'Preview' }}
           environment-url: ${{ github.ref == 'refs/heads/master' && 'https://fohte.net' }}
           description: Deploy to Cloudflare Pages
           initial-status: in_progress
