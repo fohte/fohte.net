@@ -54,9 +54,8 @@ jobs:
             .contentlayer/.cache
             .contentlayer
             out
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/bun.lockb') }}-${{ hashFiles('src/**', 'contents/**', 'contentlayer.config.ts', 'next.config.js') }}
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/bun.lockb') }}-${{ hashFiles('src/**', 'contents/**', 'contentlayer.config.ts', 'next.config.js', '!node_modules/**/*') }}
           restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/bun.lockb') }}-${{ hashFiles('src/**', 'contents/**', 'contentlayer.config.ts', 'next.config.js') }}
             ${{ runner.os }}-nextjs-${{ hashFiles('**/bun.lockb') }}-
             ${{ runner.os }}-nextjs-
 
