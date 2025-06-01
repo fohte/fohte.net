@@ -12,8 +12,15 @@ repos:
         args: [-disable-indent-size] # use prettier for indent consistency
   - repo: local
     hooks:
-      - id: bun-format
-        name: bun format
-        entry: bun run format
+      - id: eslint
+        name: eslint
+        entry: eslint --fix
         language: system
-        pass_filenames: false
+        pass_filenames: true
+        files: \.(jsx?|tsx?)$
+
+      - id: prettier
+        name: prettier
+        entry: bun prettier --write --ignore-unknown
+        language: system
+        pass_filenames: true
