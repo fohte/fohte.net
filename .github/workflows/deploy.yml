@@ -14,6 +14,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Create GitHub deployment
+        id: deployment
+        uses: chrnorm/deployment-action@v2
+        with:
+          token: ${{ github.token }}
+          environment: ${{ github.ref == 'refs/heads/master' && 'production' || 'preview' }}
+          environment-url: ${{ github.ref == 'refs/heads/master' && 'https://fohte.net' || format('https://{0}.fohte-net.pages.dev', github.sha) }}
+          description: Deploy to Cloudflare Pages
+          initial-status: in_progress
+
       - name: Setup mise
         uses: jdx/mise-action@v2
         with:
@@ -60,6 +70,15 @@ jobs:
           ALIAS_URL=$(grep -o 'Deployment alias URL: https://[^[:space:]]*\.pages\.dev' deployment-output.txt | sed 's/Deployment alias URL: //' | head -1)
           echo "main-url=$MAIN_URL" >> $GITHUB_OUTPUT
           echo "alias-url=$ALIAS_URL" >> $GITHUB_OUTPUT
+
+      - name: Update deployment status
+        if: always()
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: ${{ github.token }}
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+          state: ${{ job.status }}
+          environment-url: ${{ steps.extract-url.outputs.alias-url || steps.extract-url.outputs.main-url || (github.ref == 'refs/heads/master' && 'https://fohte.net' || '') }}
 
       - name: Comment deployment URL on PR
         if: github.ref != 'refs/heads/master' && (steps.extract-url.outputs.main-url != '' || steps.extract-url.outputs.alias-url != '')
