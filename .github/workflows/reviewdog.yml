@@ -22,9 +22,9 @@ jobs:
             ~/.bun/install/cache
             ~/.bun/install/global
             node_modules
-          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lockb') }}
+          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }}
           restore-keys: |
-            ${{ runner.os }}-bun-${{ hashFiles('bun.lockb') }}
+            ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }}
             ${{ runner.os }}-bun-
 
       - run: bun install --frozen-lockfile
