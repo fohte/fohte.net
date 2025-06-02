@@ -11,7 +11,7 @@
     "build:contentlayer": "contentlayer build",
     "build:next": "next build",
     "start": "next start",
-    "test": "conc -m 1 bun:build:contentlayer bun:test:type",
+    "test": "conc -m 1 bun:build:contentlayer bun:test:type bun:test:unit",
     "test:type": "tsc --noEmit",
     "test:unit": "vitest",
     "test:unit:ui": "vitest --ui",
