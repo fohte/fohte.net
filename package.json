@@ -15,7 +15,11 @@
     "test:type": "tsc --noEmit",
     "test:unit": "vitest",
     "test:unit:ui": "vitest --ui",
-    "test:unit:coverage": "vitest --coverage"
+    "test:unit:coverage": "vitest --coverage",
+    "vrt:capture": "bun run tools/capture-screenshots.ts",
+    "vrt:run": "reg-suit run",
+    "vrt:sync": "reg-suit sync-expected",
+    "vrt": "bun run vrt:capture && bun run vrt:run"
   },
   "dependencies": {
     "@chakra-ui/next-js": "2.2.0",
@@ -63,6 +67,9 @@
     "iconv-lite": "0.6.3",
     "jsdom": "24.1.3",
     "prettier": "3.5.3",
+    "puppeteer": "^24.10.0",
+    "reg-publish-s3-plugin": "^0.14.4",
+    "reg-suit": "^0.14.4",
     "textlint": "14.0.4",
     "textlint-rule-preset-ja-technical-writing": "9.0.0",
     "typescript": "5.4.5",

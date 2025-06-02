@@ -1,0 +1,21 @@
+{
+  "core": {
+    "workingDir": ".reg",
+    "threshold": 0.1,
+    "ximgdiff": {
+      "invocationType": "client"
+    }
+  },
+  "plugins": {
+    "reg-publish-s3-plugin": {
+      "bucketName": "fohte-net-public-assets",
+      "objectKeyPrefix": "reg-suit/",
+      "customDomain": "https://assets.fohte.net",
+      "sdkOptions": {
+        "endpoint": "https://{CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com",
+        "region": "auto",
+        "forcePathStyle": true
+      }
+    }
+  }
+}
