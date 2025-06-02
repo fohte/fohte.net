@@ -12,7 +12,8 @@
     "build:next": "next build",
     "start": "next start",
     "test": "conc -m 1 bun:build:contentlayer bun:test:type",
-    "test:type": "tsc --noEmit"
+    "test:type": "tsc --noEmit",
+    "percy": "percy snapshot out/"
   },
   "dependencies": {
     "@chakra-ui/next-js": "2.2.0",
@@ -44,6 +45,8 @@
   },
   "devDependencies": {
     "@fohte/eslint-config": "0.0.4",
+    "@percy/cli": "^1.30.11",
+    "@percy/sdk-utils": "^1.30.11",
     "@types/jsdom": "21.1.7",
     "@types/react": "18.2.73",
     "@types/react-dom": "18.2.23",
