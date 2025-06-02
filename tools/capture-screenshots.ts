@@ -45,11 +45,11 @@ async function captureScreenshots() {
     })
 
     // Wait for fonts and images to load
-    await page.waitForTimeout(2000)
+    await new Promise((resolve) => setTimeout(resolve, 2000))
 
     const screenshotPath = path.join(screenshotsDir, `${pageConfig.name}.png`)
     await page.screenshot({
-      path: screenshotPath,
+      path: screenshotPath as `${string}.png`,
       fullPage: true,
       type: 'png',
     })
