@@ -1,4 +1,26 @@
-import { expect, test } from '@playwright/test'
+import { expect, type Page, test } from '@playwright/test'
+
+// Percy snapshot helper - falls back to regular screenshot in local mode
+const takeSnapshot = async (
+  page: Page,
+  name: string,
+  options: { fullPage?: boolean } = {},
+) => {
+  if (process.env.PERCY_TOKEN) {
+    const percySnapshot = await import('@percy/playwright')
+    await percySnapshot.default(page, name, options)
+  } else {
+    // Local fallback - take regular screenshot for visual validation
+    await expect(page).toHaveScreenshot(
+      `${name.toLowerCase().replace(/\s+/g, '-')}.png`,
+      {
+        fullPage: options.fullPage || true,
+        animations: 'disabled',
+        threshold: 0.05,
+      },
+    )
+  }
+}
 
 test.describe('Blog Visual Regression Tests', () => {
   test.beforeEach(async ({ page }) => {
@@ -12,11 +34,9 @@ test.describe('Blog Visual Regression Tests', () => {
     // Wait for content to be fully loaded
     await page.waitForTimeout(1000)
 
-    // Take full page screenshot
-    await expect(page).toHaveScreenshot('blog-list.png', {
+    // Take Percy snapshot
+    await takeSnapshot(page, 'Blog list page', {
       fullPage: true,
-      animations: 'disabled',
-      threshold: 0.05,
     })
   })
 
@@ -24,10 +44,8 @@ test.describe('Blog Visual Regression Tests', () => {
     await page.goto('/blog/posts/vrt-test-basic')
     await page.waitForTimeout(1000)
 
-    await expect(page).toHaveScreenshot('blog-post-basic.png', {
+    await takeSnapshot(page, 'Blog post - Basic', {
       fullPage: true,
-      animations: 'disabled',
-      threshold: 0.05,
     })
   })
 
@@ -35,10 +53,8 @@ test.describe('Blog Visual Regression Tests', () => {
     await page.goto('/blog/posts/vrt-test-long-title')
     await page.waitForTimeout(1000)
 
-    await expect(page).toHaveScreenshot('blog-post-long-title.png', {
+    await takeSnapshot(page, 'Blog post - Long title', {
       fullPage: true,
-      animations: 'disabled',
-      threshold: 0.05,
     })
   })
 
@@ -46,10 +62,8 @@ test.describe('Blog Visual Regression Tests', () => {
     await page.goto('/blog/posts/vrt-test-japanese')
     await page.waitForTimeout(1000)
 
-    await expect(page).toHaveScreenshot('blog-post-japanese.png', {
+    await takeSnapshot(page, 'Blog post - Japanese content', {
       fullPage: true,
-      animations: 'disabled',
-      threshold: 0.05,
     })
   })
 
@@ -57,10 +71,8 @@ test.describe('Blog Visual Regression Tests', () => {
     await page.goto('/blog/posts/vrt-test-minimal')
     await page.waitForTimeout(1000)
 
-    await expect(page).toHaveScreenshot('blog-post-minimal.png', {
+    await takeSnapshot(page, 'Blog post - Minimal', {
       fullPage: true,
-      animations: 'disabled',
-      threshold: 0.05,
     })
   })
 })
