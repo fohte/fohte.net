@@ -11,13 +11,12 @@
     "build:contentlayer": "contentlayer build",
     "build:next": "next build",
     "start": "next start",
-    "test": "conc -m 1 bun:build:contentlayer bun:test:type bun:test:unit bun:test:vrt:local",
+    "test": "conc -m 1 bun:build:contentlayer bun:test:type bun:test:unit",
     "test:type": "tsc --noEmit",
     "test:unit": "vitest",
     "test:unit:ui": "vitest --ui",
     "test:unit:coverage": "vitest --coverage",
     "test:vrt": "percy exec -- playwright test",
-    "test:vrt:local": "playwright test",
     "test:vrt:ui": "playwright show-report"
   },
   "dependencies": {
