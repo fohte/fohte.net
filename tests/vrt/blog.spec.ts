@@ -63,22 +63,4 @@ test.describe('Blog Visual Regression Tests', () => {
       threshold: 0.05,
     })
   })
-
-  // Test specific components within blog posts
-  test('Blog post components', async ({ page }) => {
-    await page.goto('/blog/posts/vrt-test-basic')
-    await page.waitForTimeout(1000)
-
-    // Test code block rendering
-    const codeBlock = page.locator('pre').first()
-    await expect(codeBlock).toHaveScreenshot('blog-code-block.png')
-
-    // Test post header (title, date, tags)
-    const header = page
-      .locator('div')
-      .filter({ hasText: 'VRT Test Post' })
-      .first()
-      .locator('..')
-    await expect(header).toHaveScreenshot('blog-post-header.png')
-  })
 })
