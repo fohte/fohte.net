@@ -4,7 +4,7 @@ module.exports = {
     networkIdleTimeout: 750,
   },
   snapshot: {
-    widths: [1200, 375], // Desktop and mobile
+    widths: [375, 1200], // Mobile first, then desktop
     minHeight: 1024,
     percyCSS: '',
   },
