@@ -14,5 +14,7 @@ tsconfig.tsbuildinfo
 
 out/
 
-# VRT (Visual Regression Testing)
-.reg/
+# Playwright Test
+test-results/
+playwright-report/
+playwright/.cache/
