@@ -7,7 +7,7 @@ test.describe('Blog Visual Regression Tests', () => {
   })
 
   test('Blog list page', async ({ page }) => {
-    await page.goto('/blog')
+    await page.goto('/test/blog')
 
     // Wait for content to be fully loaded
     await page.waitForTimeout(1000)
