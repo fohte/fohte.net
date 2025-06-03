@@ -40,6 +40,15 @@ jobs:
 
       - run: bun install --frozen-lockfile
 
+      - name: Install Playwright browsers
+        run: bunx playwright install chromium
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('bun.lock') }}
+
       - name: Cache pre-commit
         uses: actions/cache@v4
         with:
@@ -64,3 +73,52 @@ jobs:
           github_token: ${{ steps.app-token.outputs.token }}
 
       - run: bun run test
+
+      - name: Upload VRT test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
+      - name: Upload VRT screenshots
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: vrt-screenshots
+          path: tests/vrt/**/*.png
+          retention-days: 30
+
+      - name: Comment PR with VRT results
+        uses: actions/github-script@v7
+        if: always() && github.event_name == 'pull_request'
+        with:
+          script: |
+            const fs = require('fs');
+            const resultsPath = './test-results/results.json';
+
+            let message = '## 📸 Visual Regression Test Results\n\n';
+
+            if (fs.existsSync(resultsPath)) {
+              const results = JSON.parse(fs.readFileSync(resultsPath, 'utf8'));
+              const { passed, failed, skipped } = results.summary;
+
+              if (failed === 0) {
+                message += '✅ All visual regression tests passed!\n\n';
+              } else {
+                message += `❌ ${failed} visual regression test(s) failed.\n\n`;
+                message += 'Please check the artifacts for detailed results and screenshots.\n\n';
+              }
+
+              message += `**Summary**: ${passed} passed, ${failed} failed, ${skipped} skipped\n`;
+            } else {
+              message += '⚠️ Could not find test results. Please check the workflow logs.\n';
+            }
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            });
