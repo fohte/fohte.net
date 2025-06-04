@@ -15,13 +15,17 @@
     "test:type": "tsc --noEmit",
     "test:unit": "vitest",
     "test:unit:ui": "vitest --ui",
-    "test:unit:coverage": "vitest --coverage"
+    "test:unit:coverage": "vitest --coverage",
+    "test:vrt": "percy exec -- playwright test",
+    "test:vrt:ui": "playwright show-report"
   },
   "dependencies": {
     "@chakra-ui/next-js": "2.2.0",
     "@chakra-ui/react": "2.8.2",
     "@emotion/react": "11.11.4",
     "@emotion/styled": "11.11.5",
+    "@percy/cli": "^1.30.11",
+    "@percy/playwright": "^1.0.8",
     "@types/mdx": "2.0.13",
     "contentlayer": "0.3.4",
     "date-fns": "2.30.0",
@@ -47,6 +51,7 @@
   },
   "devDependencies": {
     "@fohte/eslint-config": "0.0.4",
+    "@playwright/test": "^1.52.0",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.3.0",
     "@testing-library/user-event": "14.6.1",
