@@ -8,4 +8,9 @@ module.exports = {
     minHeight: 1024,
     percyCSS: '',
   },
+  percy: {
+    env: {
+      NODE_ENV: 'test',
+    },
+  },
 }
