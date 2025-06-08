@@ -1,12 +1,13 @@
 import { Box, Flex, Heading, Image, Spacer, Text } from '@chakra-ui/react'
-import { headers } from 'next/headers'
 
 import { Container } from '@/components/Container'
 import { Link } from '@/components/Link'
 
-export const Header: React.FC = () => {
-  const headersList = headers()
-  const pathname = headersList.get('x-pathname') || '/'
+type HeaderProps = {
+  pathname?: string
+}
+
+export const Header: React.FC<HeaderProps> = ({ pathname = '/' }) => {
   const isBlogPage = pathname.startsWith('/blog')
   const siteTitle = isBlogPage ? 'Fohte Blog' : 'fohte.net'
 
