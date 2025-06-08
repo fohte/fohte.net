@@ -7,6 +7,7 @@ module.exports = {
     widths: [375, 1200], // Mobile first, then desktop
     minHeight: 1024,
     percyCSS: '',
+    browsers: ['chrome'],
   },
   percy: {
     env: {
