@@ -31,9 +31,8 @@ test.describe('Blog meta titles', () => {
 test.describe('Header titles', () => {
   test('blog pages should show "Fohte Blog" in header', async ({ page }) => {
     await page.goto('/test/blog')
-    // Header is actually rendered as footer in the code
     const headerTitle = page
-      .locator('footer')
+      .locator('header')
       .first()
       .locator('text=Fohte Blog')
     await expect(headerTitle).toBeVisible()
@@ -41,8 +40,7 @@ test.describe('Header titles', () => {
 
   test('non-blog pages should show "fohte.net" in header', async ({ page }) => {
     await page.goto('/')
-    // Header is actually rendered as footer in the code
-    const headerTitle = page.locator('footer').first().locator('text=fohte.net')
+    const headerTitle = page.locator('header').first().locator('text=fohte.net')
     await expect(headerTitle).toBeVisible()
   })
 })

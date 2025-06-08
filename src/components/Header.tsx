@@ -11,7 +11,7 @@ export const Header: React.FC<HeaderProps> = ({ headerTitle }) => {
   const siteTitle = headerTitle || 'fohte.net'
 
   return (
-    <Box as="footer">
+    <Box as="header">
       <Container py={6}>
         <Flex align="center">
           <Heading as="h1" size="md">
