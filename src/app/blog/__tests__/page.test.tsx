@@ -5,12 +5,13 @@ vi.mock('contentlayer/generated', () => ({
   allPosts: [],
 }))
 
-// Import metadata from the page
-const { metadata } = await import('../page')
+// Import generateMetadata from the page
+const { generateMetadata } = await import('../page')
 
 describe('Blog Page', () => {
-  describe('metadata', () => {
-    it('should have the correct title', () => {
+  describe('generateMetadata', () => {
+    it('should have the correct title', async () => {
+      const metadata = await generateMetadata()
       expect(metadata.title).toBe('記事一覧')
     })
   })
