@@ -78,5 +78,5 @@ jobs:
       - name: Run Percy VRT
         run: bun run test:vrt
         env:
-          NODE_ENV: test
+          APP_ENV: test
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
