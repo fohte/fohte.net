@@ -1,12 +1,16 @@
 import { Heading } from '@chakra-ui/react'
 import { allPosts } from 'contentlayer/generated'
+import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import * as React from 'react'
 
 import { Container } from '@/components/Container'
-import GlobalLayout from '@/components/GlobalLayout'
 import { PostList } from '@/components/PostList'
 import { findPostFrontmatter } from '@/utils/contentlayer'
+
+export const metadata: Metadata = {
+  title: '記事一覧',
+}
 
 export default async function TestBlogListPage() {
   // テスト環境以外では404を返す
@@ -23,14 +27,12 @@ export default async function TestBlogListPage() {
     }))
 
   return (
-    <GlobalLayout>
-      <Container backgroundColor="white">
-        <Heading size="md" my={4}>
-          記事一覧
-        </Heading>
+    <Container backgroundColor="white">
+      <Heading size="md" my={4}>
+        記事一覧
+      </Heading>
 
-        <PostList posts={vrtTestPosts} />
-      </Container>
-    </GlobalLayout>
+      <PostList posts={vrtTestPosts} />
+    </Container>
   )
 }
