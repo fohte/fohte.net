@@ -23,7 +23,7 @@ export async function generateMetadata({
   params: { tag },
 }: Props): Promise<Metadata> {
   return {
-    title: `#${tag} - Fohte Blog`,
+    title: `#${tag}`,
   }
 }
 

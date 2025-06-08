@@ -8,7 +8,7 @@ import { PostList } from '@/components/PostList'
 import { findPostFrontmatter } from '@/utils/contentlayer'
 
 export const metadata: Metadata = {
-  title: 'Fohte Blog',
+  title: '記事一覧',
 }
 
 export default async function PostListPage() {
