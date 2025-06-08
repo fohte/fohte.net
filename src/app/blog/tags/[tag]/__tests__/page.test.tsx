@@ -15,7 +15,7 @@ describe('Tag Page', () => {
         params: { tag: 'react' },
       })
 
-      expect(metadata.title).toBe('#react - Fohte Blog')
+      expect(metadata.title).toBe('#react')
     })
 
     it('should handle tags with special characters', async () => {
@@ -23,7 +23,7 @@ describe('Tag Page', () => {
         params: { tag: 'next.js' },
       })
 
-      expect(metadata.title).toBe('#next.js - Fohte Blog')
+      expect(metadata.title).toBe('#next.js')
     })
 
     it('should handle Japanese tags', async () => {
@@ -31,7 +31,7 @@ describe('Tag Page', () => {
         params: { tag: '技術' },
       })
 
-      expect(metadata.title).toBe('#技術 - Fohte Blog')
+      expect(metadata.title).toBe('#技術')
     })
   })
 })

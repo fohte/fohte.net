@@ -11,7 +11,7 @@ const { metadata } = await import('../page')
 describe('Blog Page', () => {
   describe('metadata', () => {
     it('should have the correct title', () => {
-      expect(metadata.title).toBe('Fohte Blog')
+      expect(metadata.title).toBe('記事一覧')
     })
   })
 })
