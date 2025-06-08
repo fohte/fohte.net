@@ -2,6 +2,7 @@ import { ParsedUrlQuery } from 'node:querystring'
 
 import { Heading } from '@chakra-ui/react'
 import { allPosts } from 'contentlayer/generated'
+import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import * as React from 'react'
 import { flatMap } from 'remeda'
@@ -16,6 +17,14 @@ type Props = {
 
 interface Params extends ParsedUrlQuery {
   tag: string
+}
+
+export async function generateMetadata({
+  params: { tag },
+}: Props): Promise<Metadata> {
+  return {
+    title: `#${tag} - Fohte Blog`,
+  }
 }
 
 export default function TagPage({ params: { tag } }: Props) {
