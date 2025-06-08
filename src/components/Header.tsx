@@ -4,12 +4,11 @@ import { Container } from '@/components/Container'
 import { Link } from '@/components/Link'
 
 type HeaderProps = {
-  pathname?: string
+  headerTitle?: string
 }
 
-export const Header: React.FC<HeaderProps> = ({ pathname = '/' }) => {
-  const isBlogPage = pathname.startsWith('/blog')
-  const siteTitle = isBlogPage ? 'Fohte Blog' : 'fohte.net'
+export const Header: React.FC<HeaderProps> = ({ headerTitle }) => {
+  const siteTitle = headerTitle || 'fohte.net'
 
   return (
     <Box as="footer">

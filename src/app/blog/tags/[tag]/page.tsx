@@ -8,6 +8,7 @@ import * as React from 'react'
 import { flatMap } from 'remeda'
 
 import { Container } from '@/components/Container'
+import GlobalLayout from '@/components/GlobalLayout'
 import { PostList } from '@/components/PostList'
 import { findPostFrontmatter } from '@/utils/contentlayer'
 
@@ -40,13 +41,15 @@ export default function TagPage({ params: { tag } }: Props) {
     }))
 
   return (
-    <Container backgroundColor="white">
-      <Heading size="md" my={4}>
-        # {tag} の記事一覧
-      </Heading>
+    <GlobalLayout>
+      <Container backgroundColor="white">
+        <Heading size="md" my={4}>
+          # {tag} の記事一覧
+        </Heading>
 
-      <PostList posts={posts} />
-    </Container>
+        <PostList posts={posts} />
+      </Container>
+    </GlobalLayout>
   )
 }
 
