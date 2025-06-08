@@ -1,24 +1,11 @@
 import { describe, expect, it, vi } from 'vitest'
 
-// Mock contentlayer/generated
+// Mock only contentlayer/generated
 vi.mock('contentlayer/generated', () => ({
   allPosts: [],
 }))
 
-// Mock components that might have their own dependencies
-vi.mock('@/components/Container', () => ({
-  Container: () => null,
-}))
-
-vi.mock('@/components/PostList', () => ({
-  PostList: () => null,
-}))
-
-vi.mock('@/utils/contentlayer', () => ({
-  findPostFrontmatter: vi.fn(),
-}))
-
-// Now we can safely import the metadata
+// Import metadata from the page
 const { metadata } = await import('../page')
 
 describe('Blog Page', () => {
