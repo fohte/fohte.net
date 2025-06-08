@@ -9,7 +9,9 @@ import { findPostFrontmatter } from '@/utils/contentlayer'
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: '記事一覧',
+    title: {
+      absolute: '記事一覧 | Fohte Blog',
+    },
   }
 }
 

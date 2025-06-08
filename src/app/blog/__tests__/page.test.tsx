@@ -12,7 +12,9 @@ describe('Blog Page', () => {
   describe('generateMetadata', () => {
     it('should have the correct title', async () => {
       const metadata = await generateMetadata()
-      expect(metadata.title).toBe('記事一覧')
+      expect(metadata.title).toEqual({
+        absolute: '記事一覧 | Fohte Blog',
+      })
     })
   })
 })

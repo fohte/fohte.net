@@ -8,8 +8,10 @@ import { Container } from '@/components/Container'
 import { PostList } from '@/components/PostList'
 import { findPostFrontmatter } from '@/utils/contentlayer'
 
-export const metadata: Metadata = {
-  title: '記事一覧',
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: '記事一覧',
+  }
 }
 
 export default async function TestBlogListPage() {
