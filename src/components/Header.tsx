@@ -1,13 +1,12 @@
-'use client'
-
 import { Box, Flex, Heading, Image, Spacer, Text } from '@chakra-ui/react'
-import { usePathname } from 'next/navigation'
+import { headers } from 'next/headers'
 
 import { Container } from '@/components/Container'
 import { Link } from '@/components/Link'
 
 export const Header: React.FC = () => {
-  const pathname = usePathname()
+  const headersList = headers()
+  const pathname = headersList.get('x-pathname') || '/'
   const isBlogPage = pathname.startsWith('/blog')
   const siteTitle = isBlogPage ? 'Fohte Blog' : 'fohte.net'
 
