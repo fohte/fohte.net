@@ -8,7 +8,6 @@ import { useMDXComponent } from 'next-contentlayer/hooks'
 import * as React from 'react'
 
 import { Container } from '@/components/Container'
-import GlobalLayout from '@/components/GlobalLayout'
 import { mdxComponents } from '@/components/mdx'
 import { PostFooterProfile } from '@/components/PostFooterProfile'
 import { TagList } from '@/components/TagList'
@@ -55,27 +54,25 @@ export default function PostPage({ params: { slug } }: Props) {
   const MDXContent = useMDXComponent(post.body.code)
 
   return (
-    <GlobalLayout>
-      <Container backgroundColor="white" py={8}>
-        <Box mb={8}>
-          <Text fontSize="sm" mb={2}>
-            {formatDate(post.date)}
-          </Text>
-          <Heading as="h1" mb={{ base: 2, md: 3 }} size="lg">
-            {post.title}
-          </Heading>
-          {post.tags && (
-            <Box>
-              <TagList tags={post.tags}></TagList>
-            </Box>
-          )}
-        </Box>
-        <Box fontSize={{ base: 'sm', md: 'md' }} lineHeight="taller">
-          <MDXContent components={mdxComponents} />
-        </Box>
-        <Divider my={8} />
-        <PostFooterProfile />
-      </Container>
-    </GlobalLayout>
+    <Container backgroundColor="white" py={8}>
+      <Box mb={8}>
+        <Text fontSize="sm" mb={2}>
+          {formatDate(post.date)}
+        </Text>
+        <Heading as="h1" mb={{ base: 2, md: 3 }} size="lg">
+          {post.title}
+        </Heading>
+        {post.tags && (
+          <Box>
+            <TagList tags={post.tags}></TagList>
+          </Box>
+        )}
+      </Box>
+      <Box fontSize={{ base: 'sm', md: 'md' }} lineHeight="taller">
+        <MDXContent components={mdxComponents} />
+      </Box>
+      <Divider my={8} />
+      <PostFooterProfile />
+    </Container>
   )
 }
