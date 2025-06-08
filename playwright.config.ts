@@ -39,10 +39,13 @@ export default defineConfig({
 
   // Run local dev server before starting the tests
   webServer: {
-    command: 'bun run dev',
+    command: 'NODE_ENV=test bun run dev',
     port: 3000,
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
+    env: {
+      NODE_ENV: 'test',
+    },
   },
 
   // Retry failed tests
