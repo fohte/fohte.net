@@ -12,6 +12,11 @@ const getEnv = (): 'production' | 'preview' | 'development' | 'test' => {
     return 'preview'
   }
 
+  // APP_ENV takes precedence for test environment
+  if (process.env.APP_ENV === 'test') {
+    return 'test'
+  }
+
   if (
     process.env.NODE_ENV === 'production' ||
     process.env.NODE_ENV === 'development' ||
