@@ -13,3 +13,8 @@ node_modules
 tsconfig.tsbuildinfo
 
 out/
+
+# Playwright Test
+test-results/
+playwright-report/
+playwright/.cache/

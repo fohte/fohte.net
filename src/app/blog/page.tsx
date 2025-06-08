@@ -7,10 +7,13 @@ import { PostList } from '@/components/PostList'
 import { findPostFrontmatter } from '@/utils/contentlayer'
 
 export default async function PostListPage() {
-  const posts = allPosts.map((post) => ({
-    slug: post._raw.flattenedPath,
-    frontmatter: findPostFrontmatter(post),
-  }))
+  // VRTテスト用記事を除外
+  const posts = allPosts
+    .filter((post) => !post._raw.flattenedPath.includes('vrt-test-'))
+    .map((post) => ({
+      slug: post._raw.flattenedPath,
+      frontmatter: findPostFrontmatter(post),
+    }))
 
   return (
     <Container backgroundColor="white">
