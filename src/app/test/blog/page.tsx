@@ -9,7 +9,7 @@ import { findPostFrontmatter } from '@/utils/contentlayer'
 
 export default async function TestBlogListPage() {
   // テスト環境以外では404を返す
-  if (process.env.NODE_ENV !== 'test') {
+  if (process.env.APP_ENV !== 'test') {
     notFound()
   }
 
