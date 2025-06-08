@@ -13,11 +13,13 @@ export default async function TestBlogListPage() {
     notFound()
   }
 
-  // VRTテスト用記事を表示（テスト環境では自動的にフィルタリング済み）
-  const vrtTestPosts = allPosts.map((post) => ({
-    slug: post._raw.flattenedPath,
-    frontmatter: findPostFrontmatter(post),
-  }))
+  // VRTテスト用記事のみを表示
+  const vrtTestPosts = allPosts
+    .filter((post) => post._raw.flattenedPath.includes('vrt-test-'))
+    .map((post) => ({
+      slug: post._raw.flattenedPath,
+      frontmatter: findPostFrontmatter(post),
+    }))
 
   return (
     <Container backgroundColor="white">
