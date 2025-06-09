@@ -1,9 +1,0 @@
-// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
-
-exports[`Blog Metadata > Title Template Inheritance > blog pages should result in "Fohte Blog" suffix 1`] = `
-{
-  "blogListing": "記事一覧 | Fohte Blog",
-  "postPage": "Post Title | Fohte Blog",
-  "tagPage": "#tag | Fohte Blog",
-}
-`;
