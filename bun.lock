@@ -19,7 +19,7 @@
         "framer-motion": "11.18.2",
         "next": "14.2.21",
         "next-contentlayer": "0.3.4",
-        "prism-react-renderer": "2.3.1",
+        "prism-react-renderer": "2.4.1",
         "prismjs": "1.30.0",
         "react": "18.2.0",
         "react-children-utilities": "2.10.0",
@@ -1610,7 +1610,7 @@
 
     "prh": ["prh@5.4.4", "", { "dependencies": { "commandpost": "^1.2.1", "diff": "^4.0.1", "js-yaml": "^3.9.1" }, "bin": { "prh": "./bin/prh" } }, "sha512-UATF+R/2H8owxwPvF12Knihu9aYGTuZttGHrEEq5NBWz38mREh23+WvCVKX3fhnIZIMV7ye6E1fnqAl+V6WYEw=="],
 
-    "prism-react-renderer": ["prism-react-renderer@2.3.1", "", { "dependencies": { "@types/prismjs": "^1.26.0", "clsx": "^2.0.0" }, "peerDependencies": { "react": ">=16.0.0" } }, "sha512-Rdf+HzBLR7KYjzpJ1rSoxT9ioO85nZngQEoFIhL07XhtJHlCU3SOz0GJ6+qvMyQe0Se+BV3qpe6Yd/NmQF5Juw=="],
+    "prism-react-renderer": ["prism-react-renderer@2.4.1", "", { "dependencies": { "@types/prismjs": "^1.26.0", "clsx": "^2.0.0" }, "peerDependencies": { "react": ">=16.0.0" } }, "sha512-ey8Ls/+Di31eqzUxC46h8MksNuGx/n0AAC8uKpwFau4RPDYLuE3EXTp8N8G2vX2N7UC/+IXeNUnlWBGGcAG+Ig=="],
 
     "prismjs": ["prismjs@1.30.0", "", {}, "sha512-DEvV2ZF2r2/63V+tK8hQvrR2ZGn10srHbXviTlcv7Kpzw8jWiNTqbVgjO3IY8RxrrOUF8VPMQQFysYYYv0YZxw=="],
 
