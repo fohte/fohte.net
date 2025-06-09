@@ -22,8 +22,8 @@
   "dependencies": {
     "@chakra-ui/next-js": "2.4.2",
     "@chakra-ui/react": "2.10.9",
-    "@emotion/react": "11.11.4",
-    "@emotion/styled": "11.11.5",
+    "@emotion/react": "11.14.0",
+    "@emotion/styled": "11.14.0",
     "@percy/cli": "1.30.11",
     "@percy/playwright": "1.0.8",
     "@types/mdx": "2.0.13",
@@ -74,7 +74,7 @@
     "vitest": "3.2.2"
   },
   "resolutions": {
-    "@emotion/react": "11.11.4",
+    "@emotion/react": "11.14.0",
     "@types/react": "18.2.73",
     "@types/react-dom": "18.2.23",
     "date-fns": "2.30.0"
