@@ -46,7 +46,7 @@
     "remark-breaks": "4.0.0",
     "remark-gfm": "3.0.1",
     "remark-unwrap-images": "4.0.1",
-    "remeda": "1.57.0",
+    "remeda": "1.61.0",
     "sass": "1.89.1"
   },
   "devDependencies": {
