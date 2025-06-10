@@ -29,5 +29,12 @@ export const Link: React.FC<LinkProps> = (props) => {
     )
   }
 
-  return <ChakraLink color="blue.500" isExternal {...props} />
+  return (
+    <ChakraLink
+      color="blue.500"
+      target="_blank"
+      rel="noopener noreferrer"
+      {...props}
+    />
+  )
 }

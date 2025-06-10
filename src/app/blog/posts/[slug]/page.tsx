@@ -1,6 +1,6 @@
 import { ParsedUrlQuery } from 'node:querystring'
 
-import { Box, Divider, Heading, Text } from '@chakra-ui/react'
+import { Box, Heading, Separator, Text } from '@chakra-ui/react'
 import { allPosts } from 'contentlayer/generated'
 import { Metadata, ResolvingMetadata } from 'next'
 import { notFound } from 'next/navigation'
@@ -71,7 +71,7 @@ export default function PostPage({ params: { slug } }: Props) {
       <Box fontSize={{ base: 'sm', md: 'md' }} lineHeight="taller">
         <MDXContent components={mdxComponents} />
       </Box>
-      <Divider my={8} />
+      <Separator my={8} />
       <PostFooterProfile />
     </Container>
   )

@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, List, ListItem } from '@chakra-ui/react'
+import { Box, List } from '@chakra-ui/react'
 import * as React from 'react'
 import { IconType } from 'react-icons'
 import { FaGithub, FaMastodon, FaTwitter } from 'react-icons/fa'
@@ -36,14 +36,14 @@ const socialList: Array<SocialLinkItem> = [
 ]
 
 export const SocialList: React.FC = () => (
-  <List>
+  <List.Root>
     {socialList.map((social) => (
-      <ListItem key={social.href} mt={1}>
+      <List.Item key={social.href} mt={1}>
         <Link href={social.href} color="gray.700" {...social.linkProps}>
           <Box as={social.icon} display="inline" mr={2} />
           {social.text}
         </Link>
-      </ListItem>
+      </List.Item>
     ))}
-  </List>
+  </List.Root>
 )

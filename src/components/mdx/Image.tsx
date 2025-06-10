@@ -4,8 +4,6 @@ import { Box } from '@chakra-ui/react'
 import { css } from '@emotion/react'
 import * as React from 'react'
 
-import { theme } from '@/styles/theme'
-
 // e.g. https://assets.fohte.net/images/foobar.png
 //   => https://assets.fohte.net/images/foobar.webp
 const generateWebpUrl = (url: URL): URL => {
@@ -57,7 +55,7 @@ export const Image: React.FC<ImageProps> = ({ alt, src }) => {
             height: ${height}px;
             max-width: 100%;
             max-height: 100%;
-            background-color: ${theme.colors.gray[100]};
+            background-color: var(--chakra-colors-gray-100);
             margin: auto;
           `}
         >

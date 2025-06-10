@@ -1,11 +1,10 @@
 'use client'
 
-import { CacheProvider } from '@chakra-ui/next-js'
 import { ChakraProvider } from '@chakra-ui/react'
 import { css, Global } from '@emotion/react'
 
 import { GoogleAnalytics } from '@/components/GoogleAnalytics'
-import { theme } from '@/styles/theme'
+import { system } from '@/styles/theme'
 
 const globalStyles = css`
   // hack to fix footer to the bottom
@@ -52,12 +51,10 @@ const footnoteStyles = css`
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <CacheProvider>
-        <ChakraProvider theme={theme}>
-          <Global styles={[globalStyles, footnoteStyles]} />
-          {children}
-        </ChakraProvider>
-      </CacheProvider>
+      <ChakraProvider value={system}>
+        <Global styles={[globalStyles, footnoteStyles]} />
+        {children}
+      </ChakraProvider>
 
       <GoogleAnalytics />
     </>

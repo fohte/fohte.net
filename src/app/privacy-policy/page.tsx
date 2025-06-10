@@ -1,10 +1,4 @@
-import {
-  Heading,
-  ListItem,
-  OrderedList,
-  Text,
-  UnorderedList,
-} from '@chakra-ui/react'
+import { Heading, List, Text } from '@chakra-ui/react'
 import * as React from 'react'
 
 import { Container } from '@/components/Container'
@@ -30,8 +24,8 @@ export default async function PostListPage() {
         収集する情報
       </Heading>
       <Text>本サイトでは、以下の情報を収集することがあります。</Text>
-      <OrderedList my={4}>
-        <ListItem>
+      <List.Root as="ol" my={4}>
+        <List.Item>
           <Text fontWeight="bold">Google Analytics</Text>
           <Text>
             本サイトでは、アクセス解析のために Google Analytics
@@ -43,8 +37,8 @@ export default async function PostListPage() {
             </Link>
             をご覧ください。
           </Text>
-        </ListItem>
-        <ListItem my={2}>
+        </List.Item>
+        <List.Item my={2}>
           <Text fontWeight="bold">Amazon アソシエイト</Text>
           <Text>
             本サイトは、Amazon アソシエイトプログラムに参加しています。Amazon
@@ -57,18 +51,18 @@ export default async function PostListPage() {
             </Link>
             をご覧ください。
           </Text>
-        </ListItem>
-      </OrderedList>
+        </List.Item>
+      </List.Root>
 
       <Heading as="h3" size="md" mt={8} mb={4}>
         個人情報の利用目的
       </Heading>
       <Text>収集した情報は、以下の目的で利用されます。</Text>
-      <UnorderedList my={2}>
-        <ListItem>サイトの運営・管理のため</ListItem>
-        <ListItem>サイトの利用状況の分析およびサービスの改善のため</ListItem>
-        <ListItem>広告の提供およびコンテンツのパーソナライズのため</ListItem>
-      </UnorderedList>
+      <List.Root as="ul" my={2}>
+        <List.Item>サイトの運営・管理のため</List.Item>
+        <List.Item>サイトの利用状況の分析およびサービスの改善のため</List.Item>
+        <List.Item>広告の提供およびコンテンツのパーソナライズのため</List.Item>
+      </List.Root>
 
       <Heading as="h3" size="md" mt={8} mb={4}>
         個人情報の第三者提供

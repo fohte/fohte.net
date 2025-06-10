@@ -1,16 +1,11 @@
 import {
   Box,
   Code,
-  Divider,
   Heading,
   Kbd,
+  Separator,
   Table,
-  Tbody,
-  Td,
   Text,
-  Th,
-  Thead,
-  Tr,
 } from '@chakra-ui/react'
 import { MDXComponents } from 'mdx/types'
 import * as React from 'react'
@@ -68,7 +63,7 @@ export const mdxComponents: MDXComponents = {
       />
     )
   },
-  hr: (props) => <Divider mt={8} mb={8} {...props} />,
+  hr: (props) => <Separator mt={8} mb={8} {...props} />,
   a: Link,
   CardLink: CardLink,
   p: (props) => <Text as="p" mt={4} {...props} />,
@@ -87,14 +82,14 @@ export const mdxComponents: MDXComponents = {
 
   table: (props) => (
     <Box overflowX="auto">
-      <Table {...props} />
+      <Table.Root {...props} />
     </Box>
   ),
-  thead: (props) => <Thead {...props} />,
-  tbody: (props) => <Tbody {...props} />,
-  tr: (props) => <Tr {...props} />,
-  th: (props) => <Th {...props} />,
-  td: (props) => <Td {...props} />,
+  thead: (props) => <Table.Header {...props} />,
+  tbody: (props) => <Table.Body {...props} />,
+  tr: (props) => <Table.Row {...props} />,
+  th: (props) => <Table.ColumnHeader {...props} />,
+  td: (props) => <Table.Cell {...props} />,
   img: Image,
 
   Kbd: (props) => <Kbd fontWeight="normal" {...props} />,
