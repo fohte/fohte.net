@@ -11,14 +11,15 @@ import { PostList } from '@/components/PostList'
 import { findPostFrontmatter } from '@/utils/contentlayer'
 
 type Props = {
-  params: Params
+  params: Promise<Params>
 }
 
 interface Params extends ParsedUrlQuery {
   tag: string
 }
 
-export default function TagPage({ params: { tag } }: Props) {
+export default async function TagPage({ params }: Props) {
+  const { tag } = await params
   if (tag == null) {
     notFound()
   }
