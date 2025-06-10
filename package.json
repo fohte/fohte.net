@@ -60,7 +60,6 @@
     "@types/react-dom": "18.3.7",
     "@vitejs/plugin-react": "4.5.1",
     "@vitest/ui": "3.2.2",
-    "ajv": "^8.17.1",
     "bun-types": "1.2.15",
     "concurrently": "9.1.2",
     "eslint": "8.57.1",
@@ -77,8 +76,7 @@
   "resolutions": {
     "@emotion/react": "11.14.0",
     "@types/react": "18.3.23",
-    "@types/react-dom": "18.3.7",
-    "date-fns": "4.1.0"
+    "@types/react-dom": "18.3.7"
   },
   "license": "ISC"
 }
