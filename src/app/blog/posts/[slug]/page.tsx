@@ -4,17 +4,16 @@ import { Box, Divider, Heading, Text } from '@chakra-ui/react'
 import { allPosts } from 'contentlayer/generated'
 import { Metadata, ResolvingMetadata } from 'next'
 import { notFound } from 'next/navigation'
-import { useMDXComponent } from 'next-contentlayer/hooks'
 import * as React from 'react'
 
 import { Container } from '@/components/Container'
-import { mdxComponents } from '@/components/mdx'
+import { MDXContent } from '@/components/MDXContent'
 import { PostFooterProfile } from '@/components/PostFooterProfile'
 import { TagList } from '@/components/TagList'
 import { formatDate } from '@/utils/date'
 
 type Props = {
-  params: Params
+  params: Promise<Params>
 }
 
 interface Params extends ParsedUrlQuery {
@@ -22,9 +21,10 @@ interface Params extends ParsedUrlQuery {
 }
 
 export async function generateMetadata(
-  { params: { slug } }: Props,
+  { params }: Props,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
+  const { slug } = await params
   const post = allPosts.find((post) => post._raw.flattenedPath === slug)
   if (!post) throw new Error(`Failed to find post with slug: ${slug}`)
   const metadata: Metadata = {
@@ -48,10 +48,10 @@ export async function generateStaticParams() {
   return allPosts.map((post) => ({ slug: post._raw.flattenedPath }))
 }
 
-export default function PostPage({ params: { slug } }: Props) {
+export default async function PostPage({ params }: Props) {
+  const { slug } = await params
   const post = allPosts.find((post) => post._raw.flattenedPath === slug)
   if (!post) notFound()
-  const MDXContent = useMDXComponent(post.body.code)
 
   return (
     <Container backgroundColor="white" py={8}>
@@ -69,7 +69,7 @@ export default function PostPage({ params: { slug } }: Props) {
         )}
       </Box>
       <Box fontSize={{ base: 'sm', md: 'md' }} lineHeight="taller">
-        <MDXContent components={mdxComponents} />
+        <MDXContent code={post.body.code} />
       </Box>
       <Divider my={8} />
       <PostFooterProfile />

@@ -21,10 +21,16 @@ export const mdxToHtml = async (mdxSource: string) => {
     },
   })
   const MDXLayout = getMDXComponent(code)
-  const html = ReactDOMServer.renderToString(
-    createElement(MDXLayout, {
-      components: rssComponents,
-    }),
-  )
-  return html
+  try {
+    const html = ReactDOMServer.renderToString(
+      createElement(MDXLayout, {
+        components: rssComponents,
+      }),
+    )
+    return html
+  } catch (error) {
+    console.error('Error rendering MDX to HTML:', error)
+    // Return a simple fallback for RSS feeds
+    return mdxSource
+  }
 }

@@ -1,5 +1,3 @@
-'use server'
-
 import { allPosts } from 'contentlayer/generated'
 import { Feed } from 'feed'
 
