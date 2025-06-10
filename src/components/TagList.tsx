@@ -1,4 +1,4 @@
-import { Box, List, ListItem } from '@chakra-ui/react'
+import { Box, List } from '@chakra-ui/react'
 import * as React from 'react'
 
 import { Link } from '@/components/Link'
@@ -8,9 +8,9 @@ export interface TagListProps {
 }
 
 export const TagList: React.FC<TagListProps> = ({ tags }) => (
-  <List>
+  <List.Root>
     {tags.map((tag) => (
-      <ListItem key={tag}>
+      <List.Item key={tag}>
         <Link color="gray.500" href={`/blog/tags/${tag}`}>
           <Box
             display="inline-block"
@@ -23,7 +23,7 @@ export const TagList: React.FC<TagListProps> = ({ tags }) => (
             # {tag}
           </Box>
         </Link>
-      </ListItem>
+      </List.Item>
     ))}
-  </List>
+  </List.Root>
 )

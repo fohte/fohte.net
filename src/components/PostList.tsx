@@ -1,4 +1,4 @@
-import { Box, Heading, List, ListItem, Text } from '@chakra-ui/react'
+import { Box, Heading, List, Text } from '@chakra-ui/react'
 import * as React from 'react'
 
 import { Link } from '@/components/Link'
@@ -18,9 +18,9 @@ export const PostList: React.FC<PostListProps> = ({ posts }) => {
   )
 
   return (
-    <List>
+    <List.Root>
       {sortedPosts.map((post) => (
-        <ListItem
+        <List.Item
           key={post.slug}
           _notLast={{ borderBottom: '1px solid #ddd', mb: 2 }}
         >
@@ -44,8 +44,8 @@ export const PostList: React.FC<PostListProps> = ({ posts }) => {
               </Box>
             )}
           </Box>
-        </ListItem>
+        </List.Item>
       ))}
-    </List>
+    </List.Root>
   )
 }
