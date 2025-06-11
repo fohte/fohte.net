@@ -60,8 +60,7 @@ jobs:
       - name: Build
         run: bun run build
         env:
-          CF_PAGES_BRANCH: ${{ github.ref == 'refs/heads/master' && 'master' || github.head_ref || github.ref_name }}
-          CF_PAGES_URL: ${{ github.ref != 'refs/heads/master' && 'https://preview.fohte.net' || '' }}
+          APP_ENV: ${{ github.ref == 'refs/heads/master' && 'production' || 'preview' }}
 
       - name: Deploy to Cloudflare Pages
         id: cloudflare-deployment

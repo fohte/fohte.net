@@ -1,20 +1,14 @@
 export const rootDirPath = process.cwd()
 
 const getEnv = (): 'production' | 'preview' | 'development' | 'test' => {
+  // APP_ENV takes precedence
   if (
-    process.env.CF_PAGES_BRANCH === 'main' ||
-    process.env.CF_PAGES_BRANCH === 'master'
+    process.env.APP_ENV === 'production' ||
+    process.env.APP_ENV === 'preview' ||
+    process.env.APP_ENV === 'development' ||
+    process.env.APP_ENV === 'test'
   ) {
-    return 'production'
-  }
-
-  if (process.env.CF_PAGES_URL != null) {
-    return 'preview'
-  }
-
-  // APP_ENV takes precedence for test environment
-  if (process.env.APP_ENV === 'test') {
-    return 'test'
+    return process.env.APP_ENV
   }
 
   if (
@@ -35,10 +29,7 @@ const getBaseUrlString = (): string => {
     case 'production':
       return `https://fohte.net`
     case 'preview':
-      if (process.env.CF_PAGES_URL == null) {
-        throw new Error('CF_PAGES_URL must be set')
-      }
-      return process.env.CF_PAGES_URL
+      return `https://preview.fohte.net`
     case 'development':
     case 'test':
       return 'http://localhost:3000'
