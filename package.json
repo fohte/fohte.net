@@ -16,8 +16,8 @@
     "test:unit": "vitest",
     "test:unit:ui": "vitest --ui",
     "test:unit:coverage": "vitest --coverage",
-    "test:vrt": "percy exec -- playwright test",
-    "test:vrt:ui": "playwright show-report"
+    "test:e2e": "percy exec -- playwright test",
+    "test:e2e:ui": "playwright show-report"
   },
   "dependencies": {
     "@chakra-ui/next-js": "2.4.2",

@@ -72,11 +72,11 @@ jobs:
           workflow: deny
           github_token: ${{ steps.app-token.outputs.token }}
 
-      - name: Run tests (without VRT)
+      - name: Run tests (without E2E)
         run: bun run test
 
-      - name: Run Percy VRT
-        run: bun run test:vrt
+      - name: Run Percy E2E tests
+        run: bun run test:e2e
         env:
           APP_ENV: test
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}

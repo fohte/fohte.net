@@ -1,10 +1,10 @@
 import { defineConfig, devices } from '@playwright/test'
 
 export default defineConfig({
-  testDir: './tests/vrt',
+  testDir: './tests/e2e',
   outputDir: './test-results',
 
-  // Visual regression testing specific settings
+  // E2E testing specific settings
   use: {
     // Base URL for the application
     baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:3000',
