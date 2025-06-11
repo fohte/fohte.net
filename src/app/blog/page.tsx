@@ -16,9 +16,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function PostListPage() {
-  // VRTテスト用記事を除外
+  // E2Eテスト用記事を除外
   const posts = allPosts
-    .filter((post) => !post._raw.flattenedPath.includes('vrt-test-'))
+    .filter((post) => !post._raw.flattenedPath.includes('e2e-test-'))
     .map((post) => ({
       slug: post._raw.flattenedPath,
       frontmatter: findPostFrontmatter(post),

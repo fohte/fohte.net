@@ -8,7 +8,7 @@ export default defineConfig({
     environment: 'happy-dom',
     globals: true,
     setupFiles: './vitest.setup.ts',
-    exclude: ['**/tests/vrt/**', '**/node_modules/**'],
+    exclude: ['**/tests/e2e/**', '**/node_modules/**'],
   },
   resolve: {
     alias: {
