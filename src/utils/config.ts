@@ -4,13 +4,10 @@ const getEnv = (): 'production' | 'preview' | 'development' | 'test' => {
   // Debug logging
   console.log('Environment variables:', {
     NEXT_PUBLIC_APP_ENV: process.env.NEXT_PUBLIC_APP_ENV,
-    APP_ENV: process.env.APP_ENV,
     NODE_ENV: process.env.NODE_ENV,
-    CF_PAGES_BRANCH: process.env.CF_PAGES_BRANCH,
-    CF_PAGES_URL: process.env.CF_PAGES_URL,
   })
 
-  // NEXT_PUBLIC_APP_ENV takes highest precedence (for client-side)
+  // NEXT_PUBLIC_APP_ENV takes precedence
   if (
     process.env.NEXT_PUBLIC_APP_ENV === 'production' ||
     process.env.NEXT_PUBLIC_APP_ENV === 'preview' ||
@@ -19,17 +16,6 @@ const getEnv = (): 'production' | 'preview' | 'development' | 'test' => {
   ) {
     console.log('Using NEXT_PUBLIC_APP_ENV:', process.env.NEXT_PUBLIC_APP_ENV)
     return process.env.NEXT_PUBLIC_APP_ENV
-  }
-
-  // APP_ENV takes precedence
-  if (
-    process.env.APP_ENV === 'production' ||
-    process.env.APP_ENV === 'preview' ||
-    process.env.APP_ENV === 'development' ||
-    process.env.APP_ENV === 'test'
-  ) {
-    console.log('Using APP_ENV:', process.env.APP_ENV)
-    return process.env.APP_ENV
   }
 
   if (

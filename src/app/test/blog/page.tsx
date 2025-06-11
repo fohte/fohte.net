@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function TestBlogListPage() {
   // テスト環境以外では404を返す
-  if (process.env.APP_ENV !== 'test') {
+  if (process.env.NEXT_PUBLIC_APP_ENV !== 'test') {
     notFound()
   }
 

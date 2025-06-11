@@ -78,5 +78,5 @@ jobs:
       - name: Run Percy E2E tests
         run: bun run test:e2e
         env:
-          APP_ENV: test
+          NEXT_PUBLIC_APP_ENV: test
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
