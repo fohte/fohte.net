@@ -58,9 +58,7 @@ jobs:
             ${{ runner.os }}-nextjs-
 
       - name: Build
-        run: bun run build
-        env:
-          APP_ENV: ${{ github.ref == 'refs/heads/master' && 'production' || 'preview' }}
+        run: APP_ENV=${{ github.ref == 'refs/heads/master' && 'production' || 'preview' }} bun run build
 
       - name: Deploy to Cloudflare Pages
         id: cloudflare-deployment
