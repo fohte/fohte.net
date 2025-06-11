@@ -1,12 +1,6 @@
 export const rootDirPath = process.cwd()
 
 const getEnv = (): 'production' | 'preview' | 'development' | 'test' => {
-  // Debug logging
-  console.log('Environment variables:', {
-    NEXT_PUBLIC_APP_ENV: process.env.NEXT_PUBLIC_APP_ENV,
-    NODE_ENV: process.env.NODE_ENV,
-  })
-
   // NEXT_PUBLIC_APP_ENV takes precedence
   if (
     process.env.NEXT_PUBLIC_APP_ENV === 'production' ||
@@ -14,7 +8,6 @@ const getEnv = (): 'production' | 'preview' | 'development' | 'test' => {
     process.env.NEXT_PUBLIC_APP_ENV === 'development' ||
     process.env.NEXT_PUBLIC_APP_ENV === 'test'
   ) {
-    console.log('Using NEXT_PUBLIC_APP_ENV:', process.env.NEXT_PUBLIC_APP_ENV)
     return process.env.NEXT_PUBLIC_APP_ENV
   }
 
@@ -23,7 +16,6 @@ const getEnv = (): 'production' | 'preview' | 'development' | 'test' => {
     process.env.NODE_ENV === 'development' ||
     process.env.NODE_ENV === 'test'
   ) {
-    console.log('Using NODE_ENV:', process.env.NODE_ENV)
     return process.env.NODE_ENV
   }
 
@@ -31,7 +23,6 @@ const getEnv = (): 'production' | 'preview' | 'development' | 'test' => {
 }
 
 export const env = getEnv()
-console.log('Final env value:', env)
 
 const getBaseUrlString = (): string => {
   switch (env) {
