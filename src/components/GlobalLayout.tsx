@@ -6,13 +6,17 @@ import { Header } from '@/components/Header'
 
 type Props = {
   children: React.ReactNode
+  headerTitle?: string
 }
 
-const GlobalLayout: React.FunctionComponent<Props> = ({ children }) => {
+const GlobalLayout: React.FunctionComponent<Props> = ({
+  children,
+  headerTitle,
+}) => {
   return (
     <Flex flexDirection="column" minH="100%" backgroundColor="gray.50">
       <Box>
-        <Header />
+        <Header headerTitle={headerTitle} />
       </Box>
       <Box as="main" flex="1" h="100%">
         {children}

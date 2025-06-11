@@ -1,7 +1,6 @@
 import { Metadata, Viewport } from 'next'
 
 import { Providers } from '@/app/providers'
-import GlobalLayout from '@/components/GlobalLayout'
 import { baseUrl, baseUrlJoin } from '@/utils/config'
 
 export const metadata: Metadata = {
@@ -46,9 +45,7 @@ export default function RootLayout({
   return (
     <html>
       <body>
-        <Providers>
-          <GlobalLayout>{children}</GlobalLayout>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )
