@@ -1,6 +1,14 @@
 export const rootDirPath = process.cwd()
 
 const getEnv = (): 'production' | 'preview' | 'development' | 'test' => {
+  // Debug logging
+  console.log('Environment variables:', {
+    APP_ENV: process.env.APP_ENV,
+    NODE_ENV: process.env.NODE_ENV,
+    CF_PAGES_BRANCH: process.env.CF_PAGES_BRANCH,
+    CF_PAGES_URL: process.env.CF_PAGES_URL,
+  })
+
   // APP_ENV takes precedence
   if (
     process.env.APP_ENV === 'production' ||
@@ -8,6 +16,7 @@ const getEnv = (): 'production' | 'preview' | 'development' | 'test' => {
     process.env.APP_ENV === 'development' ||
     process.env.APP_ENV === 'test'
   ) {
+    console.log('Using APP_ENV:', process.env.APP_ENV)
     return process.env.APP_ENV
   }
 
@@ -16,6 +25,7 @@ const getEnv = (): 'production' | 'preview' | 'development' | 'test' => {
     process.env.NODE_ENV === 'development' ||
     process.env.NODE_ENV === 'test'
   ) {
+    console.log('Using NODE_ENV:', process.env.NODE_ENV)
     return process.env.NODE_ENV
   }
 
@@ -23,6 +33,7 @@ const getEnv = (): 'production' | 'preview' | 'development' | 'test' => {
 }
 
 export const env = getEnv()
+console.log('Final env value:', env)
 
 const getBaseUrlString = (): string => {
   switch (env) {
