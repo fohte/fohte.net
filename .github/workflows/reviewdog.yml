@@ -29,6 +29,23 @@ jobs:
 
       - run: bun install --frozen-lockfile
 
+      - name: Debug - Check environment
+        run: |
+          echo "Node version:"
+          node --version
+          echo "Bun version:"
+          bun --version
+          echo "mdast-util-gfm-autolink-literal version:"
+          bun pm ls | grep mdast-util-gfm-autolink-literal || echo "Not found"
+          echo "Check if from-markdown exists:"
+          ls node_modules/mdast-util-gfm-autolink-literal/ || echo "Module not found"
+          echo "Test module resolution with Node:"
+          node -e "console.log(require.resolve('mdast-util-gfm-autolink-literal/from-markdown'))" || echo "Failed to resolve"
+          echo "Test with bunx:"
+          bunx textlint --version || echo "bunx textlint failed"
+          echo "Test single file:"
+          bun run textlint 'contents/posts/2018-11-06-hello-hugo.mdx' || echo "Failed"
+
       - run: |
           result="$(bun run textlint 'contents/**/*.mdx' -f checkstyle || true)"
           echo "$result" | reviewdog -f=checkstyle -name="textlint" -reporter='github-pr-check'
