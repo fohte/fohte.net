@@ -15,12 +15,12 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function TestBlogListPage() {
-  // テスト環境以外では404を返す
-  if (process.env.APP_ENV !== 'test') {
+  // Return 404 in non-test environments
+  if (process.env.NEXT_PUBLIC_APP_ENV !== 'test') {
     notFound()
   }
 
-  // E2Eテスト用記事のみを表示
+  // Display only E2E test posts
   const e2eTestPosts = allPosts
     .filter((post) => post._raw.flattenedPath.includes('e2e-test-'))
     .map((post) => ({

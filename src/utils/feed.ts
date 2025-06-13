@@ -3,17 +3,17 @@
 import { allPosts } from 'contentlayer/generated'
 import { Feed } from 'feed'
 
-import { baseUrl, baseUrlJoin } from '@/utils/config'
+import { getAbsoluteUrl } from '@/utils/config'
 import { mdxToHtml } from '@/utils/mdx'
 
 export const generateFeed = async (): Promise<string> => {
   const feed = new Feed({
     title: 'fohte.net',
-    id: baseUrl.toString(),
-    link: baseUrl.toString(),
-    favicon: baseUrlJoin('/icon.png'),
+    id: getAbsoluteUrl('/'),
+    link: getAbsoluteUrl('/'),
+    favicon: getAbsoluteUrl('/icon.png'),
     copyright: 'All rights reserved 2020, Fohte (Hayato Kawai)',
-    feed: baseUrlJoin('/feed.atom'),
+    feed: getAbsoluteUrl('/feed.atom'),
   })
 
   for (const post of allPosts
@@ -22,12 +22,12 @@ export const generateFeed = async (): Promise<string> => {
     const content = await mdxToHtml(post.body.raw)
     feed.addItem({
       title: post.title,
-      author: [{ name: 'Fohte (Hayato Kawai)', link: baseUrl.toString() }],
+      author: [{ name: 'Fohte (Hayato Kawai)', link: getAbsoluteUrl('/') }],
       content,
       date: new Date(post.date),
       published: new Date(post.date),
       description: post.description,
-      link: baseUrlJoin(post.url),
+      link: getAbsoluteUrl(post.url),
     })
   }
 

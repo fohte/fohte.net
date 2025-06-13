@@ -59,6 +59,8 @@ jobs:
 
       - name: Build
         run: bun run build
+        env:
+          NEXT_PUBLIC_APP_ENV: ${{ github.ref == 'refs/heads/master' && 'production' || 'preview' }}
 
       - name: Deploy to Cloudflare Pages
         id: cloudflare-deployment

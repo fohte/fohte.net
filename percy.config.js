@@ -11,7 +11,7 @@ module.exports = {
   },
   percy: {
     env: {
-      APP_ENV: 'test',
+      NEXT_PUBLIC_APP_ENV: 'test',
     },
   },
 }

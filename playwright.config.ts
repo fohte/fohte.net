@@ -44,7 +44,7 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
     env: {
-      APP_ENV: 'test',
+      NEXT_PUBLIC_APP_ENV: 'test',
     },
   },
 
