@@ -1,20 +1,21 @@
+import {
+  AbsoluteUrl,
+  RelativeUrl,
+  toAbsoluteUrl,
+  toRelativeUrl,
+} from '@/utils/url-types'
+
 export const rootDirPath = process.cwd()
 
 const getEnv = (): 'production' | 'preview' | 'development' | 'test' => {
+  // NEXT_PUBLIC_APP_ENV takes precedence
   if (
-    process.env.CF_PAGES_BRANCH === 'main' ||
-    process.env.CF_PAGES_BRANCH === 'master'
+    process.env.NEXT_PUBLIC_APP_ENV === 'production' ||
+    process.env.NEXT_PUBLIC_APP_ENV === 'preview' ||
+    process.env.NEXT_PUBLIC_APP_ENV === 'development' ||
+    process.env.NEXT_PUBLIC_APP_ENV === 'test'
   ) {
-    return 'production'
-  }
-
-  if (process.env.CF_PAGES_URL != null) {
-    return 'preview'
-  }
-
-  // APP_ENV takes precedence for test environment
-  if (process.env.APP_ENV === 'test') {
-    return 'test'
+    return process.env.NEXT_PUBLIC_APP_ENV
   }
 
   if (
@@ -35,10 +36,8 @@ const getBaseUrlString = (): string => {
     case 'production':
       return `https://fohte.net`
     case 'preview':
-      if (process.env.CF_PAGES_URL == null) {
-        throw new Error('CF_PAGES_URL must be set')
-      }
-      return process.env.CF_PAGES_URL
+      // Use production URL for preview since the actual preview URL is unpredictable
+      return `https://fohte.net`
     case 'development':
     case 'test':
       return 'http://localhost:3000'
@@ -47,4 +46,17 @@ const getBaseUrlString = (): string => {
 
 export const baseUrl = new URL(getBaseUrlString())
 
-export const baseUrlJoin = (path: string) => new URL(path, baseUrl).toString()
+export const baseUrlJoin = (path: string): AbsoluteUrl | RelativeUrl => {
+  if (env === 'preview') {
+    // Return relative URLs in preview environment
+    const relativePath = path.startsWith('/') ? path : `/${path}`
+    return toRelativeUrl(relativePath)
+  }
+  // Return absolute URLs in production/development environments
+  return toAbsoluteUrl(new URL(path, baseUrl).toString())
+}
+
+// For cases where absolute URLs are required (e.g., RSS feeds)
+export const getAbsoluteUrl = (path: string): AbsoluteUrl => {
+  return toAbsoluteUrl(new URL(path, baseUrl).toString())
+}

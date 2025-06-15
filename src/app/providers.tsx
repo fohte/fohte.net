@@ -6,6 +6,7 @@ import { css, Global } from '@emotion/react'
 
 import { GoogleAnalytics } from '@/components/GoogleAnalytics'
 import { theme } from '@/styles/theme'
+import { env } from '@/utils/config'
 
 const globalStyles = css`
   // hack to fix footer to the bottom
@@ -59,7 +60,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
         </ChakraProvider>
       </CacheProvider>
 
-      <GoogleAnalytics />
+      {env === 'production' && <GoogleAnalytics />}
     </>
   )
 }
