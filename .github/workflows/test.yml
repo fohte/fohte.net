@@ -66,7 +66,7 @@ jobs:
 
       - name: Commit formatted files
         if: ${{ !cancelled() }}
-        uses: suzuki-shunsuke/commit-action@v0.0.7
+        uses: suzuki-shunsuke/commit-action@v0.0.8
         with:
           commit_message: 'style: auto-format'
           workflow: deny
