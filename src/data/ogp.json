@@ -123,5 +123,10 @@
   "https://amzn.to/49ZmklU": {
     "title": "氷の城壁 1 (ジャンプコミックス) | 阿賀沢 紅茶 |本 | 通販 | Amazon",
     "image": "https://images.amazon.com/images/P/4088835441.09_SL110_.jpg"
+  },
+  "https://sre-next.dev/2025/": {
+    "title": "Home | SRE NEXT 2025",
+    "description": "SRE NEXTとは、信頼性に関するプラクティスに深い関心を持つエンジニアのためのコミュニティベースのカンファレンスです。",
+    "image": "https://sre-next.dev/2025/icons/icon-144x144.png"
   }
 }
