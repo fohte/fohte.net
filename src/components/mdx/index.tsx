@@ -20,6 +20,7 @@ import { CardLink } from '@/components/mdx/CardLink'
 import { CodeBlock } from '@/components/mdx/CodeBlock'
 import { DocsHeading } from '@/components/mdx/DocsHeading'
 import { Image } from '@/components/mdx/Image'
+import { ImageGrid } from '@/components/mdx/ImageGrid'
 import { List } from '@/components/mdx/List'
 import { Mastodon } from '@/components/mdx/Mastodon'
 import { SpeakerDeck } from '@/components/mdx/SpeakerDeck'
@@ -103,6 +104,7 @@ export const mdxComponents: MDXComponents = {
   YouTube: YouTube,
   SpeakerDeck: SpeakerDeck,
   Mastodon: Mastodon,
+  ImageGrid: ImageGrid,
 }
 
 export const rssComponents: MDXComponents = {
@@ -125,5 +127,9 @@ export const rssComponents: MDXComponents = {
 
   CardLink: ({ href, children }: React.ComponentProps<typeof CardLink>) => (
     <a href={href}>{children}</a>
+  ),
+
+  ImageGrid: ({ children }: React.ComponentProps<typeof ImageGrid>) => (
+    <div>{children}</div>
   ),
 }
