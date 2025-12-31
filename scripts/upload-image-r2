@@ -23,7 +23,7 @@ put_base_path="fohte-net-public-assets/images"
 
 put_object() {
   local image_path="$1"
-  bunx wrangler r2 object put "$put_base_path/$checksum.${image_path##*.}" --file "$image_path"
+  bunx wrangler r2 object put "$put_base_path/$checksum.${image_path##*.}" --file "$image_path" --remote
 }
 
 # create webp (needs to be installed imagemagick)
