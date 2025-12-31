@@ -14,7 +14,7 @@ export const ImageGrid: React.FC<ImageGridProps> = ({ children }) => {
     <Grid
       templateColumns={{
         base: '1fr',
-        md: `repeat(${childCount}, 1fr)`,
+        sm: `repeat(${childCount}, 1fr)`,
       }}
       alignItems="center"
       gap={4}
