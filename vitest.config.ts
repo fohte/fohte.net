@@ -9,14 +9,11 @@ export default defineConfig({
     globals: true,
     setupFiles: './vitest.setup.ts',
     exclude: ['**/tests/e2e/**', '**/node_modules/**'],
+    passWithNoTests: true,
   },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      'contentlayer/generated': path.resolve(
-        __dirname,
-        './.contentlayer/generated',
-      ),
     },
   },
 })

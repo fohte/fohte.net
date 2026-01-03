@@ -1,0 +1,26 @@
+---
+import { Counter } from '../components/astro/Counter'
+import '../styles/global.css'
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>fohte.net - Astro Setup</title>
+  </head>
+  <body class="min-h-screen bg-white">
+    <main class="container mx-auto px-4 py-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">fohte.net</h1>
+      <p class="text-gray-600 mb-8">Astro + React + Tailwind CSS + Radix UI</p>
+
+      <section class="mb-8">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">
+          React Component Test
+        </h2>
+        <Counter client:load />
+      </section>
+    </main>
+  </body>
+</html>
