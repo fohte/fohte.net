@@ -13,15 +13,11 @@
     "test:type": "tsc --noEmit",
     "test:unit": "vitest",
     "test:unit:ui": "vitest --ui",
-    "test:unit:coverage": "vitest --coverage",
-    "test:e2e": "percy exec -- playwright test",
-    "test:e2e:ui": "playwright show-report"
+    "test:unit:coverage": "vitest --coverage"
   },
   "dependencies": {
     "@astrojs/mdx": "4.3.13",
     "@astrojs/react": "4.4.2",
-    "@percy/cli": "1.30.11",
-    "@percy/playwright": "1.0.8",
     "@radix-ui/react-slot": "1.2.4",
     "@tailwindcss/vite": "4.1.18",
     "@types/mdx": "2.0.13",
@@ -49,7 +45,6 @@
   },
   "devDependencies": {
     "@fohte/eslint-config": "0.0.4",
-    "@playwright/test": "1.52.0",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.3.0",
     "@testing-library/user-event": "14.6.1",
