@@ -1,5 +1,7 @@
 node_modules
 .next
+dist/
+.astro/
 
 # Local Netlify folder
 .netlify
