@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@fohte/eslint-config": "0.0.4",
-    "@playwright/test": "1.52.0",
+    "@playwright/test": "1.57.0",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.3.1",
     "@testing-library/user-event": "14.6.1",
