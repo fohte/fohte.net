@@ -64,7 +64,7 @@
     "concurrently": "9.1.2",
     "eslint": "8.57.1",
     "eslint-config-next": "14.2.35",
-    "happy-dom": "17.6.3",
+    "happy-dom": "20.0.0",
     "iconv-lite": "0.6.3",
     "jsdom": "26.1.0",
     "prettier": "3.5.3",
