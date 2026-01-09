@@ -25,7 +25,7 @@
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
     "@percy/cli": "1.30.11",
-    "@percy/playwright": "1.0.8",
+    "@percy/playwright": "1.0.10",
     "@types/mdx": "2.0.13",
     "contentlayer": "0.3.4",
     "date-fns": "4.1.0",
