@@ -6,12 +6,6 @@ dist/
 # Local Netlify folder
 .netlify
 
-# Ignore next-mdx-enhanced cache directory
-.mdx-data
-
-# contentlayer build output
-.contentlayer
-
 tsconfig.tsbuildinfo
 
 out/
