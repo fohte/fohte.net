@@ -1,23 +1,40 @@
-import type * as React from 'react'
+'use client'
 
-// Note: This component only accepts videoId prop.
-// The previous react-youtube implementation supported additional props like
-// opts, onReady, onPlay, onPause, onEnd, onError, onStateChange, onPlaybackRateChange,
-// onPlaybackQualityChange. These are not supported in this simplified iframe implementation.
-// If those features are needed, consider re-introducing react-youtube or implementing
-// the YouTube IFrame API directly.
+import type * as React from 'react'
+import { useEffect, useState } from 'react'
+
 type YouTubeProps = {
   videoId: string
 }
 
-export const YouTube: React.FC<YouTubeProps> = ({ videoId }) => (
-  <div className="relative h-0 w-full overflow-hidden pb-[56.25%]">
-    <iframe
-      className="absolute top-0 left-0 h-full w-full"
-      src={`https://www.youtube.com/embed/${videoId}`}
-      title="YouTube video player"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowFullScreen
-    />
-  </div>
-)
+export const YouTube: React.FC<YouTubeProps> = ({ videoId }) => {
+  const [YouTubePlayer, setYouTubePlayer] =
+    useState<
+      React.ComponentType<{ videoId: string; iframeClassName?: string }>
+    >()
+
+  useEffect(() => {
+    import('react-youtube').then((mod) => {
+      setYouTubePlayer(() => mod.default)
+    })
+  }, [])
+
+  if (!YouTubePlayer) {
+    return (
+      <div className="relative h-0 w-full overflow-hidden pb-[56.25%]">
+        <div className="absolute top-0 left-0 flex h-full w-full items-center justify-center bg-gray-100">
+          Loading...
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="relative h-0 w-full overflow-hidden pb-[56.25%]">
+      <YouTubePlayer
+        videoId={videoId}
+        iframeClassName="absolute top-0 left-0 h-full w-full"
+      />
+    </div>
+  )
+}
