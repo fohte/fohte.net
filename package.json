@@ -10,7 +10,7 @@
     "format:prettier": "prettier --write .",
     "format": "conc -m 1 bun:format:eslint bun:format:prettier",
     "test": "conc -m 1 bun:test:type bun:test:unit",
-    "test:type": "tsc --noEmit",
+    "test:type": "astro sync && tsc --noEmit",
     "test:unit": "vitest",
     "test:unit:ui": "vitest --ui",
     "test:unit:coverage": "vitest --coverage"
