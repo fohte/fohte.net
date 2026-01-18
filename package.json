@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@fohte/eslint-config": "0.0.4",
+    "@iconify-json/fa-brands": "1.2.2",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.3.0",
     "@testing-library/user-event": "14.6.1",
@@ -53,6 +54,7 @@
     "@types/react-dom": "18.3.7",
     "@vitejs/plugin-react": "4.5.1",
     "@vitest/ui": "3.2.4",
+    "astro-icon": "1.1.5",
     "bun-types": "1.2.17",
     "concurrently": "9.1.2",
     "eslint": "8.57.1",

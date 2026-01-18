@@ -1,26 +1,43 @@
 ---
-import { Counter } from '../components/astro/Counter'
-import '../styles/global.css'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import SocialList from '../components/astro/SocialList.astro'
 ---
 
-<!doctype html>
-<html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>fohte.net - Astro Setup</title>
-  </head>
-  <body class="min-h-screen bg-white">
-    <main class="container mx-auto px-4 py-8">
-      <h1 class="text-4xl font-bold text-gray-900 mb-4">fohte.net</h1>
-      <p class="text-gray-600 mb-8">Astro + React + Tailwind CSS + Radix UI</p>
-
-      <section class="mb-8">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-4">
-          React Component Test
+<BaseLayout>
+  <div class="mx-auto max-w-[780px] px-4 py-8 sm:px-6 md:px-8">
+    <div class="flex flex-col items-center justify-center gap-10">
+      <div class="flex flex-col items-center justify-center gap-4 text-center">
+        <h2 class="text-3xl font-bold leading-tight md:text-4xl">
+          Fohte (Hayato Kawai)
         </h2>
-        <Counter client:load />
-      </section>
-    </main>
-  </body>
-</html>
+        <p>Gamer / Software Engineer (Cloud Infrastructure Engineer)</p>
+        <p>Love: Rhythm Games, Productivity, Neovim, Dvorak</p>
+      </div>
+
+      <div class="flex w-full flex-col gap-8">
+        <section>
+          <h3 class="mb-4 border-b border-[#ddd] pb-2 text-xl font-bold">
+            Socials
+          </h3>
+          <SocialList />
+        </section>
+
+        <section>
+          <h3 class="mb-4 border-b border-[#ddd] pb-2 text-xl font-bold">
+            Career
+          </h3>
+          <p>
+            See:{' '}
+            <a
+              href="https://www.wantedly.com/id/fohte"
+              class="text-blue-500 hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+              >wantedly.com/id/fohte</a
+            >
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

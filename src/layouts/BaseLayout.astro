@@ -1,0 +1,30 @@
+---
+import Header from '../components/astro/Header.astro'
+import Footer from '../components/astro/Footer.astro'
+import '../styles/global.css'
+
+interface Props {
+  title?: string
+}
+
+const { title = 'fohte.net' } = Astro.props
+
+const siteTitle = title === 'fohte.net' ? title : `${title} - fohte.net`
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/icon.png" />
+    <title>{siteTitle}</title>
+  </head>
+  <body class="flex min-h-screen flex-col bg-gray-50">
+    <Header />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
