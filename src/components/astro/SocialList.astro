@@ -29,7 +29,11 @@ const socialList = [
           href={social.href}
           class="inline-flex items-center gap-2 text-gray-700 no-underline hover:text-gray-900"
           target="_blank"
-          rel={social.rel ? `${social.rel} noopener noreferrer` : 'noopener noreferrer'}
+          rel={
+            social.rel
+              ? `${social.rel} noopener noreferrer`
+              : 'noopener noreferrer'
+          }
         >
           <Icon name={social.icon} class="h-4 w-4" />
           <span>{social.text}</span>
