@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
-import { SocialList } from '../components/astro/SocialList'
+import SocialList from '../components/astro/SocialList.astro'
 ---
 
 <BaseLayout>
@@ -19,7 +19,7 @@ import { SocialList } from '../components/astro/SocialList'
           <h3 class="mb-4 border-b border-[#ddd] pb-2 text-xl font-bold">
             Socials
           </h3>
-          <SocialList client:load />
+          <SocialList />
         </section>
 
         <section>

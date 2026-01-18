@@ -1,0 +1,39 @@
+---
+import { Icon } from 'astro-icon/components'
+
+const socialList = [
+  {
+    icon: 'fa-brands:mastodon',
+    href: 'https://social.fohte.net/@fohte',
+    text: '@fohte@social.fohte.net',
+    rel: 'me',
+  },
+  {
+    icon: 'fa-brands:twitter',
+    href: 'https://twitter.com/fohte',
+    text: 'fohte',
+  },
+  {
+    icon: 'fa-brands:github',
+    href: 'https://github.com/fohte',
+    text: 'fohte',
+  },
+]
+---
+
+<ul class="space-y-1">
+  {
+    socialList.map((social) => (
+      <li>
+        <a
+          href={social.href}
+          class="inline-flex items-center gap-2 text-gray-700 no-underline hover:text-gray-900"
+          rel={social.rel}
+        >
+          <Icon name={social.icon} class="h-4 w-4" />
+          <span>{social.text}</span>
+        </a>
+      </li>
+    ))
+  }
+</ul>
