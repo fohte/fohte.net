@@ -6,7 +6,7 @@ import type * as React from 'react'
 //   => https://assets.fohte.net/images/foobar.webp
 const generateWebpUrl = (url: URL): URL => {
   const webpUrl = new URL(url.href)
-  webpUrl.pathname = `${webpUrl.pathname.split('.').shift()}.webp`
+  webpUrl.pathname = `${webpUrl.pathname.replace(/\.[^/.]+$/, '')}.webp`
   return webpUrl
 }
 
@@ -23,6 +23,17 @@ export const Image: React.FC<ImageProps> = ({ alt, src }) => {
   const height = Number(params.get('h'))
   params.delete('w')
   params.delete('h')
+
+  if (
+    Number.isNaN(width) ||
+    Number.isNaN(height) ||
+    width <= 0 ||
+    height <= 0
+  ) {
+    throw new Error(
+      `Image 'src' must have valid 'w' and 'h' URL parameters: ${src}`,
+    )
+  }
 
   const aspectRatio = (height / width) * 100
 

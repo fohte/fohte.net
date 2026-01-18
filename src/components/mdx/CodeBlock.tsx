@@ -34,13 +34,7 @@ const parseClassName = (className?: string): [Language | null, Args] => {
 
   return [
     language as Language,
-    args.reduce(
-      (acc, arg) => {
-        const [key, value] = arg.split('=')
-        return { ...acc, [key]: value }
-      },
-      {} as Record<string, string>,
-    ),
+    Object.fromEntries(args.map((arg) => arg.split('='))),
   ]
 }
 

@@ -4,17 +4,8 @@ export interface LinkProps
   extends React.AnchorHTMLAttributes<HTMLAnchorElement> {}
 
 export const isInternalLink = (href: string): boolean => {
-  // e.g. `//google.com`
-  if (
-    href.startsWith('//') ||
-    href.startsWith('http://') ||
-    href.startsWith('https://')
-  ) {
-    return false
-  }
-
-  // e.g. `/posts/foobar`, `#fn-1`
-  return href.startsWith('/') || href.startsWith('#')
+  // External links start with a protocol (http:, https:) or protocol-relative scheme (//)
+  return !/^(https?:)?\/\//.test(href)
 }
 
 export const Link: React.FC<LinkProps> = ({ href, children, ...props }) => {

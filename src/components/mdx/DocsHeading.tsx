@@ -17,7 +17,11 @@ export const DocsHeading: React.FC<DocsHeadingProps> = ({
     'scroll-mt-24 mb-[1em] mt-[1.5em] group [&[id]]:pointer-events-none [&[id]_>_*]:pointer-events-auto'
 
   return (
-    <Component id={id} className={`${baseStyles} ${className}`} {...props}>
+    <Component
+      id={id}
+      className={[baseStyles, className].filter(Boolean).join(' ')}
+      {...props}
+    >
       <span>
         {children}
         {id && (

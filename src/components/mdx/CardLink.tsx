@@ -6,7 +6,6 @@ import ogpData from '@/data/ogp.json'
 
 export interface CardLinkProps {
   href: string
-  children?: React.ReactNode
 }
 
 type OgpData = {
@@ -44,7 +43,7 @@ export const CardLink: React.FC<CardLinkProps> = ({ href }) => {
         <div className="flex min-w-[min(20%,150px)] max-w-[min(40%,250px)] items-center justify-center">
           <img
             src={ogp.image}
-            alt="Link preview image"
+            alt=""
             className="h-full max-h-[200px] object-cover"
           />
         </div>

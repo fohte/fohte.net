@@ -70,12 +70,12 @@ export const mdxComponents: MDXComponents = {
     />
   ),
 
-  Kbd: Kbd,
-  Tweet: Tweet,
-  YouTube: YouTube,
-  SpeakerDeck: SpeakerDeck,
-  Mastodon: Mastodon,
-  ImageGrid: ImageGrid,
+  Kbd,
+  Tweet,
+  YouTube,
+  SpeakerDeck,
+  Mastodon,
+  ImageGrid,
 }
 
 // RSS feed components (simplified versions for RSS output)
