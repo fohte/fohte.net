@@ -5,11 +5,9 @@ import '../styles/global.css'
 
 interface Props {
   title?: string
-  description?: string
 }
 
-const { title = 'fohte.net', description = 'Fohte のポートフォリオサイト' } =
-  Astro.props
+const { title = 'fohte.net' } = Astro.props
 
 const siteTitle = title === 'fohte.net' ? title : `${title} - fohte.net`
 ---
@@ -19,7 +17,6 @@ const siteTitle = title === 'fohte.net' ? title : `${title} - fohte.net`
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
     <link rel="icon" type="image/png" href="/icon.png" />
     <title>{siteTitle}</title>
   </head>
