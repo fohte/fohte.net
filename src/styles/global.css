@@ -9,12 +9,3 @@
 html {
   font-family: var(--font-sans);
 }
-
-a {
-  color: var(--color-blue-500);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
