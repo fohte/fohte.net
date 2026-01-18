@@ -8,10 +8,7 @@ import { Image } from '@/components/mdx/Image'
 import { ImageGrid } from '@/components/mdx/ImageGrid'
 import { Kbd } from '@/components/mdx/Kbd'
 import { Link } from '@/components/mdx/Link'
-import { Mastodon } from '@/components/mdx/Mastodon'
 import { SpeakerDeck } from '@/components/mdx/SpeakerDeck'
-import { Tweet } from '@/components/mdx/Tweet'
-import { YouTube } from '@/components/mdx/YouTube'
 
 export const mdxComponents: MDXComponents = {
   h1: (props) => (
@@ -71,30 +68,16 @@ export const mdxComponents: MDXComponents = {
   ),
 
   Kbd,
-  Tweet,
-  YouTube,
   SpeakerDeck,
-  Mastodon,
   ImageGrid,
 }
 
 // RSS feed components (simplified versions for RSS output)
 export const rssComponents: MDXComponents = {
   Kbd: 'kbd',
-  Tweet: ({}: React.ComponentProps<typeof Tweet>) => <div>Tweet</div>,
-  YouTube: ({}: React.ComponentProps<typeof YouTube>) => <div>YouTube</div>,
-  SpeakerDeck: ({}: React.ComponentProps<typeof SpeakerDeck>) => (
-    <p>SpeakerDeck</p>
-  ),
-  Mastodon: ({ url }: React.ComponentProps<typeof Mastodon>) => (
-    <p>
-      Mastodon: <a href={url}>{url}</a>
-    </p>
-  ),
-  CardLink: ({ href }: React.ComponentProps<typeof CardLink>) => (
-    <a href={href}>{href}</a>
-  ),
-  ImageGrid: ({ children }: React.ComponentProps<typeof ImageGrid>) => (
+  SpeakerDeck: () => <p>SpeakerDeck</p>,
+  CardLink: ({ href }: { href: string }) => <a href={href}>{href}</a>,
+  ImageGrid: ({ children }: { children: React.ReactNode }) => (
     <div>{children}</div>
   ),
 }
@@ -107,7 +90,4 @@ export { Image } from '@/components/mdx/Image'
 export { ImageGrid } from '@/components/mdx/ImageGrid'
 export { Kbd } from '@/components/mdx/Kbd'
 export { Link } from '@/components/mdx/Link'
-export { Mastodon } from '@/components/mdx/Mastodon'
 export { SpeakerDeck } from '@/components/mdx/SpeakerDeck'
-export { Tweet } from '@/components/mdx/Tweet'
-export { YouTube } from '@/components/mdx/YouTube'

@@ -45,3 +45,12 @@ const formattedDate = format(post.data.date, 'yyyy-MM-dd')
     </div>
   </article>
 </BaseLayout>
+
+<script>
+  if (document.querySelector('.twitter-tweet')) {
+    const script = document.createElement('script')
+    script.src = 'https://platform.twitter.com/widgets.js'
+    script.async = true
+    document.head.appendChild(script)
+  }
+</script>
