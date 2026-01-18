@@ -27,7 +27,7 @@ export const DocsHeading: React.FC<DocsHeadingProps> = ({
         {id && (
           <a
             href={`#${id}`}
-            aria-label="anchor"
+            aria-label={`Link to ${id} section`}
             className="ml-1.5 font-normal text-blue-500 opacity-0 transition-opacity outline-none group-hover:opacity-100 focus:opacity-100"
           >
             #

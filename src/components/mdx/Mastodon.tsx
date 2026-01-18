@@ -16,12 +16,13 @@ export const Mastodon: React.FC<Props> = ({ url }) => {
     if (iframe == null) return
     iframe.src = src
 
-    const script = document.createElement('script')
     // e.g. https://social.fohte.net/@fohte/123456789 -> https://social.fohte.net/embed.js
-    script.src = new URL('/embed.js', url).toString()
-    script.async = true
-
-    if (!document.head.contains(script)) {
+    const scriptSrc = new URL('/embed.js', url).toString()
+    const existingScript = document.querySelector(`script[src="${scriptSrc}"]`)
+    if (!existingScript) {
+      const script = document.createElement('script')
+      script.src = scriptSrc
+      script.async = true
       document.head.appendChild(script)
     }
   }, [url])
