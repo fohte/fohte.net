@@ -1,20 +1,36 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
-import { Counter } from '../components/astro/Counter'
+import SocialList from '../components/astro/SocialList.astro'
 ---
 
 <BaseLayout title="fohte.net" description="Fohte のポートフォリオサイト">
   <div class="mx-auto max-w-[780px] px-4 py-8 sm:px-6 md:px-8">
-    <h2 class="mb-4 text-2xl font-bold text-gray-900">About</h2>
-    <p class="mb-8 text-gray-600">
-      Software Engineer。Web アプリケーション開発を中心に活動しています。
-    </p>
+    <div class="flex flex-col items-center justify-center gap-10">
+      <div class="flex flex-col items-center justify-center gap-4 text-center">
+        <h2 class="text-2xl font-bold">Fohte (Hayato Kawai)</h2>
+        <p>Gamer / Software Engineer (Cloud Infrastructure Engineer)</p>
+        <p>Love: Rhythm Games, Productivity, Neovim, Dvorak</p>
+      </div>
 
-    <section class="mb-8">
-      <h3 class="mb-4 text-xl font-semibold text-gray-800">
-        React Component Test
-      </h3>
-      <Counter client:load />
-    </section>
+      <div class="flex w-full flex-col gap-8">
+        <section>
+          <h3 class="mb-4 border-b border-gray-300 pb-2 text-lg font-semibold">
+            Socials
+          </h3>
+          <SocialList />
+        </section>
+
+        <section>
+          <h3 class="mb-4 border-b border-gray-300 pb-2 text-lg font-semibold">
+            Career
+          </h3>
+          <p>
+            See: <a href="https://www.wantedly.com/id/fohte"
+              >wantedly.com/id/fohte</a
+            >
+          </p>
+        </section>
+      </div>
+    </div>
   </div>
 </BaseLayout>
