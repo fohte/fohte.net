@@ -28,7 +28,7 @@ export const DocsHeading: React.FC<DocsHeadingProps> = ({
           <a
             href={`#${id}`}
             aria-label="anchor"
-            className="ml-1.5 font-normal text-blue-500 opacity-0 outline-none transition-opacity focus:opacity-100 group-hover:opacity-100"
+            className="ml-1.5 font-normal text-blue-500 opacity-0 transition-opacity outline-none group-hover:opacity-100 focus:opacity-100"
           >
             #
           </a>

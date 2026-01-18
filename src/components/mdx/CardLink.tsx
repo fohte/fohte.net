@@ -40,7 +40,7 @@ export const CardLink: React.FC<CardLinkProps> = ({ href }) => {
       className="my-4 flex items-center justify-center gap-6 overflow-hidden rounded-md border border-gray-200 px-4 py-4 no-underline"
     >
       {ogp.image && (
-        <div className="flex min-w-[min(20%,150px)] max-w-[min(40%,250px)] items-center justify-center">
+        <div className="flex max-w-[min(40%,250px)] min-w-[min(20%,150px)] items-center justify-center">
           <img
             src={ogp.image}
             alt=""

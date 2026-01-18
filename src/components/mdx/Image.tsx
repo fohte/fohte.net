@@ -49,7 +49,7 @@ export const Image: React.FC<ImageProps> = ({ alt, src }) => {
         style={{ paddingBottom: `min(${aspectRatio}%, ${height}px)` }}
       >
         <div
-          className="absolute left-0 right-0 top-0 mx-auto max-h-full max-w-full bg-gray-100"
+          className="absolute top-0 right-0 left-0 mx-auto max-h-full max-w-full bg-gray-100"
           style={{ width: `${width}px`, height: `${height}px` }}
         >
           <picture>

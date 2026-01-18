@@ -65,7 +65,7 @@ export const mdxComponents: MDXComponents = {
   img: Image,
   blockquote: (props) => (
     <blockquote
-      className="my-4 border-l-4 border-gray-300 pl-4 italic text-gray-700"
+      className="my-4 border-l-4 border-gray-300 pl-4 text-gray-700 italic"
       {...props}
     />
   ),
