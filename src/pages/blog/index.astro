@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content'
+import { format } from 'date-fns'
+
+import BaseLayout from '@/layouts/BaseLayout.astro'
+
+const posts = await getCollection('posts')
+const sortedPosts = posts.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+)
+---
+
+<BaseLayout title="Blog">
+  <div class="mx-auto max-w-[780px] px-4 py-8 sm:px-6 md:px-8">
+    <h1 class="mb-8 text-3xl font-bold">Blog</h1>
+    <ul class="space-y-6">
+      {
+        sortedPosts.map((post) => (
+          <li>
+            <a
+              href={`/blog/${post.id}`}
+              class="block rounded-lg p-4 transition-colors hover:bg-gray-100"
+            >
+              <h2 class="text-xl font-semibold text-gray-900">
+                {post.data.title}
+              </h2>
+              <time
+                class="mt-1 block text-sm text-gray-500"
+                datetime={post.data.date.toISOString()}
+              >
+                {format(post.data.date, 'yyyy-MM-dd')}
+              </time>
+              {post.data.description && (
+                <p class="mt-2 text-gray-600">{post.data.description}</p>
+              )}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</BaseLayout>

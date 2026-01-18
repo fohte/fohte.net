@@ -1,0 +1,42 @@
+---
+import { getCollection, render } from 'astro:content'
+import { format } from 'date-fns'
+
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { mdxComponents } from '@/components/mdx'
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts')
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }))
+}
+
+const { post } = Astro.props
+const { Content } = await render(post)
+const formattedDate = format(post.data.date, 'yyyy-MM-dd')
+---
+
+<BaseLayout title={post.data.title}>
+  <article class="mx-auto max-w-[780px] px-4 py-8 sm:px-6 md:px-8">
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold leading-tight">{post.data.title}</h1>
+      <time class="mt-2 block text-gray-500" datetime={post.data.date.toISOString()}>
+        {formattedDate}
+      </time>
+      {post.data.tags && (
+        <div class="mt-2 flex flex-wrap gap-2">
+          {post.data.tags.map((tag: string) => (
+            <span class="rounded bg-gray-200 px-2 py-1 text-sm text-gray-700">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </header>
+    <div class="prose prose-gray max-w-none">
+      <Content components={mdxComponents} />
+    </div>
+  </article>
+</BaseLayout>
