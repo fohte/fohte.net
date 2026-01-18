@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro'
-import SocialList from '../components/astro/SocialList.astro'
+import { SocialList } from '../components/astro/SocialList'
 ---
 
 <BaseLayout title="fohte.net" description="Fohte のポートフォリオサイト">
@@ -17,7 +17,7 @@ import SocialList from '../components/astro/SocialList.astro'
           <h3 class="mb-4 border-b border-gray-300 pb-2 text-lg font-semibold">
             Socials
           </h3>
-          <SocialList />
+          <SocialList client:load />
         </section>
 
         <section>
