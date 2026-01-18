@@ -1,0 +1,40 @@
+---
+interface Props {
+  siteTitle?: string
+}
+
+const { siteTitle = 'fohte.net' } = Astro.props
+
+const navLinks = [
+  { href: '/', label: 'About' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/blog', label: 'Blog' },
+]
+---
+
+<header class="border-b border-gray-200 bg-white">
+  <div class="mx-auto flex max-w-[780px] items-center justify-between px-4 py-4 sm:px-6 md:px-8">
+    <h1 class="text-lg font-medium">
+      <a href="/" class="flex items-center gap-3 text-black no-underline hover:opacity-80">
+        <img src="/icon.png" alt="icon" class="h-6 w-6" />
+        <span>{siteTitle}</span>
+      </a>
+    </h1>
+    <nav>
+      <ul class="flex items-center gap-6">
+        {
+          navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-gray-700 no-underline hover:text-black"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
