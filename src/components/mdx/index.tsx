@@ -34,7 +34,7 @@ export const mdxComponents: MDXComponents = {
       />
     )
   },
-  hr: (props) => <hr className="my-8 border-gray-300" {...props} />,
+  hr: (props) => <hr className="my-8 border-t border-gray-200" {...props} />,
   a: Link,
   CardLink: CardLink,
   p: (props) => <p className="mt-4" {...props} />,
