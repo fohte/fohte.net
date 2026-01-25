@@ -16,3 +16,32 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Footnotes styles */
+.footnotes {
+  margin-top: 4rem;
+  border-top: 1px solid var(--color-gray-200);
+  font-size: 0.9rem;
+}
+
+/* Hide the footnotes section label */
+.footnotes > h2,
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  word-wrap: normal;
+  border: 0;
+}
+
+/* Place [ and ] around footnote calls */
+[data-footnote-ref]::before {
+  content: '[';
+}
+
+[data-footnote-ref]::after {
+  content: ']';
+}
