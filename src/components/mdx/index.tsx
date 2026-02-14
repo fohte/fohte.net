@@ -73,6 +73,17 @@ export const mdxComponents: MDXComponents = {
   a: Link,
   CardLink: CardLink,
   p: (props) => <Text as="p" mt={4} {...props} />,
+  blockquote: (props) => (
+    <Box
+      as="blockquote"
+      mt={4}
+      pl={4}
+      borderLeft="4px solid"
+      borderColor="gray.300"
+      color="gray.600"
+      {...props}
+    />
+  ),
 
   // FIXME: fix any type
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
