@@ -4,18 +4,29 @@ import { format } from 'date-fns'
 
 import BaseLayout from '@/layouts/BaseLayout.astro'
 
-const posts = await getCollection('posts')
-const sortedPosts = posts.sort(
-  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
-)
+export async function getStaticPaths() {
+  const posts = await getCollection('posts')
+  const tags = [...new Set(posts.flatMap((post) => post.data.tags ?? []))]
+  return tags.map((tag) => ({
+    params: { tag },
+    props: {
+      tag,
+      posts: posts
+        .filter((post) => post.data.tags?.includes(tag))
+        .sort((a, b) => b.data.date.getTime() - a.data.date.getTime()),
+    },
+  }))
+}
+
+const { tag, posts } = Astro.props
 ---
 
-<BaseLayout title="Blog">
+<BaseLayout title={`Tag: ${tag}`}>
   <div class="mx-auto max-w-[780px] px-4 py-8 sm:px-6 md:px-8">
-    <h1 class="mb-8 text-3xl font-bold">Blog</h1>
+    <h1 class="mb-8 text-3xl font-bold">Tag: {tag}</h1>
     <ul class="space-y-6">
       {
-        sortedPosts.map((post) => (
+        posts.map((post) => (
           <li>
             <a
               href={`/blog/${post.id}`}
@@ -32,9 +43,16 @@ const sortedPosts = posts.sort(
               </time>
               {post.data.tags && (
                 <div class="mt-2 flex flex-wrap gap-2">
-                  {post.data.tags.map((tag) => (
-                    <span class="rounded bg-gray-100 px-2 py-0.5 text-sm text-gray-500">
-                      {tag}
+                  {post.data.tags.map((t) => (
+                    <span
+                      class:list={[
+                        'rounded px-2 py-0.5 text-sm',
+                        t === tag
+                          ? 'bg-gray-300 text-gray-800'
+                          : 'bg-gray-100 text-gray-500',
+                      ]}
+                    >
+                      {t}
                     </span>
                   ))}
                 </div>
