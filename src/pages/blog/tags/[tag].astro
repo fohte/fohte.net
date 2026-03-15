@@ -37,12 +37,9 @@ const { tag, posts } = Astro.props
     <ul class="space-y-6">
       {
         posts.map((post) => (
-          <li>
-            <a
-              href={`/blog/${post.id}`}
-              class="block rounded-lg p-4 transition-colors hover:bg-gray-100"
-            >
-              <h2 class="text-xl font-semibold text-gray-900">
+          <li class="rounded-lg p-4">
+            <a href={`/blog/${post.id}`} class="group">
+              <h2 class="text-xl font-semibold text-gray-900 group-hover:text-blue-600">
                 {post.data.title}
               </h2>
               <time
@@ -51,28 +48,28 @@ const { tag, posts } = Astro.props
               >
                 {format(post.data.date, 'yyyy-MM-dd')}
               </time>
-              {post.data.tags && post.data.tags.length > 0 && (
-                <div class="mt-2 flex flex-wrap gap-2">
-                  {post.data.tags.map((t) =>
-                    t === tag ? (
-                      <span class="rounded bg-gray-300 px-2 py-0.5 text-sm text-gray-800">
-                        {t}
-                      </span>
-                    ) : (
-                      <a
-                        href={`/blog/tags/${t}`}
-                        class="rounded bg-gray-100 px-2 py-0.5 text-sm text-gray-500 transition-colors hover:bg-gray-200"
-                      >
-                        {t}
-                      </a>
-                    ),
-                  )}
-                </div>
-              )}
-              {post.data.description && (
-                <p class="mt-2 text-gray-600">{post.data.description}</p>
-              )}
             </a>
+            {post.data.tags && post.data.tags.length > 0 && (
+              <div class="mt-2 flex flex-wrap gap-2">
+                {post.data.tags.map((t) =>
+                  t === tag ? (
+                    <span class="rounded bg-gray-300 px-2 py-0.5 text-sm text-gray-800">
+                      {t}
+                    </span>
+                  ) : (
+                    <a
+                      href={`/blog/tags/${t}`}
+                      class="rounded bg-gray-100 px-2 py-0.5 text-sm text-gray-500 transition-colors hover:bg-gray-200"
+                    >
+                      {t}
+                    </a>
+                  ),
+                )}
+              </div>
+            )}
+            {post.data.description && (
+              <p class="mt-2 text-gray-600">{post.data.description}</p>
+            )}
           </li>
         ))
       }
