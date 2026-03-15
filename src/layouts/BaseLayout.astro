@@ -10,6 +10,16 @@ interface Props {
 const { title = 'fohte.net' } = Astro.props
 
 const siteTitle = title === 'fohte.net' ? title : `${title} - fohte.net`
+
+const GA_ID = 'G-RGKPSR5QL5'
+const gaScript = `
+<script src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}" async></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '${GA_ID}');
+</script>`
 ---
 
 <!doctype html>
@@ -19,6 +29,7 @@ const siteTitle = title === 'fohte.net' ? title : `${title} - fohte.net`
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/icon.png" />
     <title>{siteTitle}</title>
+    {import.meta.env.PROD && <Fragment set:html={gaScript} />}
   </head>
   <body class="flex min-h-screen flex-col bg-gray-50">
     <Header />
