@@ -34,12 +34,14 @@ export const mdxComponents: MDXComponents = {
       />
     )
   },
-  hr: (props) => <hr className="my-8" {...props} />,
+  hr: (props) => <hr className="my-8 border-t border-gray-200" {...props} />,
   a: Link,
   CardLink: CardLink,
   p: (props) => <p className="mt-4" {...props} />,
-  ul: (props) => <ul className="mt-4 ml-2 pl-4 [&_ul]:mt-1" {...props} />,
-  ol: (props) => <ol className="mt-4 ml-2 pl-4" {...props} />,
+  ul: (props) => (
+    <ul className="mt-4 ml-2 list-disc pl-4 [&_ul]:mt-1" {...props} />
+  ),
+  ol: (props) => <ol className="mt-4 ml-2 list-decimal pl-4" {...props} />,
   li: (props) => <li className="pb-1" {...props} />,
   table: (props) => (
     <div className="overflow-x-auto">
