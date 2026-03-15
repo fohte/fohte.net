@@ -6,14 +6,24 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts')
-  const tags = [...new Set(posts.flatMap((post) => post.data.tags ?? []))]
-  return tags.map((tag) => ({
+  const postsByTag = new Map<string, typeof posts>()
+
+  for (const post of posts) {
+    for (const tag of post.data.tags ?? []) {
+      if (!postsByTag.has(tag)) {
+        postsByTag.set(tag, [])
+      }
+      postsByTag.get(tag)!.push(post)
+    }
+  }
+
+  return Array.from(postsByTag.entries()).map(([tag, tagPosts]) => ({
     params: { tag },
     props: {
       tag,
-      posts: posts
-        .filter((post) => post.data.tags?.includes(tag))
-        .sort((a, b) => b.data.date.getTime() - a.data.date.getTime()),
+      posts: tagPosts.sort(
+        (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+      ),
     },
   }))
 }
@@ -41,20 +51,22 @@ const { tag, posts } = Astro.props
               >
                 {format(post.data.date, 'yyyy-MM-dd')}
               </time>
-              {post.data.tags && (
+              {post.data.tags && post.data.tags.length > 0 && (
                 <div class="mt-2 flex flex-wrap gap-2">
-                  {post.data.tags.map((t) => (
-                    <span
-                      class:list={[
-                        'rounded px-2 py-0.5 text-sm',
-                        t === tag
-                          ? 'bg-gray-300 text-gray-800'
-                          : 'bg-gray-100 text-gray-500',
-                      ]}
-                    >
-                      {t}
-                    </span>
-                  ))}
+                  {post.data.tags.map((t) =>
+                    t === tag ? (
+                      <span class="rounded bg-gray-300 px-2 py-0.5 text-sm text-gray-800">
+                        {t}
+                      </span>
+                    ) : (
+                      <a
+                        href={`/blog/tags/${t}`}
+                        class="rounded bg-gray-100 px-2 py-0.5 text-sm text-gray-500 transition-colors hover:bg-gray-200"
+                      >
+                        {t}
+                      </a>
+                    ),
+                  )}
                 </div>
               )}
               {post.data.description && (
