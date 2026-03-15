@@ -133,5 +133,10 @@
     "title": "開発組織の全員が Devin と Cursor を活用するための取り組み | Wantedly Engineer Blog",
     "description": "こんにちは、AI Enabling Squad の @fohte です。この記事は夏のアドベントカレンダー 23 日目の記事です。ウォンテッドリーでは、開発時における生成 AI を活用してプロダ...",
     "image": "https://www.wantedly.com/post_articles/992908/ogp_image"
+  },
+  "https://superwhisper.com/": {
+    "title": "Superwhisper",
+    "description": "AI powered voice to text for macOS",
+    "image": "https://superwhisper.com/image/og-image2x.png"
   }
 }
