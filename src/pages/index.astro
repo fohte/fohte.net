@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import SocialList from '../components/astro/SocialList.astro'
+---
+
+<BaseLayout>
+  <div class="mx-auto max-w-[780px] px-4 py-8 sm:px-6 md:px-8">
+    <div class="flex flex-col items-center justify-center gap-10">
+      <div class="flex flex-col items-center justify-center gap-4 text-center">
+        <h2 class="text-3xl leading-tight font-bold md:text-4xl">
+          Fohte (Hayato Kawai)
+        </h2>
+        <p>Gamer / Software Engineer (Cloud Infrastructure Engineer)</p>
+        <p>Love: Rhythm Games, Productivity, Neovim, Dvorak</p>
+      </div>
+
+      <div class="flex w-full flex-col gap-8">
+        <section>
+          <h3 class="mb-4 border-b border-gray-300 pb-2 text-xl font-bold">
+            Socials
+          </h3>
+          <SocialList />
+        </section>
+
+        <section>
+          <h3 class="mb-4 border-b border-gray-300 pb-2 text-xl font-bold">
+            Career
+          </h3>
+          <p>
+            See:{' '}
+            <a
+              href="https://www.wantedly.com/id/fohte"
+              class="text-blue-500 hover:underline"
+              target="_blank"
+              rel="noopener noreferrer">wantedly.com/id/fohte</a
+            >
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

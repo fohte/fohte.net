@@ -1,11 +1,10 @@
 'use client'
 
-import { Box, Image, Text } from '@chakra-ui/react'
+import type * as React from 'react'
 
-import { type LinkProps } from '@/components/Link'
 import ogpData from '@/data/ogp.json'
 
-export interface Props extends LinkProps {
+export interface CardLinkProps {
   href: string
 }
 
@@ -19,7 +18,6 @@ type OgpData = {
 
 const collapseDescription = (description: string): string => {
   const maxLength = 80
-
   const newDescription = description.substring(0, maxLength)
   if (description !== newDescription) {
     return `${newDescription}…`
@@ -27,7 +25,7 @@ const collapseDescription = (description: string): string => {
   return newDescription
 }
 
-export const CardLink: React.FC<Props> = ({ href }) => {
+export const CardLink: React.FC<CardLinkProps> = ({ href }) => {
   const ogp = (ogpData as OgpData)[href]
 
   if (ogp == null) {
@@ -37,52 +35,28 @@ export const CardLink: React.FC<Props> = ({ href }) => {
   const domain = new URL(href).hostname
 
   return (
-    <Box
-      as="a"
+    <a
       href={href}
-      borderWidth="1px"
-      borderColor="gray.200"
-      rounded="md"
-      overflow="hidden"
-      textDecoration="none"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      my={4}
-      py={4}
-      px={4}
-      gap={6}
+      className="my-4 flex items-center justify-center gap-6 overflow-hidden rounded-md border border-gray-200 px-4 py-4 no-underline"
     >
       {ogp.image && (
-        <Box
-          minW="min(20%, 150px)"
-          maxW="min(40%, 250px)"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Image
+        <div className="flex max-w-[min(40%,250px)] min-w-[min(20%,150px)] items-center justify-center">
+          <img
             src={ogp.image}
-            alt="Link preview image"
-            height="100%"
-            maxH="200px"
-            objectFit="cover"
+            alt=""
+            className="h-full max-h-[200px] object-cover"
           />
-        </Box>
+        </div>
       )}
-      <Box flex="1">
-        <Text fontSize={15} fontWeight="bold">
-          {ogp.title}
-        </Text>
-        <Text fontSize="sm" color="gray.600">
-          {domain}
-        </Text>
+      <div className="flex-1">
+        <p className="text-[15px] font-bold">{ogp.title}</p>
+        <p className="text-sm text-gray-600">{domain}</p>
         {ogp.description && (
-          <Text fontSize="xs" color="gray.600" mt={1}>
+          <p className="mt-1 text-xs text-gray-600">
             {collapseDescription(ogp.description)}
-          </Text>
+          </p>
         )}
-      </Box>
-    </Box>
+      </div>
+    </a>
   )
 }

@@ -1,14 +1,13 @@
 'use client'
 
-import { Box } from '@chakra-ui/react'
-import * as React from 'react'
+import type * as React from 'react'
 
 type SpeakerDeckProps = {
   id: string
 }
 
 export const SpeakerDeck: React.FC<SpeakerDeckProps> = ({ id }) => (
-  <Box my={8}>
+  <div className="my-8">
     <iframe
       className="speakerdeck-iframe"
       src={`https://speakerdeck.com/player/${id}`}
@@ -26,5 +25,5 @@ export const SpeakerDeck: React.FC<SpeakerDeckProps> = ({ id }) => (
       }}
       data-ratio="1.7777777777777777"
     />
-  </Box>
+  </div>
 )
