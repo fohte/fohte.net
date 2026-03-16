@@ -9,6 +9,7 @@ import remarkGfm from 'remark-gfm'
 import remarkUnwrapImages from 'remark-unwrap-images'
 
 export default defineConfig({
+  site: 'https://fohte.net',
   integrations: [
     react(),
     embeds({

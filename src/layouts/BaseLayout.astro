@@ -5,11 +5,28 @@ import '../styles/global.css'
 
 interface Props {
   title?: string
+  description?: string
+  ogType?: string
+  ogImage?: string
+  twitterCreator?: string
+  fediverseCreator?: string
 }
 
-const { title = 'fohte.net' } = Astro.props
+const {
+  title = 'fohte.net',
+  description,
+  ogType = 'website',
+  ogImage,
+  twitterCreator = '@fohte',
+  fediverseCreator,
+} = Astro.props
 
 const siteTitle = title === 'fohte.net' ? title : `${title} - fohte.net`
+const canonicalUrl = Astro.url.href
+const defaultOgImage = new URL('/icon.png', Astro.site).href
+const resolvedOgImage = ogImage
+  ? new URL(ogImage, Astro.site).href
+  : defaultOgImage
 
 const GA_ID = 'G-RGKPSR5QL5'
 const gaScript = `
@@ -29,6 +46,39 @@ const gaScript = `
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/icon.png" />
     <title>{siteTitle}</title>
+
+    {description && <meta name="description" content={description} />}
+
+    <meta property="og:title" content={siteTitle} />
+    <meta property="og:site_name" content="fohte.net" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:image" content={resolvedOgImage} />
+    {!ogImage && <meta property="og:image:width" content="500" />}
+    {!ogImage && <meta property="og:image:height" content="500" />}
+    {description && <meta property="og:description" content={description} />}
+
+    <meta
+      name="twitter:card"
+      content={ogImage ? 'summary_large_image' : 'summary'}
+    />
+    <meta name="twitter:site" content="@fohte" />
+    <meta name="twitter:creator" content={twitterCreator} />
+
+    {
+      fediverseCreator && (
+        <meta name="fediverse:creator" content={fediverseCreator} />
+      )
+    }
+
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="fohte.net"
+      href="/feed.atom"
+    />
+
     {import.meta.env.PROD && <Fragment set:html={gaScript} />}
   </head>
   <body class="flex min-h-screen flex-col bg-gray-50">
