@@ -8,6 +8,7 @@ interface Props {
   description?: string
   ogType?: string
   ogImage?: string
+  twitterCreator?: string
   fediverseCreator?: string
 }
 
@@ -16,6 +17,7 @@ const {
   description,
   ogType = 'website',
   ogImage,
+  twitterCreator = '@fohte',
   fediverseCreator,
 } = Astro.props
 
@@ -57,9 +59,12 @@ const gaScript = `
     {!ogImage && <meta property="og:image:height" content="500" />}
     {description && <meta property="og:description" content={description} />}
 
-    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:card"
+      content={ogImage ? 'summary_large_image' : 'summary'}
+    />
     <meta name="twitter:site" content="@fohte" />
-    <meta name="twitter:creator" content="@fohte" />
+    <meta name="twitter:creator" content={twitterCreator} />
 
     {
       fediverseCreator && (
