@@ -2,13 +2,13 @@ import { promises as fs } from 'fs'
 import { decode } from 'iconv-lite'
 import { JSDOM } from 'jsdom'
 
-const files = await fs.readdir('./src/contents/posts')
+const files = await fs.readdir('./src/content/posts')
 
 const urls = (
   await Promise.all(
     files.map(async (file) => {
       // extract urls from CardLink components
-      const content = await fs.readFile(`./src/contents/posts/${file}`, 'utf-8')
+      const content = await fs.readFile(`./src/content/posts/${file}`, 'utf-8')
 
       const regex = /<CardLink href="(.+)"/g
       const matches = content.matchAll(regex)

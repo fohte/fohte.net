@@ -40,15 +40,6 @@ jobs:
 
       - run: bun install --frozen-lockfile
 
-      - name: Install Playwright browsers
-        run: bunx playwright install chromium
-
-      - name: Cache Playwright browsers
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ hashFiles('bun.lock') }}
-
       - name: Cache pre-commit
         uses: actions/cache@v4
         with:
@@ -72,11 +63,5 @@ jobs:
           workflow: deny
           github_token: ${{ steps.app-token.outputs.token }}
 
-      - name: Run tests (without E2E)
+      - name: Run tests
         run: bun run test
-
-      - name: Run Percy E2E tests
-        run: bun run test:e2e
-        env:
-          NEXT_PUBLIC_APP_ENV: test
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}

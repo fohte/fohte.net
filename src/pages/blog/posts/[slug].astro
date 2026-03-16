@@ -1,0 +1,72 @@
+---
+import { getCollection, render } from 'astro:content'
+import { format } from 'date-fns'
+
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import PostFooterProfile from '@/components/astro/PostFooterProfile.astro'
+import { mdxComponents } from '@/components/mdx'
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts')
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }))
+}
+
+const { post } = Astro.props
+const { Content } = await render(post)
+const formattedDate = format(post.data.date, 'yyyy-MM-dd')
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  ogType="article"
+  ogImage={post.data.imagePath}
+  fediverseCreator="@fohte@social.fohte.net"
+>
+  <article class="mx-auto max-w-[780px] bg-white px-4 py-8 sm:px-6 md:px-8">
+    <header class="mb-8">
+      <time
+        class="mb-2 block text-sm text-gray-500"
+        datetime={post.data.date.toISOString()}
+      >
+        {formattedDate}
+      </time>
+      <h1 class="mb-2 text-2xl leading-tight font-semibold md:mb-3 md:text-3xl">
+        {post.data.title}
+      </h1>
+      {
+        post.data.tags && post.data.tags.length > 0 && (
+          <ul class="flex flex-wrap gap-1">
+            {post.data.tags.map((tag) => (
+              <li>
+                <a
+                  href={`/blog/tags/${tag}`}
+                  class="inline-block bg-gray-100 px-2 py-1 text-sm text-gray-500 hover:bg-gray-200"
+                >
+                  # {tag}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </header>
+    <div class="text-sm leading-loose md:text-base">
+      <Content components={mdxComponents} />
+    </div>
+    <hr class="my-8 border-gray-300" />
+    <PostFooterProfile />
+  </article>
+</BaseLayout>
+
+<script>
+  if (document.querySelector('.twitter-tweet')) {
+    const script = document.createElement('script')
+    script.src = 'https://platform.twitter.com/widgets.js'
+    script.async = true
+    document.head.appendChild(script)
+  }
+</script>
