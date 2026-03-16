@@ -14,12 +14,14 @@ export const DocsHeading: React.FC<DocsHeadingProps> = ({
   ...props
 }) => {
   const baseStyles =
-    'scroll-mt-24 mb-[1em] mt-[1.5em] group [&[id]]:pointer-events-none [&[id]_>_*]:pointer-events-auto'
+    'scroll-mt-24 mt-[1.5em] group [&[id]]:pointer-events-none [&[id]_>_*]:pointer-events-auto'
+  // mb-[1em] is the default; callers can override via className (e.g. mb-2)
+  const defaultMb = className.includes('mb-') ? '' : 'mb-[1em]'
 
   return (
     <Component
       id={id}
-      className={[baseStyles, className].filter(Boolean).join(' ')}
+      className={[baseStyles, defaultMb, className].filter(Boolean).join(' ')}
       {...props}
     >
       <span>
