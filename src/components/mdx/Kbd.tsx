@@ -4,7 +4,7 @@ type KbdProps = React.HTMLAttributes<HTMLElement>
 
 export const Kbd: React.FC<KbdProps> = ({ children, ...props }) => (
   <kbd
-    className="rounded border border-gray-300 bg-gray-100 px-1.5 py-0.5 font-mono text-sm font-normal"
+    className="rounded border border-[var(--color-border)] bg-[var(--color-bg-secondary)] px-1.5 py-0.5 font-[family-name:var(--font-mono-ui)] text-sm font-normal"
     {...props}
   >
     {children}

@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content'
 import { format } from 'date-fns'
+import Tag from './Tag.astro'
 
 interface Props {
   posts: CollectionEntry<'posts'>[]
@@ -10,47 +11,35 @@ interface Props {
 const { posts, activeTag } = Astro.props
 ---
 
-<ul>
+<div class="flex flex-col gap-4">
   {
-    posts.map((post, index) => (
-      <li
-        class:list={[
-          'py-4',
-          index !== posts.length - 1 && 'mb-2 border-b border-gray-300',
-        ]}
+    posts.map((post) => (
+      <a
+        href={`/blog/posts/${post.id}`}
+        class="border-border hover:border-text-tertiary block border p-4 no-underline transition-colors"
       >
-        <a
-          href={`/blog/posts/${post.id}`}
-          class="block text-black hover:no-underline focus:outline-none"
+        <time
+          class="text-text-tertiary mb-2 block font-[family-name:var(--font-mono-ui)] text-[11px]"
+          datetime={post.data.date.toISOString()}
         >
-          <time
-            class="mb-2 block text-sm text-gray-500"
-            datetime={post.data.date.toISOString()}
-          >
-            {format(post.data.date, 'yyyy-MM-dd')}
-          </time>
-          <h2 class="text-xl font-semibold">{post.data.title}</h2>
-        </a>
-        {post.data.tags && post.data.tags.length > 0 && (
-          <ul class="mt-2 flex flex-wrap gap-1">
-            {post.data.tags.map((tag) => (
-              <li>
-                <a
-                  href={`/blog/tags/${tag}`}
-                  class:list={[
-                    'inline-block px-2 py-1 text-sm',
-                    tag === activeTag
-                      ? 'bg-gray-200 text-gray-700'
-                      : 'bg-gray-100 text-gray-500 hover:bg-gray-200',
-                  ]}
-                >
-                  # {tag}
-                </a>
-              </li>
-            ))}
-          </ul>
+          {format(post.data.date, 'yyyy-MM-dd')}
+        </time>
+        <h2 class="text-text-primary mb-2 font-[family-name:var(--font-mono-ui)] text-[15px] font-medium">
+          {post.data.title}
+        </h2>
+        {post.data.description && (
+          <p class="text-text-secondary mb-2 text-sm">
+            {post.data.description}
+          </p>
         )}
-      </li>
+        {post.data.tags && post.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-1.5">
+            {post.data.tags.map((tag) => (
+              <Tag tag={tag} active={tag === activeTag} />
+            ))}
+          </div>
+        )}
+      </a>
     ))
   }
-</ul>
+</div>

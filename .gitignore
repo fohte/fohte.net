@@ -17,3 +17,4 @@ playwright/.cache/
 
 # Wrangler local state
 .wrangler/
+design.pen

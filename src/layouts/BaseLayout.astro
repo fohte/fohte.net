@@ -40,11 +40,17 @@ const gaScript = `
 ---
 
 <!doctype html>
-<html lang="ja">
+<html lang="ja" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,700;1,400&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
     <title>{siteTitle}</title>
 
     {description && <meta name="description" content={description} />}
@@ -80,8 +86,20 @@ const gaScript = `
     />
 
     {import.meta.env.PROD && <Fragment set:html={gaScript} />}
+
+    <script is:inline>
+      ;(function () {
+        const theme = localStorage.getItem('theme')
+        if (
+          theme === 'light' ||
+          (!theme && window.matchMedia('(prefers-color-scheme: light)').matches)
+        ) {
+          document.documentElement.classList.replace('dark', 'light')
+        }
+      })()
+    </script>
   </head>
-  <body class="flex min-h-screen flex-col bg-gray-50">
+  <body class="bg-bg-primary text-text-primary flex min-h-screen flex-col">
     <Header />
     <main class="flex-1">
       <slot />

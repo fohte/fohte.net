@@ -1,33 +1,28 @@
 ---
-import { Icon } from 'astro-icon/components'
-
 const socialList = [
   {
-    icon: 'fa-brands:mastodon',
-    href: 'https://social.fohte.net/@fohte',
-    text: '@fohte@social.fohte.net',
-    rel: 'me',
-  },
-  {
-    icon: 'fa-brands:twitter',
-    href: 'https://twitter.com/fohte',
-    text: 'fohte',
-  },
-  {
-    icon: 'fa-brands:github',
     href: 'https://github.com/fohte',
-    text: 'fohte',
+    text: 'github.com/fohte',
+  },
+  {
+    href: 'https://x.com/fohte',
+    text: 'x.com/fohte',
+  },
+  {
+    href: 'https://social.fohte.net/@fohte',
+    text: 'mastodon.social/@fohte',
+    rel: 'me',
   },
 ]
 ---
 
-<ul class="space-y-1">
+<ul class="flex flex-col gap-2">
   {
     socialList.map((social) => (
       <li>
         <a
           href={social.href}
-          class="inline-flex items-center gap-2 text-gray-700 no-underline hover:text-gray-900"
+          class="text-text-primary hover:text-accent inline-flex items-center gap-2 font-[family-name:var(--font-mono-ui)] text-sm no-underline transition-colors"
           target="_blank"
           rel={
             social.rel
@@ -35,7 +30,7 @@ const socialList = [
               : 'noopener noreferrer'
           }
         >
-          <Icon name={social.icon} class="h-4 w-4" />
+          <span class="text-accent font-bold">&gt;</span>
           <span>{social.text}</span>
         </a>
       </li>

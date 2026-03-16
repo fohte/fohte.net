@@ -8,7 +8,6 @@ import 'prismjs/components/prism-hcl'
 import { Highlight, type Language, themes } from 'prism-react-renderer'
 import type * as React from 'react'
 import { onlyText } from 'react-children-utilities'
-import { FaRegFileCode } from 'react-icons/fa'
 
 export interface CodeBlockProps {
   className?: string
@@ -40,21 +39,19 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
 
   return (
     <Highlight
-      theme={themes.github}
+      theme={themes.oneDark}
       code={onlyText(children).trim()}
       language={language as Language}
     >
-      {({ className, style, tokens, getLineProps, getTokenProps }) => (
+      {({ className, tokens, getLineProps, getTokenProps }) => (
         <div className="mt-4">
           {args.filename && (
-            <div className="inline-block bg-gray-100 px-4 py-1 text-xs">
-              <FaRegFileCode className="mr-2 inline-block align-middle" />
+            <div className="inline-block border border-[var(--color-border)] bg-[var(--color-bg-secondary)] px-4 py-1 font-[family-name:var(--font-mono-ui)] text-xs text-[var(--color-text-tertiary)]">
               {args.filename}
             </div>
           )}
           <pre
-            className={`${className} overflow-x-auto p-4 text-[0.9em] leading-relaxed`}
-            style={style}
+            className={`${className} overflow-x-auto border border-[var(--color-border)] bg-[var(--color-code-bg)] p-5 font-[family-name:var(--font-mono-ui)] text-[13px] leading-relaxed`}
           >
             <code className="inline-block">
               {tokens.map((line, i) => (

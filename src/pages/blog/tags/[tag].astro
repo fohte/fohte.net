@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content'
 
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PostList from '@/components/astro/PostList.astro'
+import Tag from '@/components/astro/Tag.astro'
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts')
@@ -20,18 +21,65 @@ export async function getStaticPaths() {
     props: {
       tag,
       posts: publishedPosts.filter((post) => post.data.tags?.includes(tag)),
+      allTags: Array.from(allTags).sort(),
     },
   }))
 }
 
-const { tag, posts } = Astro.props
+const { tag, posts, allTags } = Astro.props
 ---
 
 <BaseLayout title={`${tag} の記事一覧`}>
-  <div class="mx-auto max-w-[780px] bg-white px-4 py-8 sm:px-6 md:px-8">
-    <h1 class="my-4 text-xl font-semibold">
-      <span class="text-gray-500"># {tag}</span> の記事一覧
-    </h1>
-    <PostList posts={posts} activeTag={tag} />
+  <div
+    class="mx-auto flex max-w-[1280px] gap-10 px-5 py-10 md:px-20 md:py-[60px]"
+  >
+    <!-- Article Area -->
+    <div class="flex min-w-0 flex-1 flex-col gap-6">
+      <div class="flex flex-col gap-2">
+        <span
+          class="text-text-secondary font-[family-name:var(--font-mono-ui)] text-sm"
+          >$ ls ~/posts --tag={tag}</span
+        >
+        <h1 class="font-[family-name:var(--font-mono-ui)] text-4xl font-bold">
+          blog
+        </h1>
+      </div>
+      <hr class="border-border" />
+      <PostList posts={posts} activeTag={tag} />
+    </div>
+
+    <!-- Tag Sidebar (PC only) -->
+    <aside
+      class="border-border hidden w-[220px] shrink-0 border-l pl-6 lg:block"
+    >
+      <span
+        class="text-text-tertiary mb-4 block font-[family-name:var(--font-mono-ui)] text-[11px]"
+        >// tags</span
+      >
+      <div class="flex flex-wrap gap-1.5">
+        <Tag tag="all" href="/blog" />
+        {
+          allTags.map((t: string) => (
+            <Tag tag={t} active={t === tag} href={`/blog/tags/${t}`} />
+          ))
+        }
+      </div>
+    </aside>
+  </div>
+
+  <!-- Tags for SP -->
+  <div class="border-border border-t px-5 py-8 lg:hidden">
+    <span
+      class="text-text-tertiary mb-4 block font-[family-name:var(--font-mono-ui)] text-[11px]"
+      >// tags</span
+    >
+    <div class="flex flex-wrap gap-1.5">
+      <Tag tag="all" href="/blog" />
+      {
+        allTags.map((t: string) => (
+          <Tag tag={t} active={t === tag} href={`/blog/tags/${t}`} />
+        ))
+      }
+    </div>
   </div>
 </BaseLayout>
