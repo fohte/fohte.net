@@ -19,7 +19,13 @@ const { Content } = await render(post)
 const formattedDate = format(post.data.date, 'yyyy-MM-dd')
 ---
 
-<BaseLayout title={post.data.title}>
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  ogType="article"
+  ogImage={post.data.imagePath}
+  fediverseCreator="@fohte@social.fohte.net"
+>
   <article class="mx-auto max-w-[780px] bg-white px-4 py-8 sm:px-6 md:px-8">
     <header class="mb-8">
       <time
