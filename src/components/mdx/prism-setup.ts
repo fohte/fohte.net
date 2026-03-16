@@ -4,5 +4,5 @@ import { Prism } from 'prism-react-renderer'
 const g =
   typeof globalThis !== 'undefined'
     ? globalThis
-    : (window as Record<string, unknown>)
+    : (window as unknown as Record<string, unknown>)
 g.Prism = Prism

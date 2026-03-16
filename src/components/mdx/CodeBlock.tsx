@@ -2,9 +2,7 @@
 // prism-setup must be imported before prismjs language modules so that
 // the global Prism object is available for them to register on.
 import '@/components/mdx/prism-setup'
-// @ts-expect-error prismjs language modules don't have type declarations
 import 'prismjs/components/prism-lua'
-// @ts-expect-error prismjs language modules don't have type declarations
 import 'prismjs/components/prism-hcl'
 
 import { Highlight, type Language, themes } from 'prism-react-renderer'
