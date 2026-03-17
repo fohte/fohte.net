@@ -57,12 +57,43 @@ const ogImage = post.data.imagePath || `/og/${post.id}.png`
             )
           }
         </div>
-        <h1
-          class="font-[family-name:var(--font-mono-ui)] text-2xl leading-tight font-bold md:text-[32px]"
-        >
+        <h1 class="text-2xl leading-tight font-bold md:text-3xl">
           {post.data.title}
         </h1>
       </header>
+
+      <!-- TOC for SP (collapsible, above article) -->
+      {
+        tocHeadings.length > 0 && (
+          <div class="border-border bg-bg-secondary border p-4 lg:hidden">
+            <details>
+              <summary class="text-text-tertiary cursor-pointer font-[family-name:var(--font-mono-ui)] text-[11px]">
+                // table of contents
+              </summary>
+              <nav class="mt-3">
+                <ul class="flex flex-col gap-2">
+                  {tocHeadings.map((heading) => (
+                    <li
+                      style={
+                        heading.depth > 2
+                          ? `padding-left: ${(heading.depth - 2) * 12}px`
+                          : undefined
+                      }
+                    >
+                      <a
+                        href={`#${heading.slug}`}
+                        class="text-text-secondary hover:text-accent font-[family-name:var(--font-mono-ui)] text-[13px] no-underline transition-colors"
+                      >
+                        {heading.text}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </details>
+          </div>
+        )
+      }
 
       {
         post.data.imagePath && (
@@ -79,7 +110,7 @@ const ogImage = post.data.imagePath || `/og/${post.id}.png`
       <hr class="border-border" />
 
       <!-- Article Body -->
-      <div class="article-body text-sm leading-[1.8] md:text-[15px]">
+      <div class="article-body text-sm leading-loose md:text-base">
         <Content components={mdxComponents} />
       </div>
 
@@ -126,39 +157,6 @@ const ogImage = post.data.imagePath || `/og/${post.id}.png`
       )
     }
   </div>
-
-  <!-- TOC for SP (collapsible) -->
-  {
-    tocHeadings.length > 0 && (
-      <div class="border-border bg-bg-secondary mx-5 mb-6 border p-4 lg:hidden">
-        <details>
-          <summary class="text-text-tertiary cursor-pointer font-[family-name:var(--font-mono-ui)] text-[11px]">
-            // table of contents
-          </summary>
-          <nav class="mt-3">
-            <ul class="flex flex-col gap-2">
-              {tocHeadings.map((heading) => (
-                <li
-                  style={
-                    heading.depth > 2
-                      ? `padding-left: ${(heading.depth - 2) * 12}px`
-                      : undefined
-                  }
-                >
-                  <a
-                    href={`#${heading.slug}`}
-                    class="text-text-secondary hover:text-accent font-[family-name:var(--font-mono-ui)] text-[13px] no-underline transition-colors"
-                  >
-                    {heading.text}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </details>
-      </div>
-    )
-  }
 </BaseLayout>
 
 <script>

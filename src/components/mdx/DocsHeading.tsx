@@ -14,7 +14,7 @@ export const DocsHeading: React.FC<DocsHeadingProps> = ({
   ...props
 }) => {
   const baseStyles =
-    'scroll-mt-24 mt-[1.5em] group [&[id]]:pointer-events-none [&[id]_>_*]:pointer-events-auto font-[family-name:var(--font-mono-ui)]'
+    'scroll-mt-24 mt-[1.5em] group [&[id]]:pointer-events-none [&[id]_>_*]:pointer-events-auto'
   const defaultMb = className.includes('mb-') ? '' : 'mb-[1em]'
 
   return (

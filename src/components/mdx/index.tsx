@@ -13,7 +13,7 @@ import { SpeakerDeck } from '@/components/mdx/SpeakerDeck'
 export const mdxComponents: MDXComponents = {
   h1: (props) => (
     <h1
-      className="mt-8 mb-6 border-b border-[var(--color-border)] pb-2 font-[family-name:var(--font-mono-ui)] text-2xl leading-normal"
+      className="mt-8 mb-6 border-b border-[var(--color-border)] pb-2 text-2xl leading-normal"
       {...props}
     />
   ),

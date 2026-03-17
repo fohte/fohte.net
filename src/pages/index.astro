@@ -1,10 +1,9 @@
 ---
 import { getCollection } from 'astro:content'
-import { format } from 'date-fns'
 
 import BaseLayout from '../layouts/BaseLayout.astro'
+import PostList from '../components/astro/PostList.astro'
 import SocialList from '../components/astro/SocialList.astro'
-import Tag from '../components/astro/Tag.astro'
 
 const posts = await getCollection('posts')
 const recentPosts = posts
@@ -27,9 +26,11 @@ const recentPosts = posts
         <h1
           class="font-[family-name:var(--font-mono-ui)] text-4xl font-bold md:text-5xl"
         >
-          fohte
+          Fohte (Hayato Kawai)
         </h1>
-        <p class="text-text-secondary text-sm md:text-base">
+        <p
+          class="text-text-secondary font-[family-name:var(--font-mono-ui)] text-sm md:text-base"
+        >
           software engineer // infrastructure &amp; backend
         </p>
       </section>
@@ -53,14 +54,25 @@ const recentPosts = posts
           class="text-text-tertiary font-[family-name:var(--font-mono-ui)] text-xs"
           >// career</span
         >
-        <div class="flex items-center gap-4">
-          <span
-            class="text-text-tertiary font-[family-name:var(--font-mono-ui)] text-xs"
-            >2020 - present</span
-          >
-          <span class="font-[family-name:var(--font-mono-ui)] text-sm"
-            >software engineer</span
-          >
+        <div class="flex flex-col gap-3">
+          <div class="flex items-baseline gap-4">
+            <span
+              class="text-text-tertiary shrink-0 font-[family-name:var(--font-mono-ui)] text-xs"
+              >2023.03 - present</span
+            >
+            <span class="font-[family-name:var(--font-mono-ui)] text-sm">
+              Wantedly, Inc. / Infrastructure Squad (SRE)
+            </span>
+          </div>
+          <div class="flex items-baseline gap-4">
+            <span
+              class="text-text-tertiary shrink-0 font-[family-name:var(--font-mono-ui)] text-xs"
+              >2017.04 - 2023.03</span
+            >
+            <span class="font-[family-name:var(--font-mono-ui)] text-sm">
+              Synchro Food, Inc. / SRE Team
+            </span>
+          </div>
         </div>
       </section>
 
@@ -81,44 +93,7 @@ const recentPosts = posts
             <span>&rarr;</span>
           </a>
         </div>
-        <div class="flex flex-col gap-4">
-          {
-            recentPosts.map((post) => (
-              <a
-                href={`/blog/posts/${post.id}`}
-                class="border-border hover:border-text-tertiary flex gap-4 border p-4 no-underline transition-colors"
-              >
-                {post.data.imagePath && (
-                  <div class="hidden h-[120px] w-[200px] shrink-0 overflow-hidden md:block">
-                    <img
-                      src={post.data.imagePath}
-                      alt=""
-                      class="h-full w-full object-cover"
-                    />
-                  </div>
-                )}
-                <div class="flex flex-col gap-2">
-                  <time
-                    class="text-text-tertiary font-[family-name:var(--font-mono-ui)] text-[11px]"
-                    datetime={post.data.date.toISOString()}
-                  >
-                    {format(post.data.date, 'yyyy-MM-dd')}
-                  </time>
-                  <h3 class="text-text-primary font-[family-name:var(--font-mono-ui)] text-[15px] font-medium">
-                    {post.data.title}
-                  </h3>
-                  {post.data.tags && post.data.tags.length > 0 && (
-                    <div class="flex flex-wrap gap-1.5">
-                      {post.data.tags.map((tag) => (
-                        <Tag tag={tag} />
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </a>
-            ))
-          }
-        </div>
+        <PostList posts={recentPosts} />
       </section>
     </div>
   </div>

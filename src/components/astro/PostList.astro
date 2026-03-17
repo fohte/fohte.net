@@ -16,29 +16,38 @@ const { posts, activeTag } = Astro.props
     posts.map((post) => (
       <a
         href={`/blog/posts/${post.id}`}
-        class="border-border hover:border-text-tertiary block border p-4 no-underline transition-colors"
+        class:list={[
+          'border-border hover:border-text-tertiary relative block overflow-hidden border no-underline transition-colors',
+          !post.data.imagePath && 'bg-bg-secondary',
+        ]}
       >
-        <time
-          class="text-text-tertiary mb-2 block font-[family-name:var(--font-mono-ui)] text-[11px]"
-          datetime={post.data.date.toISOString()}
-        >
-          {format(post.data.date, 'yyyy-MM-dd')}
-        </time>
-        <h2 class="text-text-primary mb-2 font-[family-name:var(--font-mono-ui)] text-[15px] font-medium">
-          {post.data.title}
-        </h2>
-        {post.data.description && (
-          <p class="text-text-secondary mb-2 text-sm">
-            {post.data.description}
-          </p>
+        {post.data.imagePath && (
+          <div
+            class="absolute inset-0 bg-cover bg-center opacity-20"
+            style={`background-image: url(${post.data.imagePath})`}
+          />
         )}
-        {post.data.tags && post.data.tags.length > 0 && (
-          <div class="flex flex-wrap gap-1.5">
-            {post.data.tags.map((tag) => (
-              <Tag tag={tag} active={tag === activeTag} />
-            ))}
-          </div>
-        )}
+        <div class="relative flex flex-col gap-1.5 p-5">
+          <time
+            class="text-text-tertiary block font-[family-name:var(--font-mono-ui)] text-[11px]"
+            datetime={post.data.date.toISOString()}
+          >
+            {format(post.data.date, 'yyyy-MM-dd')}
+          </time>
+          <h2 class="text-text-primary text-base font-semibold">
+            {post.data.title}
+          </h2>
+          {post.data.description && (
+            <p class="text-text-secondary text-sm">{post.data.description}</p>
+          )}
+          {post.data.tags && post.data.tags.length > 0 && (
+            <div class="mt-1 flex flex-wrap gap-1.5">
+              {post.data.tags.map((tag) => (
+                <Tag tag={tag} active={tag === activeTag} />
+              ))}
+            </div>
+          )}
+        </div>
       </a>
     ))
   }

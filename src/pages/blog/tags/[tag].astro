@@ -46,6 +46,22 @@ const { tag, posts, allTags } = Astro.props
       </div>
       <hr class="border-border" />
       <PostList posts={posts} activeTag={tag} />
+
+      <!-- Tags for SP -->
+      <div class="border-border border-t pt-6 lg:hidden">
+        <span
+          class="text-text-tertiary mb-4 block font-[family-name:var(--font-mono-ui)] text-[11px]"
+          >// tags</span
+        >
+        <div class="flex flex-wrap gap-1.5">
+          <Tag tag="all" href="/blog" />
+          {
+            allTags.map((t: string) => (
+              <Tag tag={t} active={t === tag} href={`/blog/tags/${t}`} />
+            ))
+          }
+        </div>
+      </div>
     </div>
 
     <!-- Tag Sidebar (PC only) -->
@@ -65,21 +81,5 @@ const { tag, posts, allTags } = Astro.props
         }
       </div>
     </aside>
-  </div>
-
-  <!-- Tags for SP -->
-  <div class="border-border border-t px-5 py-8 lg:hidden">
-    <span
-      class="text-text-tertiary mb-4 block font-[family-name:var(--font-mono-ui)] text-[11px]"
-      >// tags</span
-    >
-    <div class="flex flex-wrap gap-1.5">
-      <Tag tag="all" href="/blog" />
-      {
-        allTags.map((t: string) => (
-          <Tag tag={t} active={t === tag} href={`/blog/tags/${t}`} />
-        ))
-      }
-    </div>
   </div>
 </BaseLayout>
