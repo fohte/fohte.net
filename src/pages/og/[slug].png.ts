@@ -212,7 +212,8 @@ export const GET: APIRoute = async ({ props }) => {
           },
         ],
       },
-    },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } as any,
     {
       width: 1200,
       height: 630,
