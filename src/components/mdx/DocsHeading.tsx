@@ -25,7 +25,7 @@ export const DocsHeading: React.FC<DocsHeadingProps> = ({
     >
       <span className="flex items-center gap-2">
         <span className="text-[13px] font-bold text-[var(--color-accent)]">
-          ##
+          {'#'.repeat(Number(Component.replace('h', '')) || 2)}
         </span>
         <span>{children}</span>
         {id && (

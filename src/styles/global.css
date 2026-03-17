@@ -30,7 +30,7 @@
   --color-text-tertiary: #52525b;
   --color-accent: #dc2626;
   --color-border: #e5e5e5;
-  --color-code-bg: #f5f5f5;
+  --color-code-bg: #1e1e1e;
 }
 
 @media (prefers-color-scheme: light) {
@@ -43,7 +43,7 @@
     --color-text-tertiary: #52525b;
     --color-accent: #dc2626;
     --color-border: #e5e5e5;
-    --color-code-bg: #f5f5f5;
+    --color-code-bg: #1e1e1e;
   }
 }
 
@@ -62,7 +62,8 @@ body {
 .footnotes {
   margin-top: 4rem;
   border-top: 1px solid var(--color-border);
-  font-size: 0.9rem;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
 }
 
 /* Hide the footnotes section label */
