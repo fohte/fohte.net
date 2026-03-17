@@ -33,7 +33,7 @@ export const mdxComponents: MDXComponents = {
 
     return (
       <code
-        className="rounded bg-[var(--color-code-bg)] px-[0.4em] py-[0.1em] text-[0.85em]"
+        className="rounded bg-[var(--color-bg-tertiary)] px-[0.4em] py-[0.1em] text-[0.85em]"
         {...props}
       />
     )
