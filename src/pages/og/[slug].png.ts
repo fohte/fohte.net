@@ -167,7 +167,7 @@ export const GET: APIRoute = async ({ props }) => {
                       flexWrap: 'wrap' as const,
                       gap: '12px',
                     },
-                    children: tags.map((tag) => ({
+                    children: tags.map((tag: string) => ({
                       type: 'span',
                       props: {
                         style: {
