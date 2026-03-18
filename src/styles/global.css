@@ -78,6 +78,7 @@ body {
   margin-top: 1rem;
   overflow-x: auto;
   border: 1px solid var(--color-border);
+  background-color: var(--color-code-bg);
   padding: 1.25rem;
   font-family: var(--font-mono-ui);
   font-size: 13px;
@@ -92,6 +93,18 @@ body {
 
 .article-body .code-block-wrapper .astro-code {
   margin-top: 0;
+}
+
+.article-body .code-filename {
+  display: inline-block;
+  border: 1px solid var(--color-border);
+  border-bottom-width: 0;
+  background-color: var(--color-bg-secondary);
+  padding: 0.25rem 1rem;
+  font-family: var(--font-mono-ui);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--color-text-tertiary);
 }
 
 .article-body .astro-code code {

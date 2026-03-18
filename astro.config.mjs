@@ -29,7 +29,7 @@ function transformerFilename() {
     name: 'transformer-filename',
     root(root) {
       const meta = this.options.meta?.__raw || ''
-      const match = meta.match(/filename="?([^\s"]+)"?/)
+      const match = meta.match(/filename="([^"]+)"/)
       if (!match) return
 
       // Wrap the existing root children (the <pre>) in a container div,
@@ -45,8 +45,7 @@ function transformerFilename() {
               type: 'element',
               tagName: 'div',
               properties: {
-                class:
-                  'code-filename inline-block border border-b-0 border-[var(--color-border)] bg-[var(--color-bg-secondary)] px-4 py-1 font-[family-name:var(--font-mono-ui)] text-xs text-[var(--color-text-tertiary)]',
+                class: 'code-filename',
               },
               children: [{ type: 'text', value: match[1] }],
             },
