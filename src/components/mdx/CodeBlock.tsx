@@ -1,20 +1,13 @@
-'use client'
+// Load additional Prism languages synchronously at module level.
+// prism-setup must be imported before prismjs language modules so that
+// the global Prism object is available for them to register on.
+import '@/components/mdx/prism-setup'
+import 'prismjs/components/prism-lua'
+import 'prismjs/components/prism-hcl'
 
-import { Box, Icon } from '@chakra-ui/react'
-import { Highlight, type Language, Prism, themes } from 'prism-react-renderer'
-import * as React from 'react'
+import { Highlight, type Language, themes } from 'prism-react-renderer'
+import type * as React from 'react'
 import { onlyText } from 'react-children-utilities'
-import { FaRegFileCode } from 'react-icons/fa'
-
-const setPrismAsGlobal = () => {
-  // FIXME: fix any type
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ;(typeof global !== 'undefined' ? global : window).Prism = Prism
-}
-setPrismAsGlobal()
-
-require('prismjs/components/prism-lua')
-require('prismjs/components/prism-hcl')
 
 export interface CodeBlockProps {
   className?: string
@@ -34,10 +27,7 @@ const parseClassName = (className?: string): [Language | null, Args] => {
 
   return [
     language as Language,
-    args.reduce((acc, arg) => {
-      const [key, value] = arg.split('=')
-      return { ...acc, [key]: value }
-    }, {}),
+    Object.fromEntries(args.map((arg) => arg.split('='))),
   ]
 }
 
@@ -49,47 +39,31 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
 
   return (
     <Highlight
-      theme={themes.github}
+      theme={themes.oneDark}
       code={onlyText(children).trim()}
       language={language as Language}
     >
-      {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <Box mt="1rem">
+      {({ className, tokens, getLineProps, getTokenProps }) => (
+        <div className="mt-4">
           {args.filename && (
-            <>
-              <Box
-                backgroundColor="gray.100"
-                fontSize="xs"
-                py={1}
-                px={4}
-                display="inline-block"
-              >
-                <Icon as={FaRegFileCode} mr={2} verticalAlign="middle" />
-                {args.filename}
-              </Box>
-            </>
+            <div className="inline-block border border-[var(--color-border)] bg-[var(--color-bg-secondary)] px-4 py-1 font-[family-name:var(--font-mono-ui)] text-xs text-[var(--color-text-tertiary)]">
+              {args.filename}
+            </div>
           )}
-          <Box
-            as="pre"
-            className={className}
-            p="1rem"
-            overflowX="auto"
-            fontSize="0.9em"
-            textAlign="left"
-            style={style}
-            lineHeight="tall"
+          <pre
+            className={`${className} overflow-x-auto border border-[var(--color-border)] bg-[var(--color-code-bg)] p-5 font-[family-name:var(--font-mono-ui)] text-[13px] leading-relaxed`}
           >
-            <code style={{ display: 'inline-block' }}>
+            <code className="inline-block">
               {tokens.map((line, i) => (
-                <Box key={i} {...getLineProps({ line, key: i })}>
+                <div key={i} {...getLineProps({ line, key: i })}>
                   {line.map((token, key) => (
                     <span key={key} {...getTokenProps({ token, key })} />
                   ))}
-                </Box>
+                </div>
               ))}
             </code>
-          </Box>
-        </Box>
+          </pre>
+        </div>
       )}
     </Highlight>
   )

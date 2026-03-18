@@ -1,0 +1,39 @@
+---
+const socialList = [
+  {
+    href: 'https://github.com/fohte',
+    text: 'github.com/fohte',
+  },
+  {
+    href: 'https://x.com/fohte',
+    text: 'x.com/fohte',
+  },
+  {
+    href: 'https://social.fohte.net/@fohte',
+    text: 'social.fohte.net/@fohte',
+    rel: 'me',
+  },
+]
+---
+
+<ul class="flex flex-col gap-2">
+  {
+    socialList.map((social) => (
+      <li>
+        <a
+          href={social.href}
+          class="text-text-primary hover:text-accent inline-flex items-center gap-2 font-[family-name:var(--font-mono-ui)] text-sm no-underline transition-colors"
+          target="_blank"
+          rel={
+            social.rel
+              ? `${social.rel} noopener noreferrer`
+              : 'noopener noreferrer'
+          }
+        >
+          <span class="text-accent font-bold">&gt;</span>
+          <span>{social.text}</span>
+        </a>
+      </li>
+    ))
+  }
+</ul>

@@ -2,3 +2,8 @@ trailingComma: all
 semi: false
 singleQuote: true
 proseWrap: preserve
+plugins:
+  - prettier-plugin-astro
+  # prettier-plugin-tailwindcss must be loaded last
+  # ref: https://github.com/tailwindlabs/prettier-plugin-tailwindcss?tab=readme-ov-file#compatibility-with-other-prettier-plugins
+  - prettier-plugin-tailwindcss

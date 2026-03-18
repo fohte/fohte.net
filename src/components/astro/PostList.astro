@@ -1,0 +1,54 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import { format } from 'date-fns'
+import Tag from './Tag.astro'
+
+interface Props {
+  posts: CollectionEntry<'posts'>[]
+  activeTag?: string
+}
+
+const { posts, activeTag } = Astro.props
+---
+
+<div class="flex flex-col gap-4">
+  {
+    posts.map((post) => (
+      <a
+        href={`/blog/posts/${post.id}`}
+        class:list={[
+          'border-border hover:border-text-tertiary relative block overflow-hidden border no-underline transition-colors',
+          !post.data.imagePath && 'bg-bg-secondary',
+        ]}
+      >
+        {post.data.imagePath && (
+          <div
+            class="absolute inset-0 bg-cover bg-center opacity-20"
+            style={`background-image: url(${post.data.imagePath})`}
+          />
+        )}
+        <div class="relative flex flex-col gap-1.5 p-5">
+          <time
+            class="text-text-tertiary block font-[family-name:var(--font-mono-ui)] text-[11px]"
+            datetime={post.data.date.toISOString()}
+          >
+            {format(post.data.date, 'yyyy-MM-dd')}
+          </time>
+          <h2 class="text-text-primary text-base font-semibold">
+            {post.data.title}
+          </h2>
+          {post.data.description && (
+            <p class="text-text-secondary text-sm">{post.data.description}</p>
+          )}
+          {post.data.tags && post.data.tags.length > 0 && (
+            <div class="mt-1 flex flex-wrap gap-1.5">
+              {post.data.tags.map((tag) => (
+                <Tag tag={tag} active={tag === activeTag} />
+              ))}
+            </div>
+          )}
+        </div>
+      </a>
+    ))
+  }
+</div>

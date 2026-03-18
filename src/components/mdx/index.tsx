@@ -1,58 +1,30 @@
-import {
-  Box,
-  Code,
-  Divider,
-  Heading,
-  Kbd,
-  Table,
-  Tbody,
-  Td,
-  Text,
-  Th,
-  Thead,
-  Tr,
-} from '@chakra-ui/react'
-import { MDXComponents } from 'mdx/types'
-import * as React from 'react'
+import type { MDXComponents } from 'mdx/types'
+import type * as React from 'react'
 
-import { Link } from '@/components/Link'
 import { CardLink } from '@/components/mdx/CardLink'
 import { CodeBlock } from '@/components/mdx/CodeBlock'
 import { DocsHeading } from '@/components/mdx/DocsHeading'
 import { Image } from '@/components/mdx/Image'
 import { ImageGrid } from '@/components/mdx/ImageGrid'
-import { List } from '@/components/mdx/List'
-import { Mastodon } from '@/components/mdx/Mastodon'
+import { Kbd } from '@/components/mdx/Kbd'
+import { Link } from '@/components/mdx/Link'
 import { SpeakerDeck } from '@/components/mdx/SpeakerDeck'
-import { Tweet } from '@/components/mdx/Tweet'
-import { YouTube } from '@/components/mdx/YouTube'
 
 export const mdxComponents: MDXComponents = {
   h1: (props) => (
-    <Heading
-      as="h1"
-      fontSize="2xl"
-      mt={8}
-      mb={6}
-      lineHeight="base"
-      pb={2}
-      borderBottom="1px solid #ddd"
+    <h1
+      className="mt-8 mb-6 border-b border-[var(--color-border)] pb-2 text-2xl leading-normal"
       {...props}
-    ></Heading>
+    />
   ),
   h2: (props) => (
-    <DocsHeading
-      as="h2"
-      fontWeight="semibold"
-      fontSize="xl"
-      {...props}
-    ></DocsHeading>
+    <DocsHeading as="h2" className="text-xl font-bold" {...props} />
   ),
   h3: (props) => (
-    <DocsHeading as="h3" fontSize="lg" mb="0.5em" {...props}></DocsHeading>
+    <DocsHeading as="h3" className="mb-2 text-lg font-bold" {...props} />
   ),
   h4: (props) => (
-    <DocsHeading as="h4" fontSize="md" mb="0.5em" {...props}></DocsHeading>
+    <DocsHeading as="h4" className="mb-2 text-base font-bold" {...props} />
   ),
   code: (props) => {
     if (/language-/.test(props.className || '')) {
@@ -60,87 +32,76 @@ export const mdxComponents: MDXComponents = {
     }
 
     return (
-      <Code
-        colorScheme="gray"
-        fontSize="0.85em"
-        paddingX="0.4em"
-        paddingY="0.1em"
+      <code
+        className="rounded bg-[var(--color-bg-tertiary)] px-[0.4em] py-[0.1em] text-[0.85em]"
         {...props}
       />
     )
   },
-  hr: (props) => <Divider mt={8} mb={8} {...props} />,
+  hr: (props) => (
+    <hr className="my-8 border-t border-[var(--color-border)]" {...props} />
+  ),
   a: Link,
   CardLink: CardLink,
-  p: (props) => <Text as="p" mt={4} {...props} />,
+  p: (props) => <p className="mt-4" {...props} />,
+  ul: (props) => (
+    <ul className="mt-4 ml-2 list-disc pl-4 [&_ul]:mt-1" {...props} />
+  ),
+  ol: (props) => <ol className="mt-4 ml-2 list-decimal pl-4" {...props} />,
+  li: (props) => <li className="pb-1" {...props} />,
+  table: (props) => (
+    <div className="overflow-x-auto">
+      <table
+        className="min-w-full border-collapse border border-[var(--color-border)]"
+        {...props}
+      />
+    </div>
+  ),
+  thead: (props) => (
+    <thead className="bg-[var(--color-bg-secondary)]" {...props} />
+  ),
+  tbody: (props) => <tbody {...props} />,
+  tr: (props) => (
+    <tr className="border-b border-[var(--color-border)]" {...props} />
+  ),
+  th: (props) => (
+    <th
+      className="border border-[var(--color-border)] px-4 py-2 text-left font-semibold"
+      {...props}
+    />
+  ),
+  td: (props) => (
+    <td className="border border-[var(--color-border)] px-4 py-2" {...props} />
+  ),
+  img: Image,
   blockquote: (props) => (
-    <Box
-      as="blockquote"
-      mt={4}
-      pl={4}
-      borderLeft="4px solid"
-      borderColor="gray.300"
-      color="gray.600"
+    <blockquote
+      className="my-4 border-l-[3px] border-[var(--color-accent)] bg-[var(--color-bg-secondary)] p-4 italic"
       {...props}
     />
   ),
 
-  // FIXME: fix any type
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ul: (props: any) => <List as="ul" {...props} />,
-
-  // FIXME: fix any type
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ol: (props: any) => <Box as="ol" mt="1rem" pl={4} ml={2} {...props} />,
-
-  // FIXME: fix any type
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  li: (props: any) => <Box as="li" pb={1} {...props} />,
-
-  table: (props) => (
-    <Box overflowX="auto">
-      <Table {...props} />
-    </Box>
-  ),
-  thead: (props) => <Thead {...props} />,
-  tbody: (props) => <Tbody {...props} />,
-  tr: (props) => <Tr {...props} />,
-  th: (props) => <Th {...props} />,
-  td: (props) => <Td {...props} />,
-  img: Image,
-
-  Kbd: (props) => <Kbd fontWeight="normal" {...props} />,
-
-  Tweet: Tweet,
-  YouTube: YouTube,
-  SpeakerDeck: SpeakerDeck,
-  Mastodon: Mastodon,
-  ImageGrid: ImageGrid,
+  Kbd,
+  SpeakerDeck,
+  ImageGrid,
 }
 
+// RSS feed components (simplified versions for RSS output)
 export const rssComponents: MDXComponents = {
   Kbd: 'kbd',
-
-  // FIXME: fix mock of Tweet and YouTube
-  Tweet: ({}: React.ComponentProps<typeof Tweet>) => <div>Tweet</div>,
-  YouTube: ({}: React.ComponentProps<typeof YouTube>) => <div>YouTube</div>,
-
-  // FIxME: fix mock of SpeakerDeck, the id in props is not a url to view the slide page
-  SpeakerDeck: ({}: React.ComponentProps<typeof SpeakerDeck>) => (
-    <p>SpeakerDeck</p>
-  ),
-
-  Mastodon: ({ url }: React.ComponentProps<typeof Mastodon>) => (
-    <p>
-      Mastodon: <a>{url}</a>
-    </p>
-  ),
-
-  CardLink: ({ href, children }: React.ComponentProps<typeof CardLink>) => (
-    <a href={href}>{children}</a>
-  ),
-
-  ImageGrid: ({ children }: React.ComponentProps<typeof ImageGrid>) => (
+  SpeakerDeck: () => <p>SpeakerDeck</p>,
+  CardLink: ({ href }: { href: string }) => <a href={href}>{href}</a>,
+  ImageGrid: ({ children }: { children: React.ReactNode }) => (
     <div>{children}</div>
   ),
 }
+
+// Re-export components for direct import
+export { CardLink } from '@/components/mdx/CardLink'
+export { CodeBlock } from '@/components/mdx/CodeBlock'
+export { DocsHeading } from '@/components/mdx/DocsHeading'
+export { Image } from '@/components/mdx/Image'
+export { ImageGrid } from '@/components/mdx/ImageGrid'
+export { Kbd } from '@/components/mdx/Kbd'
+export { Link } from '@/components/mdx/Link'
+export { SpeakerDeck } from '@/components/mdx/SpeakerDeck'

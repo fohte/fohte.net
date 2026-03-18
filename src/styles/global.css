@@ -1,0 +1,89 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans:
+    'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans',
+    Meiryo, sans-serif;
+  --font-mono-ui: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  --font-mono-body: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+
+  --color-bg-primary: #0a0a0a;
+  --color-bg-secondary: #141414;
+  --color-bg-tertiary: #1f1f1f;
+  --color-text-primary: #fafafa;
+  --color-text-secondary: #a1a1aa;
+  --color-text-tertiary: #71717a;
+  --color-accent: #ef4444;
+  --color-border: #2a2a2a;
+  --color-code-bg: #141414;
+}
+
+@custom-variant light (&:where(.light, .light *));
+
+/* Light theme overrides */
+:root.light {
+  --color-bg-primary: #fafafa;
+  --color-bg-secondary: #f0f0f0;
+  --color-bg-tertiary: #e5e5e5;
+  --color-text-primary: #0a0a0a;
+  --color-text-secondary: #3f3f46;
+  --color-text-tertiary: #52525b;
+  --color-accent: #dc2626;
+  --color-border: #e5e5e5;
+  --color-code-bg: #1e1e1e;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not(.dark) {
+    --color-bg-primary: #fafafa;
+    --color-bg-secondary: #f0f0f0;
+    --color-bg-tertiary: #e5e5e5;
+    --color-text-primary: #0a0a0a;
+    --color-text-secondary: #3f3f46;
+    --color-text-tertiary: #52525b;
+    --color-accent: #dc2626;
+    --color-border: #e5e5e5;
+    --color-code-bg: #1e1e1e;
+  }
+}
+
+html {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+/* Footnotes styles */
+.footnotes {
+  margin-top: 4rem;
+  border-top: 1px solid var(--color-border);
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+/* Hide the footnotes section label */
+.footnotes > h2,
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  word-wrap: normal;
+  border: 0;
+}
+
+/* Place [ and ] around footnote calls */
+[data-footnote-ref]::before {
+  content: '[';
+}
+
+[data-footnote-ref]::after {
+  content: ']';
+}

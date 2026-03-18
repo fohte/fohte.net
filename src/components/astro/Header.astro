@@ -1,0 +1,36 @@
+---
+const navLinks = [
+  { href: '/projects', label: 'projects' },
+  { href: '/blog', label: 'blog' },
+]
+---
+
+<header class="border-border border-b">
+  <div
+    class="mx-auto flex h-[60px] max-w-[1280px] items-center justify-between px-5 md:px-20"
+  >
+    <a
+      href="/"
+      class="flex items-center gap-2 font-[family-name:var(--font-mono-ui)] no-underline"
+    >
+      <span class="text-accent text-xl font-bold">&gt;</span>
+      <span class="text-text-primary text-base font-medium">fohte.net</span>
+    </a>
+    <nav>
+      <ul class="flex items-center gap-6">
+        {
+          navLinks.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-text-secondary hover:text-text-primary font-[family-name:var(--font-mono-ui)] text-[13px] no-underline transition-colors"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
