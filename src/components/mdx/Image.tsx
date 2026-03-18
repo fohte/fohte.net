@@ -49,7 +49,7 @@ export const Image: React.FC<ImageProps> = ({ alt, src }) => {
         style={{ paddingBottom: `min(${aspectRatio}%, ${height}px)` }}
       >
         <div
-          className="absolute top-0 right-0 left-0 mx-auto max-h-full max-w-full bg-gray-100"
+          className="absolute top-0 right-0 left-0 mx-auto max-h-full max-w-full bg-[var(--color-bg-secondary)]"
           style={{ width: `${width}px`, height: `${height}px` }}
         >
           <picture>
@@ -60,7 +60,7 @@ export const Image: React.FC<ImageProps> = ({ alt, src }) => {
           </picture>
         </div>
       </div>
-      <figcaption className="mt-2 text-center text-[0.9rem] text-gray-600">
+      <figcaption className="mt-2 text-center text-[0.9rem] text-[var(--color-text-tertiary)]">
         {alt}
       </figcaption>
     </figure>

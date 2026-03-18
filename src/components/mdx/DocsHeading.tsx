@@ -15,7 +15,6 @@ export const DocsHeading: React.FC<DocsHeadingProps> = ({
 }) => {
   const baseStyles =
     'scroll-mt-24 mt-[1.5em] group [&[id]]:pointer-events-none [&[id]_>_*]:pointer-events-auto'
-  // mb-[1em] is the default; callers can override via className (e.g. mb-2)
   const defaultMb = className.includes('mb-') ? '' : 'mb-[1em]'
 
   return (
@@ -24,13 +23,16 @@ export const DocsHeading: React.FC<DocsHeadingProps> = ({
       className={[baseStyles, defaultMb, className].filter(Boolean).join(' ')}
       {...props}
     >
-      <span>
-        {children}
+      <span className="flex items-center gap-2">
+        <span className="text-[13px] font-bold text-[var(--color-accent)]">
+          {'#'.repeat(Number(Component.replace('h', '')) || 2)}
+        </span>
+        <span>{children}</span>
         {id && (
           <a
             href={`#${id}`}
             aria-label={`Link to ${id} section`}
-            className="ml-1.5 font-normal text-blue-500 opacity-0 transition-opacity outline-none group-hover:opacity-100 focus:opacity-100"
+            className="ml-1 font-normal text-[var(--color-accent)] opacity-0 transition-opacity outline-none group-hover:opacity-100 focus:opacity-100"
           >
             #
           </a>

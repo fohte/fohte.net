@@ -1,42 +1,100 @@
 ---
+import { getCollection } from 'astro:content'
+
 import BaseLayout from '../layouts/BaseLayout.astro'
+import PostList from '../components/astro/PostList.astro'
 import SocialList from '../components/astro/SocialList.astro'
+
+const posts = await getCollection('posts')
+const recentPosts = posts
+  .filter((post) => !post.id.includes('e2e-test-'))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3)
 ---
 
 <BaseLayout>
-  <div class="mx-auto max-w-[780px] px-4 py-8 sm:px-6 md:px-8">
-    <div class="flex flex-col items-center justify-center gap-10">
-      <div class="flex flex-col items-center justify-center gap-4 text-center">
-        <h2 class="text-3xl leading-tight font-bold md:text-4xl">
+  <div
+    class="mx-auto flex max-w-[1280px] justify-center px-5 py-10 md:px-20 md:py-[60px]"
+  >
+    <div class="flex w-full max-w-[780px] flex-col gap-10">
+      <!-- Hero -->
+      <section class="flex flex-col gap-4">
+        <span
+          class="text-text-secondary font-[family-name:var(--font-mono-ui)] text-xs md:text-sm"
+          >$ whoami</span
+        >
+        <h1
+          class="font-[family-name:var(--font-mono-ui)] text-4xl font-bold md:text-5xl"
+        >
           Fohte (Hayato Kawai)
-        </h2>
-        <p>Gamer / Software Engineer (Cloud Infrastructure Engineer)</p>
-        <p>Love: Rhythm Games, Productivity, Neovim, Dvorak</p>
-      </div>
+        </h1>
+        <p
+          class="text-text-secondary font-[family-name:var(--font-mono-ui)] text-sm md:text-base"
+        >
+          software engineer // infrastructure &amp; backend
+        </p>
+      </section>
 
-      <div class="flex w-full flex-col gap-8">
-        <section>
-          <h3 class="mb-4 border-b border-gray-300 pb-2 text-xl font-bold">
-            Socials
-          </h3>
-          <SocialList />
-        </section>
+      <hr class="border-border" />
 
-        <section>
-          <h3 class="mb-4 border-b border-gray-300 pb-2 text-xl font-bold">
-            Career
-          </h3>
-          <p>
-            See:{' '}
-            <a
-              href="https://www.wantedly.com/id/fohte"
-              class="text-blue-500 hover:underline"
-              target="_blank"
-              rel="noopener noreferrer">wantedly.com/id/fohte</a
+      <!-- Links -->
+      <section class="flex flex-col gap-4">
+        <span
+          class="text-text-tertiary font-[family-name:var(--font-mono-ui)] text-xs"
+          >// links</span
+        >
+        <SocialList />
+      </section>
+
+      <hr class="border-border" />
+
+      <!-- Career -->
+      <section class="flex flex-col gap-4">
+        <span
+          class="text-text-tertiary font-[family-name:var(--font-mono-ui)] text-xs"
+          >// career</span
+        >
+        <div class="flex flex-col gap-3">
+          <div class="flex items-baseline gap-4">
+            <span
+              class="text-text-tertiary shrink-0 font-[family-name:var(--font-mono-ui)] text-xs"
+              >2023.03 - present</span
             >
-          </p>
-        </section>
-      </div>
+            <span class="font-[family-name:var(--font-mono-ui)] text-sm">
+              Wantedly, Inc. / Infra Squad
+            </span>
+          </div>
+          <div class="flex items-baseline gap-4">
+            <span
+              class="text-text-tertiary shrink-0 font-[family-name:var(--font-mono-ui)] text-xs"
+              >2017.04 - 2023.03</span
+            >
+            <span class="font-[family-name:var(--font-mono-ui)] text-sm">
+              Synchro Food Co., Ltd. / SRE Team
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <hr class="border-border" />
+
+      <!-- Recent Posts -->
+      <section class="flex flex-col gap-4">
+        <div class="flex items-center justify-between">
+          <span
+            class="text-text-tertiary font-[family-name:var(--font-mono-ui)] text-xs"
+            >// recent posts</span
+          >
+          <a
+            href="/blog"
+            class="text-accent hover:text-text-primary flex items-center gap-1.5 font-[family-name:var(--font-mono-ui)] text-xs no-underline transition-colors"
+          >
+            all posts
+            <span>&rarr;</span>
+          </a>
+        </div>
+        <PostList posts={recentPosts} />
+      </section>
     </div>
   </div>
 </BaseLayout>

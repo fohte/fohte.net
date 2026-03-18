@@ -2,13 +2,55 @@
 
 ---
 
-<footer class="mt-auto text-sm text-gray-500">
-  <div class="mx-auto max-w-[780px] px-4 py-6 sm:px-6 md:px-8">
-    <div class="mt-6 flex flex-wrap items-center justify-center gap-8">
-      <span>&copy; 2020 Fohte</span>
-      <a href="/privacy-policy" class="text-gray-500 hover:text-gray-700">
-        Privacy Policy
+<footer class="border-border border-t">
+  <div
+    class="mx-auto flex h-[60px] max-w-[1280px] items-center justify-between px-5 md:px-20"
+  >
+    <span
+      class="text-text-tertiary font-[family-name:var(--font-mono-body)] text-xs"
+    >
+      &copy; 2020 fohte
+    </span>
+    <div class="flex items-center gap-4">
+      <button
+        id="theme-toggle"
+        type="button"
+        class="text-text-tertiary hover:text-text-secondary font-[family-name:var(--font-mono-ui)] text-xs transition-colors"
+        aria-label="Toggle theme"
+      >
+        <span id="theme-label">theme: dark</span>
+      </button>
+      <a
+        href="/privacy-policy"
+        class="text-text-tertiary hover:text-text-secondary font-[family-name:var(--font-mono-ui)] text-xs no-underline transition-colors"
+      >
+        privacy_policy
       </a>
     </div>
   </div>
 </footer>
+
+<script is:inline>
+  ;(function () {
+    var btn = document.getElementById('theme-toggle')
+    var label = document.getElementById('theme-label')
+    var root = document.documentElement
+
+    function updateLabel() {
+      var isDark = root.classList.contains('dark')
+      label.textContent = 'theme: ' + (isDark ? 'dark' : 'light')
+    }
+
+    updateLabel()
+
+    btn.addEventListener('click', function () {
+      var isDark = root.classList.contains('dark')
+      root.classList.replace(
+        isDark ? 'dark' : 'light',
+        isDark ? 'light' : 'dark',
+      )
+      localStorage.setItem('theme', isDark ? 'light' : 'dark')
+      updateLabel()
+    })
+  })()
+</script>
