@@ -138,5 +138,9 @@
     "title": "Superwhisper",
     "description": "AI powered voice to text for macOS",
     "image": "https://superwhisper.com/image/og-image2x.png"
+  },
+  "https://runok.fohte.net": {
+    "title": "runok",
+    "description": "Smarter command permissions for AI coding agents."
   }
 }
