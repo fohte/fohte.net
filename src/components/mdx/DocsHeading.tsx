@@ -23,11 +23,11 @@ export const DocsHeading: React.FC<DocsHeadingProps> = ({
       className={[baseStyles, defaultMb, className].filter(Boolean).join(' ')}
       {...props}
     >
-      <span className="flex items-center gap-2">
-        <span className="text-[13px] font-bold text-[var(--color-accent)]">
+      <span className="flex items-baseline gap-2">
+        <span className="shrink-0 text-[13px] font-bold text-[var(--color-accent)]">
           {'#'.repeat(Number(Component.replace('h', '')) || 2)}
         </span>
-        <span>{children}</span>
+        <span className="min-w-0">{children}</span>
         {id && (
           <a
             href={`#${id}`}
