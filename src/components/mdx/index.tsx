@@ -2,7 +2,6 @@ import type { MDXComponents } from 'mdx/types'
 import type * as React from 'react'
 
 import { CardLink } from '@/components/mdx/CardLink'
-import { CodeBlock } from '@/components/mdx/CodeBlock'
 import { DocsHeading } from '@/components/mdx/DocsHeading'
 import { Image } from '@/components/mdx/Image'
 import { ImageGrid } from '@/components/mdx/ImageGrid'
@@ -27,8 +26,12 @@ export const mdxComponents: MDXComponents = {
     <DocsHeading as="h4" className="mb-2 text-base font-bold" {...props} />
   ),
   code: (props) => {
-    if (/language-/.test(props.className || '')) {
-      return <CodeBlock {...props} />
+    // Shiki handles code blocks (pre > code), so only style inline code here
+    if (
+      /astro-code/.test(props.className || '') ||
+      /language-/.test(props.className || '')
+    ) {
+      return <code {...props} />
     }
 
     return (
@@ -98,7 +101,6 @@ export const rssComponents: MDXComponents = {
 
 // Re-export components for direct import
 export { CardLink } from '@/components/mdx/CardLink'
-export { CodeBlock } from '@/components/mdx/CodeBlock'
 export { DocsHeading } from '@/components/mdx/DocsHeading'
 export { Image } from '@/components/mdx/Image'
 export { ImageGrid } from '@/components/mdx/ImageGrid'

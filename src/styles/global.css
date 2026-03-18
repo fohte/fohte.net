@@ -58,6 +58,46 @@ body {
   color: var(--color-text-primary);
 }
 
+/* Article body styles */
+.article-body {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  min-width: 0;
+}
+
+.article-body li {
+  min-width: 0;
+}
+
+/* Shiki code block styles */
+:root {
+  --astro-code-background: var(--color-code-bg);
+}
+
+.article-body .astro-code {
+  margin-top: 1rem;
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  padding: 1.25rem;
+  font-family: var(--font-mono-ui);
+  font-size: 13px;
+  line-height: 1.625;
+}
+
+.article-body .code-block-wrapper {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.article-body .code-block-wrapper .astro-code {
+  margin-top: 0;
+}
+
+.article-body .astro-code code {
+  all: unset;
+}
+
 /* Footnotes styles */
 .footnotes {
   margin-top: 4rem;
