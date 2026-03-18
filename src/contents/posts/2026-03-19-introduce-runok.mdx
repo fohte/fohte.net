@@ -1,0 +1,236 @@
+---
+title: 'Claude Code の実行許可を柔軟に制御するツール runok を作った'
+date: '2026-03-19T12:00:00+09:00'
+description: 'Claude Code のコマンド実行許可を柔軟に制御するツール runok を作りました。構文解析による正確な判定、柔軟なパターン記述、理由付き deny、サンドボックス実行などに対応しています。'
+---
+
+Claude Code ではコマンドの自動実行と、実行許可の設定ができます。ただ、最近はコマンド実行時に次のようにコメントつきのコマンドを実行することが多く、`git log` を許可していても手動での許可が求められることがあります。
+
+```
+⏺ Bash(# check logs
+      git log --oneline -5)
+  ⎿  Running…
+
+Command contains newlines that could separate multiple commands
+
+Do you want to proceed?
+❯ 1. Yes
+  2. No
+```
+
+このようにコマンドの前にコメントを付けるパターン以外にも、次のような本来は許可してもよい安全なコードにもかかわらず手動で許可しなければならないものがいくつかあります。
+
+- `git status && echo "---" && git log` のように区切り文字を挟む場合
+- `git -C /path status` のようにオプション引数が間に入る場合
+- `for i in *.py; do cat $i; done` のようにループの中にコマンドが入る場合
+
+また、AWS CLI の get 系の権限を許可したくても、現状の Claude Code では次のように列挙する必要があります。
+
+```json5
+{
+  permissions: {
+    allow: [
+      'Bash(aws ec2 describe-instances *)',
+      'Bash(aws ec2 describe-vpcs *)',
+      'Bash(aws ecs describe-services *)',
+      'Bash(aws rds describe-db-instances *)',
+      // ...
+    ],
+  },
+}
+```
+
+このような細かい実行許可の不便さを解決するために、[runok](https://runok.fohte.net) ([GitHub](https://github.com/fohte/runok)) というツールを作りました。
+
+<CardLink href="https://runok.fohte.net" />
+
+# runok はどういうツールか
+
+次のような特徴を持つ、Claude Code のコマンド実行許可を柔軟に制御するツールです。
+
+- コマンドのパターンマッチングをより正確に行う
+  - コメントや `&&`, `|`, `<()` などの複合コマンドも単一コマンドに分解して判定する
+  - `for` ループや `xargs` なども再帰的に解析して中のコマンドを評価する
+- パターンをより柔軟に記述できる
+  - YAML ファイル上で簡単な DSL を使ってルールを定義できる
+  - preset を作成して他者とも共有できる
+
+## セットアップ
+
+Homebrew でインストールするか、[GitHub Releases](https://github.com/fohte/runok/releases) からバイナリをダウンロードして、`runok init` を実行してください。
+
+```sh
+brew install fohte/tap/runok
+runok init
+```
+
+<!-- TODO: runok init の GIF を貼る -->
+
+`runok init` は Claude Code の `settings.json` を読み込んで設定ファイルを作成したり、初期セットアップを手助けするコマンドです。インストールして `runok init` に従って設定さえすれば、まずはパターンマッチングの恩恵が受けられます。
+
+より詳細に設定を書く場合は `~/.config/runok/runok.yml` を編集してください。比較的安全性の高い読み取り系コマンドのみを許可するルールを記述した[プリセット](https://runok.fohte.net/configuration/official-presets/)も用意しているので、併せてご利用ください。
+
+# runok の特徴
+
+## YAML によるシンプルなルール定義
+
+ルールはシンプルな DSL を使って YAML で書きます。allow (許可) / deny (拒否) / ask (確認) の 3 種類のアクションを指定できます。
+
+```yaml
+rules:
+  # 読み取り系の git コマンドは常に許可
+  - allow: 'git status *'
+  - allow: 'git diff *'
+  - allow: 'git log *'
+
+  # git push も許可
+  - allow: 'git push *'
+
+  # ただし force push は禁止
+  - deny: 'git push -f|--force *'
+    message: 'Use --force-with-lease instead.'
+    fix_suggestion: 'git push --force-with-lease'
+
+  # --force-with-lease は自動許可せず、確認を求める
+  - ask: 'git push --force-with-lease *'
+```
+
+ルールはマッチしたものから最も厳しいものが優先されます (つまり deny > ask > allow の順で評価されます)。たとえば上の例では、次のような動作になります。
+
+- `git push --force origin main`: deny ルールにマッチするので拒否される
+- `git push --force-with-lease origin main`: ask ルールにマッチするので確認が求められる
+- `git push origin main`: allow ルールにマッチするので許可される
+
+また、`git -C` のようなグローバルフラグの有無を吸収したり、`aws * describe-*` のように文字列の途中でのワイルドカードマッチもできます。
+
+```yaml
+rules:
+  # git -C /path/to/repo status にもマッチする
+  - allow: 'git [-C *] status'
+
+  # aws ec2 describe-instances, aws ecs describe-services など
+  # すべての describe 系コマンドをまとめて許可できる
+  - allow: 'aws * describe-* *'
+```
+
+ここでは紹介しきれないので、詳細はドキュメントの [Pattern Matching](https://runok.fohte.net/pattern-syntax/overview/) や [Configuration Schema](https://runok.fohte.net/configuration/schema/) を参照してください。作者自身はほとんど全てのケースで自動許可したいコマンド実行を許可できており、十分な表現力があるはずです。
+
+## コマンドを構文解析して個別に判定する
+
+runok は、コマンドを単なるテキストではなく、構文構造として理解して評価するようにしています。
+
+冒頭で紹介した問題は、いずれもコマンドが単純に評価できなくなったときに、テキストマッチングでは対応できなくなるという共通の課題があります。runok はコマンド文字列をパースして個々のコマンドに分解してから、それぞれに対してルールを評価します。
+
+たとえば次のコメント付きコマンドでは、コメント部分を無視して `git log --oneline -5` だけを評価します。
+
+```bash
+# check logs
+git log --oneline -5
+```
+
+`for` ループのような構文でも、ループ本体の `cat` コマンドを取り出して評価します。
+
+```bash
+for f in *.py; do cat "$f"; done
+```
+
+より内部の話をすると、runok では [tree-sitter-bash](https://github.com/tree-sitter/tree-sitter-bash) というパーサーを使って、コマンド文字列を AST (抽象構文木) にパースしています。AST は、コマンドの「どこがコマンド名で、どこが引数で、どこがコメントか」といった文法構造をツリーとして表現したものです。テキストマッチングでは単純なコマンドの判定はできますが、複合コマンドやシェル構文が絡むと正しくパースできません。AST ベースの手法であれば、複雑な構文であっても個々のコマンドを取り出して判定できます。
+
+# そのほかの便利な機能
+
+## 理由付きで deny できる
+
+Claude Code 組み込みのパーミッションでは、コマンドの自動拒否はできるものの、拒否理由を伝えられません。手動で拒否したときは理由を入力できるものの、自動拒否のルールには理由を設定できないため、Claude Code はなぜそのコマンドが拒否されたのか理解できません。
+たとえば `rm -rf` を禁止しているとき、本来は `rm -r` を使ってほしいのに、Git 管理されていないファイルなのに `git rm -rf` しようとしたり、無駄な試行錯誤をしてしまうことがあります。
+
+runok では、deny ルールに `message` (拒否理由) と `fix_suggestion` (代替手段) を設定できます。
+
+```yaml
+rules:
+  - deny: 'rm -rf *'
+    message: 'Use git clean or git rm instead.'
+    fix_suggestion: 'git clean -fd'
+```
+
+Claude Code はこのフィードバックを読んで、自律的に正しいコマンドに辿り着けます。
+
+この仕組みはコマンドの修正だけでなく、ワークフローの誘導にも使えます。たとえば私の場合、npm 系のパッケージマネージャーの操作には [`ni`](https://github.com/antfu-collective/ni) を使ってほしいので、次のように設定しています。
+
+```yaml
+rules:
+  - deny: 'npm|yarn|pnpm|bun install *'
+    message: 'BLOCKED: Use /ni skill. Run: ni <pkg>'
+    fix_suggestion: 'ni'
+```
+
+Skill や CLAUDE.md をプロンプトエンジニアリング的に頑張るという部分もありますが、この方法であれば決定的にコマンドを拒否でき推奨方法を案内できるメリットがあります。
+
+## 特定のコマンドだけサンドボックスで実行する
+
+コマンドを allow した場合でも、そのコマンドが意図しないファイルの書き込みやネットワークアクセスを行うリスクはあります。runok は OS レベルのサンドボックス[^sandbox]を提供しており、ルール単位で適用できます。
+
+たとえば、以下のように `python` スクリプトだけをサンドボックス内で実行する、といった使い分けが可能です。
+
+```yaml
+definitions:
+  sandbox:
+    readonly:
+      fs:
+        writable: [] # 書き込みを一切許可しない
+      network:
+        allow: false # ネットワークアクセスを禁止
+
+rules:
+  # python3 はサンドボックス内で実行
+  - allow: 'python3 *'
+    sandbox: readonly
+  # git status はサンドボックスなしで実行
+  - allow: 'git status *'
+```
+
+[^sandbox]: 内部的には macOS では Seatbelt (sandbox-exec)、Linux では Landlock + seccomp + bubblewrap を使っています。
+
+## 設定のテストを書く
+
+記述したルールが意図通りに動くかを確認するためのテスト機能も用意しています。
+
+```yaml
+rules:
+  - allow: 'git [-C *] status *'
+    tests:
+      - allow: 'git status'
+      - allow: 'git -C /path/to/repo status'
+
+  - deny: 'rm -rf *'
+    tests:
+      - deny: 'rm -rf /tmp/foo'
+      - ask: 'rm -r /tmp/foo'
+```
+
+```sh
+runok test
+```
+
+ある程度ルールを書いていくと、意図しないマッチングやマッチ漏れが出てくることがあるはずです。そこでこのテスト機能を使うことで、ルールの正確性を保ちながら設定を書いていけます。特に runok の設定自体を Claude Code に書かせるようなケースで便利です。
+
+# 今後の展望
+
+## Auto Mode との棲み分け
+
+Claude Code は近々 Auto Mode が追加されることが予定されています ([ITmedia NEWS の記事](https://www.itmedia.co.jp/news/articles/2603/05/news116.html))。runok はこの機能が発表される前から開発していましたが、Auto Mode でも「安全なコマンドは勝手に許可されてほしい」という runok のモチベーションの多くが満たせそうだと感じています。
+
+ただし、Auto Mode は LLM の確率的な判断に依存しており、「このコマンドは必ず拒否する」という決定的な制御はできません。runok はルールベースで決定的に動作するので、`git push -f` は必ず拒否したいなど、runok の強みが活きる場面もあるはずと考えています。Auto Mode の判断自体にもコストはかかるので、そういった面でも強みはあるはず。
+
+今後の展望として、自動で許可するという試みは runok にも取り込みたいと考えています。具体的にはルールの自動追加を検討しており、そのために[監査ログを取得する機能](https://runok.fohte.net/cli/audit/)も導入していたりもします。
+
+## 他のコーディングエージェントへの対応
+
+現在は Claude Code のみの対応ですが、将来的に要望が多ければ OpenCode など他のコーディングエージェントへの対応も検討しています。ただし、runok は Claude Code の PreToolUse フックを利用しているため、対応先のツールにも同等のフック機能が必要になります。
+
+複数のコーディングエージェントに対応した暁には、複数のツールを使っていてコマンド実行許可の管理が分散するという課題を、runok に集約することで解決できそうだと考えています。
+
+# 最後に
+
+日常的な困り事を解決するツールとして作ったので、ぜひ皆さんの困り事も解決できればと考えています。ぜひ試してみて、フィードバックをもらえると嬉しいです。
+
+また、意図しない挙動の報告や新機能の提案など、[GitHub Issues](https://github.com/fohte/runok/issues) で受け付けています。Claude Code を日常的に使っていてコマンド許可の管理に煩わしさを感じている方は、ぜひご利用ください。
