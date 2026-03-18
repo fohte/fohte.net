@@ -3,7 +3,6 @@ import { createRequire } from 'node:module'
 
 import type { APIRoute, GetStaticPaths } from 'astro'
 import { getCollection } from 'astro:content'
-import { format } from 'date-fns'
 import satori from 'satori'
 import sharp from 'sharp'
 
@@ -23,7 +22,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const GET: APIRoute = async ({ props }) => {
   const { post } = props
 
-  const formattedDate = format(post.data.date, 'yyyy-MM-dd')
   const tags = post.data.tags ?? []
 
   // Load fonts from @fontsource packages (woff format, satori compatible)
@@ -107,19 +105,42 @@ export const GET: APIRoute = async ({ props }) => {
                 justifyContent: 'center',
                 gap: '24px',
                 padding: '80px',
-                height: '470px',
-                marginTop: '80px',
+                height: '630px',
               },
               children: [
-                // Prompt
+                // Site name
                 {
                   type: 'div',
                   props: {
                     style: {
-                      fontSize: '18px',
-                      color: '#A1A1AA',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '16px',
                     },
-                    children: `$ cat ~/posts/${post.id}`,
+                    children: [
+                      {
+                        type: 'span',
+                        props: {
+                          style: {
+                            fontSize: '36px',
+                            fontWeight: 700,
+                            color: '#EF4444',
+                          },
+                          children: '> ',
+                        },
+                      },
+                      {
+                        type: 'span',
+                        props: {
+                          style: {
+                            fontSize: '32px',
+                            fontWeight: 500,
+                            color: '#FAFAFA',
+                          },
+                          children: 'fohte.net',
+                        },
+                      },
+                    ],
                   },
                 },
                 // Title
@@ -127,7 +148,7 @@ export const GET: APIRoute = async ({ props }) => {
                   type: 'div',
                   props: {
                     style: {
-                      fontSize: '48px',
+                      fontSize: '56px',
                       fontWeight: 700,
                       color: '#FAFAFA',
                       lineHeight: 1.2,
@@ -137,74 +158,32 @@ export const GET: APIRoute = async ({ props }) => {
                     children: post.data.title,
                   },
                 },
-                // Meta row
+                // Tags
                 {
                   type: 'div',
                   props: {
                     style: {
                       display: 'flex',
-                      alignItems: 'center',
-                      gap: '16px',
-                      fontSize: '16px',
-                      color: '#71717A',
+                      flexWrap: 'wrap' as const,
+                      gap: '12px',
                     },
-                    children: [
-                      formattedDate,
-                      tags.length > 0 ? ` // ${tags.join(', ')}` : '',
-                    ].join(''),
-                  },
-                },
-              ],
-            },
-          },
-          // Footer
-          {
-            type: 'div',
-            props: {
-              style: {
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '0 80px',
-                height: '80px',
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                right: 0,
-              },
-              children: [
-                {
-                  type: 'div',
-                  props: {
-                    style: {
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                    },
-                    children: [
-                      {
-                        type: 'span',
-                        props: {
-                          style: {
-                            fontSize: '20px',
-                            fontWeight: 700,
-                            color: '#EF4444',
-                          },
-                          children: '>',
+                    children: tags.map((tag: string) => ({
+                      type: 'span',
+                      props: {
+                        style: {
+                          display: 'flex',
+                          alignItems: 'center',
+                          fontSize: '28px',
+                          fontWeight: 500,
+                          color: '#A1A1AA',
+                          backgroundColor: '#1F1F1F',
+                          border: '1px solid #2A2A2A',
+                          borderRadius: '4px',
+                          padding: '8px 20px',
                         },
+                        children: tag,
                       },
-                      {
-                        type: 'span',
-                        props: {
-                          style: {
-                            fontSize: '16px',
-                            fontWeight: 500,
-                            color: '#FAFAFA',
-                          },
-                          children: 'fohte.net',
-                        },
-                      },
-                    ],
+                    })),
                   },
                 },
               ],
