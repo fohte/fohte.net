@@ -159,37 +159,33 @@ export const GET: APIRoute = async ({ props }) => {
                   },
                 },
                 // Tags
-                ...(tags.length > 0
-                  ? [
-                      {
-                        type: 'div',
-                        props: {
-                          style: {
-                            display: 'flex',
-                            flexWrap: 'wrap' as const,
-                            gap: '12px',
-                          },
-                          children: tags.map((tag: string) => ({
-                            type: 'span',
-                            props: {
-                              style: {
-                                display: 'flex',
-                                alignItems: 'center',
-                                fontSize: '28px',
-                                fontWeight: 500,
-                                color: '#A1A1AA',
-                                backgroundColor: '#1F1F1F',
-                                border: '1px solid #2A2A2A',
-                                borderRadius: '4px',
-                                padding: '8px 20px',
-                              },
-                              children: tag,
-                            },
-                          })),
+                {
+                  type: 'div',
+                  props: {
+                    style: {
+                      display: 'flex',
+                      flexWrap: 'wrap' as const,
+                      gap: '12px',
+                    },
+                    children: tags.map((tag) => ({
+                      type: 'span',
+                      props: {
+                        style: {
+                          display: 'flex',
+                          alignItems: 'center',
+                          fontSize: '28px',
+                          fontWeight: 500,
+                          color: '#A1A1AA',
+                          backgroundColor: '#1F1F1F',
+                          border: '1px solid #2A2A2A',
+                          borderRadius: '4px',
+                          padding: '8px 20px',
                         },
+                        children: tag,
                       },
-                    ]
-                  : []),
+                    })),
+                  },
+                },
               ],
             },
           },
