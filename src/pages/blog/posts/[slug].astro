@@ -75,8 +75,8 @@ const ogImage = post.data.imagePath || `/og/${post.id}.png`
                   {tocHeadings.map((heading) => (
                     <li
                       style={
-                        heading.depth > 2
-                          ? `padding-left: ${(heading.depth - 2) * 12}px`
+                        heading.depth > 1
+                          ? `padding-left: ${(heading.depth - 1) * 12}px`
                           : undefined
                       }
                     >
@@ -138,8 +138,8 @@ const ogImage = post.data.imagePath || `/og/${post.id}.png`
               {tocHeadings.map((heading) => (
                 <li
                   style={
-                    heading.depth > 2
-                      ? `padding-left: ${(heading.depth - 2) * 12}px`
+                    heading.depth > 1
+                      ? `padding-left: ${(heading.depth - 1) * 12}px`
                       : undefined
                   }
                 >
