@@ -32,7 +32,7 @@ if ! command -v convert &> /dev/null; then
   exit 1
 fi
 
-width="$(identify -format '%w' "$image_path[0]")"
+width="$(identify -format '%w' "${image_path}[0]")"
 
 # minimize image size to $max_width to reduce bandwidth
 if [[ "$width" -gt "$max_width" ]]; then
@@ -44,7 +44,7 @@ if [[ "$width" -gt "$max_width" ]]; then
   image_path="$resized_image_path"
 fi
 
-height="$(identify -format '%h' "$image_path[0]")"
+height="$(identify -format '%h' "${image_path}[0]")"
 
 case "$extension" in
   jpg | jpeg | png)
