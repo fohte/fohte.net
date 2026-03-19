@@ -18,7 +18,9 @@ export async function getStaticPaths() {
 const { post } = Astro.props
 const { Content, headings } = await render(post)
 const formattedDate = format(post.data.date, 'yyyy-MM-dd')
-const tocHeadings = headings.filter((h) => h.depth <= 3)
+const tocHeadings = headings.filter(
+  (h) => h.depth <= 3 && h.slug !== 'footnote-label',
+)
 const ogImage = post.data.imagePath || `/og/${post.id}.png`
 ---
 
