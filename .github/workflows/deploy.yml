@@ -73,8 +73,8 @@ jobs:
           echo "${{ steps.cloudflare-deployment.outputs.command-output }}" > deployment-output.txt
           MAIN_URL=$(grep -o 'Take a peek over at https://[^[:space:]]*\.pages\.dev' deployment-output.txt | sed 's/Take a peek over at //' | head -1)
           ALIAS_URL=$(grep -o 'Deployment alias URL: https://[^[:space:]]*\.pages\.dev' deployment-output.txt | sed 's/Deployment alias URL: //' | head -1)
-          echo "main-url=$MAIN_URL" >> $GITHUB_OUTPUT
-          echo "alias-url=$ALIAS_URL" >> $GITHUB_OUTPUT
+          echo "main-url=$MAIN_URL" >> "$GITHUB_OUTPUT"
+          echo "alias-url=$ALIAS_URL" >> "$GITHUB_OUTPUT"
 
       - name: Update deployment status
         if: always()

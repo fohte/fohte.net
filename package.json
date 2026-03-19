@@ -1,6 +1,7 @@
 {
-  "name": "with-typescript",
+  "name": "fohte.net",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -44,6 +45,8 @@
     "tailwindcss": "4.1.18"
   },
   "devDependencies": {
+    "@commitlint/cli": "20.4.3",
+    "@eslint/eslintrc": "3.3.5",
     "@fohte/eslint-config": "0.0.4",
     "@iconify-json/fa-brands": "1.2.2",
     "@testing-library/jest-dom": "6.6.3",
