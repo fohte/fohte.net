@@ -1,3 +1,27 @@
-// workaround for eslint not supporting mjs
-// ref: https://zenn.dev/teppeis/scraps/c62621db4384d2
-module.exports = import('./eslint.config.mjs').then((n) => n.default)
+import { mainConfig, typescriptConfig } from '@fohte/eslint-config'
+
+const config = [
+  ...mainConfig,
+  ...typescriptConfig,
+  {
+    ignores: ['dist/**/*', '.astro/**/*'],
+  },
+  {
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['./*', '../*'],
+              message:
+                'Please use absolute imports instead of relative imports.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+]
+
+export default config

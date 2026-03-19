@@ -1,5 +1,0 @@
-[tools]
-bun = "1.2.17"
-
-[env]
-# Environment variables can be defined here if needed
