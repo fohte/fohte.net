@@ -1,0 +1,28 @@
+---
+interface Props {
+  headings: { depth: number; slug: string; text: string }[]
+}
+
+const { headings } = Astro.props
+---
+
+<ul class="flex flex-col gap-2">
+  {
+    headings.map((heading) => (
+      <li
+        style={
+          heading.depth > 1
+            ? `padding-left: ${(heading.depth - 1) * 12}px`
+            : undefined
+        }
+      >
+        <a
+          href={`#${heading.slug}`}
+          class="text-text-secondary hover:text-accent font-[family-name:var(--font-mono-ui)] text-[13px] no-underline transition-colors"
+        >
+          {heading.text}
+        </a>
+      </li>
+    ))
+  }
+</ul>
