@@ -41,7 +41,7 @@
     "@commitlint/cli": "20.4.3",
     "@eslint/eslintrc": "3.3.5",
     "@fohte/eslint-config": "0.0.4",
-    "@testing-library/jest-dom": "6.6.3",
+    "@testing-library/jest-dom": "6.9.1",
     "@types/jsdom": "28.0.1",
     "@types/react": "18.3.28",
     "@types/react-dom": "18.3.7",
