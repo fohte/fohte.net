@@ -6,3 +6,15 @@
 /projects/bms/locker(F).bms https://assets.fohte.net/projects/bms/locker(F).bms 301
 /projects/bms/Scafohld.zip https://assets.fohte.net/projects/bms/Scafohld.zip 301
 /blog/posts/2023-10-02-twitter-to-mastodon /blog/posts/2023-12-02-twitter-to-mastodon 301
+
+# Redirect old Hugo URLs (/blog/YYYY/MM/DD/slug/) to current paths (/blog/posts/YYYY-MM-DD-slug/)
+/blog/2018/11/06/hello-hugo /blog/posts/2018-11-06-hello-hugo/ 301
+/blog/2018/11/06/hello-hugo/ /blog/posts/2018-11-06-hello-hugo/ 301
+/blog/2019/07/15/build-helix-keyboard-kit /blog/posts/2019-07-15-build-helix-keyboard-kit/ 301
+/blog/2019/07/15/build-helix-keyboard-kit/ /blog/posts/2019-07-15-build-helix-keyboard-kit/ 301
+/blog/2020/06/07/next-js-mdx /blog/posts/2020-06-07-next-js-mdx/ 301
+/blog/2020/06/07/next-js-mdx/ /blog/posts/2020-06-07-next-js-mdx/ 301
+/blog/2022/05/16/the-3rd-abear-cup /blog/posts/2022-05-16-the-3rd-abear-cup/ 301
+/blog/2022/05/16/the-3rd-abear-cup/ /blog/posts/2022-05-16-the-3rd-abear-cup/ 301
+/blog/2023/03/20/job-transition /blog/posts/2023-03-20-job-transition/ 301
+/blog/2023/03/20/job-transition/ /blog/posts/2023-03-20-job-transition/ 301
