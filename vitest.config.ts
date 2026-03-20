@@ -3,7 +3,7 @@ import path from 'path'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react() as any],
   test: {
     environment: 'happy-dom',
     globals: true,
