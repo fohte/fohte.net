@@ -21,8 +21,9 @@ node_modules/
 # TypeScript cache
 *.tsbuildinfo
 
-# ESLint cache
+# Linting caches
 .eslintcache
+.textlintcache
 
 # Optional REPL history
 .node_repl_history
