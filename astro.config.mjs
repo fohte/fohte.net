@@ -67,7 +67,9 @@ export default defineConfig({
       },
     }),
     mdx(),
-    sitemap(),
+    sitemap({
+      filter: (page) => !page.includes('/e2e-test-'),
+    }),
   ],
   markdown: {
     remarkPlugins: [remarkGfm, remarkBreaks, remarkUnwrapImages],
