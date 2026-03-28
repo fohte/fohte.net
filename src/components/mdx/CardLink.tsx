@@ -28,7 +28,7 @@ const collapseDescription = (description: string): string => {
 export const CardLink: React.FC<CardLinkProps> = ({ href }) => {
   const ogp = (ogpData as OgpData)[href]
 
-  if (ogp == null) {
+  if (!(href in (ogpData as OgpData))) {
     throw new Error(`OGP not found: ${href}`)
   }
 
@@ -39,7 +39,7 @@ export const CardLink: React.FC<CardLinkProps> = ({ href }) => {
       href={href}
       className="my-4 flex items-center justify-center gap-6 overflow-hidden border border-[var(--color-border)] px-4 py-4 no-underline transition-colors hover:border-[var(--color-text-tertiary)]"
     >
-      {ogp.image && (
+      {ogp.image != null && ogp.image !== '' && (
         <div className="flex max-w-[min(40%,250px)] min-w-[min(20%,150px)] items-center justify-center">
           <img
             src={ogp.image}
@@ -53,7 +53,7 @@ export const CardLink: React.FC<CardLinkProps> = ({ href }) => {
           {ogp.title}
         </p>
         <p className="text-sm text-[var(--color-text-tertiary)]">{domain}</p>
-        {ogp.description && (
+        {ogp.description != null && ogp.description !== '' && (
           <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
             {collapseDescription(ogp.description)}
           </p>

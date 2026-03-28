@@ -46,11 +46,13 @@ export const Image: React.FC<ImageProps> = ({ alt, src }) => {
     <figure className="mt-4">
       <div
         className="relative h-0 w-full"
-        style={{ paddingBottom: `min(${aspectRatio}%, ${height}px)` }}
+        style={{
+          paddingBottom: `min(${String(aspectRatio)}%, ${String(height)}px)`,
+        }}
       >
         <div
           className="absolute top-0 right-0 left-0 mx-auto max-h-full max-w-full bg-[var(--color-bg-secondary)]"
-          style={{ width: `${width}px`, height: `${height}px` }}
+          style={{ width: `${String(width)}px`, height: `${String(height)}px` }}
         >
           <picture>
             {prioritizeWebp && (

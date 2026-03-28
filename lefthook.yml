@@ -8,4 +8,4 @@ pre-commit:
   commands:
     eslint:
       glob: '*.{js,ts,jsx,tsx,mjs,cjs,astro}'
-      run: pnpm exec eslint {staged_files}
+      run: pnpm exec astro sync --silent && pnpm exec eslint {staged_files}

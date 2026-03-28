@@ -1,7 +1,6 @@
 import type * as React from 'react'
 
-export interface LinkProps
-  extends React.AnchorHTMLAttributes<HTMLAnchorElement> {}
+export type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement>
 
 export const isInternalLink = (href: string): boolean => {
   // External links start with a protocol (http:, https:) or protocol-relative scheme (//)
@@ -9,7 +8,7 @@ export const isInternalLink = (href: string): boolean => {
 }
 
 export const Link: React.FC<LinkProps> = ({ href, children, ...props }) => {
-  if (!href) {
+  if (href == null || href === '') {
     return <a {...props}>{children}</a>
   }
 

@@ -1,3 +1,4 @@
+import { z } from 'astro/zod'
 import { promises as fs } from 'fs'
 import { decode } from 'iconv-lite'
 import { JSDOM } from 'jsdom'
@@ -18,13 +19,16 @@ const urls = (
   )
 ).flat()
 
-type Data = {
-  [url: string]: {
-    title?: string | null
-    description?: string | null
-    image?: string | null
-  }
-}
+const dataSchema = z.record(
+  z.string(),
+  z.object({
+    title: z.string().nullish(),
+    description: z.string().nullish(),
+    image: z.string().nullish(),
+  }),
+)
+
+type Data = z.infer<typeof dataSchema>
 
 const getCharset = (res: Response): string => {
   const defaultCharset = 'utf-8'
@@ -87,10 +91,12 @@ const fetchOgp = async (url: string): Promise<Data[string]> => {
   return data
 }
 
-const json: Data = JSON.parse(await fs.readFile('./src/data/ogp.json', 'utf-8'))
+const json: Data = dataSchema.parse(
+  JSON.parse(await fs.readFile('./src/data/ogp.json', 'utf-8')),
+)
 
 for (const url of urls) {
-  if (json[url] != null) {
+  if (url in json) {
     continue
   }
 
@@ -98,7 +104,10 @@ for (const url of urls) {
   const data = await fetchOgp(url)
 
   json[url] = data
-  fs.writeFile('./src/data/ogp.json', JSON.stringify(json, null, 2) + '\n')
+  await fs.writeFile(
+    './src/data/ogp.json',
+    JSON.stringify(json, null, 2) + '\n',
+  )
 
   console.log(`fetched ${url}`)
 

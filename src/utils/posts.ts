@@ -27,7 +27,7 @@ export async function getPostBySlug(slug: string): Promise<Post | undefined> {
  */
 export async function getPostsByTag(tag: string): Promise<Post[]> {
   const posts = await getAllPosts()
-  return posts.filter((post) => post.data.tags?.includes(tag))
+  return posts.filter((post) => post.data.tags?.includes(tag) === true)
 }
 
 /**
