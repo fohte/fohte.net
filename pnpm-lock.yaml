@@ -79,6 +79,9 @@ importers:
       '@commitlint/cli':
         specifier: 20.4.4
         version: 20.4.4(@types/node@25.0.3)(conventional-commits-parser@6.3.0)(typescript@5.9.3)
+      '@eslint/eslintrc':
+        specifier: 3.3.5
+        version: 3.3.5
       '@fohte/eslint-config':
         specifier: 0.3.1
         version: 0.3.1(@typescript-eslint/eslint-plugin@8.57.2(@typescript-eslint/parser@8.57.2(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3))(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3))(@typescript-eslint/parser@8.57.2(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3))(eslint-config-prettier@10.1.8(eslint@10.0.3(jiti@2.6.1)))(eslint-plugin-import-x@4.16.2(@typescript-eslint/utils@8.57.2(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint@10.0.3(jiti@2.6.1)))(eslint-plugin-simple-import-sort@12.1.1(eslint@10.0.3(jiti@2.6.1)))(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3)
@@ -988,6 +991,13 @@ packages:
         integrity: sha512-QUPblTtE51/7/Zhfv8BDwO0qkkzQL7P/aWWbqcf4xWLEYn1oKjdO0gglQBB4GAsu7u6wjijbCmzsUTy6mnk6oQ==,
       }
     engines: { node: ^20.19.0 || ^22.13.0 || >=24 }
+
+  '@eslint/eslintrc@3.3.5':
+    resolution:
+      {
+        integrity: sha512-4IlJx0X0qftVsN5E+/vGujTRIFtwuLbNsVUe7TO6zYPDR1O6nFwvwhIKEKSrl6dZchmYBITazxKoUYOjdtjlRg==,
+      }
+    engines: { node: ^18.18.0 || ^20.9.0 || >=21.1.0 }
 
   '@eslint/object-schema@3.0.3':
     resolution:
@@ -3723,6 +3733,13 @@ packages:
       }
     engines: { node: ^12.22.0 || ^14.17.0 || >=16.0.0 }
 
+  eslint-visitor-keys@4.2.1:
+    resolution:
+      {
+        integrity: sha512-Uhdk5sfqcee/9H/rCOJikYz67o0a2Tw2hGRPOG2Y1R2dg7brRe1uG0yaNQDHu+TO/uQPF/5eCapvYSmHUjt7JQ==,
+      }
+    engines: { node: ^18.18.0 || ^20.9.0 || >=21.1.0 }
+
   eslint-visitor-keys@5.0.1:
     resolution:
       {
@@ -3742,6 +3759,13 @@ packages:
     peerDependenciesMeta:
       jiti:
         optional: true
+
+  espree@10.4.0:
+    resolution:
+      {
+        integrity: sha512-j6PAQ2uUr79PZhBjP5C5fhl8e39FmRnOjsD5lGnWrFU8i2G776tBK7+nP8KuQUTTyAZUwfQqXAgrVH5MbH9CYQ==,
+      }
+    engines: { node: ^18.18.0 || ^20.9.0 || >=21.1.0 }
 
   espree@11.2.0:
     resolution:
@@ -4149,6 +4173,13 @@ packages:
     resolution:
       {
         integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==,
+      }
+    engines: { node: '>=18' }
+
+  globals@14.0.0:
+    resolution:
+      {
+        integrity: sha512-oahGvuMGQlPw/ivIYBjVSrWAfWLBeku5tpPE2fOPLi+WHffIWbuh2tCjhyQhTBPMf5E9jDEH4FOmTYgYwbKwtQ==,
       }
     engines: { node: '>=18' }
 
@@ -7131,6 +7162,13 @@ packages:
       }
     engines: { node: '>=8' }
 
+  strip-json-comments@3.1.1:
+    resolution:
+      {
+        integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==,
+      }
+    engines: { node: '>=8' }
+
   structured-source@4.0.0:
     resolution:
       {
@@ -8856,6 +8894,20 @@ snapshots:
   '@eslint/core@1.1.1':
     dependencies:
       '@types/json-schema': 7.0.15
+
+  '@eslint/eslintrc@3.3.5':
+    dependencies:
+      ajv: 6.14.0
+      debug: 4.4.3
+      espree: 10.4.0
+      globals: 14.0.0
+      ignore: 5.3.2
+      import-fresh: 3.3.1
+      js-yaml: 4.1.1
+      minimatch: 3.1.5
+      strip-json-comments: 3.1.1
+    transitivePeerDependencies:
+      - supports-color
 
   '@eslint/object-schema@3.0.3': {}
 
@@ -10619,6 +10671,8 @@ snapshots:
 
   eslint-visitor-keys@3.4.3: {}
 
+  eslint-visitor-keys@4.2.1: {}
+
   eslint-visitor-keys@5.0.1: {}
 
   eslint@10.0.3(jiti@2.6.1):
@@ -10657,6 +10711,12 @@ snapshots:
       jiti: 2.6.1
     transitivePeerDependencies:
       - supports-color
+
+  espree@10.4.0:
+    dependencies:
+      acorn: 8.16.0
+      acorn-jsx: 5.3.2(acorn@8.16.0)
+      eslint-visitor-keys: 4.2.1
 
   espree@11.2.0:
     dependencies:
@@ -10886,6 +10946,8 @@ snapshots:
   global-directory@4.0.1:
     dependencies:
       ini: 4.1.1
+
+  globals@14.0.0: {}
 
   globalthis@1.0.4:
     dependencies:
@@ -13059,6 +13121,8 @@ snapshots:
   strip-indent@3.0.0:
     dependencies:
       min-indent: 1.0.1
+
+  strip-json-comments@3.1.1: {}
 
   structured-source@4.0.0:
     dependencies:

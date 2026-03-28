@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "20.4.4",
+    "@eslint/eslintrc": "3.3.5",
     "@fohte/eslint-config": "0.3.1",
     "@testing-library/jest-dom": "6.6.3",
     "@tsconfig/bun": "1.0.10",
