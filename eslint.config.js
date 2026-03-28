@@ -3,7 +3,7 @@ import { config } from '@fohte/eslint-config'
 export default config(
   { typescript: { typeChecked: true } },
   {
-    ignores: ['dist/**/*', '.astro/**/*', '**/*.astro'],
+    ignores: ['dist/**/*', '.astro/**/*'],
   },
   {
     // .cjs files use CommonJS, so require() is the correct module system
