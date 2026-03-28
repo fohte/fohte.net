@@ -60,6 +60,9 @@ function transformerFilename() {
 export default defineConfig({
   site: 'https://fohte.net',
   trailingSlash: 'never',
+  build: {
+    format: 'file',
+  },
   integrations: [
     react(),
     embeds({
