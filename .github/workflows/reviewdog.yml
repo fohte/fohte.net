@@ -15,21 +15,27 @@ jobs:
           install: true
       - uses: reviewdog/action-setup@v1
 
-      - name: Cache dependencies
+      - run: corepack enable
+
+      - name: Get pnpm store directory
+        id: pnpm-store
+        run: echo "path=$(pnpm store path)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
         uses: actions/cache@v4
         with:
           path: |
-            ~/.bun/install/cache
-            ~/.bun/install/global
-          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }}
+            ${{ steps.pnpm-store.outputs.path }}
+            node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }}
-            ${{ runner.os }}-bun-
+            ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+            ${{ runner.os }}-pnpm-
 
-      - run: bun install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile
 
       - run: |
-          result="$(bun run textlint 'contents/**/*.mdx' -f checkstyle || true)"
+          result="$(pnpm exec textlint 'contents/**/*.mdx' -f checkstyle || true)"
           echo "$result" | reviewdog -f=checkstyle -name="textlint" -reporter='github-pr-check'
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}

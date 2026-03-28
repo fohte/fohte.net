@@ -39,16 +39,22 @@ jobs:
 
       - uses: jdx/mise-action@v3
 
-      - name: Cache bun dependencies
+      - run: corepack enable
+
+      - name: Get pnpm store directory
+        id: pnpm-store
+        run: echo "path=$(pnpm store path)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
         uses: actions/cache@v5
         with:
           path: |
-            ~/.bun/install/cache
-            ~/.bun/install/global
-          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }}
-          restore-keys: ${{ runner.os }}-bun-
+            ${{ steps.pnpm-store.outputs.path }}
+            node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-pnpm-
 
-      - run: bun install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile
 
       - name: Run lefthook
         id: lefthook
@@ -83,16 +89,22 @@ jobs:
 
       - uses: jdx/mise-action@v3
 
-      - name: Cache bun dependencies
+      - run: corepack enable
+
+      - name: Get pnpm store directory
+        id: pnpm-store
+        run: echo "path=$(pnpm store path)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
         uses: actions/cache@v5
         with:
           path: |
-            ~/.bun/install/cache
-            ~/.bun/install/global
-          key: ${{ runner.os }}-bun-${{ hashFiles('bun.lock') }}
-          restore-keys: ${{ runner.os }}-bun-
+            ${{ steps.pnpm-store.outputs.path }}
+            node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: ${{ runner.os }}-pnpm-
 
-      - run: bun install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile
 
       - name: Run tests
-        run: bun run test
+        run: pnpm run test

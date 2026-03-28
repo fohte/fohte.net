@@ -3,7 +3,7 @@ _commit: v0.4.1
 _src_path: https://github.com/fohte/generic-boilerplate
 description: "@fohte's portfolio and blog powered by Next.js and MDX"
 is_public: true
-node_package_manager: bun
+node_package_manager: pnpm
 project_name: fohte.net
 type: node
 use_release_please: false
