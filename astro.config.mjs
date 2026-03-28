@@ -1,5 +1,6 @@
 import mdx from '@astrojs/mdx'
 import react from '@astrojs/react'
+import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'astro/config'
 import embeds from 'astro-embed/integration'
@@ -67,6 +68,9 @@ export default defineConfig({
       },
     }),
     mdx(),
+    sitemap({
+      filter: (page) => !page.includes('/e2e-test-'),
+    }),
   ],
   markdown: {
     remarkPlugins: [remarkGfm, remarkBreaks, remarkUnwrapImages],
