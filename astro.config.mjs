@@ -1,3 +1,5 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import mdx from '@astrojs/mdx'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
@@ -7,6 +9,38 @@ import embeds from 'astro-embed/integration'
 import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
 import remarkUnwrapImages from 'remark-unwrap-images'
+
+/**
+ * Build a map from blog post URL path to lastmod date by reading frontmatter
+ * from content files. Uses updatedDate if present, otherwise falls back to date.
+ */
+function buildPostLastmodMap() {
+  const postsDir = path.resolve('./src/content/posts')
+  /** @type {Map<string, Date>} */
+  const map = new Map()
+
+  for (const file of fs.readdirSync(postsDir)) {
+    if (!file.endsWith('.mdx')) continue
+
+    const content = fs.readFileSync(path.join(postsDir, file), 'utf-8')
+    const fmMatch = content.match(/^---\n([\s\S]*?)\n---/)
+    if (!fmMatch) continue
+
+    const fm = fmMatch[1]
+    const updatedMatch = fm.match(/^updatedDate:\s*(.+)$/m)
+    const dateMatch = fm.match(/^date:\s*(.+)$/m)
+    const raw = updatedMatch?.[1] ?? dateMatch?.[1]
+    if (!raw) continue
+
+    const lastmod = raw.replace(/^['"]|['"]$/g, '')
+    const slug = file.replace(/\.mdx$/, '')
+    map.set(`/blog/posts/${slug}`, new Date(lastmod))
+  }
+
+  return map
+}
+
+const postLastmodMap = buildPostLastmodMap()
 
 /** @returns {import('shiki').ShikiTransformer} */
 function transformerStyleCleanup() {
@@ -70,6 +104,14 @@ export default defineConfig({
     mdx(),
     sitemap({
       filter: (page) => !page.includes('/e2e-test-'),
+      serialize(item) {
+        const url = new URL(item.url)
+        const lastmod = postLastmodMap.get(url.pathname)
+        if (lastmod) {
+          item.lastmod = lastmod.toISOString()
+        }
+        return item
+      },
     }),
   ],
   markdown: {
