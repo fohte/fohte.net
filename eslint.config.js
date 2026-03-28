@@ -6,19 +6,6 @@ export default config(
     ignores: ['dist/**/*', '.astro/**/*'],
   },
   {
-    files: [
-      'scripts/fetch-ogp.ts',
-      'src/pages/og/\\[slug\\].png.ts',
-      'vitest.config.ts',
-    ],
-    rules: {
-      '@typescript-eslint/no-unsafe-type-assertion': 'off',
-      '@typescript-eslint/no-unsafe-argument': 'off',
-      '@typescript-eslint/no-unsafe-assignment': 'off',
-      '@typescript-eslint/no-explicit-any': 'off',
-    },
-  },
-  {
     rules: {
       'no-restricted-imports': [
         'error',

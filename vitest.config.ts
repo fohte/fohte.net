@@ -3,7 +3,8 @@ import path from 'path'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
-  plugins: [react() as any],
+  // @ts-expect-error -- vite 6 (astro) vs vite 7 (vitest) Plugin type mismatch; resolved in astro 6 upgrade
+  plugins: [react()],
   test: {
     environment: 'happy-dom',
     globals: true,

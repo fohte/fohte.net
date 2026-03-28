@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs'
 import { decode } from 'iconv-lite'
 import { JSDOM } from 'jsdom'
+import { z } from 'zod'
 
 const files = await fs.readdir('./src/content/posts')
 
@@ -18,13 +19,16 @@ const urls = (
   )
 ).flat()
 
-type Data = {
-  [url: string]: {
-    title?: string | null
-    description?: string | null
-    image?: string | null
-  }
-}
+const dataSchema = z.record(
+  z.string(),
+  z.object({
+    title: z.string().nullish(),
+    description: z.string().nullish(),
+    image: z.string().nullish(),
+  }),
+)
+
+type Data = z.infer<typeof dataSchema>
 
 const getCharset = (res: Response): string => {
   const defaultCharset = 'utf-8'
@@ -87,7 +91,9 @@ const fetchOgp = async (url: string): Promise<Data[string]> => {
   return data
 }
 
-const json: Data = JSON.parse(await fs.readFile('./src/data/ogp.json', 'utf-8'))
+const json: Data = dataSchema.parse(
+  JSON.parse(await fs.readFile('./src/data/ogp.json', 'utf-8')),
+)
 
 for (const url of urls) {
   if (url in json) {
