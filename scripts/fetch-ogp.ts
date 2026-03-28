@@ -1,7 +1,7 @@
+import { z } from 'astro/zod'
 import { promises as fs } from 'fs'
 import { decode } from 'iconv-lite'
 import { JSDOM } from 'jsdom'
-import { z } from 'zod'
 
 const files = await fs.readdir('./src/content/posts')
 
