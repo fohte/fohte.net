@@ -29,6 +29,7 @@
     "astro-embed": "0.12.0",
     "date-fns": "4.1.0",
     "feed": "4.2.2",
+    "gray-matter": "4.0.3",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "remark-breaks": "4.0.0",
