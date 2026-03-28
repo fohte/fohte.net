@@ -1,6 +1,7 @@
 {
   "name": "fohte.net",
   "version": "1.0.0",
+  "packageManager": "pnpm@10.30.3",
   "type": "module",
   "scripts": {
     "dev": "astro dev",
@@ -9,8 +10,8 @@
     "lint": "eslint .",
     "format:eslint": "eslint --fix .",
     "format:prettier": "prettier --write .",
-    "format": "conc -m 1 bun:format:eslint bun:format:prettier",
-    "test": "conc -m 1 bun:test:type bun:test:unit",
+    "format": "conc -m 1 pnpm:format:eslint pnpm:format:prettier",
+    "test": "conc -m 1 pnpm:test:type pnpm:test:unit",
     "test:type": "astro sync && tsc --noEmit",
     "test:unit": "vitest",
     "test:unit:ui": "vitest --ui",
@@ -45,6 +46,7 @@
     "@fohte/eslint-config": "0.0.4",
     "@testing-library/jest-dom": "6.6.3",
     "@types/jsdom": "28.0.1",
+    "@types/mdx": "2.0.13",
     "@types/react": "18.3.28",
     "@types/react-dom": "18.3.7",
     "@vitejs/plugin-react": "5.2.0",
@@ -62,10 +64,16 @@
     "typescript": "5.8.3",
     "vitest": "4.1.2"
   },
-  "resolutions": {
-    "@types/react": "18.3.28",
-    "@types/react-dom": "18.3.7",
-    "date-fns": "4.1.0"
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ],
+    "overrides": {
+      "@types/react": "18.3.28",
+      "@types/react-dom": "18.3.7",
+      "date-fns": "4.1.0"
+    }
   },
   "license": "ISC"
 }

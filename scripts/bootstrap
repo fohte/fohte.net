@@ -31,10 +31,18 @@ if command -v mise > /dev/null 2>&1; then
   mise install
 fi
 
+# Enable corepack so that pnpm version from package.json packageManager field is used
+if ! command -v corepack > /dev/null 2>&1; then
+  echo "Error: 'corepack' not found. It is required to use pnpm and should be bundled with Node.js >= 16.9." >&2
+  echo "Please install 'mise' (https://mise.jdx.dev) or a recent version of Node.js." >&2
+  exit 1
+fi
+corepack enable
+
 # Install git hooks via lefthook (skip for worktrees — they share the parent's .git/hooks)
 if [ "$worktree" = false ] && command -v lefthook > /dev/null 2>&1; then
   lefthook install
 fi
 
 # Install Node.js dependencies
-bun install
+pnpm install
