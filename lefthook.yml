@@ -7,5 +7,5 @@ remotes:
 pre-commit:
   commands:
     eslint:
-      glob: '*.{js,ts,jsx,tsx,mjs,cjs,astro}'
+      glob: '*.{js,ts,jsx,tsx,mjs,cjs}'
       run: pnpm exec eslint {staged_files}
