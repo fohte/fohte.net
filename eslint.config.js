@@ -7,6 +7,12 @@ const config = [
     ignores: ['dist/**/*', '.astro/**/*'],
   },
   {
+    files: ['**/*.cjs'],
+    rules: {
+      '@typescript-eslint/no-var-requires': 'off',
+    },
+  },
+  {
     rules: {
       'no-restricted-imports': [
         'error',
