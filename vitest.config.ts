@@ -3,8 +3,7 @@ import path from 'path'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- vite version mismatch between @vitejs/plugin-react and vitest
-  plugins: [react() as any],
+  plugins: [react()],
   test: {
     environment: 'happy-dom',
     globals: true,
