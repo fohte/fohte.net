@@ -55,7 +55,6 @@ export const GET: APIRoute<Props> = async ({ props }) => {
     ),
   ])
 
-  /* eslint-disable @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-type-assertion -- satori requires untyped JSX-like object */
   const svg = await satori(
     {
       type: 'div',
@@ -195,9 +194,7 @@ export const GET: APIRoute<Props> = async ({ props }) => {
           },
         ],
       },
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any,
-    /* eslint-enable @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-type-assertion */
     {
       width: 1200,
       height: 630,

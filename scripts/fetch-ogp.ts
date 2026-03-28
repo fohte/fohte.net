@@ -87,10 +87,7 @@ const fetchOgp = async (url: string): Promise<Data[string]> => {
   return data
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- JSON structure matches Data type
-const json = JSON.parse(
-  await fs.readFile('./src/data/ogp.json', 'utf-8'),
-) as Data
+const json: Data = JSON.parse(await fs.readFile('./src/data/ogp.json', 'utf-8'))
 
 for (const url of urls) {
   if (url in json) {
