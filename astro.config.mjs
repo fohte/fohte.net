@@ -6,6 +6,7 @@ import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'astro/config'
 import embeds from 'astro-embed/integration'
+import matter from 'gray-matter'
 import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
 import remarkUnwrapImages from 'remark-unwrap-images'
@@ -23,18 +24,12 @@ function buildPostLastmodMap() {
     if (!file.endsWith('.mdx')) continue
 
     const content = fs.readFileSync(path.join(postsDir, file), 'utf-8')
-    const fmMatch = content.match(/^---\n([\s\S]*?)\n---/)
-    if (!fmMatch) continue
+    const { data: frontmatter } = matter(content)
+    const lastmodDate = frontmatter.updatedDate ?? frontmatter.date
+    if (!lastmodDate) continue
 
-    const fm = fmMatch[1]
-    const updatedMatch = fm.match(/^updatedDate:\s*(.+)$/m)
-    const dateMatch = fm.match(/^date:\s*(.+)$/m)
-    const raw = updatedMatch?.[1] ?? dateMatch?.[1]
-    if (!raw) continue
-
-    const lastmod = raw.replace(/^['"]|['"]$/g, '')
     const slug = file.replace(/\.mdx$/, '')
-    map.set(`/blog/posts/${slug}`, new Date(lastmod))
+    map.set(`/blog/posts/${slug}`, new Date(lastmodDate))
   }
 
   return map
