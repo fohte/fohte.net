@@ -28,7 +28,7 @@ export const DocsHeading: React.FC<DocsHeadingProps> = ({
           {'#'.repeat(Number(Component.replace('h', '')) || 2)}
         </span>
         <span className="min-w-0">{children}</span>
-        {id && (
+        {id != null && id !== '' && (
           <a
             href={`#${id}`}
             aria-label={`Link to ${id} section`}

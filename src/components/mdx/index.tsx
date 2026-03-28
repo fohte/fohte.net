@@ -28,8 +28,8 @@ export const mdxComponents: MDXComponents = {
   code: (props) => {
     // Shiki handles code blocks (pre > code), so only style inline code here
     if (
-      /astro-code/.test(props.className || '') ||
-      /language-/.test(props.className || '')
+      /astro-code/.test(props.className ?? '') ||
+      /language-/.test(props.className ?? '')
     ) {
       return <code {...props} />
     }

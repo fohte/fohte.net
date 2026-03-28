@@ -3,6 +3,7 @@ import path from 'path'
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion, @typescript-eslint/no-explicit-any -- react plugin type mismatch with vitest
   plugins: [react() as any],
   test: {
     environment: 'happy-dom',

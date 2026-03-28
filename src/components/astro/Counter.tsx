@@ -16,14 +16,18 @@ export function Counter({ initial = 0 }: CounterProps) {
       <button
         type="button"
         className="rounded bg-blue-500 px-4 py-2 text-white transition-colors hover:bg-blue-600"
-        onClick={() => setCount((c) => c - 1)}
+        onClick={() => {
+          setCount((c) => c - 1)
+        }}
       >
         -
       </button>
       <button
         type="button"
         className="rounded bg-blue-500 px-4 py-2 text-white transition-colors hover:bg-blue-600"
-        onClick={() => setCount((c) => c + 1)}
+        onClick={() => {
+          setCount((c) => c + 1)
+        }}
       >
         +
       </button>

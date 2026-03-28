@@ -1,7 +1,8 @@
 import { readFile } from 'node:fs/promises'
 import { createRequire } from 'node:module'
 
-import type { APIRoute, GetStaticPaths } from 'astro'
+import type { APIRoute, InferGetStaticPropsType } from 'astro'
+import type { CollectionEntry } from 'astro:content'
 import { getCollection } from 'astro:content'
 import satori from 'satori'
 import sharp from 'sharp'
@@ -11,7 +12,7 @@ const require = createRequire(import.meta.url)
 const resolve = (pkg: string, file: string) =>
   require.resolve(`${pkg}/files/${file}`)
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths = async () => {
   const posts = await getCollection('posts')
   return posts.map((post) => ({
     params: { slug: post.id },
@@ -19,8 +20,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }))
 }
 
-export const GET: APIRoute = async ({ props }) => {
-  const { post } = props
+type Props = InferGetStaticPropsType<typeof getStaticPaths>
+
+export const GET: APIRoute<Props> = async ({ props }) => {
+  const { post } = props as { post: CollectionEntry<'posts'> }
 
   const tags = post.data.tags ?? []
 
@@ -52,6 +55,7 @@ export const GET: APIRoute = async ({ props }) => {
     ),
   ])
 
+  /* eslint-disable @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-type-assertion -- satori requires untyped JSX-like object */
   const svg = await satori(
     {
       type: 'div',
@@ -167,7 +171,7 @@ export const GET: APIRoute = async ({ props }) => {
                       flexWrap: 'wrap' as const,
                       gap: '12px',
                     },
-                    children: tags.map((tag: string) => ({
+                    children: tags.map((tag) => ({
                       type: 'span',
                       props: {
                         style: {
@@ -193,6 +197,7 @@ export const GET: APIRoute = async ({ props }) => {
       },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any,
+    /* eslint-enable @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-type-assertion */
     {
       width: 1200,
       height: 630,
@@ -227,7 +232,7 @@ export const GET: APIRoute = async ({ props }) => {
 
   const png = await sharp(Buffer.from(svg)).png().toBuffer()
 
-  return new Response(png, {
+  return new Response(new Uint8Array(png), {
     headers: {
       'Content-Type': 'image/png',
       'Cache-Control': 'public, max-age=31536000, immutable',
