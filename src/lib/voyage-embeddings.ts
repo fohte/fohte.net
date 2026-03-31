@@ -145,6 +145,6 @@ export async function generateEmbeddings(
   const totalTokens = extractTotalTokens(response)
   return embeddings.map((vector) => ({
     vector,
-    totalTokens: Math.round(totalTokens / texts.length),
+    totalTokens,
   }))
 }
