@@ -16,6 +16,17 @@ export interface ExtractedText {
 
 const processor = unified().use(remarkParse).use(remarkMdx).use(remarkGfm)
 
+// Node types that don't contribute meaningful text for embedding
+const nodeTypesToRemove = new Set([
+  'mdxjsEsm', // import/export statements
+  'mdxFlowExpression', // {expressions}
+  'mdxTextExpression', // inline {expressions}
+  'code', // fenced code blocks
+  'inlineCode', // inline code
+  'image', // images
+  'html', // raw HTML
+])
+
 /**
  * Parse Markdown/MDX content and extract plain text.
  * JSX components are kept so that text children (e.g. `<Kbd>Ctrl</Kbd>`)
@@ -26,15 +37,7 @@ export function stripMarkdown(md: string): string {
   const tree = processor.parse(md)
 
   visit(tree, (node, index, parent) => {
-    if (
-      node.type === 'mdxjsEsm' || // import/export statements
-      node.type === 'mdxFlowExpression' || // {expressions}
-      node.type === 'mdxTextExpression' || // inline {expressions}
-      node.type === 'code' || // fenced code blocks
-      node.type === 'inlineCode' || // inline code
-      node.type === 'image' || // images
-      node.type === 'html' // raw HTML
-    ) {
+    if (nodeTypesToRemove.has(node.type)) {
       if (parent && typeof index === 'number') {
         parent.children.splice(index, 1)
         return [SKIP, index]
