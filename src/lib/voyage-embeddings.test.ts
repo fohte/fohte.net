@@ -148,7 +148,7 @@ describe('generateEmbeddings', () => {
     warnSpy.mockRestore()
   })
 
-  it('returns embedding vectors for multiple texts', async () => {
+  it('returns embedding vectors and total tokens for multiple texts', async () => {
     const vectors = [makeVector(), makeVector()]
     mockEmbed.mockResolvedValueOnce(makeEmbedResponse(vectors, 100))
 
@@ -156,9 +156,10 @@ describe('generateEmbeddings', () => {
       apiKey: 'test-key',
     })
 
-    expect(result).toHaveLength(2)
-    expect(result?.[0].vector).toEqual(vectors[0])
-    expect(result?.[1].vector).toEqual(vectors[1])
+    expect(result).toEqual({
+      embeddings: vectors,
+      totalTokens: 100,
+    })
     expect(mockEmbed).toHaveBeenCalledWith(
       {
         input: ['text1', 'text2'],
@@ -176,10 +177,10 @@ describe('generateEmbeddings', () => {
     expect(warnSpy).toHaveBeenCalled()
   })
 
-  it('returns an empty array for empty input', async () => {
+  it('returns empty embeddings for empty input', async () => {
     const result = await generateEmbeddings([], { apiKey: 'test-key' })
 
-    expect(result).toEqual([])
+    expect(result).toEqual({ embeddings: [], totalTokens: 0 })
     expect(mockEmbed).not.toHaveBeenCalled()
   })
 

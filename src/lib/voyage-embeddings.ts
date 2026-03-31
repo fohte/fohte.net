@@ -7,7 +7,14 @@ const MAX_RETRIES = 3
 export interface EmbeddingResult {
   /** The embedding vector */
   vector: number[]
-  /** Total tokens consumed by the entire API request (shared across batch results) */
+  /** Total tokens consumed by this API request */
+  totalTokens: number
+}
+
+export interface BatchEmbeddingResult {
+  /** Embedding vectors, one per input text */
+  embeddings: number[][]
+  /** Total tokens consumed by the entire batch API request */
   totalTokens: number
 }
 
@@ -100,7 +107,7 @@ export async function generateEmbedding(
 export async function generateEmbeddings(
   texts: string[],
   options?: { apiKey?: string },
-): Promise<EmbeddingResult[] | null> {
+): Promise<BatchEmbeddingResult | null> {
   const apiKey = options?.apiKey ?? process.env.VOYAGE_API_KEY
 
   if (apiKey == null || apiKey === '') {
@@ -111,7 +118,7 @@ export async function generateEmbeddings(
   }
 
   if (texts.length === 0) {
-    return []
+    return { embeddings: [], totalTokens: 0 }
   }
 
   const client = new VoyageAIClient({ apiKey })
@@ -142,9 +149,8 @@ export async function generateEmbeddings(
     }
   }
 
-  const totalTokens = extractTotalTokens(response)
-  return embeddings.map((vector) => ({
-    vector,
-    totalTokens,
-  }))
+  return {
+    embeddings,
+    totalTokens: extractTotalTokens(response),
+  }
 }
