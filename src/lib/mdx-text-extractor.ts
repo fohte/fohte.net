@@ -45,7 +45,13 @@ export function stripMarkdown(md: string): string {
     }
   })
 
-  return toString(tree).trim()
+  // Join top-level blocks with newlines to preserve paragraph separation
+  const blocks = 'children' in tree ? (tree.children as unknown[]) : [tree]
+  return blocks
+    .map((node) => toString(node))
+    .filter((text) => text.length > 0)
+    .join('\n\n')
+    .trim()
 }
 
 /**

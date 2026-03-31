@@ -37,7 +37,7 @@ const x = 1
 \`\`\`
 
 after`
-    expect(stripMarkdown(input)).toBe('beforeafter')
+    expect(stripMarkdown(input)).toBe('before\n\nafter')
   })
 
   it('removes self-closing JSX components', () => {
@@ -59,12 +59,12 @@ Hello world.`
     const input = `Some text[^1] here.
 
 [^1]: This is a footnote.`
-    expect(stripMarkdown(input)).toBe('Some text here.This is a footnote.')
+    expect(stripMarkdown(input)).toBe('Some text here.\n\nThis is a footnote.')
   })
 
   it('removes horizontal rules', () => {
     const input = `before\n\n---\n\nafter`
-    expect(stripMarkdown(input)).toBe('beforeafter')
+    expect(stripMarkdown(input)).toBe('before\n\nafter')
   })
 })
 
@@ -82,7 +82,7 @@ This is **bold** text with a [link](https://example.com).
 `
     const result = extractTextFromMdx(mdx)
     expect(result.title).toBe('My Post Title')
-    expect(result.body).toBe('IntroductionThis is bold text with a link.')
+    expect(result.body).toBe('Introduction\n\nThis is bold text with a link.')
   })
 
   it('handles MDX without frontmatter title', () => {
