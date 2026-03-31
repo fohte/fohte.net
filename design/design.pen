@@ -1,5 +1,5 @@
 {
-  "version": "2.8",
+  "version": "2.9",
   "children": [
     {
       "type": "frame",
@@ -677,6 +677,96 @@
                 },
                 {
                   "type": "frame",
+                  "id": "ORvXG",
+                  "name": "related-posts-section",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "VxcHm",
+                      "name": "header",
+                      "fill": "$text-tertiary",
+                      "content": "// related posts",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "t7jcF",
+                      "name": "related-list",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 16,
+                      "children": [
+                        {
+                          "id": "e7HcA",
+                          "type": "ref",
+                          "ref": "IPuoB",
+                          "width": "fill_container",
+                          "name": "r1",
+                          "x": 0,
+                          "y": 0,
+                          "descendants": {
+                            "doSV3": {
+                              "content": "2024-08-15"
+                            },
+                            "60awF": {
+                              "content": "vim プラグインの遅延読み込みを lazy.nvim で最適化する"
+                            },
+                            "3UHWS": {
+                              "content": "lazy.nvim を使って neovim のプラグイン読み込みを遅延化し、起動時間を大幅に短縮した。"
+                            }
+                          }
+                        },
+                        {
+                          "id": "SnXEF",
+                          "type": "ref",
+                          "ref": "IPuoB",
+                          "width": "fill_container",
+                          "name": "r2",
+                          "x": 0,
+                          "y": 159,
+                          "descendants": {
+                            "doSV3": {
+                              "content": "2024-06-22"
+                            },
+                            "60awF": {
+                              "content": "ターミナル環境を alacritty + tmux + neovim で統一した話"
+                            },
+                            "3UHWS": {
+                              "content": "ターミナルエミュレータ、マルチプレクサ、エディタを統一し、開発環境の一貫性を高めた。"
+                            }
+                          }
+                        },
+                        {
+                          "id": "rY3Qn",
+                          "type": "ref",
+                          "ref": "IPuoB",
+                          "width": "fill_container",
+                          "name": "r3",
+                          "x": 0,
+                          "y": 318,
+                          "descendants": {
+                            "doSV3": {
+                              "content": "2024-04-10"
+                            },
+                            "60awF": {
+                              "content": "dotfiles 管理を chezmoi に移行した"
+                            },
+                            "3UHWS": {
+                              "content": "GNU Stow から chezmoi へ移行し、テンプレート機能で環境差分を管理できるようになった。"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
                   "id": "rK0w8",
                   "name": "backLnk",
                   "width": "fill_container",
@@ -799,7 +889,7 @@
           "width": "fill_container",
           "name": "pFooter",
           "x": 0,
-          "y": 971,
+          "y": 1495,
           "descendants": {
             "d5RV6": {
               "x": 80,
@@ -1165,6 +1255,96 @@
                 },
                 {
                   "type": "frame",
+                  "id": "14Odz",
+                  "name": "related-posts-section",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "6SEuX",
+                      "name": "hPCL",
+                      "fill": "$text-tertiary",
+                      "content": "// related posts",
+                      "fontFamily": "JetBrains Mono",
+                      "fontSize": 11,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "jMTrq",
+                      "name": "related-list",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 16,
+                      "children": [
+                        {
+                          "id": "sPY38",
+                          "type": "ref",
+                          "ref": "IPuoB",
+                          "width": "fill_container",
+                          "name": "p1",
+                          "x": 0,
+                          "y": 0,
+                          "descendants": {
+                            "doSV3": {
+                              "content": "2024-08-15"
+                            },
+                            "60awF": {
+                              "content": "vim プラグインの遅延読み込みを lazy.nvim で最適化する"
+                            },
+                            "3UHWS": {
+                              "content": "lazy.nvim を使って neovim のプラグイン読み込みを遅延化し、起動時間を大幅に短縮した。"
+                            }
+                          }
+                        },
+                        {
+                          "id": "5fTGv",
+                          "type": "ref",
+                          "ref": "IPuoB",
+                          "width": "fill_container",
+                          "name": "p2",
+                          "x": 0,
+                          "y": 159,
+                          "descendants": {
+                            "doSV3": {
+                              "content": "2024-06-22"
+                            },
+                            "60awF": {
+                              "content": "ターミナル環境を alacritty + tmux + neovim で統一した話"
+                            },
+                            "3UHWS": {
+                              "content": "ターミナルエミュレータ、マルチプレクサ、エディタを統一し、開発環境の一貫性を高めた。"
+                            }
+                          }
+                        },
+                        {
+                          "id": "9lOes",
+                          "type": "ref",
+                          "ref": "IPuoB",
+                          "width": "fill_container",
+                          "name": "p3",
+                          "x": 0,
+                          "y": 318,
+                          "descendants": {
+                            "doSV3": {
+                              "content": "2024-04-10"
+                            },
+                            "60awF": {
+                              "content": "dotfiles 管理を chezmoi に移行した"
+                            },
+                            "3UHWS": {
+                              "content": "GNU Stow から chezmoi へ移行し、テンプレート機能で環境差分を管理できるようになった。"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
                   "id": "b7XZH",
                   "name": "backLnk",
                   "width": "fill_container",
@@ -1287,7 +1467,7 @@
           "width": "fill_container",
           "name": "pFooter",
           "x": 0,
-          "y": 971,
+          "y": 1495,
           "descendants": {
             "d5RV6": {
               "x": 80,
@@ -1731,6 +1911,102 @@
             },
             {
               "type": "frame",
+              "id": "3GI2w",
+              "name": "related-posts-section",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "hW6Fh",
+                  "name": "hSPD",
+                  "fill": "$text-tertiary",
+                  "content": "// related posts",
+                  "fontFamily": "JetBrains Mono",
+                  "fontSize": 11,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "rKEo0",
+                  "name": "related-list",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 12,
+                  "children": [
+                    {
+                      "id": "BJlHC",
+                      "type": "ref",
+                      "ref": "IPuoB",
+                      "width": "fill_container",
+                      "name": "s1",
+                      "x": 0,
+                      "y": 0,
+                      "descendants": {
+                        "doSV3": {
+                          "content": "2024-08-15"
+                        },
+                        "60awF": {
+                          "width": "fill_container",
+                          "content": "vim プラグインの遅延読み込みを lazy.nvim で最適化する"
+                        },
+                        "3UHWS": {
+                          "width": "fill_container",
+                          "content": "lazy.nvim を使って neovim のプラグイン読み込みを遅延化し、起動時間を大幅に短縮した。"
+                        }
+                      }
+                    },
+                    {
+                      "id": "oNTVw",
+                      "type": "ref",
+                      "ref": "IPuoB",
+                      "width": "fill_container",
+                      "name": "s2",
+                      "x": 0,
+                      "y": 198,
+                      "descendants": {
+                        "doSV3": {
+                          "content": "2024-06-22"
+                        },
+                        "60awF": {
+                          "width": "fill_container",
+                          "content": "ターミナル環境を alacritty + tmux + neovim で統一した話"
+                        },
+                        "3UHWS": {
+                          "width": "fill_container",
+                          "content": "ターミナルエミュレータ、マルチプレクサ、エディタを統一し、開発環境の一貫性を高めた。"
+                        }
+                      }
+                    },
+                    {
+                      "id": "6cNjo",
+                      "type": "ref",
+                      "ref": "IPuoB",
+                      "width": "fill_container",
+                      "name": "s3",
+                      "x": 0,
+                      "y": 396,
+                      "descendants": {
+                        "doSV3": {
+                          "content": "2024-04-10"
+                        },
+                        "60awF": {
+                          "width": "fill_container",
+                          "content": "dotfiles 管理を chezmoi に移行した"
+                        },
+                        "3UHWS": {
+                          "width": "fill_container",
+                          "content": "GNU Stow から chezmoi へ移行し、テンプレート機能で環境差分を管理できるようになった。"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
               "id": "sNkbY",
               "name": "psBack",
               "width": "fill_container",
@@ -1768,7 +2044,7 @@
           "width": "fill_container",
           "name": "psFooter",
           "x": 0,
-          "y": 1071,
+          "y": 1681,
           "descendants": {
             "Dy5Pe": {
               "x": 20,
@@ -2212,6 +2488,102 @@
             },
             {
               "type": "frame",
+              "id": "S934A",
+              "name": "related-posts-section",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "a8wfd",
+                  "name": "hSPL",
+                  "fill": "$text-tertiary",
+                  "content": "// related posts",
+                  "fontFamily": "JetBrains Mono",
+                  "fontSize": 11,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "KZE4u",
+                  "name": "related-list",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 12,
+                  "children": [
+                    {
+                      "id": "4qdct",
+                      "type": "ref",
+                      "ref": "IPuoB",
+                      "width": "fill_container",
+                      "name": "q1",
+                      "x": 0,
+                      "y": 0,
+                      "descendants": {
+                        "doSV3": {
+                          "content": "2024-08-15"
+                        },
+                        "60awF": {
+                          "width": "fill_container",
+                          "content": "vim プラグインの遅延読み込みを lazy.nvim で最適化する"
+                        },
+                        "3UHWS": {
+                          "width": "fill_container",
+                          "content": "lazy.nvim を使って neovim のプラグイン読み込みを遅延化し、起動時間を大幅に短縮した。"
+                        }
+                      }
+                    },
+                    {
+                      "id": "Fi1H4",
+                      "type": "ref",
+                      "ref": "IPuoB",
+                      "width": "fill_container",
+                      "name": "q2",
+                      "x": 0,
+                      "y": 198,
+                      "descendants": {
+                        "doSV3": {
+                          "content": "2024-06-22"
+                        },
+                        "60awF": {
+                          "width": "fill_container",
+                          "content": "ターミナル環境を alacritty + tmux + neovim で統一した話"
+                        },
+                        "3UHWS": {
+                          "width": "fill_container",
+                          "content": "ターミナルエミュレータ、マルチプレクサ、エディタを統一し、開発環境の一貫性を高めた。"
+                        }
+                      }
+                    },
+                    {
+                      "id": "6VUBL",
+                      "type": "ref",
+                      "ref": "IPuoB",
+                      "width": "fill_container",
+                      "name": "q3",
+                      "x": 0,
+                      "y": 396,
+                      "descendants": {
+                        "doSV3": {
+                          "content": "2024-04-10"
+                        },
+                        "60awF": {
+                          "width": "fill_container",
+                          "content": "dotfiles 管理を chezmoi に移行した"
+                        },
+                        "3UHWS": {
+                          "width": "fill_container",
+                          "content": "GNU Stow から chezmoi へ移行し、テンプレート機能で環境差分を管理できるようになった。"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
               "id": "IvK2V",
               "name": "psBack",
               "width": "fill_container",
@@ -2249,7 +2621,7 @@
           "width": "fill_container",
           "name": "psFooter",
           "x": 0,
-          "y": 1071,
+          "y": 1681,
           "descendants": {
             "Dy5Pe": {
               "x": 20,
@@ -2267,7 +2639,7 @@
       "type": "frame",
       "id": "qve5L",
       "x": 0,
-      "y": 4800,
+      "y": 5400,
       "name": "Blog Post (Thumbnail) - PC Dark",
       "theme": {
         "mode": "dark"
@@ -2770,7 +3142,7 @@
       "type": "frame",
       "id": "Ruib2",
       "x": 1540,
-      "y": 4800,
+      "y": 5400,
       "name": "Blog Post (Thumbnail) - PC Light",
       "theme": {
         "mode": "light"
@@ -3273,7 +3645,7 @@
       "type": "frame",
       "id": "sAocC",
       "x": 3080,
-      "y": 4800,
+      "y": 5400,
       "name": "Blog Post (Thumbnail) - SP Dark",
       "theme": {
         "mode": "dark"
@@ -3769,7 +4141,7 @@
       "type": "frame",
       "id": "SnzD7",
       "x": 3570,
-      "y": 4800,
+      "y": 5400,
       "name": "Blog Post (Thumbnail) - SP Light",
       "theme": {
         "mode": "light"
@@ -4265,7 +4637,7 @@
       "type": "frame",
       "id": "d6yLB",
       "x": 0,
-      "y": 6400,
+      "y": 7000,
       "name": "Projects - PC Dark",
       "theme": {
         "mode": "dark"
@@ -4603,7 +4975,7 @@
       "type": "frame",
       "id": "8ZWfr",
       "x": 1540,
-      "y": 6400,
+      "y": 7000,
       "name": "Projects - PC Light",
       "theme": {
         "mode": "light"
@@ -4941,7 +5313,7 @@
       "type": "frame",
       "id": "uSj7P",
       "x": 3080,
-      "y": 6400,
+      "y": 7000,
       "name": "Projects - SP Dark",
       "theme": {
         "mode": "dark"
@@ -5269,7 +5641,7 @@
       "type": "frame",
       "id": "2Ileo",
       "x": 3570,
-      "y": 6400,
+      "y": 7000,
       "name": "Projects - SP Light",
       "theme": {
         "mode": "light"
@@ -8244,7 +8616,7 @@
       "type": "frame",
       "id": "lvYGB",
       "x": 0,
-      "y": 7200,
+      "y": 7800,
       "name": "BMS - PC Dark",
       "theme": {
         "mode": "dark"
@@ -8859,7 +9231,7 @@
       "type": "frame",
       "id": "sax7m",
       "x": 1540,
-      "y": 7200,
+      "y": 7800,
       "name": "BMS - PC Light",
       "theme": {
         "mode": "light"
@@ -9474,7 +9846,7 @@
       "type": "frame",
       "id": "TtpgQ",
       "x": 3080,
-      "y": 7200,
+      "y": 7800,
       "name": "BMS - SP Dark",
       "theme": {
         "mode": "dark"
@@ -9991,7 +10363,7 @@
       "type": "frame",
       "id": "huZVv",
       "x": 3570,
-      "y": 7200,
+      "y": 7800,
       "name": "BMS - SP Light",
       "theme": {
         "mode": "light"
@@ -10508,7 +10880,7 @@
       "type": "frame",
       "id": "BvTJo",
       "x": 0,
-      "y": 8300,
+      "y": 8900,
       "name": "Blog Post (Rich Content) - PC Dark",
       "theme": {
         "mode": "dark"
@@ -11326,7 +11698,7 @@
       "type": "frame",
       "id": "gswj5",
       "x": 1540,
-      "y": 8300,
+      "y": 8900,
       "name": "Blog Post (Rich Content) - PC Light",
       "theme": {
         "mode": "light"
@@ -13468,313 +13840,82 @@
               "gap": 12,
               "children": [
                 {
-                  "type": "frame",
-                  "id": "4GiB4",
-                  "name": "post-card",
+                  "id": "S3bew",
+                  "type": "ref",
+                  "ref": "IPuoB",
                   "width": "fill_container",
-                  "stroke": {
-                    "align": "inside",
-                    "thickness": 1,
-                    "fill": "$border"
-                  },
-                  "layout": "vertical",
-                  "children": [
-                    {
-                      "type": "frame",
-                      "id": "wDm2D",
-                      "name": "thumb",
-                      "metadata": {
-                        "type": "unsplash",
-                        "username": "hdbernd",
-                        "link": "https://unsplash.com/@hdbernd",
-                        "author": "Bernd 📷 Dittrich"
-                      },
-                      "clip": true,
-                      "width": "fill_container",
-                      "height": 140,
-                      "fill": "$bg-tertiary"
+                  "name": "new1",
+                  "descendants": {
+                    "doSV3": {
+                      "content": "2025-01-15"
                     },
-                    {
-                      "type": "frame",
-                      "id": "buqL4",
-                      "name": "sc1info",
-                      "width": "fill_container",
-                      "layout": "vertical",
-                      "gap": 6,
-                      "padding": 12,
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "76gWM",
-                          "name": "sc1d",
-                          "fill": "$text-tertiary",
-                          "content": "2025-01-15",
-                          "fontFamily": "JetBrains Mono",
-                          "fontSize": 10,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "text",
-                          "id": "5EIra",
-                          "name": "sc1t",
-                          "fill": "$text-primary",
-                          "textGrowth": "fixed-width",
-                          "width": "fill_container",
-                          "content": "neovim の設定を lua に移行した",
-                          "fontFamily": "JetBrains Mono",
-                          "fontSize": 14,
-                          "fontWeight": "500"
-                        },
-                        {
-                          "type": "text",
-                          "id": "tgdzG",
-                          "name": "sc1desc",
-                          "fill": "$text-secondary",
-                          "textGrowth": "fixed-width",
-                          "width": "fill_container",
-                          "content": "vimscript から lua への移行手順とメリットをまとめた。",
-                          "fontFamily": "IBM Plex Mono",
-                          "fontSize": 11,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "frame",
-                          "id": "7s3qn",
-                          "name": "sc1tg",
-                          "gap": 4,
-                          "children": [
-                            {
-                              "id": "jw59x",
-                              "type": "ref",
-                              "ref": "i1Sga",
-                              "name": "sc1t1",
-                              "x": 0,
-                              "y": 0,
-                              "width": "fit_content",
-                              "height": "fit_content",
-                              "descendants": {
-                                "oXFgm": {
-                                  "content": "dev",
-                                  "x": 10,
-                                  "y": 4
-                                }
-                              }
-                            },
-                            {
-                              "id": "JhAfk",
-                              "type": "ref",
-                              "ref": "i1Sga",
-                              "name": "sc1t2",
-                              "x": 44,
-                              "y": 0,
-                              "width": "fit_content",
-                              "height": "fit_content",
-                              "descendants": {
-                                "oXFgm": {
-                                  "content": "vim",
-                                  "x": 10,
-                                  "y": 4
-                                }
-                              }
-                            }
-                          ]
-                        }
-                      ]
+                    "60awF": {
+                      "content": "neovim の設定を lua に移行した"
+                    },
+                    "3UHWS": {
+                      "content": "vimscript から lua への移行手順とメリットをまとめた。"
                     }
-                  ]
+                  }
                 },
                 {
-                  "type": "frame",
-                  "id": "RKiwR",
-                  "name": "post-card",
+                  "id": "EDIQt",
+                  "type": "ref",
+                  "ref": "IPuoB",
                   "width": "fill_container",
-                  "stroke": {
-                    "align": "inside",
-                    "thickness": 1,
-                    "fill": "$border"
-                  },
-                  "layout": "vertical",
-                  "gap": 6,
-                  "padding": [
-                    14,
-                    12
-                  ],
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "EFW7E",
-                      "name": "sc2d",
-                      "fill": "$text-tertiary",
-                      "content": "2024-12-31",
-                      "fontFamily": "JetBrains Mono",
-                      "fontSize": 10,
-                      "fontWeight": "normal"
+                  "name": "new2",
+                  "descendants": {
+                    "doSV3": {
+                      "content": "2024-12-31"
                     },
-                    {
-                      "type": "text",
-                      "id": "B0FVb",
-                      "name": "sc2t",
-                      "fill": "$text-primary",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "2024 年振り返り",
-                      "fontFamily": "JetBrains Mono",
-                      "fontSize": 14,
-                      "fontWeight": "500"
+                    "60awF": {
+                      "content": "2024 年振り返り"
+                    },
+                    "3UHWS": {
+                      "enabled": false
+                    },
+                    "eKrs5": {
+                      "enabled": false
                     }
-                  ]
+                  }
                 },
                 {
-                  "type": "frame",
-                  "id": "dNET9",
-                  "name": "post-card",
+                  "id": "wyVA6",
+                  "type": "ref",
+                  "ref": "IPuoB",
                   "width": "fill_container",
-                  "stroke": {
-                    "align": "inside",
-                    "thickness": 1,
-                    "fill": "$border"
-                  },
-                  "layout": "vertical",
-                  "children": [
-                    {
-                      "type": "frame",
-                      "id": "TgXRG",
-                      "name": "thumb",
-                      "metadata": {
-                        "type": "unsplash",
-                        "username": "sid_13promax",
-                        "link": "https://unsplash.com/@sid_13promax",
-                        "author": "Siddharth Nair"
-                      },
-                      "clip": true,
-                      "width": "fill_container",
-                      "height": 140,
-                      "fill": "$bg-tertiary"
+                  "name": "new3",
+                  "descendants": {
+                    "doSV3": {
+                      "content": "2024-09-20"
                     },
-                    {
-                      "type": "frame",
-                      "id": "VeTTB",
-                      "name": "sc3info",
-                      "width": "fill_container",
-                      "layout": "vertical",
-                      "gap": 6,
-                      "padding": 12,
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "uucXq",
-                          "name": "sc3d",
-                          "fill": "$text-tertiary",
-                          "content": "2024-09-20",
-                          "fontFamily": "JetBrains Mono",
-                          "fontSize": 10,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "text",
-                          "id": "9zUDj",
-                          "name": "sc3t",
-                          "fill": "$text-primary",
-                          "textGrowth": "fixed-width",
-                          "width": "fill_container",
-                          "content": "terraform で管理する AWS インフラの設計パターン",
-                          "fontFamily": "JetBrains Mono",
-                          "fontSize": 14,
-                          "fontWeight": "500"
-                        },
-                        {
-                          "type": "text",
-                          "id": "dkYLn",
-                          "name": "sc3desc",
-                          "fill": "$text-secondary",
-                          "textGrowth": "fixed-width",
-                          "width": "fill_container",
-                          "content": "module 分割や workspace 構成など、実運用パターンを紹介。",
-                          "fontFamily": "IBM Plex Mono",
-                          "fontSize": 11,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "frame",
-                          "id": "dvNfj",
-                          "name": "sc3tg",
-                          "gap": 4,
-                          "children": [
-                            {
-                              "id": "Dt78H",
-                              "type": "ref",
-                              "ref": "i1Sga",
-                              "name": "sc3t1",
-                              "x": 0,
-                              "y": 0,
-                              "width": "fit_content",
-                              "height": "fit_content",
-                              "descendants": {
-                                "oXFgm": {
-                                  "content": "dev",
-                                  "x": 10,
-                                  "y": 4
-                                }
-                              }
-                            }
-                          ]
-                        }
-                      ]
+                    "60awF": {
+                      "content": "terraform で管理する AWS インフラの設計パターン"
+                    },
+                    "3UHWS": {
+                      "content": "module 分割や workspace 構成など、実運用パターンを紹介。"
                     }
-                  ]
+                  }
                 },
                 {
-                  "type": "frame",
-                  "id": "nXWsF",
-                  "name": "post-card",
+                  "id": "n2Tv5",
+                  "type": "ref",
+                  "ref": "IPuoB",
                   "width": "fill_container",
-                  "stroke": {
-                    "align": "inside",
-                    "thickness": 1,
-                    "fill": "$border"
-                  },
-                  "layout": "vertical",
-                  "gap": 6,
-                  "padding": [
-                    14,
-                    12
-                  ],
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "p0YN9",
-                      "name": "sc4d",
-                      "fill": "$text-tertiary",
-                      "content": "2024-08-05",
-                      "fontFamily": "JetBrains Mono",
-                      "fontSize": 10,
-                      "fontWeight": "normal"
+                  "name": "new4",
+                  "descendants": {
+                    "doSV3": {
+                      "content": "2024-08-05"
                     },
-                    {
-                      "type": "text",
-                      "id": "nm1GU",
-                      "name": "sc4t",
-                      "fill": "$text-primary",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "RubyKaigi 2024 に参加した",
-                      "fontFamily": "JetBrains Mono",
-                      "fontSize": 14,
-                      "fontWeight": "500"
+                    "60awF": {
+                      "content": "RubyKaigi 2024 に参加した"
                     },
-                    {
-                      "type": "text",
-                      "id": "d3qzx",
-                      "name": "sc4desc",
-                      "fill": "$text-secondary",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "松本で開催された RubyKaigi 2024 の参加レポート。",
-                      "fontFamily": "IBM Plex Mono",
-                      "fontSize": 11,
-                      "fontWeight": "normal"
+                    "3UHWS": {
+                      "content": "松本で開催された RubyKaigi 2024 の参加レポート。"
+                    },
+                    "eKrs5": {
+                      "enabled": false
                     }
-                  ]
+                  }
                 }
               ]
             },
@@ -13909,7 +14050,7 @@
           "width": "fill_container",
           "name": "bsFt",
           "x": 0,
-          "y": 1045,
+          "y": 908,
           "descendants": {
             "Dy5Pe": {
               "x": 20,
@@ -14025,313 +14166,82 @@
               "gap": 12,
               "children": [
                 {
-                  "type": "frame",
-                  "id": "ddAH6",
-                  "name": "post-card",
+                  "id": "mitgB",
+                  "type": "ref",
+                  "ref": "IPuoB",
                   "width": "fill_container",
-                  "stroke": {
-                    "align": "inside",
-                    "thickness": 1,
-                    "fill": "$border"
-                  },
-                  "layout": "vertical",
-                  "children": [
-                    {
-                      "type": "frame",
-                      "id": "MzcmZ",
-                      "name": "thumb",
-                      "metadata": {
-                        "type": "unsplash",
-                        "username": "hdbernd",
-                        "link": "https://unsplash.com/@hdbernd",
-                        "author": "Bernd 📷 Dittrich"
-                      },
-                      "clip": true,
-                      "width": "fill_container",
-                      "height": 140,
-                      "fill": "$bg-tertiary"
+                  "name": "l1",
+                  "descendants": {
+                    "doSV3": {
+                      "content": "2025-01-15"
                     },
-                    {
-                      "type": "frame",
-                      "id": "veIfz",
-                      "name": "sc1info",
-                      "width": "fill_container",
-                      "layout": "vertical",
-                      "gap": 6,
-                      "padding": 12,
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "bUMbc",
-                          "name": "sc1d",
-                          "fill": "$text-tertiary",
-                          "content": "2025-01-15",
-                          "fontFamily": "JetBrains Mono",
-                          "fontSize": 10,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "text",
-                          "id": "gwY8L",
-                          "name": "sc1t",
-                          "fill": "$text-primary",
-                          "textGrowth": "fixed-width",
-                          "width": "fill_container",
-                          "content": "neovim の設定を lua に移行した",
-                          "fontFamily": "JetBrains Mono",
-                          "fontSize": 14,
-                          "fontWeight": "500"
-                        },
-                        {
-                          "type": "text",
-                          "id": "NM0rC",
-                          "name": "sc1desc",
-                          "fill": "$text-secondary",
-                          "textGrowth": "fixed-width",
-                          "width": "fill_container",
-                          "content": "vimscript から lua への移行手順とメリットをまとめた。",
-                          "fontFamily": "IBM Plex Mono",
-                          "fontSize": 11,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "frame",
-                          "id": "xeLse",
-                          "name": "sc1tg",
-                          "gap": 4,
-                          "children": [
-                            {
-                              "id": "xu7LG",
-                              "type": "ref",
-                              "ref": "i1Sga",
-                              "name": "sc1t1",
-                              "x": 0,
-                              "y": 0,
-                              "width": "fit_content",
-                              "height": "fit_content",
-                              "descendants": {
-                                "oXFgm": {
-                                  "content": "dev",
-                                  "x": 10,
-                                  "y": 4
-                                }
-                              }
-                            },
-                            {
-                              "id": "xwFnf",
-                              "type": "ref",
-                              "ref": "i1Sga",
-                              "name": "sc1t2",
-                              "x": 44,
-                              "y": 0,
-                              "width": "fit_content",
-                              "height": "fit_content",
-                              "descendants": {
-                                "oXFgm": {
-                                  "content": "vim",
-                                  "x": 10,
-                                  "y": 4
-                                }
-                              }
-                            }
-                          ]
-                        }
-                      ]
+                    "60awF": {
+                      "content": "neovim の設定を lua に移行した"
+                    },
+                    "3UHWS": {
+                      "content": "vimscript から lua への移行手順とメリットをまとめた。"
                     }
-                  ]
+                  }
                 },
                 {
-                  "type": "frame",
-                  "id": "u8oKQ",
-                  "name": "post-card",
+                  "id": "aPns8",
+                  "type": "ref",
+                  "ref": "IPuoB",
                   "width": "fill_container",
-                  "stroke": {
-                    "align": "inside",
-                    "thickness": 1,
-                    "fill": "$border"
-                  },
-                  "layout": "vertical",
-                  "gap": 6,
-                  "padding": [
-                    14,
-                    12
-                  ],
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "Ef6W0",
-                      "name": "sc2d",
-                      "fill": "$text-tertiary",
-                      "content": "2024-12-31",
-                      "fontFamily": "JetBrains Mono",
-                      "fontSize": 10,
-                      "fontWeight": "normal"
+                  "name": "l2",
+                  "descendants": {
+                    "doSV3": {
+                      "content": "2024-12-31"
                     },
-                    {
-                      "type": "text",
-                      "id": "D3B6v",
-                      "name": "sc2t",
-                      "fill": "$text-primary",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "2024 年振り返り",
-                      "fontFamily": "JetBrains Mono",
-                      "fontSize": 14,
-                      "fontWeight": "500"
+                    "60awF": {
+                      "content": "2024 年振り返り"
+                    },
+                    "3UHWS": {
+                      "enabled": false
+                    },
+                    "eKrs5": {
+                      "enabled": false
                     }
-                  ]
+                  }
                 },
                 {
-                  "type": "frame",
-                  "id": "nHarZ",
-                  "name": "post-card",
+                  "id": "Fn0tx",
+                  "type": "ref",
+                  "ref": "IPuoB",
                   "width": "fill_container",
-                  "stroke": {
-                    "align": "inside",
-                    "thickness": 1,
-                    "fill": "$border"
-                  },
-                  "layout": "vertical",
-                  "children": [
-                    {
-                      "type": "frame",
-                      "id": "wC4cN",
-                      "name": "thumb",
-                      "metadata": {
-                        "type": "unsplash",
-                        "username": "sid_13promax",
-                        "link": "https://unsplash.com/@sid_13promax",
-                        "author": "Siddharth Nair"
-                      },
-                      "clip": true,
-                      "width": "fill_container",
-                      "height": 140,
-                      "fill": "$bg-tertiary"
+                  "name": "l3",
+                  "descendants": {
+                    "doSV3": {
+                      "content": "2024-09-20"
                     },
-                    {
-                      "type": "frame",
-                      "id": "76u0a",
-                      "name": "sc3info",
-                      "width": "fill_container",
-                      "layout": "vertical",
-                      "gap": 6,
-                      "padding": 12,
-                      "children": [
-                        {
-                          "type": "text",
-                          "id": "WdulL",
-                          "name": "sc3d",
-                          "fill": "$text-tertiary",
-                          "content": "2024-09-20",
-                          "fontFamily": "JetBrains Mono",
-                          "fontSize": 10,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "text",
-                          "id": "XwUvL",
-                          "name": "sc3t",
-                          "fill": "$text-primary",
-                          "textGrowth": "fixed-width",
-                          "width": "fill_container",
-                          "content": "terraform で管理する AWS インフラの設計パターン",
-                          "fontFamily": "JetBrains Mono",
-                          "fontSize": 14,
-                          "fontWeight": "500"
-                        },
-                        {
-                          "type": "text",
-                          "id": "t6jti",
-                          "name": "sc3desc",
-                          "fill": "$text-secondary",
-                          "textGrowth": "fixed-width",
-                          "width": "fill_container",
-                          "content": "module 分割や workspace 構成など、実運用パターンを紹介。",
-                          "fontFamily": "IBM Plex Mono",
-                          "fontSize": 11,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "frame",
-                          "id": "yhTJp",
-                          "name": "sc3tg",
-                          "gap": 4,
-                          "children": [
-                            {
-                              "id": "ALEwo",
-                              "type": "ref",
-                              "ref": "i1Sga",
-                              "name": "sc3t1",
-                              "x": 0,
-                              "y": 0,
-                              "width": "fit_content",
-                              "height": "fit_content",
-                              "descendants": {
-                                "oXFgm": {
-                                  "content": "dev",
-                                  "x": 10,
-                                  "y": 4
-                                }
-                              }
-                            }
-                          ]
-                        }
-                      ]
+                    "60awF": {
+                      "content": "terraform で管理する AWS インフラの設計パターン"
+                    },
+                    "3UHWS": {
+                      "content": "module 分割や workspace 構成など、実運用パターンを紹介。"
                     }
-                  ]
+                  }
                 },
                 {
-                  "type": "frame",
-                  "id": "4zELX",
-                  "name": "post-card",
+                  "id": "QsmFK",
+                  "type": "ref",
+                  "ref": "IPuoB",
                   "width": "fill_container",
-                  "stroke": {
-                    "align": "inside",
-                    "thickness": 1,
-                    "fill": "$border"
-                  },
-                  "layout": "vertical",
-                  "gap": 6,
-                  "padding": [
-                    14,
-                    12
-                  ],
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "EEL2H",
-                      "name": "sc4d",
-                      "fill": "$text-tertiary",
-                      "content": "2024-08-05",
-                      "fontFamily": "JetBrains Mono",
-                      "fontSize": 10,
-                      "fontWeight": "normal"
+                  "name": "l4",
+                  "descendants": {
+                    "doSV3": {
+                      "content": "2024-08-05"
                     },
-                    {
-                      "type": "text",
-                      "id": "ex4F9",
-                      "name": "sc4t",
-                      "fill": "$text-primary",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "RubyKaigi 2024 に参加した",
-                      "fontFamily": "JetBrains Mono",
-                      "fontSize": 14,
-                      "fontWeight": "500"
+                    "60awF": {
+                      "content": "RubyKaigi 2024 に参加した"
                     },
-                    {
-                      "type": "text",
-                      "id": "nhdIe",
-                      "name": "sc4desc",
-                      "fill": "$text-secondary",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "松本で開催された RubyKaigi 2024 の参加レポート。",
-                      "fontFamily": "IBM Plex Mono",
-                      "fontSize": 11,
-                      "fontWeight": "normal"
+                    "3UHWS": {
+                      "content": "松本で開催された RubyKaigi 2024 の参加レポート。"
+                    },
+                    "eKrs5": {
+                      "enabled": false
                     }
-                  ]
+                  }
                 }
               ]
             },
@@ -14466,7 +14376,7 @@
           "width": "fill_container",
           "name": "bsFt",
           "x": 0,
-          "y": 1045,
+          "y": 908,
           "descendants": {
             "Dy5Pe": {
               "x": 20,
@@ -14477,6 +14387,89 @@
               "y": 16.5
             }
           }
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "IPuoB",
+      "x": 4100,
+      "y": 1530,
+      "name": "component/PostCard",
+      "reusable": true,
+      "width": 780,
+      "fill": "$bg-secondary",
+      "stroke": {
+        "align": "inside",
+        "thickness": 1,
+        "fill": "$border"
+      },
+      "layout": "vertical",
+      "gap": 6,
+      "padding": 20,
+      "children": [
+        {
+          "type": "text",
+          "id": "doSV3",
+          "name": "postDate",
+          "fill": "$text-tertiary",
+          "content": "2025-01-15",
+          "fontFamily": "JetBrains Mono",
+          "fontSize": 11,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "text",
+          "id": "60awF",
+          "name": "postTitle",
+          "fill": "$text-primary",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "記事タイトル",
+          "fontFamily": "JetBrains Mono",
+          "fontSize": 16,
+          "fontWeight": "600"
+        },
+        {
+          "type": "text",
+          "id": "3UHWS",
+          "name": "postDesc",
+          "fill": "$text-secondary",
+          "textGrowth": "fixed-width",
+          "width": "fill_container",
+          "content": "記事の概要テキストがここに入ります。",
+          "fontFamily": "IBM Plex Mono",
+          "fontSize": 14,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "frame",
+          "id": "eKrs5",
+          "name": "postTags",
+          "gap": 6,
+          "padding": [
+            4,
+            0,
+            0,
+            0
+          ],
+          "children": [
+            {
+              "id": "ZVAzY",
+              "type": "ref",
+              "ref": "i1Sga",
+              "width": "fit_content",
+              "height": "fit_content",
+              "name": "tag1",
+              "x": 0,
+              "y": 4,
+              "descendants": {
+                "oXFgm": {
+                  "content": "tag"
+                }
+              }
+            }
+          ]
         }
       ]
     }
