@@ -43,7 +43,8 @@
     "sharp": "0.34.5",
     "tailwindcss": "4.1.18",
     "unified": "11.0.5",
-    "unist-util-visit": "5.1.0"
+    "unist-util-visit": "5.1.0",
+    "voyageai": "0.2.1"
   },
   "devDependencies": {
     "@commitlint/cli": "20.4.4",
