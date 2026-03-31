@@ -7,7 +7,7 @@ const MAX_RETRIES = 3
 export interface EmbeddingResult {
   /** The embedding vector */
   vector: number[]
-  /** Total tokens consumed by this request */
+  /** Total tokens consumed by the entire API request (shared across batch results) */
   totalTokens: number
 }
 
