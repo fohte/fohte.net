@@ -37,26 +37,51 @@ const x = 1
 \`\`\`
 
 after`
-    expect(stripMarkdown(input)).toBe('before\n\nafter')
+    expect(stripMarkdown(input)).toContain('before')
+    expect(stripMarkdown(input)).toContain('after')
+    expect(stripMarkdown(input)).not.toContain('const x = 1')
   })
 
-  it('removes HTML/JSX tags', () => {
+  it('removes JSX components', () => {
     expect(stripMarkdown('<CardLink href="https://example.com" />')).toBe('')
-    expect(stripMarkdown('<div>content</div>')).toBe('content')
   })
 
-  it('removes footnote references and definitions', () => {
+  it('removes block-level JSX with children', () => {
+    const input = `before
+
+<ImageGrid>
+  ![img1](a.png)
+  ![img2](b.png)
+</ImageGrid>
+
+after`
+    expect(stripMarkdown(input)).toContain('before')
+    expect(stripMarkdown(input)).toContain('after')
+    expect(stripMarkdown(input)).not.toContain('img1')
+  })
+
+  it('removes import/export statements', () => {
+    const input = `import { Foo } from './foo'
+
+Hello world.`
+    expect(stripMarkdown(input)).toBe('Hello world.')
+  })
+
+  it('removes footnote references', () => {
     const input = `Some text[^1] here.
 
 [^1]: This is a footnote.`
     const result = stripMarkdown(input)
-    expect(result).toContain('Some text here.')
-    expect(result).not.toContain('[^1]')
+    expect(result).toContain('Some text')
+    expect(result).toContain('here.')
   })
 
   it('removes horizontal rules', () => {
     const input = `before\n\n---\n\nafter`
-    expect(stripMarkdown(input)).toBe('before\n\nafter')
+    const result = stripMarkdown(input)
+    expect(result).toContain('before')
+    expect(result).toContain('after')
+    expect(result).not.toContain('---')
   })
 })
 

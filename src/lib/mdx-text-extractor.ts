@@ -2,53 +2,53 @@ import { createHash } from 'node:crypto'
 import { readFile } from 'node:fs/promises'
 
 import matter from 'gray-matter'
+import { toString } from 'mdast-util-to-string'
+import remarkGfm from 'remark-gfm'
+import remarkMdx from 'remark-mdx'
+import remarkParse from 'remark-parse'
+import { unified } from 'unified'
+import { SKIP, visit } from 'unist-util-visit'
 
-/**
- * MDX file content parsed into title and plain text body.
- */
 export interface ExtractedText {
   title: string
   body: string
 }
 
+const processor = unified().use(remarkParse).use(remarkMdx).use(remarkGfm)
+
 /**
- * Strip Markdown / MDX syntax to produce plain text.
- *
- * Handles: headings, bold/italic, links, images, inline code, code blocks,
- * HTML/JSX tags, footnote references, and footnote definitions.
+ * Parse Markdown/MDX content and extract plain text,
+ * removing JSX elements, import/export statements, and code blocks.
  */
 export function stripMarkdown(md: string): string {
-  return (
-    md
-      // Remove fenced code blocks (``` ... ```)
-      .replace(/^```[\s\S]*?^```/gm, '')
-      // Remove inline code
-      .replace(/`[^`]+`/g, '')
-      // Remove images ![alt](url)
-      .replace(/!\[[^\]]*\]\([^)]*\)/g, '')
-      // Convert links [text](url) to text
-      .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
-      // Remove HTML/JSX tags (including self-closing like <CardLink ... />)
-      .replace(/<[^>]+\/?>/g, '')
-      // Remove heading markers
-      .replace(/^#{1,6}\s+/gm, '')
-      // Remove bold/italic markers
-      .replace(/(\*{1,3}|_{1,3})([^*_]+)\1/g, '$2')
-      // Remove footnote references [^name]
-      .replace(/\[\^[^\]]+\]/g, '')
-      // Remove footnote definitions at line start
-      .replace(/^\[\^[^\]]+\]:\s*/gm, '')
-      // Remove horizontal rules
-      .replace(/^[-*_]{3,}\s*$/gm, '')
-      // Collapse multiple blank lines
-      .replace(/\n{3,}/g, '\n\n')
-      .trim()
-  )
+  const tree = processor.parse(md)
+
+  // Remove nodes that don't contribute meaningful text
+  visit(tree, (node, index, parent) => {
+    if (
+      node.type === 'mdxjsEsm' || // import/export statements
+      node.type === 'mdxJsxFlowElement' || // block-level JSX like <CardLink />
+      node.type === 'mdxJsxTextElement' || // inline JSX
+      node.type === 'mdxFlowExpression' || // {expressions}
+      node.type === 'mdxTextExpression' || // inline {expressions}
+      node.type === 'code' || // fenced code blocks
+      node.type === 'inlineCode' || // inline code
+      node.type === 'image' || // images
+      node.type === 'html' // raw HTML
+    ) {
+      if (parent && typeof index === 'number') {
+        parent.children.splice(index, 1)
+        return [SKIP, index]
+      }
+    }
+  })
+
+  return toString(tree).trim()
 }
 
 /**
  * Parse an MDX string and extract the title (from frontmatter) and
- * the body as plain text (Markdown syntax stripped).
+ * the body as plain text.
  */
 export function extractTextFromMdx(mdxContent: string): ExtractedText {
   const { data, content } = matter(mdxContent)

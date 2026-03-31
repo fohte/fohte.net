@@ -51,6 +51,9 @@ importers:
       gray-matter:
         specifier: 4.0.3
         version: 4.0.3
+      mdast-util-to-string:
+        specifier: 4.0.0
+        version: 4.0.0
       react:
         specifier: 18.3.1
         version: 18.3.1
@@ -63,6 +66,12 @@ importers:
       remark-gfm:
         specifier: 4.0.1
         version: 4.0.1
+      remark-mdx:
+        specifier: 3.1.1
+        version: 3.1.1
+      remark-parse:
+        specifier: 11.0.0
+        version: 11.0.0
       remark-unwrap-images:
         specifier: 4.0.1
         version: 4.0.1
@@ -75,6 +84,12 @@ importers:
       tailwindcss:
         specifier: 4.1.18
         version: 4.1.18
+      unified:
+        specifier: 11.0.5
+        version: 11.0.5
+      unist-util-visit:
+        specifier: 5.1.0
+        version: 5.1.0
     devDependencies:
       '@commitlint/cli':
         specifier: 20.4.4
