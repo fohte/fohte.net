@@ -17,18 +17,17 @@ export interface ExtractedText {
 const processor = unified().use(remarkParse).use(remarkMdx).use(remarkGfm)
 
 /**
- * Parse Markdown/MDX content and extract plain text,
- * removing JSX elements, import/export statements, and code blocks.
+ * Parse Markdown/MDX content and extract plain text.
+ * JSX components are kept so that text children (e.g. `<Kbd>Ctrl</Kbd>`)
+ * are preserved by `toString`. Only non-text nodes like import/export
+ * statements, code blocks, and images are removed.
  */
 export function stripMarkdown(md: string): string {
   const tree = processor.parse(md)
 
-  // Remove nodes that don't contribute meaningful text
   visit(tree, (node, index, parent) => {
     if (
       node.type === 'mdxjsEsm' || // import/export statements
-      node.type === 'mdxJsxFlowElement' || // block-level JSX like <CardLink />
-      node.type === 'mdxJsxTextElement' || // inline JSX
       node.type === 'mdxFlowExpression' || // {expressions}
       node.type === 'mdxTextExpression' || // inline {expressions}
       node.type === 'code' || // fenced code blocks

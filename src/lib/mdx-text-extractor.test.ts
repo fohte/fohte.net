@@ -42,22 +42,12 @@ after`
     expect(stripMarkdown(input)).not.toContain('const x = 1')
   })
 
-  it('removes JSX components', () => {
+  it('removes self-closing JSX components', () => {
     expect(stripMarkdown('<CardLink href="https://example.com" />')).toBe('')
   })
 
-  it('removes block-level JSX with children', () => {
-    const input = `before
-
-<ImageGrid>
-  ![img1](a.png)
-  ![img2](b.png)
-</ImageGrid>
-
-after`
-    expect(stripMarkdown(input)).toContain('before')
-    expect(stripMarkdown(input)).toContain('after')
-    expect(stripMarkdown(input)).not.toContain('img1')
+  it('preserves text children of JSX components', () => {
+    expect(stripMarkdown('<Kbd>Ctrl</Kbd> + <Kbd>C</Kbd>')).toBe('Ctrl + C')
   })
 
   it('removes import/export statements', () => {
