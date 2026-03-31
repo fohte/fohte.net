@@ -37,9 +37,7 @@ const x = 1
 \`\`\`
 
 after`
-    expect(stripMarkdown(input)).toContain('before')
-    expect(stripMarkdown(input)).toContain('after')
-    expect(stripMarkdown(input)).not.toContain('const x = 1')
+    expect(stripMarkdown(input)).toBe('beforeafter')
   })
 
   it('removes self-closing JSX components', () => {
@@ -61,17 +59,12 @@ Hello world.`
     const input = `Some text[^1] here.
 
 [^1]: This is a footnote.`
-    const result = stripMarkdown(input)
-    expect(result).toContain('Some text')
-    expect(result).toContain('here.')
+    expect(stripMarkdown(input)).toBe('Some text here.This is a footnote.')
   })
 
   it('removes horizontal rules', () => {
     const input = `before\n\n---\n\nafter`
-    const result = stripMarkdown(input)
-    expect(result).toContain('before')
-    expect(result).toContain('after')
-    expect(result).not.toContain('---')
+    expect(stripMarkdown(input)).toBe('beforeafter')
   })
 })
 
@@ -89,11 +82,7 @@ This is **bold** text with a [link](https://example.com).
 `
     const result = extractTextFromMdx(mdx)
     expect(result.title).toBe('My Post Title')
-    expect(result.body).toContain('Introduction')
-    expect(result.body).toContain('This is bold text with a link.')
-    expect(result.body).not.toContain('##')
-    expect(result.body).not.toContain('**')
-    expect(result.body).not.toContain('https://example.com')
+    expect(result.body).toBe('IntroductionThis is bold text with a link.')
   })
 
   it('handles MDX without frontmatter title', () => {
