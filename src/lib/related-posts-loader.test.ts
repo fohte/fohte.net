@@ -228,6 +228,21 @@ describe('loadRelatedPosts', () => {
     }
   })
 
+  it('throws when MDX files exist in subdirectories', async () => {
+    const subDir = path.join(postsDir, 'blog')
+    await mkdir(subDir, { recursive: true })
+    await writeFile(
+      path.join(subDir, 'nested-post.mdx'),
+      makeMdxContent('Nested', 'Content'),
+    )
+
+    const logger = createMockLogger()
+
+    await expect(
+      loadRelatedPosts({ postsDir, embeddingsDir, maxRelatedPosts: 5 }, logger),
+    ).rejects.toThrow('only supports a flat directory structure')
+  })
+
   it('skips posts gracefully when API key is not configured', async () => {
     await writeFile(
       path.join(postsDir, 'post.mdx'),

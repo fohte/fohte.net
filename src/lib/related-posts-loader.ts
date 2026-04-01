@@ -1,4 +1,4 @@
-import { readdir } from 'node:fs/promises'
+import { readdir, stat } from 'node:fs/promises'
 import path from 'node:path'
 
 import type { Loader } from 'astro/loaders'
@@ -61,9 +61,30 @@ export async function loadRelatedPosts(
   const startTime = performance.now()
 
   // Read MDX files from filesystem (loader execution order is not guaranteed)
+  // Only flat directory structure is supported — subdirectories require
+  // embedding cache changes to handle slugs with path separators.
   const resolvedPostsDir = path.resolve(options.postsDir)
-  const files = await readdir(resolvedPostsDir)
-  const mdxFiles = files.filter((f) => f.endsWith('.mdx'))
+  const entries = await readdir(resolvedPostsDir)
+
+  // Fail loudly if subdirectories contain MDX files, so the developer
+  // knows to extend the loader and embedding cache for nested paths.
+  for (const entry of entries) {
+    const entryPath = path.join(resolvedPostsDir, entry)
+    const entryStat = await stat(entryPath)
+    if (entryStat.isDirectory()) {
+      const subFiles = await readdir(entryPath)
+      const hasMdx = subFiles.some((f) => f.endsWith('.mdx'))
+      if (hasMdx) {
+        throw new Error(
+          `MDX files found in subdirectory "${entry}" of postsDir. ` +
+            'The related posts loader only supports a flat directory structure. ' +
+            'To add subdirectory support, update the loader and embedding cache module.',
+        )
+      }
+    }
+  }
+
+  const mdxFiles = entries.filter((f) => f.endsWith('.mdx'))
 
   logger.info(`Found ${String(mdxFiles.length)} MDX files`)
 
