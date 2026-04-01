@@ -10,16 +10,11 @@ import {
 
 import { generateEmbedding, generateEmbeddings } from '@/lib/voyage-embeddings'
 
-// Mock the VoyageAIClient
 const mockEmbed = vi.fn()
 
-vi.mock('voyageai', () => {
-  return {
-    VoyageAIClient: class {
-      embed = mockEmbed
-    },
-  }
-})
+vi.mock('@/lib/voyage-client', () => ({
+  createVoyageClient: () => ({ embed: mockEmbed }),
+}))
 
 function makeVector(dimensions: number = 1024): number[] {
   return Array.from({ length: dimensions }, (_, i) => i * 0.001)
