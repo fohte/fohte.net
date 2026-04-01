@@ -1,8 +1,9 @@
 ---
-import { getCollection, render } from 'astro:content'
+import { getCollection, getEntry, render } from 'astro:content'
 import { format } from 'date-fns'
 
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import RelatedPosts from '@/components/astro/RelatedPosts.astro'
 import Tag from '@/components/astro/Tag.astro'
 import TocList from '@/components/astro/TocList.astro'
 import { mdxComponents } from '@/components/mdx'
@@ -22,6 +23,39 @@ const tocHeadings = headings.filter(
   (h) => h.depth <= 3 && h.slug !== 'footnote-label',
 )
 const ogImage = post.data.imagePath || `/og/${post.id}.png`
+
+// Fetch related posts data (gracefully handles missing relatedPosts collection)
+let relatedPostsData: Array<{
+  slug: string
+  title: string
+  date: Date
+  url: string
+  description?: string
+  tags?: string[]
+}> = []
+try {
+  const relatedEntry = await getEntry('relatedPosts', post.id)
+  if (relatedEntry) {
+    const allPosts = await getCollection('posts')
+    const postsMap = new Map(allPosts.map((p) => [p.id, p]))
+    relatedPostsData = relatedEntry.data.relatedSlugs
+      .map(({ slug }: { slug: string }) => {
+        const related = postsMap.get(slug)
+        if (!related) return null
+        return {
+          slug: related.id,
+          title: related.data.title,
+          date: related.data.date,
+          url: `/blog/posts/${related.id}`,
+          description: related.data.description,
+          tags: related.data.tags,
+        }
+      })
+      .filter(Boolean) as typeof relatedPostsData
+  }
+} catch {
+  // relatedPosts collection not yet available
+}
 ---
 
 <BaseLayout
@@ -101,6 +135,8 @@ const ogImage = post.data.imagePath || `/og/${post.id}.png`
       </div>
 
       <hr class="border-border" />
+
+      <RelatedPosts relatedPosts={relatedPostsData} />
 
       <!-- Back Link -->
       <a
