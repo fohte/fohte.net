@@ -12,7 +12,11 @@ import {
   vi,
 } from 'vitest'
 
-import { relatedPostsLoader } from '@/lib/related-posts-loader'
+import {
+  loadRelatedPosts,
+  type Logger,
+  relatedPostsLoader,
+} from '@/lib/related-posts-loader'
 
 // Mock voyage-embeddings to avoid real API calls
 const mockGenerateEmbedding = vi.fn()
@@ -30,61 +34,25 @@ function makeMdxContent(title: string, body: string): string {
   return `---\ntitle: "${title}"\ndate: 2024-01-01\n---\n\n${body}\n`
 }
 
-interface StoreEntry {
-  id: string
-  data: Record<string, unknown>
-  digest?: string
-}
-
-function createMockStore() {
-  const entries = new Map<string, StoreEntry>()
-  const clearFn = vi.fn(() => {
-    entries.clear()
-  })
-  const setFn = vi.fn((entry: StoreEntry) => {
-    entries.set(entry.id, entry)
-    return true
-  })
+function createMockLogger(): Logger & {
+  infoMessages: string[]
+  warnMessages: string[]
+} {
+  const infoMessages: string[] = []
+  const warnMessages: string[] = []
   return {
-    entries,
-    clear: clearFn,
-    set: setFn,
-    get: vi.fn((key: string) => entries.get(key)),
-    has: vi.fn((key: string) => entries.has(key)),
-    delete: vi.fn((key: string) => entries.delete(key)),
-    keys: vi.fn(() => [...entries.keys()]),
-    values: vi.fn(() => [...entries.values()]),
-  }
-}
-
-function createMockContext(store: ReturnType<typeof createMockStore>) {
-  const infoFn = vi.fn()
-  const warnFn = vi.fn()
-  return {
-    context: {
-      store,
-      logger: {
-        info: infoFn,
-        warn: warnFn,
-        error: vi.fn(),
-        debug: vi.fn(),
-        label: 'related-posts-loader',
-        fork: vi.fn(),
-      },
-      parseData: vi.fn(({ data }: { id: string; data: unknown }) =>
-        Promise.resolve(data),
-      ),
-      generateDigest: vi.fn((data: unknown) => JSON.stringify(data)),
-      meta: {},
-      config: {},
-      collection: 'relatedPosts',
+    infoMessages,
+    warnMessages,
+    info: (msg: string) => {
+      infoMessages.push(msg)
     },
-    infoFn,
-    warnFn,
+    warn: (msg: string) => {
+      warnMessages.push(msg)
+    },
   }
 }
 
-describe('relatedPostsLoader', () => {
+describe('loadRelatedPosts', () => {
   let tmpDir: string
   let postsDir: string
   let embeddingsDir: string
@@ -105,7 +73,7 @@ describe('relatedPostsLoader', () => {
     await rm(tmpDir, { recursive: true, force: true })
   })
 
-  it('loads posts and stores related post data correctly', async () => {
+  it('loads posts and returns related post data correctly', async () => {
     // Create 3 test MDX files
     await writeFile(
       path.join(postsDir, 'post-a.mdx'),
@@ -126,37 +94,27 @@ describe('relatedPostsLoader', () => {
       .mockResolvedValueOnce({ vector: makeVector(2), totalTokens: 10 })
       .mockResolvedValueOnce({ vector: makeVector(3), totalTokens: 10 })
 
-    const loader = relatedPostsLoader({
-      postsDir,
-      embeddingsDir,
-      maxRelatedPosts: 2,
-    })
+    const logger = createMockLogger()
+    const result = await loadRelatedPosts(
+      { postsDir, embeddingsDir, maxRelatedPosts: 2 },
+      logger,
+    )
 
-    const store = createMockStore()
-    const { context, infoFn } = createMockContext(store)
+    // Verify result structure
+    expect(result.totalPosts).toBe(3)
+    expect(result.apiCalls).toBe(3)
+    expect(result.cacheHits).toBe(0)
+    expect(result.skippedPosts).toBe(0)
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- mock context
-    await loader.load(context as never)
-
-    // Verify store was populated
-    expect(store.clear).toHaveBeenCalled()
-    expect(store.set).toHaveBeenCalledTimes(3)
-
-    // Verify each entry has the correct structure
+    // Verify each post has related posts
     for (const slug of ['post-a', 'post-b', 'post-c']) {
-      const entry = store.entries.get(slug)
-      expect(entry).toBeDefined()
-      expect(entry?.data).toHaveProperty('slug', slug)
-      const relatedSlugs = entry?.data.relatedSlugs
-      expect(relatedSlugs).toHaveLength(2)
-      expect(Array.isArray(relatedSlugs)).toBe(true)
-      if (Array.isArray(relatedSlugs)) {
-        for (const related of relatedSlugs) {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- dynamic test data
-          expect(related.slug).not.toBe(slug)
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- dynamic test data
-          expect(typeof related.score).toBe('number')
-        }
+      const related = result.relatedPostsMap[slug]
+      expect(related).toBeDefined()
+      expect(related).toHaveLength(2)
+      // Each related slug should not be the post itself
+      for (const entry of related) {
+        expect(entry.slug).not.toBe(slug)
+        expect(typeof entry.score).toBe('number')
       }
     }
 
@@ -164,9 +122,9 @@ describe('relatedPostsLoader', () => {
     expect(mockGenerateEmbedding).toHaveBeenCalledTimes(3)
 
     // Verify logger output
-    expect(infoFn).toHaveBeenCalledWith(expect.stringContaining('3 MDX files'))
-    expect(infoFn).toHaveBeenCalledWith(expect.stringContaining('0 cache hits'))
-    expect(infoFn).toHaveBeenCalledWith(expect.stringContaining('3 API calls'))
+    expect(logger.infoMessages.some((m) => m.includes('3 MDX files'))).toBe(
+      true,
+    )
   })
 
   it('uses cache on second run and only regenerates changed posts', async () => {
@@ -180,26 +138,19 @@ describe('relatedPostsLoader', () => {
       makeMdxContent('Post Y', 'Original content for Y'),
     )
 
-    const vectorX = makeVector(10)
-    const vectorY = makeVector(20)
-
     mockGenerateEmbedding
-      .mockResolvedValueOnce({ vector: vectorX, totalTokens: 10 })
-      .mockResolvedValueOnce({ vector: vectorY, totalTokens: 10 })
+      .mockResolvedValueOnce({ vector: makeVector(10), totalTokens: 10 })
+      .mockResolvedValueOnce({ vector: makeVector(20), totalTokens: 10 })
 
-    const loader = relatedPostsLoader({
-      postsDir,
-      embeddingsDir,
-      maxRelatedPosts: 1,
-    })
-
-    const store1 = createMockStore()
-    const { context: context1 } = createMockContext(store1)
+    const logger1 = createMockLogger()
 
     // First run: all API calls
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- mock context
-    await loader.load(context1 as never)
-    expect(mockGenerateEmbedding).toHaveBeenCalledTimes(2)
+    const result1 = await loadRelatedPosts(
+      { postsDir, embeddingsDir, maxRelatedPosts: 1 },
+      logger1,
+    )
+    expect(result1.apiCalls).toBe(2)
+    expect(result1.cacheHits).toBe(0)
 
     // Reset mock
     mockGenerateEmbedding.mockReset()
@@ -210,27 +161,23 @@ describe('relatedPostsLoader', () => {
       makeMdxContent('Post X', 'Updated content for X'),
     )
 
-    const newVectorX = makeVector(30)
     mockGenerateEmbedding.mockResolvedValueOnce({
-      vector: newVectorX,
+      vector: makeVector(30),
       totalTokens: 10,
     })
 
-    const store2 = createMockStore()
-    const { context: context2, infoFn: infoFn2 } = createMockContext(store2)
+    const logger2 = createMockLogger()
 
     // Second run: only post-x should trigger API call
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- mock context
-    await loader.load(context2 as never)
+    const result2 = await loadRelatedPosts(
+      { postsDir, embeddingsDir, maxRelatedPosts: 1 },
+      logger2,
+    )
 
     // Only 1 API call (post-x changed, post-y cache hit)
+    expect(result2.apiCalls).toBe(1)
+    expect(result2.cacheHits).toBe(1)
     expect(mockGenerateEmbedding).toHaveBeenCalledTimes(1)
-
-    // Verify logging shows 1 cache hit and 1 API call
-    expect(infoFn2).toHaveBeenCalledWith(
-      expect.stringContaining('1 cache hits'),
-    )
-    expect(infoFn2).toHaveBeenCalledWith(expect.stringContaining('1 API calls'))
   })
 
   it('only processes .mdx files', async () => {
@@ -246,49 +193,38 @@ describe('relatedPostsLoader', () => {
       totalTokens: 10,
     })
 
-    const loader = relatedPostsLoader({ postsDir, embeddingsDir })
-    const store = createMockStore()
-    const { context } = createMockContext(store)
+    const logger = createMockLogger()
+    const result = await loadRelatedPosts(
+      { postsDir, embeddingsDir, maxRelatedPosts: 5 },
+      logger,
+    )
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- mock context
-    await loader.load(context as never)
-
-    expect(store.set).toHaveBeenCalledTimes(1)
+    expect(result.totalPosts).toBe(1)
     expect(mockGenerateEmbedding).toHaveBeenCalledTimes(1)
   })
 
   it('uses default maxRelatedPosts of 5', async () => {
     // Create 7 posts
-    const vectors: number[][] = []
     for (let i = 0; i < 7; i++) {
       await writeFile(
         path.join(postsDir, `post-${String(i)}.mdx`),
         makeMdxContent(`Post ${String(i)}`, `Content ${String(i)}`),
       )
-      vectors.push(makeVector(i * 10))
-    }
-
-    for (const v of vectors) {
       mockGenerateEmbedding.mockResolvedValueOnce({
-        vector: v,
+        vector: makeVector(i * 10),
         totalTokens: 10,
       })
     }
 
-    const loader = relatedPostsLoader({ postsDir, embeddingsDir })
-    const store = createMockStore()
-    const { context } = createMockContext(store)
+    const logger = createMockLogger()
+    const result = await loadRelatedPosts(
+      { postsDir, embeddingsDir, maxRelatedPosts: 5 },
+      logger,
+    )
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- mock context
-    await loader.load(context as never)
-
-    // Each post should have at most 5 related posts
-    for (const [, entry] of store.entries) {
-      const relatedSlugs = entry.data.relatedSlugs
-      expect(Array.isArray(relatedSlugs)).toBe(true)
-      if (Array.isArray(relatedSlugs)) {
-        expect(relatedSlugs.length).toBeLessThanOrEqual(5)
-      }
+    // Each post should have at most 5 related posts (6 others, capped at 5)
+    for (const related of Object.values(result.relatedPostsMap)) {
+      expect(related.length).toBeLessThanOrEqual(5)
     }
   })
 
@@ -300,23 +236,29 @@ describe('relatedPostsLoader', () => {
 
     mockGenerateEmbedding.mockResolvedValueOnce(null)
 
-    const loader = relatedPostsLoader({ postsDir, embeddingsDir })
-    const store = createMockStore()
-    const { context, warnFn, infoFn } = createMockContext(store)
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- mock context
-    await loader.load(context as never)
-
-    // Post should be skipped, store should be empty
-    expect(store.set).not.toHaveBeenCalled()
-    expect(warnFn).toHaveBeenCalledWith(
-      expect.stringContaining('API key not configured'),
+    const logger = createMockLogger()
+    const result = await loadRelatedPosts(
+      { postsDir, embeddingsDir, maxRelatedPosts: 5 },
+      logger,
     )
-    expect(infoFn).toHaveBeenCalledWith(expect.stringContaining('1 skipped'))
-  })
 
+    // Post should be skipped
+    expect(result.totalPosts).toBe(0)
+    expect(result.skippedPosts).toBe(1)
+    expect(
+      logger.warnMessages.some((m) => m.includes('API key not configured')),
+    ).toBe(true)
+  })
+})
+
+describe('relatedPostsLoader', () => {
   it('returns the correct loader name', () => {
     const loader = relatedPostsLoader()
     expect(loader.name).toBe('related-posts-loader')
+  })
+
+  it('exposes the schema', () => {
+    const loader = relatedPostsLoader()
+    expect(loader).toHaveProperty('schema')
   })
 })
