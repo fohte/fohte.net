@@ -1,7 +1,7 @@
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 
-const EXPECTED_DIMENSIONS = 1024
+import { EXPECTED_DIMENSIONS } from '@/lib/embedding-constants'
 
 export const DEFAULT_EMBEDDINGS_DIR = path.resolve('src/data/embeddings')
 

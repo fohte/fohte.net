@@ -1,7 +1,7 @@
 import { VoyageAIClient } from 'voyageai'
 
-const EMBEDDING_MODEL = 'voyage-4'
-const EXPECTED_DIMENSIONS = 1024
+import { EMBEDDING_MODEL, EXPECTED_DIMENSIONS } from '@/lib/embedding-constants'
+
 const MAX_RETRIES = 3
 
 export interface EmbeddingResult {
