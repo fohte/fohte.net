@@ -11,8 +11,17 @@ jobs:
       deployments: write
       pull-requests: write
     steps:
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Create GitHub deployment
         id: deployment
@@ -59,6 +68,20 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-astro-${{ hashFiles('pnpm-lock.yaml') }}-
             ${{ runner.os }}-astro-
+
+      - name: Generate embeddings
+        if: github.ref != 'refs/heads/master'
+        env:
+          VOYAGE_API_KEY: ${{ secrets.VOYAGE_API_KEY }}
+        run: pnpm run generate:embeddings
+
+      - name: Commit and push embedding changes
+        if: github.ref != 'refs/heads/master'
+        uses: suzuki-shunsuke/commit-action@v0.1.1
+        with:
+          commit_message: 'chore: update embedding files'
+          workflow: deny
+          github_token: ${{ steps.app-token.outputs.token }}
 
       - name: Build
         run: pnpm run build

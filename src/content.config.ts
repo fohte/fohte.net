@@ -2,6 +2,8 @@ import { glob } from 'astro/loaders'
 import { z } from 'astro/zod'
 import { defineCollection } from 'astro:content'
 
+import { relatedPostsLoader } from '@/lib/related-posts-loader'
+
 const posts = defineCollection({
   loader: glob({ pattern: '**/*.mdx', base: './src/content/posts' }),
   schema: z.object({
@@ -14,4 +16,17 @@ const posts = defineCollection({
   }),
 })
 
-export const collections = { posts }
+const relatedPosts = defineCollection({
+  loader: relatedPostsLoader(),
+  schema: z.object({
+    slug: z.string(),
+    relatedSlugs: z.array(
+      z.object({
+        slug: z.string(),
+        score: z.number(),
+      }),
+    ),
+  }),
+})
+
+export const collections = { posts, relatedPosts }
