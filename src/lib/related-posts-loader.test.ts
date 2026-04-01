@@ -197,7 +197,7 @@ describe('relatedPostsLoader', () => {
     const { context: context1 } = createMockContext(store1)
 
     // First run: all API calls
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-type-assertion -- mock context
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- mock context
     await loader.load(context1 as never)
     expect(mockGenerateEmbedding).toHaveBeenCalledTimes(2)
 
@@ -220,7 +220,7 @@ describe('relatedPostsLoader', () => {
     const { context: context2, infoFn: infoFn2 } = createMockContext(store2)
 
     // Second run: only post-x should trigger API call
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-type-assertion -- mock context
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- mock context
     await loader.load(context2 as never)
 
     // Only 1 API call (post-x changed, post-y cache hit)
