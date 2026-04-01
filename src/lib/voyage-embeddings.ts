@@ -1,6 +1,5 @@
-import { VoyageAIClient } from 'voyageai'
-
 import { EMBEDDING_MODEL, EXPECTED_DIMENSIONS } from '@/lib/embedding-constants'
+import { createVoyageClient } from '@/lib/voyage-client'
 
 const MAX_RETRIES = 3
 
@@ -66,7 +65,7 @@ export async function generateEmbedding(
     return null
   }
 
-  const client = new VoyageAIClient({ apiKey })
+  const client = createVoyageClient(apiKey)
 
   const response: EmbedResponse = await client.embed(
     {
@@ -121,7 +120,7 @@ export async function generateEmbeddings(
     return { embeddings: [], totalTokens: 0 }
   }
 
-  const client = new VoyageAIClient({ apiKey })
+  const client = createVoyageClient(apiKey)
 
   const response: EmbedResponse = await client.embed(
     {

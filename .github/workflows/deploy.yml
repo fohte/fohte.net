@@ -7,7 +7,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       deployments: write
       pull-requests: write
     steps:
@@ -59,6 +59,19 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-astro-${{ hashFiles('pnpm-lock.yaml') }}-
             ${{ runner.os }}-astro-
+
+      - name: Generate embeddings
+        if: github.ref != 'refs/heads/master'
+        env:
+          VOYAGE_API_KEY: ${{ secrets.VOYAGE_API_KEY }}
+        run: pnpm run generate:embeddings
+
+      - name: Commit and push embedding changes
+        if: github.ref != 'refs/heads/master'
+        uses: suzuki-shunsuke/commit-action@v0.1.1
+        with:
+          commit_message: 'chore: update embedding files'
+          workflow: deny
 
       - name: Build
         run: pnpm run build
