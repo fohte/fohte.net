@@ -25,26 +25,27 @@ const tocHeadings = headings.filter(
 const ogImage = post.data.imagePath || `/og/${post.id}.png`
 
 // Fetch related posts data (gracefully handles missing relatedPosts collection)
+// try-catch is intentional: the relatedPosts collection loader is not yet
+// integrated (task 4.1), so getEntry would throw at build time without it.
 const relatedPostsData = await (async () => {
   try {
     const relatedEntry = await getEntry('relatedPosts', post.id)
     if (!relatedEntry) return []
-    const allPosts = await getCollection('posts')
-    const postsMap = new Map(allPosts.map((p) => [p.id, p]))
-    return relatedEntry.data.relatedSlugs
-      .map(({ slug }: { slug: string }) => {
-        const related = postsMap.get(slug)
-        if (!related) return null
-        return {
-          slug: related.id,
-          title: related.data.title,
-          date: related.data.date,
-          url: `/blog/posts/${related.id}`,
-          description: related.data.description,
-          tags: related.data.tags,
-        }
-      })
+    const entries = await Promise.all(
+      relatedEntry.data.relatedSlugs.map(({ slug }: { slug: string }) =>
+        getEntry('posts', slug),
+      ),
+    )
+    return entries
       .filter((p): p is NonNullable<typeof p> => p != null)
+      .map((p) => ({
+        slug: p.id,
+        title: p.data.title,
+        date: p.data.date,
+        url: `/blog/posts/${p.id}`,
+        description: p.data.description,
+        tags: p.data.tags,
+      }))
   } catch {
     // relatedPosts collection not yet available
     return []
