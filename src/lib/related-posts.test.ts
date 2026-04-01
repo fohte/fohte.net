@@ -45,6 +45,14 @@ describe('cosineSimilarity', () => {
     const b = [2, 4, 6]
     expect(cosineSimilarity(a, b)).toBeCloseTo(1)
   })
+
+  it('throws when vectors have different lengths', () => {
+    const a = [1, 2, 3]
+    const b = [1, 2]
+    expect(() => cosineSimilarity(a, b)).toThrow(
+      'Vectors must have the same length (got 3 and 2)',
+    )
+  })
 })
 
 describe('findRelatedPosts', () => {
