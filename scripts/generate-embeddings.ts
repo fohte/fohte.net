@@ -15,8 +15,8 @@ import { generateEmbeddings } from '@/lib/voyage-embeddings'
 const POSTS_DIR = path.resolve('src/content/posts')
 
 // Process posts in batches to stay within Voyage AI rate limits.
-// Free tier: 3 RPM, 10K TPM. Each batch counts as 1 request.
-const BATCH_SIZE = 10
+// Free tier: 3 RPM, 10K TPM. Small batches + delay to avoid both limits.
+const BATCH_SIZE = 3
 const BATCH_DELAY_MS = 21_000
 
 interface PostEntry {
