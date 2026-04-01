@@ -60,7 +60,7 @@ export async function loadRelatedPosts(
 ): Promise<LoadResult> {
   const startTime = performance.now()
 
-  // Read MDX files directly from filesystem (loader execution order is not guaranteed)
+  // Read MDX files from filesystem (loader execution order is not guaranteed)
   const resolvedPostsDir = path.resolve(options.postsDir)
   const files = await readdir(resolvedPostsDir)
   const mdxFiles = files.filter((f) => f.endsWith('.mdx'))
