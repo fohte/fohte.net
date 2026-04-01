@@ -7,12 +7,21 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
       deployments: write
       pull-requests: write
     steps:
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Create GitHub deployment
         id: deployment
@@ -72,6 +81,7 @@ jobs:
         with:
           commit_message: 'chore: update embedding files'
           workflow: deny
+          github_token: ${{ steps.app-token.outputs.token }}
 
       - name: Build
         run: pnpm run build
