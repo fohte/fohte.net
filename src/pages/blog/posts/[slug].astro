@@ -1,8 +1,9 @@
 ---
-import { getCollection, render } from 'astro:content'
+import { getCollection, getEntry, render } from 'astro:content'
 import { format } from 'date-fns'
 
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import RelatedPosts from '@/components/astro/RelatedPosts.astro'
 import Tag from '@/components/astro/Tag.astro'
 import TocList from '@/components/astro/TocList.astro'
 import { mdxComponents } from '@/components/mdx'
@@ -22,6 +23,34 @@ const tocHeadings = headings.filter(
   (h) => h.depth <= 3 && h.slug !== 'footnote-label',
 )
 const ogImage = post.data.imagePath || `/og/${post.id}.png`
+
+// Fetch related posts data (gracefully handles missing relatedPosts collection)
+// try-catch is intentional: the relatedPosts collection loader is not yet
+// integrated (task 4.1), so getEntry would throw at build time without it.
+const relatedPostsData = await (async () => {
+  try {
+    const relatedEntry = await getEntry('relatedPosts', post.id)
+    if (!relatedEntry) return []
+    const entries = await Promise.all(
+      relatedEntry.data.relatedSlugs.map(({ slug }: { slug: string }) =>
+        getEntry('posts', slug),
+      ),
+    )
+    return entries
+      .filter((p): p is NonNullable<typeof p> => p != null)
+      .map((p) => ({
+        slug: p.id,
+        title: p.data.title,
+        date: p.data.date,
+        url: `/blog/posts/${p.id}`,
+        description: p.data.description,
+        tags: p.data.tags,
+      }))
+  } catch {
+    // relatedPosts collection not yet available
+    return []
+  }
+})()
 ---
 
 <BaseLayout
@@ -101,6 +130,8 @@ const ogImage = post.data.imagePath || `/og/${post.id}.png`
       </div>
 
       <hr class="border-border" />
+
+      <RelatedPosts relatedPosts={relatedPostsData} />
 
       <!-- Back Link -->
       <a
