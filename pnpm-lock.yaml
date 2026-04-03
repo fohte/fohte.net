@@ -155,8 +155,8 @@ importers:
         specifier: 17.6.3
         version: 17.6.3
       iconv-lite:
-        specifier: 0.6.3
-        version: 0.6.3
+        specifier: 0.7.2
+        version: 0.7.2
       jsdom:
         specifier: 26.1.0
         version: 26.1.0
@@ -4438,6 +4438,13 @@ packages:
     resolution:
       {
         integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==,
+      }
+    engines: { node: '>=0.10.0' }
+
+  iconv-lite@0.7.2:
+    resolution:
+      {
+        integrity: sha512-im9DjEDQ55s9fL4EYzOAv0yMqmMBSZp6G0VvFyTMPKWxiSBHUj9NW/qqLmXUwXrrM7AvqSlTCfvqRb0cM8yYqw==,
       }
     engines: { node: '>=0.10.0' }
 
@@ -11259,6 +11266,10 @@ snapshots:
       - supports-color
 
   iconv-lite@0.6.3:
+    dependencies:
+      safer-buffer: 2.1.2
+
+  iconv-lite@0.7.2:
     dependencies:
       safer-buffer: 2.1.2
 
