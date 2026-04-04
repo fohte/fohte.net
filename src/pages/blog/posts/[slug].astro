@@ -24,7 +24,7 @@ const tocHeadings = headings.filter(
   (h) => h.depth <= 3 && h.slug !== 'footnote-label',
 )
 const ogImage = post.data.imagePath || `/og/${post.id}.png`
-const postUrl = `https://fohte.net/blog/posts/${post.id}`
+const postUrl = new URL(`/blog/posts/${post.id}`, Astro.site).href
 
 // Fetch related posts data (gracefully handles missing relatedPosts collection)
 // try-catch is intentional: the relatedPosts collection loader is not yet
