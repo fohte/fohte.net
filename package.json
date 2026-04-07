@@ -1,7 +1,8 @@
 {
   "name": "fohte.net",
   "version": "1.0.0",
-  "packageManager": "pnpm@10.30.3",
+  "private": true,
+  "packageManager": "pnpm@10.32.1",
   "type": "module",
   "scripts": {
     "dev": "astro dev",
@@ -48,7 +49,7 @@
     "voyageai": "0.2.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "20.4.4",
+    "@commitlint/cli": "20.5.0",
     "@eslint/eslintrc": "3.3.5",
     "@fohte/eslint-config": "0.3.1",
     "@testing-library/jest-dom": "6.6.3",
@@ -63,7 +64,7 @@
     "@vitejs/plugin-react": "5.2.0",
     "@vitest/ui": "4.1.2",
     "concurrently": "9.2.1",
-    "eslint": "10.0.3",
+    "eslint": "10.1.0",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-import-x": "4.16.2",
     "eslint-plugin-simple-import-sort": "12.1.1",
