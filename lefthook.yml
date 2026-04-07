@@ -7,5 +7,10 @@ remotes:
 pre-commit:
   commands:
     eslint:
+<<<<<<< before updating
       glob: '*.{js,ts,jsx,tsx,mjs,cjs,astro}'
       run: pnpm exec astro sync --silent && pnpm exec eslint {staged_files}
+=======
+      glob: '*.{js,ts,jsx,tsx,mjs,cjs}'
+      run: pnpm exec eslint {staged_files}
+>>>>>>> after updating
