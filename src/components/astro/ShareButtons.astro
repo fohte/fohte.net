@@ -1,4 +1,6 @@
 ---
+import { Icon } from 'astro-icon/components'
+
 interface Props {
   url: string
   title: string
@@ -13,23 +15,17 @@ const shareLinks = [
   {
     name: 'X',
     href: `https://x.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`,
-    // X (formerly Twitter) logo
-    icon: 'M12.6 0.75L8.244 5.886L4.392 0.75H0L5.922 8.262L0.258 14.75H2.1L7.122 9.402L11.382 14.75H15.6L9.456 7.024L14.88 0.75H12.6ZM12.048 13.35L2.844 1.95H3.726L12.966 13.35H12.048Z',
-    viewBox: '0 0 15.6 15.5',
+    icon: 'simple-icons:x',
   },
   {
     name: 'Hatena Bookmark',
     href: `https://b.hatena.ne.jp/entry/${url}`,
-    // Hatena Bookmark "B!" logo
-    icon: 'M3 0v11h2.5V6.5h3C10.5 6.5 12 5.2 12 3.25S10.5 0 8.5 0H3zm2.5 2h3c1.1 0 1.5 0.6 1.5 1.25S9.6 4.5 8.5 4.5h-3V2zM7 13a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z',
-    viewBox: '0 0 14 16',
+    icon: 'simple-icons:hatenabookmark',
   },
   {
     name: 'Mastodon',
     href: `https://donshare.net/share?url=${encodedUrl}&text=${encodedTitle}`,
-    // Mastodon logo
-    icon: 'M15.2 5.6c0-3.2-2.1-4.1-2.1-4.1C12 1 10 0.9 7.9 0.9h0c-2.1 0-4.1 0.1-5.2 0.6 0 0-2.1 0.9-2.1 4.1 0 0.7 0 1.6 0 2.5 0.1 3.1 0.7 6.2 4.4 7 1.7 0.4 3.1 0.5 4.3 0.4 2.1-0.1 3.3-0.7 3.3-0.7l-0.1-1.5s-1.5 0.5-3.2 0.4c-1.7-0.1-3.4-0.2-3.7-2.5 0-0.2 0-0.5 0-0.7 3.4 0.8 6.3 0.4 7.1 0.3 2.2-0.3 4.1-1.7 4.4-3zM12.7 8.8h-2v-3c0-0.6-0.3-1-0.8-1s-0.9 0.4-0.9 1.2v1.6H7v-1.6c0-0.8-0.3-1.2-0.9-1.2s-0.8 0.4-0.8 1v3h-2V5.5c0-1.3 0.3-2.2 1-2.9 0.7-0.7 1.6-1.1 2.8-1.1 1.3 0 2.3 0.5 2.9 1.5l0.6 1.1 0.6-1.1c0.6-1 1.6-1.5 2.9-1.5 1.2 0 2.1 0.4 2.8 1.1 0.7 0.7 1 1.6 1 2.9v3.3z',
-    viewBox: '0 0 15.8 16',
+    icon: 'simple-icons:mastodon',
   },
 ]
 ---
@@ -50,14 +46,7 @@ const shareLinks = [
           aria-label={`Share on ${link.name}`}
           class="border-border text-text-secondary hover:text-accent hover:border-text-tertiary flex items-center border p-2.5 transition-colors md:p-3"
         >
-          <svg
-            viewBox={link.viewBox}
-            fill="currentColor"
-            aria-hidden="true"
-            class="size-3 md:size-3.5"
-          >
-            <path d={link.icon} />
-          </svg>
+          <Icon name={link.icon} class="size-3 md:size-3.5" />
         </a>
       ))
     }
