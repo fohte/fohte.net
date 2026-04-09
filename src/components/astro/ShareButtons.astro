@@ -11,6 +11,13 @@ const { url, title } = Astro.props
 const encodedUrl = encodeURIComponent(url)
 const encodedTitle = encodeURIComponent(title)
 
+// Hatena Bookmark entry URLs require the scheme to be stripped and,
+// for HTTPS pages, prefixed with `s/`. Using the raw URL redirects to
+// the domain feed instead of the specific entry page.
+const hatenaPath = url.startsWith('https://')
+  ? `s/${url.slice('https://'.length)}`
+  : url.slice('http://'.length)
+
 const shareLinks = [
   {
     name: 'X',
@@ -19,7 +26,7 @@ const shareLinks = [
   },
   {
     name: 'Hatena Bookmark',
-    href: `https://b.hatena.ne.jp/entry/${url}`,
+    href: `https://b.hatena.ne.jp/entry/${hatenaPath}`,
     icon: 'simple-icons:hatenabookmark',
   },
   {
