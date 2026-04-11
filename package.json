@@ -2,7 +2,7 @@
   "name": "fohte.net",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "pnpm@10.32.1",
+  "packageManager": "pnpm@10.33.0",
   "type": "module",
   "scripts": {
     "dev": "astro dev",
@@ -80,6 +80,7 @@
     "tsx": "4.21.0",
     "typescript": "5.9.3",
     "vitest": "4.1.2"
+<<<<<<< before updating
   },
   "pnpm": {
     "onlyBuiltDependencies": [
@@ -93,4 +94,7 @@
     }
   },
   "license": "ISC"
+=======
+  }
+>>>>>>> after updating
 }
