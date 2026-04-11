@@ -1,0 +1,61 @@
+---
+import { Icon } from 'astro-icon/components'
+
+interface Props {
+  url: string
+  title: string
+}
+
+const { url, title } = Astro.props
+
+const encodedUrl = encodeURIComponent(url)
+const encodedTitle = encodeURIComponent(title)
+
+// Hatena Bookmark entry URLs require the scheme to be stripped and,
+// for HTTPS pages, prefixed with `s/`. Using the raw URL redirects to
+// the domain feed instead of the specific entry page.
+const hatenaPath = url.startsWith('https://')
+  ? `s/${url.slice('https://'.length)}`
+  : url.slice('http://'.length)
+
+const shareLinks = [
+  {
+    name: 'X',
+    href: `https://x.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`,
+    icon: 'simple-icons:x',
+  },
+  {
+    name: 'Hatena Bookmark',
+    href: `https://b.hatena.ne.jp/entry/${hatenaPath}`,
+    icon: 'simple-icons:hatenabookmark',
+  },
+  {
+    name: 'Mastodon',
+    href: `https://mastodonshare.com/share?url=${encodedUrl}&text=${encodedTitle}`,
+    icon: 'simple-icons:mastodon',
+  },
+]
+---
+
+<section class="flex flex-col gap-4">
+  <span
+    class="text-text-tertiary font-[family-name:var(--font-mono-ui)] text-[11px]"
+  >
+    // share this post
+  </span>
+  <div class="flex gap-3">
+    {
+      shareLinks.map((link) => (
+        <a
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Share on ${link.name}`}
+          class="border-border text-text-secondary hover:text-accent hover:border-text-tertiary flex items-center border p-2.5 transition-colors md:p-3"
+        >
+          <Icon name={link.icon} class="size-3 md:size-3.5" />
+        </a>
+      ))
+    }
+  </div>
+</section>
