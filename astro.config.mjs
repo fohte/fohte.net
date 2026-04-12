@@ -7,6 +7,7 @@ import sitemap from '@astrojs/sitemap'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'astro/config'
 import embeds from 'astro-embed/integration'
+import icon from 'astro-icon'
 import matter from 'gray-matter'
 import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
@@ -100,6 +101,7 @@ export default defineConfig({
         LinkPreview: false,
       },
     }),
+    icon(),
     mdx(),
     sitemap({
       filter: (page) => !page.includes('/e2e-test-'),

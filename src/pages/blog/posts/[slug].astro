@@ -5,6 +5,7 @@ import { format } from 'date-fns'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import PostFooterProfile from '@/components/astro/PostFooterProfile.astro'
 import RelatedPosts from '@/components/astro/RelatedPosts.astro'
+import ShareButtons from '@/components/astro/ShareButtons.astro'
 import Tag from '@/components/astro/Tag.astro'
 import TocList from '@/components/astro/TocList.astro'
 import { mdxComponents } from '@/components/mdx'
@@ -24,6 +25,7 @@ const tocHeadings = headings.filter(
   (h) => h.depth <= 3 && h.slug !== 'footnote-label',
 )
 const ogImage = post.data.imagePath || `/og/${post.id}.png`
+const postUrl = new URL(`/blog/posts/${post.id}`, Astro.site).href
 
 // Fetch related posts data (gracefully handles missing relatedPosts collection)
 // try-catch is intentional: the relatedPosts collection loader is not yet
@@ -131,6 +133,8 @@ const relatedPostsData = await (async () => {
       </div>
 
       <hr class="border-border" />
+
+      <ShareButtons url={postUrl} title={post.data.title} />
 
       <RelatedPosts relatedPosts={relatedPostsData} />
 
