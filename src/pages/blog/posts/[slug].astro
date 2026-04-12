@@ -3,6 +3,7 @@ import { getCollection, getEntry, render } from 'astro:content'
 import { format } from 'date-fns'
 
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import PostFooterProfile from '@/components/astro/PostFooterProfile.astro'
 import RelatedPosts from '@/components/astro/RelatedPosts.astro'
 import ShareButtons from '@/components/astro/ShareButtons.astro'
 import Tag from '@/components/astro/Tag.astro'
@@ -136,6 +137,8 @@ const relatedPostsData = await (async () => {
       <ShareButtons url={postUrl} title={post.data.title} />
 
       <RelatedPosts relatedPosts={relatedPostsData} />
+
+      <PostFooterProfile />
 
       <!-- Back Link -->
       <a

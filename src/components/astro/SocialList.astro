@@ -1,24 +1,10 @@
 ---
-const socialList = [
-  {
-    href: 'https://github.com/fohte',
-    text: 'github.com/fohte',
-  },
-  {
-    href: 'https://x.com/fohte',
-    text: 'x.com/fohte',
-  },
-  {
-    href: 'https://social.fohte.net/@fohte',
-    text: 'social.fohte.net/@fohte',
-    rel: 'me',
-  },
-]
+import { socialLinks } from '@/data/socialLinks'
 ---
 
 <ul class="flex flex-col gap-2">
   {
-    socialList.map((social) => (
+    socialLinks.map((social) => (
       <li>
         <a
           href={social.href}
@@ -31,7 +17,7 @@ const socialList = [
           }
         >
           <span class="text-accent font-bold">&gt;</span>
-          <span>{social.text}</span>
+          <span>{social.href.replace(/^https?:\/\//, '')}</span>
         </a>
       </li>
     ))
