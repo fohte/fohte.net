@@ -3,6 +3,7 @@ import { getCollection, getEntry, render } from 'astro:content'
 import { format } from 'date-fns'
 
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import PostFooterProfile from '@/components/astro/PostFooterProfile.astro'
 import RelatedPosts from '@/components/astro/RelatedPosts.astro'
 import Tag from '@/components/astro/Tag.astro'
 import TocList from '@/components/astro/TocList.astro'
@@ -132,6 +133,8 @@ const relatedPostsData = await (async () => {
       <hr class="border-border" />
 
       <RelatedPosts relatedPosts={relatedPostsData} />
+
+      <PostFooterProfile />
 
       <!-- Back Link -->
       <a
