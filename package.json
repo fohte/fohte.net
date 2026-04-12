@@ -80,7 +80,6 @@
     "tsx": "4.21.0",
     "typescript": "5.9.3",
     "vitest": "4.1.2"
-<<<<<<< before updating
   },
   "pnpm": {
     "onlyBuiltDependencies": [
@@ -94,7 +93,4 @@
     }
   },
   "license": "ISC"
-=======
-  }
->>>>>>> after updating
 }
