@@ -55,15 +55,10 @@ pre-commit:
         done
 
     eslint:
-<<<<<<< before updating
       glob: '*.{js,ts,jsx,tsx,mjs,cjs,astro}'
       run: pnpm exec astro sync --silent && pnpm exec eslint {staged_files}
-=======
-      glob: '*.{js,ts,jsx,tsx,mjs,cjs}'
-      run: pnpm exec eslint {staged_files}
 
 commit-msg:
   commands:
     commitlint:
       run: pnpm exec commitlint --edit {1}
->>>>>>> after updating
