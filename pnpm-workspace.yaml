@@ -4,6 +4,8 @@ allowBuilds:
   # required by @fohte/eslint-config -> eslint-plugin-import-x for "@/*" resolution
   unrs-resolver: true
   sharp: true
+  # required by wrangler (Cloudflare Pages deploy) which dynamically pulls workerd
+  workerd: true
 
 overrides:
   '@types/react': 18.3.28
