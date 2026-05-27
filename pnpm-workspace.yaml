@@ -1,0 +1,5 @@
+allowBuilds:
+  # required by vitest's transformer
+  esbuild: true
+  # required by @fohte/eslint-config -> eslint-plugin-import-x for "@/*" resolution
+  unrs-resolver: true
