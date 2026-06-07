@@ -7,3 +7,8 @@ allowBuilds:
   sharp: true
   # required by wrangler (Cloudflare Pages deploy) which dynamically pulls workerd
   workerd: true
+
+# Dodge short-lived supply-chain attacks (e.g. shai-hulud, tinycolor) by
+# holding off freshly published versions. Unit is minutes; 10080 = 7 days.
+minimumReleaseAge: 10080
+minimumReleaseAgeExclude: []
