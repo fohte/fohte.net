@@ -23,10 +23,22 @@ if ! command -v corepack > /dev/null 2>&1; then
 fi
 corepack enable
 
+# Use --frozen-lockfile when a lockfile exists so a Renovate-bumped dep still
+# inside the pnpm-workspace.yaml minimumReleaseAge window does not re-trigger
+# the supply-chain policy check and block bootstrap. Fall back to plain
+# `pnpm install` on freshly generated projects without a lockfile yet.
+pnpm_install() {
+  if [ -f pnpm-lock.yaml ]; then
+    pnpm install --frozen-lockfile
+  else
+    pnpm install
+  fi
+}
+
 # Install git hooks via lefthook (hooks live in the common .git/hooks, shared across worktrees)
 if command -v lefthook > /dev/null 2>&1; then
   lefthook install
 fi
 
 # Install Node.js dependencies
-pnpm install
+pnpm_install
