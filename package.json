@@ -51,8 +51,7 @@
   "devDependencies": {
     "@commitlint/cli": "21.0.2",
     "@eslint/eslintrc": "3.3.5",
-<<<<<<< before updating
-    "@fohte/eslint-config": "0.3.3",
+    "@fohte/eslint-config": "0.3.4",
     "@iconify-json/simple-icons": "1.2.83",
     "@testing-library/jest-dom": "6.6.3",
     "@tsconfig/bun": "1.0.10",
@@ -68,12 +67,6 @@
     "@vitejs/plugin-react": "5.2.0",
     "@vitest/ui": "4.1.7",
     "astro-icon": "1.1.5",
-=======
-    "@fohte/eslint-config": "0.3.4",
-    "@tsconfig/node-lts": "24.0.0",
-    "@tsconfig/strictest": "2.0.8",
-    "@types/node": "24.13.1",
->>>>>>> after updating
     "concurrently": "10.0.3",
     "eslint": "10.4.1",
     "eslint-config-prettier": "10.1.8",
