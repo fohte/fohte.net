@@ -41,6 +41,7 @@ jobs:
         uses: jdx/mise-action@5228313ee0372e111a38da051671ca30fc5a96db # v3.6.3
         with:
           install: true
+          version: 2026.6.6
 
       - run: corepack enable
 
