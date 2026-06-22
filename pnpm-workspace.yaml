@@ -14,3 +14,5 @@ minimumReleaseAge: 10080
 # First-party scopes: publisher account is trusted, so skip the release-age delay.
 minimumReleaseAgeExclude:
   - '@fohte/*'
+  # Renovate security update: happy-dom@20.8.9
+  - happy-dom@20.8.9
