@@ -53,7 +53,7 @@
     "@eslint/eslintrc": "3.3.5",
     "@fohte/eslint-config": "0.3.4",
     "@iconify-json/simple-icons": "1.2.86",
-    "@testing-library/jest-dom": "6.6.3",
+    "@testing-library/jest-dom": "6.9.1",
     "@tsconfig/bun": "1.0.10",
     "@tsconfig/node-lts": "24.0.0",
     "@tsconfig/strictest": "2.0.8",
