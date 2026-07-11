@@ -2,7 +2,6 @@ import { readFile } from 'node:fs/promises'
 import { createRequire } from 'node:module'
 
 import type { APIRoute, InferGetStaticPropsType } from 'astro'
-import type { CollectionEntry } from 'astro:content'
 import { getCollection } from 'astro:content'
 import { createElement } from 'react'
 import satori from 'satori'
@@ -24,7 +23,7 @@ export const getStaticPaths = async () => {
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 export const GET: APIRoute<Props> = async ({ props }) => {
-  const { post } = props as { post: CollectionEntry<'posts'> }
+  const { post } = props
 
   const tags = post.data.tags ?? []
 
