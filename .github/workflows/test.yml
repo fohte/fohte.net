@@ -42,7 +42,7 @@ jobs:
 
       - uses: jdx/mise-action@e6a8b3978addb5a52f2b4cd9d91eafa7f0ab959d # v4.2.0
         with:
-          version: 2026.6.14
+          version: 2026.7.0
 
       - run: corepack enable
 
@@ -59,6 +59,9 @@ jobs:
           restore-keys: ${{ runner.os }}-pnpm-store-
 
       - run: pnpm install --frozen-lockfile
+
+      - name: Check peer dependencies
+        run: pnpm peers check
 
       - name: Run lefthook
         id: lefthook
@@ -97,7 +100,7 @@ jobs:
 
       - uses: jdx/mise-action@e6a8b3978addb5a52f2b4cd9d91eafa7f0ab959d # v4.2.0
         with:
-          version: 2026.6.14
+          version: 2026.7.0
 
       - run: corepack enable
 
