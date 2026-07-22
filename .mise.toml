@@ -1,5 +1,5 @@
 [tools]
-lefthook = "2.1.9"
+lefthook = "2.1.10"
 
 # lefthook hooks
 actionlint = "1.7.12"
