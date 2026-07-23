@@ -28,7 +28,7 @@
     "@radix-ui/react-slot": "1.2.5",
     "@tailwindcss/vite": "4.1.18",
     "@types/node": "25.0.3",
-    "astro": "6.4.8",
+    "astro": "7.1.0",
     "astro-embed": "0.13.1",
     "date-fns": "4.1.0",
     "feed": "4.2.2",
