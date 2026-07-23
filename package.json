@@ -43,7 +43,7 @@
     "remark-parse": "11.0.0",
     "remark-unwrap-images": "4.0.1",
     "satori": "0.25.0",
-    "sharp": "0.34.5",
+    "sharp": "0.35.0",
     "tailwindcss": "4.3.2",
     "unified": "11.0.5",
     "unist-util-visit": "5.1.0",
