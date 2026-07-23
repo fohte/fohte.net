@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+import { unified } from '@astrojs/markdown-remark'
 import mdx from '@astrojs/mdx'
 import react from '@astrojs/react'
 import sitemap from '@astrojs/sitemap'
@@ -116,7 +117,9 @@ export default defineConfig({
     }),
   ],
   markdown: {
-    remarkPlugins: [remarkGfm, remarkBreaks, remarkUnwrapImages],
+    processor: unified({
+      remarkPlugins: [remarkGfm, remarkBreaks, remarkUnwrapImages],
+    }),
     shikiConfig: {
       theme: 'one-dark-pro',
       transformers: [transformerStyleCleanup(), transformerFilename()],
