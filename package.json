@@ -2,7 +2,7 @@
   "name": "fohte.net",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "pnpm@11.11.0",
+  "packageManager": "pnpm@11.13.1",
   "type": "module",
   "scripts": {
     "dev": "astro dev",
