@@ -1,7 +1,7 @@
 allowBuilds:
   # required by vitest's transformer
   esbuild: true
-  # required by @fohte/eslint-config -> eslint-plugin-import-x for "@/*" resolution
+  # required by @fohte/eslint-config -> eslint-plugin-import-x for module resolution
   unrs-resolver: true
   # required by Astro/satori for image processing (OG image generation, etc.)
   sharp: true
