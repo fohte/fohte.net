@@ -4,7 +4,7 @@ import {
   computeContentHash,
   extractTextFromMdx,
   stripMarkdown,
-} from '@/lib/mdx-text-extractor'
+} from '#lib/mdx-text-extractor'
 
 describe('stripMarkdown', () => {
   it('removes heading markers', () => {

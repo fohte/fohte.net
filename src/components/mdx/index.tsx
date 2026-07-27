@@ -1,13 +1,13 @@
 import type { MDXComponents } from 'mdx/types'
 import type * as React from 'react'
 
-import { CardLink } from '@/components/mdx/CardLink'
-import { DocsHeading } from '@/components/mdx/DocsHeading'
-import { Image } from '@/components/mdx/Image'
-import { ImageGrid } from '@/components/mdx/ImageGrid'
-import { Kbd } from '@/components/mdx/Kbd'
-import { Link } from '@/components/mdx/Link'
-import { SpeakerDeck } from '@/components/mdx/SpeakerDeck'
+import { CardLink } from '#components/mdx/CardLink.tsx'
+import { DocsHeading } from '#components/mdx/DocsHeading.tsx'
+import { Image } from '#components/mdx/Image.tsx'
+import { ImageGrid } from '#components/mdx/ImageGrid.tsx'
+import { Kbd } from '#components/mdx/Kbd.tsx'
+import { Link } from '#components/mdx/Link.tsx'
+import { SpeakerDeck } from '#components/mdx/SpeakerDeck.tsx'
 
 export const mdxComponents: MDXComponents = {
   h1: (props) => (
@@ -100,10 +100,10 @@ export const rssComponents: MDXComponents = {
 }
 
 // Re-export components for direct import
-export { CardLink } from '@/components/mdx/CardLink'
-export { DocsHeading } from '@/components/mdx/DocsHeading'
-export { Image } from '@/components/mdx/Image'
-export { ImageGrid } from '@/components/mdx/ImageGrid'
-export { Kbd } from '@/components/mdx/Kbd'
-export { Link } from '@/components/mdx/Link'
-export { SpeakerDeck } from '@/components/mdx/SpeakerDeck'
+export { CardLink } from '#components/mdx/CardLink.tsx'
+export { DocsHeading } from '#components/mdx/DocsHeading.tsx'
+export { Image } from '#components/mdx/Image.tsx'
+export { ImageGrid } from '#components/mdx/ImageGrid.tsx'
+export { Kbd } from '#components/mdx/Kbd.tsx'
+export { Link } from '#components/mdx/Link.tsx'
+export { SpeakerDeck } from '#components/mdx/SpeakerDeck.tsx'

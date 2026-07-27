@@ -1,35 +1,36 @@
+import { err } from 'neverthrow'
 import { describe, expect, it } from 'vitest'
 
 import {
   cosineSimilarity,
   findRelatedPosts,
   type PostEmbedding,
-} from '@/lib/related-posts'
+} from '#lib/related-posts'
 
 describe('cosineSimilarity', () => {
   it('returns 1 for identical unit vectors', () => {
     const v = [1, 0, 0]
-    expect(cosineSimilarity(v, v)).toBeCloseTo(1)
+    expect(cosineSimilarity(v, v)._unsafeUnwrap()).toBeCloseTo(1)
   })
 
   it('returns 0 for orthogonal vectors', () => {
     const a = [1, 0, 0]
     const b = [0, 1, 0]
-    expect(cosineSimilarity(a, b)).toBeCloseTo(0)
+    expect(cosineSimilarity(a, b)._unsafeUnwrap()).toBeCloseTo(0)
   })
 
   it('returns 0 when either vector is a zero vector', () => {
     const zero = [0, 0, 0]
     const v = [1, 2, 3]
 
-    expect(cosineSimilarity(zero, v)).toBe(0)
-    expect(cosineSimilarity(v, zero)).toBe(0)
+    expect(cosineSimilarity(zero, v)._unsafeUnwrap()).toBe(0)
+    expect(cosineSimilarity(v, zero)._unsafeUnwrap()).toBe(0)
   })
 
   it('returns -1 for opposite vectors', () => {
     const a = [1, 0]
     const b = [-1, 0]
-    expect(cosineSimilarity(a, b)).toBeCloseTo(-1)
+    expect(cosineSimilarity(a, b)._unsafeUnwrap()).toBeCloseTo(-1)
   })
 
   it('computes a known similarity value', () => {
@@ -37,20 +38,20 @@ describe('cosineSimilarity', () => {
     const a = [1, 2, 3]
     const b = [4, 5, 6]
     const expected = 32 / (Math.sqrt(14) * Math.sqrt(77))
-    expect(cosineSimilarity(a, b)).toBeCloseTo(expected)
+    expect(cosineSimilarity(a, b)._unsafeUnwrap()).toBeCloseTo(expected)
   })
 
   it('is invariant to vector magnitude', () => {
     const a = [1, 2, 3]
     const b = [2, 4, 6]
-    expect(cosineSimilarity(a, b)).toBeCloseTo(1)
+    expect(cosineSimilarity(a, b)._unsafeUnwrap()).toBeCloseTo(1)
   })
 
-  it('throws when vectors have different lengths', () => {
+  it('returns an error when vectors have different lengths', () => {
     const a = [1, 2, 3]
     const b = [1, 2]
-    expect(() => cosineSimilarity(a, b)).toThrow(
-      'Vectors must have the same length (got 3 and 2)',
+    expect(cosineSimilarity(a, b)).toEqual(
+      err(new Error('Vectors must have the same length (got 3 and 2)')),
     )
   })
 })

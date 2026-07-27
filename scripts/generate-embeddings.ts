@@ -1,16 +1,18 @@
 import { readdir } from 'node:fs/promises'
 import path from 'node:path'
 
+import { err, ok, type Result } from 'neverthrow'
+
 import {
   DEFAULT_EMBEDDINGS_DIR,
   readEmbeddingCache,
   writeEmbeddingCache,
-} from '@/lib/embedding-cache'
+} from '#lib/embedding-cache'
 import {
   computeContentHash,
   extractTextFromFile,
-} from '@/lib/mdx-text-extractor'
-import { generateEmbeddings } from '@/lib/voyage-embeddings'
+} from '#lib/mdx-text-extractor'
+import { generateEmbeddings } from '#lib/voyage-embeddings'
 
 const POSTS_DIR = path.resolve('src/content/posts')
 
@@ -30,11 +32,13 @@ function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-async function main(): Promise<void> {
+async function main(): Promise<Result<void, Error>> {
   const apiKey = process.env.VOYAGE_API_KEY
   if (apiKey == null || apiKey === '') {
-    throw new Error(
-      '[generate-embeddings] VOYAGE_API_KEY is not set. Set it as an environment variable.',
+    return err(
+      new Error(
+        '[generate-embeddings] VOYAGE_API_KEY is not set. Set it as an environment variable.',
+      ),
     )
   }
 
@@ -74,7 +78,7 @@ async function main(): Promise<void> {
     console.log(
       `[generate-embeddings] Done: 0 generated, ${String(cached)} cached`,
     )
-    return
+    return ok(undefined)
   }
 
   // Process in batches
@@ -96,20 +100,26 @@ async function main(): Promise<void> {
       `[generate-embeddings] Processing batch ${String(Math.floor(i / BATCH_SIZE) + 1)} (${String(batch.length)} posts)`,
     )
 
-    const result = await generateEmbeddings(texts)
+    const batchResult = await generateEmbeddings(texts)
 
-    if (result == null) {
-      throw new Error('[generate-embeddings] API returned null unexpectedly.')
+    if (batchResult.isErr()) {
+      return err(batchResult.error)
     }
+    if (batchResult.value == null) {
+      return err(
+        new Error('[generate-embeddings] API returned null unexpectedly.'),
+      )
+    }
+    const { embeddings, totalTokens: batchTokens } = batchResult.value
 
-    totalTokens += result.totalTokens
+    totalTokens += batchTokens
 
     for (let j = 0; j < batch.length; j++) {
       const entry = batch[j]
       await writeEmbeddingCache(
         entry.slug,
         entry.cacheKey,
-        result.embeddings[j],
+        embeddings[j],
         DEFAULT_EMBEDDINGS_DIR,
       )
       console.log(
@@ -123,9 +133,12 @@ async function main(): Promise<void> {
   console.log(
     `[generate-embeddings] Done: ${String(generated)} generated, ${String(cached)} cached (${String(totalTokens)} total tokens)`,
   )
+
+  return ok(undefined)
 }
 
-main().catch((error: unknown) => {
-  console.error(error)
+const result = await main()
+if (result.isErr()) {
+  console.error(result.error)
   process.exit(1)
-})
+}

@@ -3,6 +3,7 @@ import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 
+import { err, ok } from 'neverthrow'
 import {
   afterEach,
   beforeEach,
@@ -17,7 +18,7 @@ import {
   getOrCreateEmbedding,
   readEmbeddingCache,
   writeEmbeddingCache,
-} from '@/lib/embedding-cache'
+} from '#lib/embedding-cache'
 
 function makeVector(dimensions: number = 1024): number[] {
   return Array.from({ length: dimensions }, (_, i) => i * 0.001)
@@ -183,13 +184,13 @@ describe('getOrCreateEmbedding', () => {
       tmpDir,
     )
 
-    expect(result).toEqual(vector)
+    expect(result).toEqual(ok(vector))
     expect(generate).not.toHaveBeenCalled()
   })
 
   it('calls generate and writes cache on cache miss', async () => {
     const vector = makeVector()
-    const generate = vi.fn().mockResolvedValueOnce(vector)
+    const generate = vi.fn().mockResolvedValueOnce(ok(vector))
 
     const result = await getOrCreateEmbedding(
       'new-post',
@@ -198,7 +199,7 @@ describe('getOrCreateEmbedding', () => {
       tmpDir,
     )
 
-    expect(result).toEqual(vector)
+    expect(result).toEqual(ok(vector))
     expect(generate).toHaveBeenCalledOnce()
 
     const content = await readFile(path.join(tmpDir, 'new-post.vec'), 'utf-8')
@@ -218,7 +219,7 @@ describe('getOrCreateEmbedding', () => {
     )
 
     const newVector = Array.from({ length: 1024 }, () => 0.5)
-    const generate = vi.fn().mockResolvedValueOnce(newVector)
+    const generate = vi.fn().mockResolvedValueOnce(ok(newVector))
 
     const result = await getOrCreateEmbedding(
       'post',
@@ -227,7 +228,7 @@ describe('getOrCreateEmbedding', () => {
       tmpDir,
     )
 
-    expect(result).toEqual(newVector)
+    expect(result).toEqual(ok(newVector))
     expect(generate).toHaveBeenCalledOnce()
   })
 
@@ -250,7 +251,7 @@ describe('getOrCreateEmbedding', () => {
       tmpDir,
     )
 
-    expect(result).toEqual(vector)
+    expect(result).toEqual(ok(vector))
     expect(generate).not.toHaveBeenCalled()
   })
 
@@ -263,7 +264,7 @@ describe('getOrCreateEmbedding', () => {
     )
 
     const vector = makeVector()
-    const generate = vi.fn().mockResolvedValueOnce(vector)
+    const generate = vi.fn().mockResolvedValueOnce(ok(vector))
 
     const result = await getOrCreateEmbedding(
       'corrupted',
@@ -272,10 +273,25 @@ describe('getOrCreateEmbedding', () => {
       tmpDir,
     )
 
-    expect(result).toEqual(vector)
+    expect(result).toEqual(ok(vector))
     expect(generate).toHaveBeenCalledOnce()
     // Corrupted file should be replaced with valid data
     const content = await readFile(path.join(tmpDir, 'corrupted.vec'), 'utf-8')
     expect(content).toBe(makeCacheFileContent('voyage-4:abc', vector))
+  })
+
+  it('returns the error and skips writing cache when generate fails', async () => {
+    const generateError = new Error('generate failed')
+    const generate = vi.fn().mockResolvedValueOnce(err(generateError))
+
+    const result = await getOrCreateEmbedding(
+      'failing-post',
+      'voyage-4:abc',
+      generate,
+      tmpDir,
+    )
+
+    expect(result).toEqual(err(generateError))
+    expect(existsSync(path.join(tmpDir, 'failing-post.vec'))).toBe(false)
   })
 })

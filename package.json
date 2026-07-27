@@ -4,6 +4,12 @@
   "private": true,
   "packageManager": "pnpm@11.15.0",
   "type": "module",
+  "imports": {
+    "#*.astro": "./src/*.astro",
+    "#*.json": "./src/*.json",
+    "#*.tsx": "./src/*.tsx",
+    "#*": "./src/*.ts"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -35,6 +41,7 @@
     "feed": "4.2.2",
     "gray-matter": "4.0.3",
     "mdast-util-to-string": "4.0.0",
+    "neverthrow": "8.2.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "remark-breaks": "4.0.0",
@@ -52,10 +59,11 @@
   "devDependencies": {
     "@commitlint/cli": "21.2.1",
     "@eslint/eslintrc": "3.3.5",
-    "@fohte/eslint-config": "0.3.6",
+    "@fohte/eslint-config": "0.4.0",
     "@iconify-json/simple-icons": "1.2.91",
     "@testing-library/jest-dom": "6.9.1",
     "@tsconfig/bun": "1.0.10",
+    "@ninoseki/eslint-plugin-neverthrow": "0.2.0",
     "@tsconfig/node-lts": "24.0.0",
     "@tsconfig/strictest": "2.0.8",
     "@types/bun": "1.3.14",

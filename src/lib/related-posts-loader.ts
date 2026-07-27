@@ -3,18 +3,20 @@ import path from 'node:path'
 
 import type { Loader } from 'astro/loaders'
 import { z } from 'astro/zod'
+import { err, ok, type Result } from 'neverthrow'
 
-import { getOrCreateEmbedding } from '@/lib/embedding-cache'
-import { EMBEDDING_MODEL } from '@/lib/embedding-constants'
+import { BoundaryError } from '#errors'
+import { getOrCreateEmbedding } from '#lib/embedding-cache'
+import { EMBEDDING_MODEL } from '#lib/embedding-constants'
 import {
   computeContentHash,
   extractTextFromFile,
-} from '@/lib/mdx-text-extractor'
+} from '#lib/mdx-text-extractor'
 import {
   findRelatedPosts,
   type PostEmbedding,
   type ScoredSlug,
-} from '@/lib/related-posts'
+} from '#lib/related-posts'
 
 export interface RelatedPostsLoaderOptions {
   maxRelatedPosts?: number
@@ -46,6 +48,8 @@ export interface Logger {
   warn: (message: string) => void
 }
 
+export class RelatedPostsLoaderError extends BoundaryError {}
+
 /**
  * Core logic for loading related posts data.
  * Extracted from the Astro loader for testability.
@@ -57,7 +61,7 @@ export async function loadRelatedPosts(
     maxRelatedPosts: number
   },
   logger: Logger,
-): Promise<LoadResult> {
+): Promise<Result<LoadResult, Error>> {
   const startTime = performance.now()
 
   // Read MDX files from filesystem (loader execution order is not guaranteed)
@@ -75,10 +79,12 @@ export async function loadRelatedPosts(
       const subFiles = await readdir(entryPath)
       const hasMdx = subFiles.some((f) => f.endsWith('.mdx'))
       if (hasMdx) {
-        throw new Error(
-          `MDX files found in subdirectory "${entry}" of postsDir. ` +
-            'The related posts loader only supports a flat directory structure. ' +
-            'To add subdirectory support, update the loader and embedding cache module.',
+        return err(
+          new Error(
+            `MDX files found in subdirectory "${entry}" of postsDir. ` +
+              'The related posts loader only supports a flat directory structure. ' +
+              'To add subdirectory support, update the loader and embedding cache module.',
+          ),
         )
       }
     }
@@ -104,30 +110,30 @@ export async function loadRelatedPosts(
 
     // Track whether generate callback was invoked (cache miss)
     const callTracker = { called: false }
-    let vector: number[]
-    try {
-      vector = await getOrCreateEmbedding(
-        slug,
-        cacheKey,
-        async () => {
-          callTracker.called = true
-          // Dynamic import to avoid voyageai SDK resolution at astro sync time
-          const { generateEmbedding } = await import('@/lib/voyage-embeddings')
-          const result = await generateEmbedding(text)
-          if (result == null) {
-            throw new Error(
-              `Failed to generate embedding for "${slug}": API key not configured`,
-            )
-          }
-          return result.vector
-        },
-        options.embeddingsDir,
-      )
-    } catch (error) {
+    const vectorResult = await getOrCreateEmbedding(
+      slug,
+      cacheKey,
+      async () => {
+        callTracker.called = true
+        // Dynamic import to avoid voyageai SDK resolution at astro sync time
+        const { generateEmbedding } = await import('#lib/voyage-embeddings')
+        const result = await generateEmbedding(text)
+        return result.andThen((embedding) =>
+          embedding == null
+            ? err(
+                new Error(
+                  `Failed to generate embedding for "${slug}": API key not configured`,
+                ),
+              )
+            : ok(embedding.vector),
+        )
+      },
+      options.embeddingsDir,
+    )
+
+    if (vectorResult.isErr()) {
       // Graceful degradation: skip posts that fail embedding generation
-      logger.warn(
-        `Skipping "${slug}": ${error instanceof Error ? error.message : String(error)}`,
-      )
+      logger.warn(`Skipping "${slug}": ${vectorResult.error.message}`)
       skippedPosts++
       continue
     }
@@ -138,7 +144,7 @@ export async function loadRelatedPosts(
       cacheHits++
     }
 
-    postEmbeddings.push({ slug, vector })
+    postEmbeddings.push({ slug, vector: vectorResult.value })
   }
 
   // Compute related posts via cosine similarity
@@ -149,14 +155,14 @@ export async function loadRelatedPosts(
 
   const elapsedMs = Math.round(performance.now() - startTime)
 
-  return {
+  return ok({
     relatedPostsMap,
     totalPosts: postEmbeddings.length,
     cacheHits,
     apiCalls,
     skippedPosts,
     elapsedMs,
-  }
+  })
 }
 
 export function relatedPostsLoader(
@@ -171,10 +177,21 @@ export function relatedPostsLoader(
     load: async (context) => {
       const { store, logger } = context
 
-      const result = await loadRelatedPosts(
+      const loadResult = await loadRelatedPosts(
         { postsDir, embeddingsDir, maxRelatedPosts },
         logger,
       )
+
+      if (loadResult.isErr()) {
+        // Astro's Loader API signals a fatal load failure only by throwing —
+        // there is no Result-based contract to propagate to here.
+        // eslint-disable-next-line no-restricted-syntax -- interop boundary with Astro's Loader API
+        throw new RelatedPostsLoaderError(
+          'failed to load related posts',
+          loadResult.error,
+        )
+      }
+      const result = loadResult.value
 
       // Store results in Content Store
       store.clear()

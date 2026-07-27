@@ -7,8 +7,8 @@ import { experimental_AstroContainer } from 'astro/container'
 import { render } from 'astro:content'
 import { Feed } from 'feed'
 
-import { rssComponents } from '@/components/mdx'
-import { getAllPosts, getPostUrl } from '@/utils/posts'
+import { rssComponents } from '#components/mdx/index.tsx'
+import { getAllPosts, getPostUrl } from '#utils/posts'
 
 const SITE_URL = 'https://fohte.net'
 

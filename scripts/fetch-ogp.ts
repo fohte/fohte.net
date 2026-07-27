@@ -2,6 +2,7 @@ import { z } from 'astro/zod'
 import { promises as fs } from 'fs'
 import { decode } from 'iconv-lite'
 import { JSDOM } from 'jsdom'
+import { err, ok, type Result } from 'neverthrow'
 
 const files = await fs.readdir('./src/content/posts')
 
@@ -48,7 +49,7 @@ const getCharset = (res: Response): string => {
   return defaultCharset
 }
 
-const fetchOgp = async (url: string): Promise<Data[string]> => {
+const fetchOgp = async (url: string): Promise<Result<Data[string], Error>> => {
   const res = await fetch(url)
   const buf = await res.arrayBuffer()
   const html = decode(Buffer.from(buf), getCharset(res) || 'utf-8')
@@ -76,7 +77,7 @@ const fetchOgp = async (url: string): Promise<Data[string]> => {
     if (res.url.startsWith('https://www.amazon.co.jp/')) {
       const asin = res.url.match(/dp\/(\w+)/)?.[1]
       if (asin == null) {
-        throw new Error(`ASIN not found: ${res.url}`)
+        return err(new Error(`ASIN not found: ${res.url}`))
       }
 
       data.image = `https://images.amazon.com/images/P/${asin}.09_SL110_.jpg`
@@ -88,7 +89,7 @@ const fetchOgp = async (url: string): Promise<Data[string]> => {
     }
   }
 
-  return data
+  return ok(data)
 }
 
 const json: Data = dataSchema.parse(
@@ -101,7 +102,12 @@ for (const url of urls) {
   }
 
   console.log(`fetching ${url}...`)
-  const data = await fetchOgp(url)
+  const result = await fetchOgp(url)
+  if (result.isErr()) {
+    console.error(result.error)
+    process.exit(1)
+  }
+  const data = result.value
 
   json[url] = data
   await fs.writeFile(

@@ -1,13 +1,20 @@
+import { err, ok, type Result } from 'neverthrow'
+
 /**
  * Compute cosine similarity between two vectors of equal length.
  *
  * Returns 0 when either vector is a zero vector (all components are 0)
  * to avoid division by zero.
  */
-export function cosineSimilarity(a: number[], b: number[]): number {
+export function cosineSimilarity(
+  a: number[],
+  b: number[],
+): Result<number, Error> {
   if (a.length !== b.length) {
-    throw new Error(
-      `Vectors must have the same length (got ${String(a.length)} and ${String(b.length)})`,
+    return err(
+      new Error(
+        `Vectors must have the same length (got ${String(a.length)} and ${String(b.length)})`,
+      ),
     )
   }
 
@@ -22,10 +29,10 @@ export function cosineSimilarity(a: number[], b: number[]): number {
   }
 
   if (normA === 0 || normB === 0) {
-    return 0
+    return ok(0)
   }
 
-  return dot / (Math.sqrt(normA) * Math.sqrt(normB))
+  return ok(dot / (Math.sqrt(normA) * Math.sqrt(normB)))
 }
 
 export interface ScoredSlug {

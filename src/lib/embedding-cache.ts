@@ -1,7 +1,9 @@
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 
-import { EXPECTED_DIMENSIONS } from '@/lib/embedding-constants'
+import { ok, type Result, ResultAsync } from 'neverthrow'
+
+import { EXPECTED_DIMENSIONS } from '#lib/embedding-constants'
 
 export const DEFAULT_EMBEDDINGS_DIR = path.resolve('src/data/embeddings')
 
@@ -18,12 +20,14 @@ export async function readEmbeddingCache(
 ): Promise<number[] | null> {
   const filePath = path.join(embeddingsDir, `${slug}.vec`)
 
-  let content: string
-  try {
-    content = await readFile(filePath, 'utf-8')
-  } catch {
+  const contentResult = await ResultAsync.fromPromise(
+    readFile(filePath, 'utf-8'),
+    () => null,
+  )
+  if (contentResult.isErr()) {
     return null
   }
+  const content = contentResult.value
 
   const lines = content.split('\n').filter((line) => line !== '')
 
@@ -88,19 +92,22 @@ export async function writeEmbeddingCache(
 export async function getOrCreateEmbedding(
   slug: string,
   cacheKey: string,
-  generate: () => Promise<number[]>,
+  generate: () => Promise<Result<number[], Error>>,
   embeddingsDir: string = DEFAULT_EMBEDDINGS_DIR,
-): Promise<number[]> {
+): Promise<Result<number[], Error>> {
   const forceRegenerate = process.env.FORCE_REGENERATE_EMBEDDINGS === 'true'
 
   if (!forceRegenerate) {
     const cached = await readEmbeddingCache(slug, cacheKey, embeddingsDir)
     if (cached != null) {
-      return cached
+      return ok(cached)
     }
   }
 
-  const vector = await generate()
-  await writeEmbeddingCache(slug, cacheKey, vector, embeddingsDir)
-  return vector
+  const result = await generate()
+  if (result.isErr()) {
+    return result
+  }
+  await writeEmbeddingCache(slug, cacheKey, result.value, embeddingsDir)
+  return result
 }
