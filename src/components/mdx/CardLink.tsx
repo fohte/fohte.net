@@ -2,7 +2,7 @@
 
 import type * as React from 'react'
 
-import ogpData from '@/data/ogp.json'
+import ogpData from '#data/ogp.json'
 
 export interface CardLinkProps {
   href: string
@@ -29,6 +29,7 @@ export const CardLink: React.FC<CardLinkProps> = ({ href }) => {
   const ogp = (ogpData as OgpData)[href]
 
   if (!(href in (ogpData as OgpData))) {
+    // eslint-disable-next-line no-restricted-syntax -- component render must return JSX, not a Result
     throw new Error(`OGP not found: ${href}`)
   }
 

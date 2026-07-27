@@ -5,6 +5,9 @@
   "packageManager": "pnpm@11.15.0",
   "type": "module",
   "imports": {
+    "#*.astro": "./src/*.astro",
+    "#*.json": "./src/*.json",
+    "#*.tsx": "./src/*.tsx",
     "#*": "./src/*.ts"
   },
   "scripts": {

@@ -14,6 +14,7 @@ type ImageProps = React.ImgHTMLAttributes<HTMLImageElement>
 
 export const Image: React.FC<ImageProps> = ({ alt, src }) => {
   if (src == null) {
+    // eslint-disable-next-line no-restricted-syntax -- component render must return JSX, not a Result
     throw new Error('Image src is required')
   }
 
@@ -30,6 +31,7 @@ export const Image: React.FC<ImageProps> = ({ alt, src }) => {
     width <= 0 ||
     height <= 0
   ) {
+    // eslint-disable-next-line no-restricted-syntax -- component render must return JSX, not a Result
     throw new Error(
       `Image 'src' must have valid 'w' and 'h' URL parameters: ${src}`,
     )

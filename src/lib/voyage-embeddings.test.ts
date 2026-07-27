@@ -1,3 +1,4 @@
+import { err, ok } from 'neverthrow'
 import {
   afterEach,
   beforeEach,
@@ -8,11 +9,11 @@ import {
   vi,
 } from 'vitest'
 
-import { generateEmbedding, generateEmbeddings } from '@/lib/voyage-embeddings'
+import { generateEmbedding, generateEmbeddings } from '#lib/voyage-embeddings'
 
 const mockEmbed = vi.fn()
 
-vi.mock('@/lib/voyage-client', () => ({
+vi.mock('#lib/voyage-client', () => ({
   createVoyageClient: () => ({ embed: mockEmbed }),
 }))
 
@@ -57,10 +58,12 @@ describe('generateEmbedding', () => {
       apiKey: 'test-key',
     })
 
-    expect(result).toEqual({
-      vector,
-      totalTokens: 42,
-    })
+    expect(result).toEqual(
+      ok({
+        vector,
+        totalTokens: 42,
+      }),
+    )
     expect(mockEmbed).toHaveBeenCalledWith(
       {
         input: 'hello world',
@@ -71,23 +74,23 @@ describe('generateEmbedding', () => {
     )
   })
 
-  it('returns null and warns when API key is not set', async () => {
+  it('returns ok(null) and warns when API key is not set', async () => {
     const result = await generateEmbedding('hello world', { apiKey: '' })
 
-    expect(result).toBeNull()
+    expect(result).toEqual(ok(null))
     expect(warnSpy).toHaveBeenCalledWith(
       expect.stringContaining('VOYAGE_API_KEY is not set'),
     )
     expect(mockEmbed).not.toHaveBeenCalled()
   })
 
-  it('returns null when apiKey option is undefined and env var is unset', async () => {
+  it('returns ok(null) when apiKey option is undefined and env var is unset', async () => {
     const original = process.env.VOYAGE_API_KEY
     delete process.env.VOYAGE_API_KEY
 
     const result = await generateEmbedding('hello world')
 
-    expect(result).toBeNull()
+    expect(result).toEqual(ok(null))
     expect(warnSpy).toHaveBeenCalled()
 
     if (original !== undefined) {
@@ -95,20 +98,30 @@ describe('generateEmbedding', () => {
     }
   })
 
-  it('throws when API response has no embeddings', async () => {
+  it('returns an error when API response has no embeddings', async () => {
     mockEmbed.mockResolvedValueOnce({ data: [], usage: { totalTokens: 0 } })
 
-    await expect(
-      generateEmbedding('hello', { apiKey: 'test-key' }),
-    ).rejects.toThrow('did not contain an embedding vector')
+    const result = await generateEmbedding('hello', { apiKey: 'test-key' })
+
+    expect(result).toEqual(
+      err(
+        new Error(
+          '[voyage-embeddings] API response did not contain an embedding vector.',
+        ),
+      ),
+    )
   })
 
-  it('throws when dimensions do not match expected value', async () => {
+  it('returns an error when dimensions do not match expected value', async () => {
     mockEmbed.mockResolvedValueOnce(makeEmbedResponse([makeVector(512)], 10))
 
-    await expect(
-      generateEmbedding('hello', { apiKey: 'test-key' }),
-    ).rejects.toThrow('Expected 1024 dimensions but got 512')
+    const result = await generateEmbedding('hello', { apiKey: 'test-key' })
+
+    expect(result).toEqual(
+      err(
+        new Error('[voyage-embeddings] Expected 1024 dimensions but got 512.'),
+      ),
+    )
   })
 
   it('passes maxRetries: 3 to the SDK for exponential backoff', async () => {
@@ -151,10 +164,12 @@ describe('generateEmbeddings', () => {
       apiKey: 'test-key',
     })
 
-    expect(result).toEqual({
-      embeddings: vectors,
-      totalTokens: 100,
-    })
+    expect(result).toEqual(
+      ok({
+        embeddings: vectors,
+        totalTokens: 100,
+      }),
+    )
     expect(mockEmbed).toHaveBeenCalledWith(
       {
         input: ['text1', 'text2'],
@@ -165,37 +180,47 @@ describe('generateEmbeddings', () => {
     )
   })
 
-  it('returns null when API key is not set', async () => {
+  it('returns ok(null) when API key is not set', async () => {
     const result = await generateEmbeddings(['text'], { apiKey: '' })
 
-    expect(result).toBeNull()
+    expect(result).toEqual(ok(null))
     expect(warnSpy).toHaveBeenCalled()
   })
 
   it('returns empty embeddings for empty input', async () => {
     const result = await generateEmbeddings([], { apiKey: 'test-key' })
 
-    expect(result).toEqual({ embeddings: [], totalTokens: 0 })
+    expect(result).toEqual(ok({ embeddings: [], totalTokens: 0 }))
     expect(mockEmbed).not.toHaveBeenCalled()
   })
 
-  it('throws when response count does not match input count', async () => {
+  it('returns an error when response count does not match input count', async () => {
     mockEmbed.mockResolvedValueOnce(makeEmbedResponse([makeVector()], 10))
 
-    await expect(
-      generateEmbeddings(['text1', 'text2'], { apiKey: 'test-key' }),
-    ).rejects.toThrow('Expected 2 embeddings but got 1')
+    const result = await generateEmbeddings(['text1', 'text2'], {
+      apiKey: 'test-key',
+    })
+
+    expect(result).toEqual(
+      err(new Error('[voyage-embeddings] Expected 2 embeddings but got 1.')),
+    )
   })
 
-  it('throws when any embedding has wrong dimensions', async () => {
+  it('returns an error when any embedding has wrong dimensions', async () => {
     mockEmbed.mockResolvedValueOnce(
       makeEmbedResponse([makeVector(1024), makeVector(512)], 20),
     )
 
-    await expect(
-      generateEmbeddings(['text1', 'text2'], { apiKey: 'test-key' }),
-    ).rejects.toThrow(
-      'Embedding at index 1: expected 1024 dimensions but got 512',
+    const result = await generateEmbeddings(['text1', 'text2'], {
+      apiKey: 'test-key',
+    })
+
+    expect(result).toEqual(
+      err(
+        new Error(
+          '[voyage-embeddings] Embedding at index 1: expected 1024 dimensions but got 512.',
+        ),
+      ),
     )
   })
 })

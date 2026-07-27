@@ -2,6 +2,7 @@ import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 
+import { ok } from 'neverthrow'
 import {
   afterEach,
   beforeEach,
@@ -16,12 +17,12 @@ import {
   loadRelatedPosts,
   type Logger,
   relatedPostsLoader,
-} from '@/lib/related-posts-loader'
+} from '#lib/related-posts-loader'
 
 // Mock voyage-embeddings to avoid real API calls
 const mockGenerateEmbedding = vi.fn()
 
-vi.mock('@/lib/voyage-embeddings', () => ({
+vi.mock('#lib/voyage-embeddings', () => ({
   generateEmbedding: (...args: unknown[]) =>
     mockGenerateEmbedding(...args) as unknown,
 }))
@@ -90,15 +91,17 @@ describe('loadRelatedPosts', () => {
 
     // Mock embedding generation
     mockGenerateEmbedding
-      .mockResolvedValueOnce({ vector: makeVector(1), totalTokens: 10 })
-      .mockResolvedValueOnce({ vector: makeVector(2), totalTokens: 10 })
-      .mockResolvedValueOnce({ vector: makeVector(3), totalTokens: 10 })
+      .mockResolvedValueOnce(ok({ vector: makeVector(1), totalTokens: 10 }))
+      .mockResolvedValueOnce(ok({ vector: makeVector(2), totalTokens: 10 }))
+      .mockResolvedValueOnce(ok({ vector: makeVector(3), totalTokens: 10 }))
 
     const logger = createMockLogger()
-    const result = await loadRelatedPosts(
-      { postsDir, embeddingsDir, maxRelatedPosts: 2 },
-      logger,
-    )
+    const result = (
+      await loadRelatedPosts(
+        { postsDir, embeddingsDir, maxRelatedPosts: 2 },
+        logger,
+      )
+    )._unsafeUnwrap()
 
     // Verify result structure
     expect(result.totalPosts).toBe(3)
@@ -139,16 +142,18 @@ describe('loadRelatedPosts', () => {
     )
 
     mockGenerateEmbedding
-      .mockResolvedValueOnce({ vector: makeVector(10), totalTokens: 10 })
-      .mockResolvedValueOnce({ vector: makeVector(20), totalTokens: 10 })
+      .mockResolvedValueOnce(ok({ vector: makeVector(10), totalTokens: 10 }))
+      .mockResolvedValueOnce(ok({ vector: makeVector(20), totalTokens: 10 }))
 
     const logger1 = createMockLogger()
 
     // First run: all API calls
-    const result1 = await loadRelatedPosts(
-      { postsDir, embeddingsDir, maxRelatedPosts: 1 },
-      logger1,
-    )
+    const result1 = (
+      await loadRelatedPosts(
+        { postsDir, embeddingsDir, maxRelatedPosts: 1 },
+        logger1,
+      )
+    )._unsafeUnwrap()
     expect(result1.apiCalls).toBe(2)
     expect(result1.cacheHits).toBe(0)
 
@@ -161,18 +166,22 @@ describe('loadRelatedPosts', () => {
       makeMdxContent('Post X', 'Updated content for X'),
     )
 
-    mockGenerateEmbedding.mockResolvedValueOnce({
-      vector: makeVector(30),
-      totalTokens: 10,
-    })
+    mockGenerateEmbedding.mockResolvedValueOnce(
+      ok({
+        vector: makeVector(30),
+        totalTokens: 10,
+      }),
+    )
 
     const logger2 = createMockLogger()
 
     // Second run: only post-x should trigger API call
-    const result2 = await loadRelatedPosts(
-      { postsDir, embeddingsDir, maxRelatedPosts: 1 },
-      logger2,
-    )
+    const result2 = (
+      await loadRelatedPosts(
+        { postsDir, embeddingsDir, maxRelatedPosts: 1 },
+        logger2,
+      )
+    )._unsafeUnwrap()
 
     // Only 1 API call (post-x changed, post-y cache hit)
     expect(result2.apiCalls).toBe(1)
@@ -188,16 +197,20 @@ describe('loadRelatedPosts', () => {
     await writeFile(path.join(postsDir, 'readme.md'), '# Readme')
     await writeFile(path.join(postsDir, 'data.json'), '{}')
 
-    mockGenerateEmbedding.mockResolvedValueOnce({
-      vector: makeVector(1),
-      totalTokens: 10,
-    })
+    mockGenerateEmbedding.mockResolvedValueOnce(
+      ok({
+        vector: makeVector(1),
+        totalTokens: 10,
+      }),
+    )
 
     const logger = createMockLogger()
-    const result = await loadRelatedPosts(
-      { postsDir, embeddingsDir, maxRelatedPosts: 5 },
-      logger,
-    )
+    const result = (
+      await loadRelatedPosts(
+        { postsDir, embeddingsDir, maxRelatedPosts: 5 },
+        logger,
+      )
+    )._unsafeUnwrap()
 
     expect(result.totalPosts).toBe(1)
     expect(mockGenerateEmbedding).toHaveBeenCalledTimes(1)
@@ -210,17 +223,21 @@ describe('loadRelatedPosts', () => {
         path.join(postsDir, `post-${String(i)}.mdx`),
         makeMdxContent(`Post ${String(i)}`, `Content ${String(i)}`),
       )
-      mockGenerateEmbedding.mockResolvedValueOnce({
-        vector: makeVector(i * 10),
-        totalTokens: 10,
-      })
+      mockGenerateEmbedding.mockResolvedValueOnce(
+        ok({
+          vector: makeVector(i * 10),
+          totalTokens: 10,
+        }),
+      )
     }
 
     const logger = createMockLogger()
-    const result = await loadRelatedPosts(
-      { postsDir, embeddingsDir, maxRelatedPosts: 5 },
-      logger,
-    )
+    const result = (
+      await loadRelatedPosts(
+        { postsDir, embeddingsDir, maxRelatedPosts: 5 },
+        logger,
+      )
+    )._unsafeUnwrap()
 
     // Each post should have at most 5 related posts (6 others, capped at 5)
     for (const related of Object.values(result.relatedPostsMap)) {
@@ -228,7 +245,7 @@ describe('loadRelatedPosts', () => {
     }
   })
 
-  it('throws when MDX files exist in subdirectories', async () => {
+  it('returns an error when MDX files exist in subdirectories', async () => {
     const subDir = path.join(postsDir, 'blog')
     await mkdir(subDir, { recursive: true })
     await writeFile(
@@ -238,9 +255,15 @@ describe('loadRelatedPosts', () => {
 
     const logger = createMockLogger()
 
-    await expect(
-      loadRelatedPosts({ postsDir, embeddingsDir, maxRelatedPosts: 5 }, logger),
-    ).rejects.toThrow('only supports a flat directory structure')
+    const result = await loadRelatedPosts(
+      { postsDir, embeddingsDir, maxRelatedPosts: 5 },
+      logger,
+    )
+
+    expect(result.isErr()).toBe(true)
+    expect(result._unsafeUnwrapErr().message).toContain(
+      'only supports a flat directory structure',
+    )
   })
 
   it('skips posts gracefully when API key is not configured', async () => {
@@ -249,13 +272,15 @@ describe('loadRelatedPosts', () => {
       makeMdxContent('Post', 'Content'),
     )
 
-    mockGenerateEmbedding.mockResolvedValueOnce(null)
+    mockGenerateEmbedding.mockResolvedValueOnce(ok(null))
 
     const logger = createMockLogger()
-    const result = await loadRelatedPosts(
-      { postsDir, embeddingsDir, maxRelatedPosts: 5 },
-      logger,
-    )
+    const result = (
+      await loadRelatedPosts(
+        { postsDir, embeddingsDir, maxRelatedPosts: 5 },
+        logger,
+      )
+    )._unsafeUnwrap()
 
     // Post should be skipped
     expect(result.totalPosts).toBe(0)
