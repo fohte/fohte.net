@@ -3,7 +3,7 @@ import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 
-import { ok } from 'neverthrow'
+import { err, ok } from 'neverthrow'
 import {
   afterEach,
   beforeEach,
@@ -278,5 +278,20 @@ describe('getOrCreateEmbedding', () => {
     // Corrupted file should be replaced with valid data
     const content = await readFile(path.join(tmpDir, 'corrupted.vec'), 'utf-8')
     expect(content).toBe(makeCacheFileContent('voyage-4:abc', vector))
+  })
+
+  it('returns the error and skips writing cache when generate fails', async () => {
+    const generateError = new Error('generate failed')
+    const generate = vi.fn().mockResolvedValueOnce(err(generateError))
+
+    const result = await getOrCreateEmbedding(
+      'failing-post',
+      'voyage-4:abc',
+      generate,
+      tmpDir,
+    )
+
+    expect(result).toEqual(err(generateError))
+    expect(existsSync(path.join(tmpDir, 'failing-post.vec'))).toBe(false)
   })
 })

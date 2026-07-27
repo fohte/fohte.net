@@ -1,9 +1,13 @@
-import { err, ok, type Result } from 'neverthrow'
+import { err, ok, type Result, ResultAsync } from 'neverthrow'
 
 import { EMBEDDING_MODEL, EXPECTED_DIMENSIONS } from '#lib/embedding-constants'
 import { createVoyageClient } from '#lib/voyage-client'
 
 const MAX_RETRIES = 3
+
+function toError(error: unknown): Error {
+  return error instanceof Error ? error : new Error(String(error))
+}
 
 export interface EmbeddingResult {
   /** The embedding vector */
@@ -69,16 +73,24 @@ export async function generateEmbedding(
 
   const client = createVoyageClient(apiKey)
 
-  const response: EmbedResponse = await client.embed(
-    {
-      input: text,
-      model: EMBEDDING_MODEL,
-      inputType: 'document',
-    },
-    {
-      maxRetries: MAX_RETRIES,
-    },
-  )
+  const responseResult: Result<EmbedResponse, Error> =
+    await ResultAsync.fromPromise(
+      client.embed(
+        {
+          input: text,
+          model: EMBEDDING_MODEL,
+          inputType: 'document',
+        },
+        {
+          maxRetries: MAX_RETRIES,
+        },
+      ),
+      toError,
+    )
+  if (responseResult.isErr()) {
+    return err(responseResult.error)
+  }
+  const response = responseResult.value
 
   const embeddings = extractEmbeddings(response)
   if (embeddings == null || embeddings.length === 0) {
@@ -128,16 +140,24 @@ export async function generateEmbeddings(
 
   const client = createVoyageClient(apiKey)
 
-  const response: EmbedResponse = await client.embed(
-    {
-      input: texts,
-      model: EMBEDDING_MODEL,
-      inputType: 'document',
-    },
-    {
-      maxRetries: MAX_RETRIES,
-    },
-  )
+  const responseResult: Result<EmbedResponse, Error> =
+    await ResultAsync.fromPromise(
+      client.embed(
+        {
+          input: texts,
+          model: EMBEDDING_MODEL,
+          inputType: 'document',
+        },
+        {
+          maxRetries: MAX_RETRIES,
+        },
+      ),
+      toError,
+    )
+  if (responseResult.isErr()) {
+    return err(responseResult.error)
+  }
+  const response = responseResult.value
 
   const embeddings = extractEmbeddings(response)
   if (embeddings == null || embeddings.length !== texts.length) {

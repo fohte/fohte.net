@@ -135,12 +135,12 @@ describe('generateEmbedding', () => {
     )
   })
 
-  it('propagates SDK errors', async () => {
+  it('returns an error when the SDK call rejects', async () => {
     mockEmbed.mockRejectedValueOnce(new Error('rate limit exceeded'))
 
-    await expect(
-      generateEmbedding('hello', { apiKey: 'test-key' }),
-    ).rejects.toThrow('rate limit exceeded')
+    const result = await generateEmbedding('hello', { apiKey: 'test-key' })
+
+    expect(result).toEqual(err(new Error('rate limit exceeded')))
   })
 })
 
@@ -222,5 +222,15 @@ describe('generateEmbeddings', () => {
         ),
       ),
     )
+  })
+
+  it('returns an error when the SDK call rejects', async () => {
+    mockEmbed.mockRejectedValueOnce(new Error('rate limit exceeded'))
+
+    const result = await generateEmbeddings(['text1', 'text2'], {
+      apiKey: 'test-key',
+    })
+
+    expect(result).toEqual(err(new Error('rate limit exceeded')))
   })
 })

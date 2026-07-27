@@ -2,7 +2,7 @@ import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 
-import { ok } from 'neverthrow'
+import { err, ok } from 'neverthrow'
 import {
   afterEach,
   beforeEach,
@@ -17,6 +17,7 @@ import {
   loadRelatedPosts,
   type Logger,
   relatedPostsLoader,
+  RelatedPostsLoaderError,
 } from '#lib/related-posts-loader'
 
 // Mock voyage-embeddings to avoid real API calls
@@ -260,9 +261,14 @@ describe('loadRelatedPosts', () => {
       logger,
     )
 
-    expect(result.isErr()).toBe(true)
-    expect(result._unsafeUnwrapErr().message).toContain(
-      'only supports a flat directory structure',
+    expect(result).toEqual(
+      err(
+        new Error(
+          'MDX files found in subdirectory "blog" of postsDir. ' +
+            'The related posts loader only supports a flat directory structure. ' +
+            'To add subdirectory support, update the loader and embedding cache module.',
+        ),
+      ),
     )
   })
 
@@ -300,5 +306,28 @@ describe('relatedPostsLoader', () => {
   it('exposes the schema', () => {
     const loader = relatedPostsLoader()
     expect(loader).toHaveProperty('schema')
+  })
+
+  it('throws RelatedPostsLoaderError when loadRelatedPosts fails', async () => {
+    const tmpDir = await mkdtemp(
+      path.join(tmpdir(), 'related-posts-loader-test-'),
+    )
+    const postsDir = path.join(tmpDir, 'posts')
+    const subDir = path.join(postsDir, 'blog')
+    await mkdir(subDir, { recursive: true })
+    await writeFile(
+      path.join(subDir, 'nested-post.mdx'),
+      makeMdxContent('Nested', 'Content'),
+    )
+
+    const loader = relatedPostsLoader({ postsDir })
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- only `logger` is read before the failure branch returns
+    const context = {
+      logger: createMockLogger(),
+    } as unknown as Parameters<typeof loader.load>[0]
+
+    await expect(loader.load(context)).rejects.toThrow(RelatedPostsLoaderError)
+
+    await rm(tmpDir, { recursive: true, force: true })
   })
 })
