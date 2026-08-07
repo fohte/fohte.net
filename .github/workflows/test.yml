@@ -19,7 +19,7 @@ jobs:
           identity: ${{ github.event.repository.name }}
           domain: octo-sts.fohte.net
 
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
           fetch-depth: 2
@@ -44,7 +44,11 @@ jobs:
         with:
           version: 2026.7.13
 
-      - run: corepack enable
+      # corepack creates the pnpm executable inside mise's node install bin
+      # directory; reshim so the mise shims dir (which is on PATH) picks it up.
+      - run: |
+          corepack enable
+          mise reshim
 
       - name: Get pnpm store directory
         id: pnpm-store
@@ -96,13 +100,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - uses: jdx/mise-action@9e7f7633ff6f6d6048a9418a68d48f288f50eb14 # v4.2.3
         with:
           version: 2026.7.13
 
-      - run: corepack enable
+      # corepack creates the pnpm executable inside mise's node install bin
+      # directory; reshim so the mise shims dir (which is on PATH) picks it up.
+      - run: |
+          corepack enable
+          mise reshim
 
       - name: Get pnpm store directory
         id: pnpm-store
