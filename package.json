@@ -2,7 +2,7 @@
   "name": "fohte.net",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "pnpm@11.15.0",
+  "packageManager": "pnpm@11.16.0",
   "type": "module",
   "imports": {
     "#*.astro": "./src/*.astro",
@@ -58,7 +58,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "21.2.1",
-    "@eslint/eslintrc": "3.3.5",
+    "@eslint/eslintrc": "3.3.6",
     "@fohte/eslint-config": "0.4.0",
     "@iconify-json/simple-icons": "1.2.92",
     "@testing-library/jest-dom": "6.9.1",
