@@ -59,7 +59,7 @@
   "devDependencies": {
     "@commitlint/cli": "21.2.1",
     "@eslint/eslintrc": "3.3.6",
-    "@fohte/eslint-config": "0.4.0",
+    "@fohte/eslint-config": "0.4.1",
     "@iconify-json/simple-icons": "1.2.93",
     "@testing-library/jest-dom": "6.9.1",
     "@tsconfig/bun": "1.0.10",
