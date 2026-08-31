@@ -58,8 +58,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "21.2.1",
-    "@eslint/eslintrc": "3.3.6",
-    "@fohte/eslint-config": "0.4.1",
+    "@fohte/eslint-config": "0.4.3",
     "@iconify-json/simple-icons": "1.2.93",
     "@testing-library/jest-dom": "6.9.1",
     "@tsconfig/bun": "1.0.10",
@@ -84,6 +83,7 @@
     "happy-dom": "20.10.6",
     "iconv-lite": "0.7.3",
     "jsdom": "26.1.0",
+    "knip": "6.32.2",
     "prettier": "3.9.6",
     "prettier-plugin-astro": "0.14.1",
     "prettier-plugin-tailwindcss": "0.8.1",
