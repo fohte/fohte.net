@@ -1,0 +1,6 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "treatConfigHintsAsErrors": true,
+  "ignoreDependencies": ["@commitlint/cli"],
+  "ignore": ["commitlint-plugin-no-external-refs.cjs"]
+}
