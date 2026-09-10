@@ -26,10 +26,10 @@
     "generate:embeddings": "node --import tsx/esm --import tsconfig-paths/register scripts/generate-embeddings.ts"
   },
   "dependencies": {
-    "@astrojs/markdown-remark": "7.2.1",
-    "@astrojs/mdx": "7.0.3",
+    "@astrojs/markdown-remark": "7.3.0",
+    "@astrojs/mdx": "7.0.8",
     "@astrojs/react": "5.0.7",
-    "@astrojs/sitemap": "3.7.3",
+    "@astrojs/sitemap": "3.7.4",
     "@fontsource/ibm-plex-mono": "5.2.7",
     "@fontsource/noto-sans-jp": "5.2.9",
     "@radix-ui/react-slot": "1.2.5",
