@@ -24,7 +24,7 @@ export interface RelatedPostsLoaderOptions {
   embeddingsDir?: string
 }
 
-export const relatedPostsSchema = z.object({
+const relatedPostsSchema = z.object({
   slug: z.string(),
   relatedSlugs: z.array(
     z.object({

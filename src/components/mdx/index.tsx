@@ -98,12 +98,3 @@ export const rssComponents: MDXComponents = {
     <div>{children}</div>
   ),
 }
-
-// Re-export components for direct import
-export { CardLink } from '#components/mdx/CardLink.tsx'
-export { DocsHeading } from '#components/mdx/DocsHeading.tsx'
-export { Image } from '#components/mdx/Image.tsx'
-export { ImageGrid } from '#components/mdx/ImageGrid.tsx'
-export { Kbd } from '#components/mdx/Kbd.tsx'
-export { Link } from '#components/mdx/Link.tsx'
-export { SpeakerDeck } from '#components/mdx/SpeakerDeck.tsx'

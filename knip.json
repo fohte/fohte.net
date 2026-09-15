@@ -1,6 +1,12 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "treatConfigHintsAsErrors": true,
-  "ignoreDependencies": ["@commitlint/cli"],
+  "ignoreDependencies": [
+    "@commitlint/cli",
+    "@fontsource/ibm-plex-mono",
+    "@fontsource/noto-sans-jp",
+    "@iconify-json/simple-icons",
+    "textlint-rule-preset-ja-technical-writing"
+  ],
   "ignore": ["commitlint-plugin-no-external-refs.cjs"]
 }

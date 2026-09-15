@@ -2,7 +2,7 @@ import type * as React from 'react'
 
 export type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement>
 
-export const isInternalLink = (href: string): boolean => {
+const isInternalLink = (href: string): boolean => {
   // External links start with a protocol (http:, https:) or protocol-relative scheme (//)
   return !/^(https?:)?\/\//.test(href)
 }
