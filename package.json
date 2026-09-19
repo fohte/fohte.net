@@ -71,12 +71,6 @@
     "@vitejs/plugin-react": "5.2.0",
     "@vitest/ui": "4.1.11",
     "astro-icon": "1.2.0",
-<<<<<<< before updating
-||||||| last update
-    "@types/node": "24.13.3",
-=======
-    "@types/node": "24.13.4",
->>>>>>> after updating
     "concurrently": "10.0.5",
     "eslint": "10.10.0",
     "eslint-config-prettier": "10.1.8",
