@@ -7,7 +7,6 @@ import SocialList from '../components/astro/SocialList.astro'
 
 const posts = await getCollection('posts')
 const recentPosts = posts
-  .filter((post) => !post.id.includes('e2e-test-'))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3)
 ---

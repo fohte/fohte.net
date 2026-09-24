@@ -41,6 +41,9 @@ node_modules/
 # Astro
 .astro/
 dist
+__screenshots__/
+.reg/
+.vrt/
 
 # Wrangler
 .wrangler/

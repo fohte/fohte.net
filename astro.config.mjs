@@ -105,7 +105,6 @@ export default defineConfig({
     icon(),
     mdx(),
     sitemap({
-      filter: (page) => !page.includes('/e2e-test-'),
       serialize(item) {
         const url = new URL(item.url)
         const lastmod = postLastmodMap.get(url.pathname)

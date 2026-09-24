@@ -1,0 +1,15 @@
+name: VRT approval
+
+on:
+  pull_request:
+    types: [synchronize, labeled]
+
+jobs:
+  vrt-approval:
+    permissions:
+      contents: read
+      pull-requests: write
+      statuses: write
+    uses: fohte/storybook-vrt-workflows/.github/workflows/vrt-approval.yml@b1745100ad0c07758b763db13f25e5a0f2d7beec # v0.1.5
+    with:
+      r2-bucket: fohte-net-vrt

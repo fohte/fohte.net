@@ -4,8 +4,11 @@ import { defineCollection } from 'astro:content'
 
 import { relatedPostsLoader } from '#lib/related-posts-loader'
 
+const isVrt = process.env.VRT === 'true'
+const postsBase = isVrt ? './src/content/vrt-posts' : './src/content/posts'
+
 const posts = defineCollection({
-  loader: glob({ pattern: '**/*.mdx', base: './src/content/posts' }),
+  loader: glob({ pattern: '**/*.mdx', base: postsBase }),
   schema: z.object({
     title: z.string(),
     date: z.coerce.date(),
@@ -17,7 +20,10 @@ const posts = defineCollection({
 })
 
 const relatedPosts = defineCollection({
-  loader: relatedPostsLoader(),
+  loader: relatedPostsLoader({
+    postsDir: postsBase,
+    embeddingsDir: isVrt ? './.vrt/embeddings' : undefined,
+  }),
   schema: z.object({
     slug: z.string(),
     relatedSlugs: z.array(

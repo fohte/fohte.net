@@ -1,4 +1,8 @@
 {
+  "https://example.invalid/card": {
+    "title": "Fixture card title",
+    "description": "Stable card content for visual regression captures."
+  },
   "https://store.steampowered.com/app/1446780/MONSTER_HUNTER_RISE/?l=japanese": {
     "title": "Steam：MONSTER HUNTER RISE",
     "description": "躍動する狩猟本能！ 狩猟に新風を巻き起こす、縦横無尽に躍動するアクション。思いのままに翔けあがれる、新たなフィールド。未知の興奮や驚きをもたらす、全く新しいモンスターたち。 「モンスターハンターライズ」で、かつてない狩猟体験がハンターたちを待っている！",

@@ -7,12 +7,12 @@ import Tag from '#components/astro/Tag.astro'
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts')
-  const publishedPosts = posts
-    .filter((post) => !post.id.includes('e2e-test-'))
-    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  const sortedPosts = posts.sort(
+    (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+  )
 
   const allTags = new Set<string>()
-  publishedPosts.forEach((post) => {
+  sortedPosts.forEach((post) => {
     post.data.tags?.forEach((tag) => allTags.add(tag))
   })
 
@@ -20,7 +20,7 @@ export async function getStaticPaths() {
     params: { tag },
     props: {
       tag,
-      posts: publishedPosts.filter((post) => post.data.tags?.includes(tag)),
+      posts: sortedPosts.filter((post) => post.data.tags?.includes(tag)),
       allTags: Array.from(allTags).sort(),
     },
   }))
