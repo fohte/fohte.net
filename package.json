@@ -14,7 +14,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "vrt:capture": "astro build && node scripts/capture-vrt.mjs",
+    "vrt:capture": "VRT=true VOYAGE_API_KEY= astro build && node scripts/capture-vrt.mjs",
     "lint": "eslint .",
     "format:eslint": "eslint --fix .",
     "format:prettier": "prettier --write .",

@@ -76,6 +76,13 @@ async function captureScreenshots() {
       await context.route('https://www.googletagmanager.com/**', (route) =>
         route.abort(),
       )
+      // Keep screenshot glyph metrics independent of Google Fonts availability.
+      await context.route('https://fonts.googleapis.com/**', (route) =>
+        route.abort(),
+      )
+      await context.route('https://fonts.gstatic.com/**', (route) =>
+        route.abort(),
+      )
 
       const page = await context.newPage()
       for (const entry of pages) {

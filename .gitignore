@@ -43,6 +43,7 @@ node_modules/
 dist
 __screenshots__/
 .reg/
+.vrt/
 
 # Wrangler
 .wrangler/

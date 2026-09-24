@@ -6,6 +6,10 @@
     "@fontsource/ibm-plex-mono",
     "@fontsource/noto-sans-jp",
     "@iconify-json/simple-icons",
+    "neotraverse",
+    "reg-publish-s3-plugin",
+    "reg-simple-keygen-plugin",
+    "reg-suit",
     "textlint-rule-preset-ja-technical-writing"
   ],
   "ignore": ["commitlint-plugin-no-external-refs.cjs"]

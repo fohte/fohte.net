@@ -12,8 +12,6 @@ permissions:
 jobs:
   capture:
     runs-on: ubuntu-latest
-    env:
-      VRT: 'true'
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -75,6 +73,8 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          R2_ENDPOINT: https://8d88a085ccc7b11f252419e2f3a25fd6.r2.cloudflarestorage.com
+          BASELINE_URI: s3://fohte-net-vrt/baseline/actual
         run: |
           set -euo pipefail
           current_head=$(git ls-remote origin refs/heads/master | cut -f1)
@@ -89,14 +89,14 @@ jobs:
             exit 0
           fi
 
-          aws s3 cp __screenshots__/fohte-net s3://fohte-net-vrt/baseline/actual/ \
+          aws s3 cp __screenshots__/fohte-net "$BASELINE_URI/" \
             --recursive \
-            --endpoint-url https://8d88a085ccc7b11f252419e2f3a25fd6.r2.cloudflarestorage.com \
+            --endpoint-url "$R2_ENDPOINT" \
             --region auto
 
           jq -r '.deletedItems[]' .reg/out.json | while IFS= read -r item; do
-            aws s3 rm "s3://fohte-net-vrt/baseline/actual/$item" \
-              --endpoint-url https://8d88a085ccc7b11f252419e2f3a25fd6.r2.cloudflarestorage.com \
+            aws s3 rm "$BASELINE_URI/$item" \
+              --endpoint-url "$R2_ENDPOINT" \
               --region auto
           done
 
