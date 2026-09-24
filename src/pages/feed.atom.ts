@@ -23,8 +23,7 @@ export const GET: APIRoute = async () => {
   })
 
   const allPosts = await getAllPosts()
-  const posts = allPosts.filter((post) => !post.id.includes('e2e-test-'))
-  const latestPosts = posts.slice(0, 10)
+  const latestPosts = allPosts.slice(0, 10)
 
   const container = await experimental_AstroContainer.create()
   container.addServerRenderer({ renderer: reactRenderer })

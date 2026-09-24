@@ -43,9 +43,7 @@ async function main(): Promise<Result<void, Error>> {
   }
 
   const files = await readdir(POSTS_DIR)
-  const mdxFiles = files.filter(
-    (f) => f.endsWith('.mdx') && !f.startsWith('e2e-test-'),
-  )
+  const mdxFiles = files.filter((f) => f.endsWith('.mdx'))
 
   console.log(`[generate-embeddings] Found ${String(mdxFiles.length)} posts`)
 
