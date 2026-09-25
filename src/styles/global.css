@@ -1,50 +1,30 @@
 @import 'tailwindcss';
+@import '@fohte/ui/tokens.css';
 
-@theme {
-  --font-sans:
-    'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans',
-    Meiryo, sans-serif;
+@theme static {
+  /* Preserve Tailwind's defaults after the package sets --radius to 0. */
+  --radius-sm: 0.25rem;
+  --radius-lg: 0.5rem;
   --font-mono-ui: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
   --font-mono-body: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+  /* Tailwind's preflight uses this stack for bare code, kbd, and samp. */
+  --font-mono:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace;
 
-  --color-bg-primary: #0a0a0a;
-  --color-bg-secondary: #141414;
-  --color-bg-tertiary: #1f1f1f;
-  --color-text-primary: #fafafa;
-  --color-text-secondary: #a1a1aa;
-  --color-text-tertiary: #71717a;
-  --color-accent: #ef4444;
-  --color-border: #2a2a2a;
+  --color-bg-primary: var(--background);
+  --color-bg-secondary: var(--card);
+  --color-bg-tertiary: var(--accent);
+  --color-text-primary: var(--foreground);
+  --color-text-secondary: var(--muted-foreground-strong);
+  --color-text-tertiary: var(--muted-foreground);
+  --color-accent: var(--primary);
+  --color-border: var(--border);
   --color-code-bg: #141414;
 }
 
-@custom-variant light (&:where(.light, .light *));
-
-/* Light theme overrides */
 :root.light {
-  --color-bg-primary: #fafafa;
-  --color-bg-secondary: #f0f0f0;
-  --color-bg-tertiary: #e5e5e5;
-  --color-text-primary: #0a0a0a;
-  --color-text-secondary: #3f3f46;
-  --color-text-tertiary: #52525b;
-  --color-accent: #dc2626;
-  --color-border: #e5e5e5;
   --color-code-bg: #1e1e1e;
-}
-
-@media (prefers-color-scheme: light) {
-  :root:not(.dark) {
-    --color-bg-primary: #fafafa;
-    --color-bg-secondary: #f0f0f0;
-    --color-bg-tertiary: #e5e5e5;
-    --color-text-primary: #0a0a0a;
-    --color-text-secondary: #3f3f46;
-    --color-text-tertiary: #52525b;
-    --color-accent: #dc2626;
-    --color-border: #e5e5e5;
-    --color-code-bg: #1e1e1e;
-  }
 }
 
 html {

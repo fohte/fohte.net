@@ -178,6 +178,9 @@ importers:
       '@astrojs/sitemap':
         specifier: 3.7.3
         version: 3.7.3
+      '@fohte/ui':
+        specifier: 0.1.0
+        version: 0.1.0
       '@fontsource/ibm-plex-mono':
         specifier: 5.2.7
         version: 5.2.7
@@ -1297,6 +1300,9 @@ packages:
         optional: true
       typescript:
         optional: true
+
+  '@fohte/ui@0.1.0':
+    resolution: {integrity: sha512-J2PtgJ9XwH1ECyHpFjE00T67JeY7dGTZOnmZYDp5Ni2eszlR7nb7A8D6BVJL6sldSlCX02awPBnGH8NBp14Ifg==}
 
   '@fontsource/ibm-plex-mono@5.2.7':
     resolution: {integrity: sha512-MKAb8qV+CaiMQn2B0dIi1OV3565NYzp3WN5b4oT6LTkk+F0jR6j0ZN+5BKJiIhffDC3rtBULsYZE65+0018z9w==}
@@ -7964,6 +7970,8 @@ snapshots:
       typescript: 6.0.3
     transitivePeerDependencies:
       - supports-color
+
+  '@fohte/ui@0.1.0': {}
 
   '@fontsource/ibm-plex-mono@5.2.7': {}
 
