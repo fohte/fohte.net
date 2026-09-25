@@ -18,8 +18,8 @@
   --color-text-primary: var(--foreground);
   --color-text-secondary: var(--muted-foreground-strong);
   --color-text-tertiary: var(--muted-foreground);
+  /* Keep the site's accent utilities red; the package's --accent is gray. */
   --color-accent: var(--primary);
-  --color-border: var(--border);
   --color-code-bg: #141414;
 }
 
