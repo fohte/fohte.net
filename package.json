@@ -31,6 +31,7 @@
     "@astrojs/mdx": "7.0.3",
     "@astrojs/react": "5.0.7",
     "@astrojs/sitemap": "3.7.3",
+    "@fohte/ui": "0.1.0",
     "@fontsource/ibm-plex-mono": "5.2.7",
     "@fontsource/noto-sans-jp": "5.2.9",
     "@tailwindcss/vite": "4.3.3",
