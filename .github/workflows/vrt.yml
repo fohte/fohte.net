@@ -25,7 +25,7 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - uses: fohte/storybook-vrt-workflows/vrt-capture@b1745100ad0c07758b763db13f25e5a0f2d7beec # v0.1.5
+      - uses: fohte/storybook-vrt-workflows/vrt-capture@691148d6e8e53b86c8f93b5b54cadbd8308b06d3 # v0.1.6
         with:
           project: fohte-net-pages
           shard: 1
@@ -57,7 +57,7 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - uses: fohte/storybook-vrt-workflows/vrt-report@b1745100ad0c07758b763db13f25e5a0f2d7beec # v0.1.5
+      - uses: fohte/storybook-vrt-workflows/vrt-report@691148d6e8e53b86c8f93b5b54cadbd8308b06d3 # v0.1.6
         with:
           package-dir: .
           screenshots-dir: __screenshots__/fohte-net
