@@ -38,7 +38,7 @@ export const CardLink: React.FC<CardLinkProps> = ({ href }) => {
   return (
     <a
       href={href}
-      className="my-4 flex items-center justify-center gap-6 overflow-hidden border border-[var(--color-border)] px-4 py-4 no-underline transition-colors hover:border-[var(--color-text-tertiary)]"
+      className="my-4 flex items-center justify-center gap-6 overflow-hidden border border-[var(--color-border)] px-4 py-4 no-underline transition-colors hover:border-[var(--muted-foreground)]"
     >
       {ogp.image != null && ogp.image !== '' && (
         <div className="flex max-w-[min(40%,250px)] min-w-[min(20%,150px)] items-center justify-center">
@@ -53,9 +53,9 @@ export const CardLink: React.FC<CardLinkProps> = ({ href }) => {
         <p className="font-[family-name:var(--font-mono-ui)] text-[15px] font-bold">
           {ogp.title}
         </p>
-        <p className="text-sm text-[var(--color-text-tertiary)]">{domain}</p>
+        <p className="text-sm text-[var(--muted-foreground)]">{domain}</p>
         {ogp.description != null && ogp.description !== '' && (
-          <p className="mt-1 text-xs text-[var(--color-text-secondary)]">
+          <p className="mt-1 text-xs text-[var(--muted-foreground-strong)]">
             {collapseDescription(ogp.description)}
           </p>
         )}

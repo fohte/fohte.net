@@ -21,27 +21,29 @@ const { relatedPosts } = Astro.props
 {
   relatedPosts.length > 0 && (
     <section class="flex flex-col gap-4">
-      <span class="text-text-tertiary font-[family-name:var(--font-mono-ui)] text-[11px]">
+      <span class="text-muted-foreground font-[family-name:var(--font-mono-ui)] text-[11px]">
         // related posts
       </span>
       <div class="flex flex-col gap-4">
         {relatedPosts.map((post) => (
           <a
             href={post.url}
-            class="border-border bg-bg-secondary hover:border-text-tertiary block border no-underline transition-colors"
+            class="border-border bg-card hover:border-muted-foreground block border no-underline transition-colors"
           >
             <div class="flex flex-col gap-1.5 p-5">
               <time
-                class="text-text-tertiary block font-[family-name:var(--font-mono-ui)] text-[11px]"
+                class="text-muted-foreground block font-[family-name:var(--font-mono-ui)] text-[11px]"
                 datetime={post.date.toISOString()}
               >
                 {format(post.date, 'yyyy-MM-dd')}
               </time>
-              <h3 class="text-text-primary text-base font-semibold">
+              <h3 class="text-foreground text-base font-semibold">
                 {post.title}
               </h3>
               {post.description && (
-                <p class="text-text-secondary text-sm">{post.description}</p>
+                <p class="text-muted-foreground-strong text-sm">
+                  {post.description}
+                </p>
               )}
               {post.tags && post.tags.length > 0 && (
                 <div class="mt-1 flex flex-wrap gap-1.5">

@@ -37,7 +37,7 @@ const { tag, posts, allTags } = Astro.props
     <div class="flex min-w-0 flex-1 flex-col gap-6">
       <div class="flex flex-col gap-2">
         <span
-          class="text-text-secondary font-[family-name:var(--font-mono-ui)] text-sm"
+          class="text-muted-foreground-strong font-[family-name:var(--font-mono-ui)] text-sm"
           >$ ls ~/posts --tag={tag}</span
         >
         <h1 class="font-[family-name:var(--font-mono-ui)] text-4xl font-bold">
@@ -50,7 +50,7 @@ const { tag, posts, allTags } = Astro.props
       <!-- Tags for SP -->
       <div class="border-border border-t pt-6 lg:hidden">
         <span
-          class="text-text-tertiary mb-4 block font-[family-name:var(--font-mono-ui)] text-[11px]"
+          class="text-muted-foreground mb-4 block font-[family-name:var(--font-mono-ui)] text-[11px]"
           >// tags</span
         >
         <div class="flex flex-wrap gap-1.5">
@@ -69,7 +69,7 @@ const { tag, posts, allTags } = Astro.props
       class="border-border hidden w-[220px] shrink-0 border-l pl-6 lg:block"
     >
       <span
-        class="text-text-tertiary mb-4 block font-[family-name:var(--font-mono-ui)] text-[11px]"
+        class="text-muted-foreground mb-4 block font-[family-name:var(--font-mono-ui)] text-[11px]"
         >// tags</span
       >
       <div class="flex flex-wrap gap-1.5">

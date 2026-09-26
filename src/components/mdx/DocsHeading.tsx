@@ -24,7 +24,7 @@ export const DocsHeading: React.FC<DocsHeadingProps> = ({
       {...props}
     >
       <span className="flex items-baseline gap-2">
-        <span className="shrink-0 text-[13px] font-bold text-[var(--color-accent)]">
+        <span className="shrink-0 text-[13px] font-bold text-[var(--primary)]">
           {'#'.repeat(Number(Component.replace('h', '')) || 2)}
         </span>
         <span className="min-w-0">{children}</span>
@@ -32,7 +32,7 @@ export const DocsHeading: React.FC<DocsHeadingProps> = ({
           <a
             href={`#${id}`}
             aria-label={`Link to ${id} section`}
-            className="ml-1 font-normal text-[var(--color-accent)] opacity-0 transition-opacity outline-none group-hover:opacity-100 focus:opacity-100"
+            className="ml-1 font-normal text-[var(--primary)] opacity-0 transition-opacity outline-none group-hover:opacity-100 focus:opacity-100"
           >
             #
           </a>

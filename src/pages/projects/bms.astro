@@ -92,13 +92,13 @@ const diffs = [
     <div class="flex w-full max-w-[780px] flex-col gap-8">
       <div class="flex flex-col gap-2">
         <span
-          class="text-text-secondary font-[family-name:var(--font-mono-ui)] text-sm"
+          class="text-muted-foreground-strong font-[family-name:var(--font-mono-ui)] text-sm"
           >$ ls ~/projects/bms</span
         >
         <h1 class="font-[family-name:var(--font-mono-ui)] text-4xl font-bold">
           bms
         </h1>
-        <p class="text-text-secondary text-sm">BMS 曲と作った差分。</p>
+        <p class="text-muted-foreground-strong text-sm">BMS 曲と作った差分。</p>
       </div>
 
       <hr class="border-border" />
@@ -107,7 +107,7 @@ const diffs = [
       <section class="flex flex-col gap-4">
         <div class="flex items-center gap-2">
           <span
-            class="text-accent font-[family-name:var(--font-mono-ui)] text-[13px] font-bold"
+            class="text-primary font-[family-name:var(--font-mono-ui)] text-[13px] font-bold"
             >##</span
           >
           <h2 class="text-xl font-bold">originals</h2>
@@ -118,9 +118,15 @@ const diffs = [
           >
             <thead>
               <tr class="border-border border-b">
-                <th class="text-text-secondary px-3 py-2 text-left">title</th>
-                <th class="text-text-secondary px-3 py-2 text-left">listen</th>
-                <th class="text-text-secondary px-3 py-2 text-left">note</th>
+                <th class="text-muted-foreground-strong px-3 py-2 text-left"
+                  >title</th
+                >
+                <th class="text-muted-foreground-strong px-3 py-2 text-left"
+                  >listen</th
+                >
+                <th class="text-muted-foreground-strong px-3 py-2 text-left"
+                  >note</th
+                >
               </tr>
             </thead>
             <tbody>
@@ -130,7 +136,7 @@ const diffs = [
                     <td class="px-3 py-2">
                       <a
                         href={item.href}
-                        class="text-text-primary hover:text-accent no-underline"
+                        class="text-foreground hover:text-primary no-underline"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -140,19 +146,19 @@ const diffs = [
                     <td class="px-3 py-2">
                       <a
                         href={item.listen.href}
-                        class="text-accent hover:text-text-primary no-underline"
+                        class="text-primary hover:text-foreground no-underline"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
                         {item.listen.text}
                       </a>
                     </td>
-                    <td class="text-text-secondary px-3 py-2">
+                    <td class="text-muted-foreground-strong px-3 py-2">
                       {item.description}{' '}
                       {item.eventHref && (
                         <a
                           href={item.eventHref}
-                          class="text-accent hover:text-text-primary no-underline"
+                          class="text-primary hover:text-foreground no-underline"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
@@ -172,7 +178,7 @@ const diffs = [
       <section class="flex flex-col gap-4">
         <div class="flex items-center gap-2">
           <span
-            class="text-accent font-[family-name:var(--font-mono-ui)] text-[13px] font-bold"
+            class="text-primary font-[family-name:var(--font-mono-ui)] text-[13px] font-bold"
             >##</span
           >
           <h2 class="text-xl font-bold">diffs</h2>
@@ -183,24 +189,34 @@ const diffs = [
           >
             <thead>
               <tr class="border-border border-b">
-                <th class="text-text-secondary px-3 py-2 text-left">level</th>
-                <th class="text-text-secondary px-3 py-2 text-left">title</th>
-                <th class="text-text-secondary px-3 py-2 text-left">video</th>
-                <th class="text-text-secondary px-3 py-2 text-left">IR</th>
-                <th class="text-text-secondary px-3 py-2 text-left">note</th>
+                <th class="text-muted-foreground-strong px-3 py-2 text-left"
+                  >level</th
+                >
+                <th class="text-muted-foreground-strong px-3 py-2 text-left"
+                  >title</th
+                >
+                <th class="text-muted-foreground-strong px-3 py-2 text-left"
+                  >video</th
+                >
+                <th class="text-muted-foreground-strong px-3 py-2 text-left"
+                  >IR</th
+                >
+                <th class="text-muted-foreground-strong px-3 py-2 text-left"
+                  >note</th
+                >
               </tr>
             </thead>
             <tbody>
               {
                 diffs.map((item) => (
                   <tr class="border-border border-b">
-                    <td class="text-text-tertiary px-3 py-2 whitespace-nowrap">
+                    <td class="text-muted-foreground px-3 py-2 whitespace-nowrap">
                       {item.level}
                     </td>
                     <td class="px-3 py-2">
                       <a
                         href={item.href}
-                        class="text-text-primary hover:text-accent no-underline"
+                        class="text-foreground hover:text-primary no-underline"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -211,27 +227,29 @@ const diffs = [
                       {item.video ? (
                         <a
                           href={item.video.href}
-                          class="text-accent hover:text-text-primary no-underline"
+                          class="text-primary hover:text-foreground no-underline"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
                           {item.video.text}
                         </a>
                       ) : (
-                        <span class="text-text-tertiary">-</span>
+                        <span class="text-muted-foreground">-</span>
                       )}
                     </td>
                     <td class="px-3 py-2">
                       <a
                         href={item.ir.href}
-                        class="text-accent hover:text-text-primary no-underline"
+                        class="text-primary hover:text-foreground no-underline"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
                         {item.ir.text}
                       </a>
                     </td>
-                    <td class="text-text-secondary px-3 py-2">{item.note}</td>
+                    <td class="text-muted-foreground-strong px-3 py-2">
+                      {item.note}
+                    </td>
                   </tr>
                 ))
               }
@@ -245,9 +263,9 @@ const diffs = [
       <!-- Back Link -->
       <a
         href="/projects"
-        class="text-text-primary hover:text-accent flex items-center gap-2 font-[family-name:var(--font-mono-ui)] text-sm no-underline transition-colors"
+        class="text-foreground hover:text-primary flex items-center gap-2 font-[family-name:var(--font-mono-ui)] text-sm no-underline transition-colors"
       >
-        <span class="text-accent font-bold">&lt;</span>
+        <span class="text-primary font-bold">&lt;</span>
         back to projects
       </a>
     </div>
