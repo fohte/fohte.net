@@ -269,6 +269,9 @@ importers:
       '@testing-library/jest-dom':
         specifier: 6.9.1
         version: 6.9.1
+      '@textlint/textlint-plugin-markdown':
+        specifier: 14.8.4
+        version: 14.8.4
       '@types/bun':
         specifier: 1.4.2
         version: 1.4.2

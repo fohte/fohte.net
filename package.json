@@ -63,6 +63,7 @@
     "@iconify-json/simple-icons": "1.2.95",
     "@ninoseki/eslint-plugin-neverthrow": "0.3.1",
     "@testing-library/jest-dom": "6.9.1",
+    "@textlint/textlint-plugin-markdown": "14.8.4",
     "@types/bun": "1.4.2",
     "@types/jsdom": "28.0.3",
     "@types/mdx": "2.0.14",
