@@ -71,13 +71,13 @@ const relatedPostsData = await (async () => {
       <!-- Post Header -->
       <header class="flex flex-col gap-3">
         <span
-          class="text-text-secondary font-[family-name:var(--font-mono-ui)] text-[13px]"
+          class="text-muted-foreground-strong font-[family-name:var(--font-mono-ui)] text-[13px]"
         >
           $ cat ~/posts/{post.id}.mdx
         </span>
         <div class="flex items-center gap-3">
           <time
-            class="text-text-tertiary font-[family-name:var(--font-mono-ui)] text-xs"
+            class="text-muted-foreground font-[family-name:var(--font-mono-ui)] text-xs"
             datetime={post.data.date.toISOString()}
           >
             {formattedDate}
@@ -100,9 +100,9 @@ const relatedPostsData = await (async () => {
       <!-- TOC for SP (collapsible, above article) -->
       {
         tocHeadings.length > 0 && (
-          <div class="border-border bg-bg-secondary border p-4 lg:hidden">
+          <div class="border-border bg-card border p-4 lg:hidden">
             <details>
-              <summary class="text-text-tertiary cursor-pointer font-[family-name:var(--font-mono-ui)] text-[11px]">
+              <summary class="text-muted-foreground cursor-pointer font-[family-name:var(--font-mono-ui)] text-[11px]">
                 // table of contents
               </summary>
               <nav class="mt-3">
@@ -143,9 +143,9 @@ const relatedPostsData = await (async () => {
       <!-- Back Link -->
       <a
         href="/blog"
-        class="text-text-primary hover:text-accent flex items-center gap-2 font-[family-name:var(--font-mono-ui)] text-sm no-underline transition-colors"
+        class="text-foreground hover:text-primary flex items-center gap-2 font-[family-name:var(--font-mono-ui)] text-sm no-underline transition-colors"
       >
-        <span class="text-accent font-bold">&lt;</span>
+        <span class="text-primary font-bold">&lt;</span>
         back to blog
       </a>
     </article>
@@ -154,7 +154,7 @@ const relatedPostsData = await (async () => {
     {
       tocHeadings.length > 0 && (
         <aside class="border-border hidden w-[220px] shrink-0 border-l pl-6 lg:block">
-          <span class="text-text-tertiary mb-4 block font-[family-name:var(--font-mono-ui)] text-[11px]">
+          <span class="text-muted-foreground mb-4 block font-[family-name:var(--font-mono-ui)] text-[11px]">
             // table of contents
           </span>
           <nav>

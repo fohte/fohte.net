@@ -8,7 +8,7 @@ import { socialLinks } from '#data/socialLinks'
       <li>
         <a
           href={social.href}
-          class="text-text-primary hover:text-accent inline-flex items-center gap-2 font-[family-name:var(--font-mono-ui)] text-sm no-underline transition-colors"
+          class="text-foreground hover:text-primary inline-flex items-center gap-2 font-[family-name:var(--font-mono-ui)] text-sm no-underline transition-colors"
           target="_blank"
           rel={
             social.rel
@@ -16,7 +16,7 @@ import { socialLinks } from '#data/socialLinks'
               : 'noopener noreferrer'
           }
         >
-          <span class="text-accent font-bold">&gt;</span>
+          <span class="text-primary font-bold">&gt;</span>
           <span>{social.href.replace(/^https?:\/\//, '')}</span>
         </a>
       </li>

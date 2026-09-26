@@ -33,7 +33,7 @@ const tags = Array.from(allTags).sort()
     <div class="flex min-w-0 flex-1 flex-col gap-6">
       <div class="flex flex-col gap-2">
         <span
-          class="text-text-secondary font-[family-name:var(--font-mono-ui)] text-sm"
+          class="text-muted-foreground-strong font-[family-name:var(--font-mono-ui)] text-sm"
           >$ ls ~/posts</span
         >
         <h1 class="font-[family-name:var(--font-mono-ui)] text-4xl font-bold">
@@ -50,25 +50,25 @@ const tags = Array.from(allTags).sort()
             {page.url.prev ? (
               <a
                 href={page.url.prev}
-                class="text-accent hover:text-text-primary no-underline transition-colors"
+                class="text-primary hover:text-foreground no-underline transition-colors"
               >
                 &lt; prev
               </a>
             ) : (
-              <span class="text-text-tertiary">&lt; prev</span>
+              <span class="text-muted-foreground">&lt; prev</span>
             )}
-            <span class="text-text-secondary">
+            <span class="text-muted-foreground-strong">
               {page.currentPage} / {page.lastPage}
             </span>
             {page.url.next ? (
               <a
                 href={page.url.next}
-                class="text-accent hover:text-text-primary no-underline transition-colors"
+                class="text-primary hover:text-foreground no-underline transition-colors"
               >
                 next &gt;
               </a>
             ) : (
-              <span class="text-text-tertiary">next &gt;</span>
+              <span class="text-muted-foreground">next &gt;</span>
             )}
           </nav>
         )
@@ -77,7 +77,7 @@ const tags = Array.from(allTags).sort()
       <!-- Tags for SP (below post list) -->
       <div class="border-border border-t pt-6 lg:hidden">
         <span
-          class="text-text-tertiary mb-4 block font-[family-name:var(--font-mono-ui)] text-[11px]"
+          class="text-muted-foreground mb-4 block font-[family-name:var(--font-mono-ui)] text-[11px]"
           >// tags</span
         >
         <div class="flex flex-wrap gap-1.5">
@@ -92,7 +92,7 @@ const tags = Array.from(allTags).sort()
       class="border-border hidden w-[220px] shrink-0 border-l pl-6 lg:block"
     >
       <span
-        class="text-text-tertiary mb-4 block font-[family-name:var(--font-mono-ui)] text-[11px]"
+        class="text-muted-foreground mb-4 block font-[family-name:var(--font-mono-ui)] text-[11px]"
         >// tags</span
       >
       <div class="flex flex-wrap gap-1.5">

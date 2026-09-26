@@ -2,9 +2,6 @@
 @import '@fohte/ui/tokens.css';
 
 @theme static {
-  /* Preserve Tailwind's defaults after the package sets --radius to 0. */
-  --radius-sm: 0.25rem;
-  --radius-lg: 0.5rem;
   --font-mono-ui: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
   --font-mono-body: 'IBM Plex Mono', 'JetBrains Mono', monospace;
   /* Tailwind's preflight uses this stack for bare code, kbd, and samp. */
@@ -12,14 +9,6 @@
     ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
     'Courier New', monospace;
 
-  --color-bg-primary: var(--background);
-  --color-bg-secondary: var(--card);
-  --color-bg-tertiary: var(--accent);
-  --color-text-primary: var(--foreground);
-  --color-text-secondary: var(--muted-foreground-strong);
-  --color-text-tertiary: var(--muted-foreground);
-  /* Keep the site's accent utilities red; the package's --accent is gray. */
-  --color-accent: var(--primary);
   --color-code-bg: #141414;
 }
 
@@ -34,8 +23,8 @@ html {
 }
 
 body {
-  background-color: var(--color-bg-primary);
-  color: var(--color-text-primary);
+  background-color: var(--background);
+  color: var(--foreground);
 }
 
 /* Article body styles */
@@ -79,12 +68,12 @@ body {
   display: inline-block;
   border: 1px solid var(--color-border);
   border-bottom-width: 0;
-  background-color: var(--color-bg-secondary);
+  background-color: var(--card);
   padding: 0.25rem 1rem;
   font-family: var(--font-mono-ui);
   font-size: 0.75rem;
   line-height: 1rem;
-  color: var(--color-text-tertiary);
+  color: var(--muted-foreground);
 }
 
 .article-body .astro-code code {
@@ -96,7 +85,7 @@ body {
   margin-top: 4rem;
   border-top: 1px solid var(--color-border);
   font-size: 0.75rem;
-  color: var(--color-text-secondary);
+  color: var(--muted-foreground-strong);
 }
 
 /* Hide the footnotes section label */

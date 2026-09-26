@@ -36,7 +36,7 @@ export const mdxComponents: MDXComponents = {
 
     return (
       <code
-        className="rounded bg-[var(--color-bg-tertiary)] px-[0.4em] py-[0.1em] text-[0.85em]"
+        className="rounded bg-[var(--accent)] px-[0.4em] py-[0.1em] text-[0.85em]"
         {...props}
       />
     )
@@ -60,9 +60,7 @@ export const mdxComponents: MDXComponents = {
       />
     </div>
   ),
-  thead: (props) => (
-    <thead className="bg-[var(--color-bg-secondary)]" {...props} />
-  ),
+  thead: (props) => <thead className="bg-[var(--card)]" {...props} />,
   tbody: (props) => <tbody {...props} />,
   tr: (props) => (
     <tr className="border-b border-[var(--color-border)]" {...props} />
@@ -79,7 +77,7 @@ export const mdxComponents: MDXComponents = {
   img: Image,
   blockquote: (props) => (
     <blockquote
-      className="my-4 border-l-[3px] border-[var(--color-accent)] bg-[var(--color-bg-secondary)] p-4 italic"
+      className="my-4 border-l-[3px] border-[var(--primary)] bg-[var(--card)] p-4 italic"
       {...props}
     />
   ),

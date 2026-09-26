@@ -53,7 +53,7 @@ export const Image: React.FC<ImageProps> = ({ alt, src }) => {
         }}
       >
         <div
-          className="absolute top-0 right-0 left-0 mx-auto max-h-full max-w-full bg-[var(--color-bg-secondary)]"
+          className="absolute top-0 right-0 left-0 mx-auto max-h-full max-w-full bg-[var(--card)]"
           style={{ width: `${String(width)}px`, height: `${String(height)}px` }}
         >
           <picture>
@@ -64,7 +64,7 @@ export const Image: React.FC<ImageProps> = ({ alt, src }) => {
           </picture>
         </div>
       </div>
-      <figcaption className="mt-2 text-center text-[0.9rem] text-[var(--color-text-tertiary)]">
+      <figcaption className="mt-2 text-center text-[0.9rem] text-[var(--muted-foreground)]">
         {alt}
       </figcaption>
     </figure>

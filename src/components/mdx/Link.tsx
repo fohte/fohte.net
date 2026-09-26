@@ -17,7 +17,7 @@ export const Link: React.FC<LinkProps> = ({ href, children, ...props }) => {
   return (
     <a
       href={href}
-      className="break-all text-[var(--color-accent)] no-underline hover:underline"
+      className="break-all text-[var(--primary)] no-underline hover:underline"
       {...(isExternal && { target: '_blank', rel: 'noopener noreferrer' })}
       {...props}
     >

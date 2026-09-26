@@ -39,7 +39,7 @@ const shareLinks = [
 
 <section class="flex flex-col gap-4">
   <span
-    class="text-text-tertiary font-[family-name:var(--font-mono-ui)] text-[11px]"
+    class="text-muted-foreground font-[family-name:var(--font-mono-ui)] text-[11px]"
   >
     // share this post
   </span>
@@ -51,7 +51,7 @@ const shareLinks = [
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`Share on ${link.name}`}
-          class="border-border text-text-secondary hover:text-accent hover:border-text-tertiary flex items-center border p-2.5 transition-colors md:p-3"
+          class="border-border text-muted-foreground-strong hover:text-primary hover:border-muted-foreground flex items-center border p-2.5 transition-colors md:p-3"
         >
           <Icon name={link.icon} class="size-3 md:size-3.5" />
         </a>

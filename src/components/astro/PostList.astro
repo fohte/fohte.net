@@ -17,8 +17,8 @@ const { posts, activeTag } = Astro.props
       <a
         href={`/blog/posts/${post.id}`}
         class:list={[
-          'border-border hover:border-text-tertiary relative block overflow-hidden border no-underline transition-colors',
-          !post.data.imagePath && 'bg-bg-secondary',
+          'border-border hover:border-muted-foreground relative block overflow-hidden border no-underline transition-colors',
+          !post.data.imagePath && 'bg-card',
         ]}
       >
         {post.data.imagePath && (
@@ -29,16 +29,18 @@ const { posts, activeTag } = Astro.props
         )}
         <div class="relative flex flex-col gap-1.5 p-5">
           <time
-            class="text-text-tertiary block font-[family-name:var(--font-mono-ui)] text-[11px]"
+            class="text-muted-foreground block font-[family-name:var(--font-mono-ui)] text-[11px]"
             datetime={post.data.date.toISOString()}
           >
             {format(post.data.date, 'yyyy-MM-dd')}
           </time>
-          <h2 class="text-text-primary text-base font-semibold">
+          <h2 class="text-foreground text-base font-semibold">
             {post.data.title}
           </h2>
           {post.data.description && (
-            <p class="text-text-secondary text-sm">{post.data.description}</p>
+            <p class="text-muted-foreground-strong text-sm">
+              {post.data.description}
+            </p>
           )}
           {post.data.tags && post.data.tags.length > 0 && (
             <div class="mt-1 flex flex-wrap gap-1.5">
