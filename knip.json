@@ -9,8 +9,7 @@
     "neotraverse",
     "reg-publish-s3-plugin",
     "reg-simple-keygen-plugin",
-    "reg-suit",
-    "textlint-rule-preset-ja-technical-writing"
+    "reg-suit"
   ],
   "ignore": ["commitlint-plugin-no-external-refs.cjs"]
 }

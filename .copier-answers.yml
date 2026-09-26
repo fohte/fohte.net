@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier
-_commit: v0.11.3
+_commit: v0.11.6
 _src_path: https://github.com/fohte/generic-boilerplate
 description: '@fohte''s portfolio and blog powered by Next.js and MDX'
 error_tracking: false
@@ -8,6 +8,8 @@ is_web_app: false
 project_name: fohte.net
 repo_id: '268038795'
 repo_language: en
+storybook: false
 subpackages: []
 type: node
 use_release_please: false
+vrt: true

@@ -5,7 +5,7 @@ on:
     types: [synchronize, labeled]
 
 jobs:
-  vrt-approval:
+  vrt-approval-root:
     permissions:
       contents: read
       pull-requests: write
