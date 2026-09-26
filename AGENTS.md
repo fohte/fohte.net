@@ -30,6 +30,16 @@ function parseConfig(raw: string): Result<Config, ConfigError> {
 
 Use `ResultAsync.fromPromise()` or `Result.fromThrowable()` to interop with a throwing API without a local try/catch. If the throw-based contract genuinely can't be wrapped that way, catch the exception, wrap it in a `BoundaryError` subclass (see `src/errors.ts`), and rethrow it — `no-restricted-syntax` bans `try`/`throw` as separate selectors, so both the `try` and the `throw` need their own `eslint-disable-next-line no-restricted-syntax` comment explaining why.
 
+## Visual Regression Testing (VRT)
+
+### Understand why the `vrt` check fails
+
+The `vrt` CI check runs the repository's `vrt:capture` script, which must write screenshots to `__screenshots__/fohte-net`, and compares them against the `main` baseline with reg-suit. A failure ("Visual differences detected") means the pixel diff exceeded reg-suit's `matchingThreshold`, not that something is broken — open the reg-suit report link posted on the PR and compare the actual/expected/diff images to judge whether the change is intentional.
+
+### Never add the `vrt-approved` label yourself
+
+The `vrt-approval` workflow treats the `vrt-approved` label as confirmation that a human reviewed the diff images and approved them. Only a human can make that visual judgment, so after inspecting the diff, ask the user to review it and add the label themselves — do not add it yourself even if the diff looks correct.
+
 ## Test code rules
 
 ### Assert on the whole output with a single equality check
