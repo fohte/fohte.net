@@ -2,7 +2,7 @@
   "name": "fohte.net",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "pnpm@12.4.0",
+  "packageManager": "pnpm@12.7.0",
   "type": "module",
   "imports": {
     "#*.astro": "./src/*.astro",
@@ -58,10 +58,10 @@
     "voyageai": "0.2.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "21.2.2",
+    "@commitlint/cli": "21.2.3",
     "@fohte/eslint-config": "0.5.1",
     "@iconify-json/simple-icons": "1.2.95",
-    "@ninoseki/eslint-plugin-neverthrow": "0.3.1",
+    "@ninoseki/eslint-plugin-neverthrow": "0.3.2",
     "@testing-library/jest-dom": "6.9.1",
     "@textlint/textlint-plugin-markdown": "14.8.4",
     "@types/bun": "1.4.2",
@@ -74,6 +74,12 @@
     "@vitejs/plugin-react": "5.2.0",
     "@vitest/ui": "4.1.11",
     "astro-icon": "1.2.0",
+<<<<<<< before updating
+||||||| last update
+    "@types/node": "24.13.6",
+=======
+    "@types/node": "24.19.0",
+>>>>>>> after updating
     "concurrently": "10.0.5",
     "eslint": "10.11.0",
     "eslint-config-prettier": "10.1.8",
@@ -81,10 +87,10 @@
     "eslint-plugin-simple-import-sort": "13.0.0",
     "happy-dom": "20.14.0",
     "jsdom": "26.1.0",
-    "knip": "6.37.0",
+    "knip": "6.38.0",
     "neotraverse": "1.0.1",
     "playwright": "1.63.0",
-    "prettier": "3.9.8",
+    "prettier": "3.9.9",
     "prettier-plugin-astro": "0.14.1",
     "prettier-plugin-tailwindcss": "0.8.1",
     "reg-publish-s3-plugin": "0.14.4",
