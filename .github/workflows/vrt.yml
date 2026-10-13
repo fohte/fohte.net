@@ -62,7 +62,7 @@ jobs:
 
       # The repository's `vrt:capture` script must write screenshots to
       # `__screenshots__/fohte-net`.
-      - uses: fohte/storybook-vrt-workflows/vrt-capture@691148d6e8e53b86c8f93b5b54cadbd8308b06d3 # v0.1.6
+      - uses: fohte/storybook-vrt-workflows/vrt-capture@a793831ba144b09649eec6b8b8082655a84f459d # v0.2.1
         with:
           project: fohte-net
           shard: 1
@@ -111,7 +111,7 @@ jobs:
       - name: Install pnpm dependencies
         run: pnpm install --frozen-lockfile
 
-      - uses: fohte/storybook-vrt-workflows/vrt-report@691148d6e8e53b86c8f93b5b54cadbd8308b06d3 # v0.1.6
+      - uses: fohte/storybook-vrt-workflows/vrt-report@a793831ba144b09649eec6b8b8082655a84f459d # v0.2.1
         with:
           package-dir: .
           screenshots-dir: __screenshots__/fohte-net
