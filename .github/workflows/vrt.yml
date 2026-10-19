@@ -12,8 +12,9 @@ permissions:
 jobs:
   detect-changes-root:
     runs-on: ubuntu-slim
+    timeout-minutes: 30
     outputs:
-      changed: ${{ steps.changes.outputs.any_changed }}
+      changed: ${{ steps.changes.outputs.any_modified }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -30,6 +31,7 @@ jobs:
     needs: detect-changes-root
     if: needs.detect-changes-root.outputs.changed == 'true'
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: read
     steps:
@@ -37,7 +39,7 @@ jobs:
 
       - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
         with:
-          version: 2026.9.11
+          version: 2026.9.14
 
       # corepack creates the pnpm executable inside mise's node install
       # directory; reshim so the mise shims dir (which is on PATH) picks it up.
@@ -74,6 +76,7 @@ jobs:
   report-root:
     needs: capture-root
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: read
       pull-requests: write
@@ -90,7 +93,7 @@ jobs:
 
       - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
         with:
-          version: 2026.9.11
+          version: 2026.9.14
 
       - run: |
           corepack enable
