@@ -50,13 +50,12 @@ const speakerDeckFixture = `<!doctype html>
     <div class="shape" aria-hidden="true"></div>
   </body>
 </html>`
+// Image removes w/h before requests, so fixture sizes are keyed by pathname.
 const generatedImageFixtures = new Map([
   ['/small.svg', { width: 96, height: 96 }],
   ['/wide.svg', { width: 360, height: 90 }],
   ['/tall.svg', { width: 120, height: 240 }],
 ])
-const defaultImageFixture =
-  '<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180"><rect width="320" height="180" fill="#e7e5e4"/><circle cx="92" cy="90" r="46" fill="#ef4444"/><path d="M145 128 205 48l55 80z" fill="#292524"/></svg>'
 const themes = ['light', 'dark']
 const viewports = [
   { name: 'desktop', width: 1280, height: 900 },
@@ -66,15 +65,31 @@ const viewports = [
 let previewProcess
 let browser
 
-function createImageFixture(width, height) {
+function createImageFixture(
+  width,
+  height,
+  circle = {
+    x: width / 3,
+    y: height / 2,
+    radius: Math.min(width, height) / 4,
+  },
+  triangle = `M${width * 0.55} ${height * 0.75} ${width * 0.75} ${height * 0.25} ${width * 0.95} ${height * 0.75}z`,
+) {
   return [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">`,
     `<rect width="${width}" height="${height}" fill="#e7e5e4"/>`,
-    `<circle cx="${width / 3}" cy="${height / 2}" r="${Math.min(width, height) / 4}" fill="#ef4444"/>`,
-    `<path d="M${width * 0.55} ${height * 0.75} ${width * 0.75} ${height * 0.25} ${width * 0.95} ${height * 0.75}z" fill="#292524"/>`,
+    `<circle cx="${circle.x}" cy="${circle.y}" r="${circle.radius}" fill="#ef4444"/>`,
+    `<path d="${triangle}" fill="#292524"/>`,
     '</svg>',
   ].join('')
 }
+
+const defaultImageFixture = createImageFixture(
+  320,
+  180,
+  { x: 92, y: 90, radius: 46 },
+  'M145 128 205 48l55 80z',
+)
 
 async function waitForPreview() {
   const deadline = Date.now() + 60_000

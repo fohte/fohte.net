@@ -11,12 +11,10 @@ const generateWebpUrl = (url: URL): URL => {
 }
 
 type ImageProps = React.ImgHTMLAttributes<HTMLImageElement>
-type ImagePaddingStyle = React.CSSProperties & {
-  '--image-padding': string
-}
-type ImageDimensionsStyle = React.CSSProperties & {
-  '--image-width': string
-  '--image-height': string
+type ImageStyle = React.CSSProperties & {
+  '--image-padding'?: string
+  '--image-width'?: string
+  '--image-height'?: string
 }
 
 export const Image: React.FC<ImageProps> = ({ alt, src }) => {
@@ -45,10 +43,10 @@ export const Image: React.FC<ImageProps> = ({ alt, src }) => {
   }
 
   const aspectRatio = (height / width) * 100
-  const imagePaddingStyle: ImagePaddingStyle = {
+  const imagePaddingStyle: ImageStyle = {
     '--image-padding': `min(${String(aspectRatio)}%, ${String(height)}px)`,
   }
-  const imageDimensionsStyle: ImageDimensionsStyle = {
+  const imageDimensionsStyle: ImageStyle = {
     '--image-width': `${String(width)}px`,
     '--image-height': `${String(height)}px`,
   }
