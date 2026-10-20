@@ -50,6 +50,12 @@ const speakerDeckFixture = `<!doctype html>
     <div class="shape" aria-hidden="true"></div>
   </body>
 </html>`
+// Image removes w/h before requests, so fixture sizes are keyed by pathname.
+const generatedImageFixtures = new Map([
+  ['/small.svg', { width: 96, height: 96 }],
+  ['/wide.svg', { width: 360, height: 90 }],
+  ['/tall.svg', { width: 120, height: 240 }],
+])
 const themes = ['light', 'dark']
 const viewports = [
   { name: 'desktop', width: 1280, height: 900 },
@@ -58,6 +64,32 @@ const viewports = [
 
 let previewProcess
 let browser
+
+function createImageFixture(
+  width,
+  height,
+  circle = {
+    x: width / 3,
+    y: height / 2,
+    radius: Math.min(width, height) / 4,
+  },
+  triangle = `M${width * 0.55} ${height * 0.75} ${width * 0.75} ${height * 0.25} ${width * 0.95} ${height * 0.75}z`,
+) {
+  return [
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">`,
+    `<rect width="${width}" height="${height}" fill="#e7e5e4"/>`,
+    `<circle cx="${circle.x}" cy="${circle.y}" r="${circle.radius}" fill="#ef4444"/>`,
+    `<path d="${triangle}" fill="#292524"/>`,
+    '</svg>',
+  ].join('')
+}
+
+const defaultImageFixture = createImageFixture(
+  320,
+  180,
+  { x: 92, y: 90, radius: 46 },
+  'M145 128 205 48l55 80z',
+)
 
 async function waitForPreview() {
   const deadline = Date.now() + 60_000
@@ -102,12 +134,16 @@ async function captureScreenshots() {
         timezoneId: 'UTC',
         viewport: { width: viewport.width, height: viewport.height },
       })
-      await context.route('https://fixture.invalid/**', (route) =>
-        route.fulfill({
-          contentType: 'image/svg+xml',
-          body: '<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180"><rect width="320" height="180" fill="#e7e5e4"/><circle cx="92" cy="90" r="46" fill="#ef4444"/><path d="M145 128 205 48l55 80z" fill="#292524"/></svg>',
-        }),
-      )
+      await context.route('https://fixture.invalid/**', (route) => {
+        const url = new URL(route.request().url())
+        const dimensions = generatedImageFixtures.get(url.pathname)
+        const body =
+          dimensions != null
+            ? createImageFixture(dimensions.width, dimensions.height)
+            : defaultImageFixture
+
+        return route.fulfill({ contentType: 'image/svg+xml', body })
+      })
       await context.route(
         'https://speakerdeck.com/player/**',
         async (route) => {
