@@ -59,9 +59,10 @@
   },
   "devDependencies": {
     "@commitlint/cli": "21.2.2",
-    "@fohte/eslint-config": "0.5.1",
+    "@fohte/eslint-config": "0.5.3",
     "@iconify-json/simple-icons": "1.2.95",
     "@ninoseki/eslint-plugin-neverthrow": "0.3.1",
+    "@shadcn/lint": "0.2.1",
     "@testing-library/jest-dom": "6.9.1",
     "@textlint/textlint-plugin-markdown": "14.8.4",
     "@types/bun": "1.4.2",
