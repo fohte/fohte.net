@@ -15,6 +15,41 @@ const pages = [
   { name: 'article-long-title', path: '/blog/posts/vrt-long-title' },
   { name: 'article-minimal', path: '/blog/posts/vrt-minimal' },
 ]
+const speakerDeckFixture = `<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        background: transparent;
+      }
+      body {
+        box-sizing: border-box;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 8%;
+        padding: 8%;
+        color: #312e81;
+        font: 700 clamp(18px, 4vw, 48px)/1.1 Arial, sans-serif;
+      }
+      h1 { margin: 0; }
+      .shape {
+        aspect-ratio: 1;
+        border-radius: 24%;
+        background: #f97316;
+        transform: rotate(12deg);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Fixture deck</h1>
+    <div class="shape" aria-hidden="true"></div>
+  </body>
+</html>`
 const themes = ['light', 'dark']
 const viewports = [
   { name: 'desktop', width: 1280, height: 900 },
@@ -72,6 +107,15 @@ async function captureScreenshots() {
           contentType: 'image/svg+xml',
           body: '<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180"><rect width="320" height="180" fill="#e7e5e4"/><circle cx="92" cy="90" r="46" fill="#ef4444"/><path d="M145 128 205 48l55 80z" fill="#292524"/></svg>',
         }),
+      )
+      await context.route(
+        'https://speakerdeck.com/player/**',
+        async (route) => {
+          await route.fulfill({
+            contentType: 'text/html; charset=utf-8',
+            body: speakerDeckFixture,
+          })
+        },
       )
       await context.route('https://www.googletagmanager.com/**', (route) =>
         route.abort(),
