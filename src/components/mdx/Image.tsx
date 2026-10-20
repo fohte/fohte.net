@@ -11,6 +11,13 @@ const generateWebpUrl = (url: URL): URL => {
 }
 
 type ImageProps = React.ImgHTMLAttributes<HTMLImageElement>
+type ImagePaddingStyle = React.CSSProperties & {
+  '--image-padding': string
+}
+type ImageDimensionsStyle = React.CSSProperties & {
+  '--image-width': string
+  '--image-height': string
+}
 
 export const Image: React.FC<ImageProps> = ({ alt, src }) => {
   if (src == null) {
@@ -38,6 +45,13 @@ export const Image: React.FC<ImageProps> = ({ alt, src }) => {
   }
 
   const aspectRatio = (height / width) * 100
+  const imagePaddingStyle: ImagePaddingStyle = {
+    '--image-padding': `min(${String(aspectRatio)}%, ${String(height)}px)`,
+  }
+  const imageDimensionsStyle: ImageDimensionsStyle = {
+    '--image-width': `${String(width)}px`,
+    '--image-height': `${String(height)}px`,
+  }
 
   const extension = url.pathname.split('.').pop()
 
@@ -47,14 +61,12 @@ export const Image: React.FC<ImageProps> = ({ alt, src }) => {
   return (
     <figure className="mt-4">
       <div
-        className="relative h-0 w-full"
-        style={{
-          paddingBottom: `min(${String(aspectRatio)}%, ${String(height)}px)`,
-        }}
+        className="relative h-0 w-full pb-[var(--image-padding)]"
+        style={imagePaddingStyle}
       >
         <div
-          className="absolute top-0 right-0 left-0 mx-auto max-h-full max-w-full bg-[var(--card)]"
-          style={{ width: `${String(width)}px`, height: `${String(height)}px` }}
+          className="absolute top-0 right-0 left-0 mx-auto h-[var(--image-height)] max-h-full w-[var(--image-width)] max-w-full bg-[var(--card)]"
+          style={imageDimensionsStyle}
         >
           <picture>
             {prioritizeWebp && (
