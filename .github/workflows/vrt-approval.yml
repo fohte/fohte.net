@@ -10,6 +10,6 @@ jobs:
       contents: read
       pull-requests: write
       statuses: write
-    uses: fohte/storybook-vrt-workflows/.github/workflows/vrt-approval.yml@a793831ba144b09649eec6b8b8082655a84f459d # v0.2.1
+    uses: fohte/storybook-vrt-workflows/.github/workflows/vrt-approval.yml@e421864a67798d72cb0c12e48d5020ea0a8eee10 # v0.2.2
     with:
       r2-bucket: fohte-net-vrt
