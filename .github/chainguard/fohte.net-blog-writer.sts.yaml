@@ -1,0 +1,5 @@
+issuer: https://oidc.home-k8s.fohte.net
+subject: system:serviceaccount:blog-writer:blog-writer
+permissions:
+  contents: write
+  pull_requests: write
