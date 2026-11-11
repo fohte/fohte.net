@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - master
   pull_request:
 
 permissions:
@@ -62,7 +63,7 @@ jobs:
 
       # The repository's `vrt:capture` script must write screenshots to
       # `__screenshots__/fohte-net`.
-      - uses: fohte/storybook-vrt-workflows/vrt-capture@a793831ba144b09649eec6b8b8082655a84f459d # v0.2.1
+      - uses: fohte/storybook-vrt-workflows/vrt-capture@e421864a67798d72cb0c12e48d5020ea0a8eee10 # v0.2.2
         with:
           project: fohte-net
           shard: 1
@@ -79,11 +80,11 @@ jobs:
       pull-requests: write
       statuses: write
     # Overlapping runs for the same ref would otherwise race to publish to
-    # the same R2 key at once -- most importantly two main pushes racing to
+    # the same R2 key at once -- most importantly two default branch pushes racing to
     # update the single `baseline/actual/` key, where each run's diff was
     # computed against a baseline the other run is concurrently mutating.
     concurrency:
-      group: vrt-report-fohte-net-${{ (github.ref == 'refs/heads/main') && 'push' || 'pr' }}-${{ github.event_name == 'pull_request' && github.event.pull_request.head.ref || github.ref_name }}
+      group: vrt-report-fohte-net-${{ (github.ref == format('refs/heads/{0}', github.event.repository.default_branch)) && 'push' || 'pr' }}-${{ github.event_name == 'pull_request' && github.event.pull_request.head.ref || github.ref_name }}
       cancel-in-progress: false
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -111,7 +112,7 @@ jobs:
       - name: Install pnpm dependencies
         run: pnpm install --frozen-lockfile
 
-      - uses: fohte/storybook-vrt-workflows/vrt-report@a793831ba144b09649eec6b8b8082655a84f459d # v0.2.1
+      - uses: fohte/storybook-vrt-workflows/vrt-report@e421864a67798d72cb0c12e48d5020ea0a8eee10 # v0.2.2
         with:
           package-dir: .
           screenshots-dir: __screenshots__/fohte-net
