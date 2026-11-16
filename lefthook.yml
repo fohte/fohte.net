@@ -61,6 +61,10 @@ pre-commit:
       glob: '*.{js,ts,jsx,tsx,mjs,cjs,astro}'
       run: pnpm exec astro sync --silent && pnpm exec eslint {staged_files}
 
+    ast-grep:
+      glob: '*.{js,ts,jsx,tsx,mjs,cjs,mts,cts,rs}'
+      run: ast-grep scan {staged_files}
+
 commit-msg:
   commands:
     commitlint:
